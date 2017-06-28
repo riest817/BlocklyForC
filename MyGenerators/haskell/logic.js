@@ -102,13 +102,13 @@ Blockly.Haskell['logic_negate'] = function(block) {
   var code = 'not ' + argument0;
   return [code, order];
 };
-
+/*
 Blockly.Haskell['logic_boolean'] = function(block) {
   // Boolean values true and false.
   var code = (block.getFieldValue('BOOL') == 'TRUE') ? 'true' : 'false';
   return [code, Blockly.Haskell.ORDER_ATOMIC];
 };
-
+*/
 Blockly.Haskell['logic_null'] = function(block) {
   // Null data type.
   return ['null', Blockly.Haskell.ORDER_ATOMIC];
