@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="google" value="notranslate">
+  <title>Blockly : Code</title>
+  <link rel="stylesheet" type="text/css" href="../common.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script type="text/javascript" src="../_soy/soyutils.js"></script>
+  <script type="text/javascript" src="../common.js"></script>
+  <script type="text/javascript" src="code.js"></script>
+  <script type="text/javascript" src="/storage.js"></script>
+  <script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="jquery.js"></script>
+
+		</style>
+</head>
+<body>
+  <script type="text/javascript"><!--
+  
+  var quizTitle;
+  var quizContent;
+  
+  switch (Code.LEVEL) {
+    case 1:
+      quizContent = "&nbsp;&nbsp;&nbsp;&nbsp;変数nに値5を入力する。その後配列arr[]に5つの値を入力し格納する。格納する際、1.08(消費税率)をかける(これまでの処理をAとする)。これを行った後、配列arr[]の値を出力する。<br>" +
+"&nbsp;&nbsp;&nbsp;&nbsp;この処理を以下のブロックで表現したが、未完成の部分(1)がある。これにツールボックス(左の欄)にあるブロックを使い、また間違っている部分を消去し完成させよ。";
+      break;
+    case 2:
+      quizContent = "&nbsp;&nbsp;&nbsp;&nbsp;反復を繰り返す回数nを入力し(この処理を処理Aとする)、その値だけfor文により反復し、反復変数iの値を出力する。<br>" +
+"&nbsp;&nbsp;&nbsp;&nbsp;この処理を以下のブロックで表現したが、未完成の部分①がある。これにツールボックス(左の欄)にあるブロックを使い、また間違っている部分を消去し完成させよ。";
+      break;
+  }
+  
+   document.write("<dl id=\"acMenu\">", 
+     "<dt>問題1-", Code.LEVEL, "</dt>",
+      "<dd>",
+        quizContent,
+      "</dd>",
+     "</dl>");
+  
+   -->
+   </script>
+   
+  <script type="text/javascript">
+    document.write(codepage.start({}, null,
+        {lang: BlocklyApps.LANG,
+         level: Code.LEVEL,
+         skin: Code.SKIN_ID,         
+         langSrc: BlocklyApps.languagePack()}));
+  </script>
+
+</body>
+</html>

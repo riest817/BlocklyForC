@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Blockly for Haskell</title>
+<link rel="shortcut icon" href="favicon.png" type="image/png"/>
+<script src="Library/blockly/blockly_compressed.js"></script>
+<script src="Library/blockly/blocks_compressed.js"></script>
+<!--<script src="Library/blockly/javascript_compressed.js"></script>-->
+<!-- -->
+<script src="MyGenerators/haskell.js"></script>
+<script src="MyGenerators/haskell/colour.js"></script>
+<script src="MyGenerators/haskell/lists.js"></script>
+<script src="MyGenerators/haskell/logic.js"></script>
+<script src="MyGenerators/haskell/loops.js"></script>
+<script src="MyGenerators/haskell/math.js"></script>
+<script src="MyGenerators/haskell/procedures.js"></script>
+<script src="MyGenerators/haskell/start.js"></script>
+<script src="MyGenerators/haskell/text.js"></script>
+<script src="MyGenerators/haskell/variables.js"></script>
+<!-- -->
+<script src="Library/blockly/demos/prettify.js"></script>
+<script src="Library/blockly/msg/js/ja.js"></script>
+<script src="Library/blockly/appengine/storage.js"></script>
+<link rel="stylesheet" type="text/css"
+      href="Library/blockly/demos/prettify.css">
+<!-- <script src="myJavaScriptBlocks.js"></script> -->
+<script src="Library/jquery-2.2.4.min.js"></script>
+<script src="Library/jquery.query.js"></script>
+<script src="Library/intro.js"></script>
+<link rel="stylesheet"
+      href="Library/introjs.css"/>
+<style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+    table {
+      height: 100%;
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0;
+      padding: 0;
+      border: none;
+    }
+
+    /* Tabs */
+    #tabRow>td {
+      border: 1px solid #ccc;
+      border-bottom: none;
+    }
+    td.tabon {
+      border-bottom-color: #ddd !important;
+      background-color: #ddd;
+      padding: 5px 19px;
+    }
+    td.taboff {
+      cursor: pointer;
+      padding: 5px 19px;
+    }
+    td.taboff:hover {
+      background-color: #eee;
+    }
+    td.tabmin {
+      border-top-style: none !important;
+      border-left-style: none !important;
+      border-right-style: none !important;
+    }
+    td.tabmax {
+      border-top-style: none !important;
+      border-left-style: none !important;
+      border-right-style: none !important;
+      width: 99%;
+      padding-left: 10px;
+      padding-right: 10px;
+      text-align: right;
+    }
+
+    .content {
+      visibility: hidden;
+      margin: 0;
+      padding: 1ex;
+      position: absolute;
+      direction: ltr;
+    }
+    pre.content {
+      border: 1px solid #ccc;
+      overflow: scroll;
+    }
+    div.content {
+      border: 1px solid #ccc;
+      overflow: scroll;
+    }
+
+    .button_like {
+      font-size: 70%;
+      font-family: 'Segoe UI Emoji';
+      padding: 3px 5px 3px 5px;
+      text-align: center;
+      text-decoration: none;
+      border: 2px solid;
+      border-color: #aaaaaa #444444 #444444 #aaaaaa;
+      background: #dddddd;
+    }
+
+    .button_like:hover{
+      background:#ccddff;
+      border-color: #aaaacc #444466 #444466 #aaaacc;
+    }
+</style>
+</head>
+<body>
+<xml id="toolbox" style="display: none">
+  <category name="論理" colour="210">
+    <block type="controls_if"></block>
+    <block type="logic_compare"></block>
+    <block type="logic_operation"></block>
+    <block type="logic_negate"></block>
+    <block type="logic_boolean"></block>
+    <block type="logic_null"></block>
+    <block type="logic_ternary"></block>
+    <block type="quiz_variable2"></block>
+    <block type="printf_join"></block>
+  </category>
+  <category name="繰り返し" colour="120">
+    <block type="controls_repeat_ext">
+      <value name="TIMES">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="controls_whileUntil"></block>
+    <block type="controls_for">
+      <value name="FROM">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="TO">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+      <value name="BY">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="controls_forEach"></block>
+    <block type="controls_flow_statements"></block>
+  </category>
+  <category name="数" colour="230">
+    <block type="math_number"></block>
+    <block type="math_arithmetic">
+      <value name="A">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="B">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_single">
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">9</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_trig">
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">45</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_constant"></block>
+    <block type="math_number_property">
+      <value name="NUMBER_TO_CHECK">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_change">
+      <value name="DELTA">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_round">
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">3.1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_on_list"></block>
+    <block type="math_modulo">
+      <value name="DIVIDEND">
+        <shadow type="math_number">
+          <field name="NUM">64</field>
+        </shadow>
+      </value>
+      <value name="DIVISOR">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_constrain">
+      <value name="VALUE">
+        <shadow type="math_number">
+          <field name="NUM">50</field>
+        </shadow>
+      </value>
+      <value name="LOW">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="HIGH">
+        <shadow type="math_number">
+          <field name="NUM">100</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_random_int">
+      <value name="FROM">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="TO">
+        <shadow type="math_number">
+          <field name="NUM">100</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_random_float"></block>
+  </category>
+  <category name="文字列" colour="160">
+    <block type="text"></block>
+    <block type="text_join"></block>
+    <block type="text_append">
+      <value name="TEXT">
+        <shadow type="text"></shadow>
+      </value>
+    </block>
+    <block type="text_length">
+      <value name="VALUE">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_isEmpty">
+      <value name="VALUE">
+        <shadow type="text">
+          <field name="TEXT"></field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_indexOf">
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR">{textVariable}</field>
+        </block>
+      </value>
+      <value name="FIND">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_charAt">
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR">{textVariable}</field>
+        </block>
+      </value>
+    </block>
+    <block type="text_getSubstring">
+      <value name="STRING">
+        <block type="variables_get">
+          <field name="VAR">{textVariable}</field>
+        </block>
+      </value>
+    </block>
+    <block type="text_changeCase">
+      <value name="TEXT">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_trim">
+      <value name="TEXT">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_print">
+      <value name="TEXT">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_prompt_ext">
+      <value name="TEXT">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  <category name="リスト" colour="260">
+    <block type="lists_create_with">
+      <mutation items="0"></mutation>
+    </block>
+    <block type="lists_create_with"></block>
+    <block type="lists_repeat">
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">5</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="lists_length"></block>
+    <block type="lists_isEmpty"></block>
+    <block type="lists_indexOf">
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR">{listVariable}</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_getIndex">
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR">{listVariable}</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_setIndex">
+      <value name="LIST">
+        <block type="variables_get">
+          <field name="VAR">{listVariable}</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_getSublist">
+      <value name="LIST">
+        <block type="variables_get">
+          <field name="VAR">{listVariable}</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_split">
+      <value name="DELIM">
+        <shadow type="text">
+          <field name="TEXT">,</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="lists_sort"></block>
+  </category>
+  <category name="色" colour="20">
+    <block type="colour_picker"></block>
+    <block type="colour_random"></block>
+    <block type="colour_rgb">
+      <value name="RED">
+        <shadow type="math_number">
+          <field name="NUM">100</field>
+        </shadow>
+      </value>
+      <value name="GREEN">
+        <shadow type="math_number">
+          <field name="NUM">50</field>
+        </shadow>
+      </value>
+      <value name="BLUE">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="colour_blend">
+      <value name="COLOUR1">
+        <shadow type="colour_picker">
+          <field name="COLOUR">#ff0000</field>
+        </shadow>
+      </value>
+      <value name="COLOUR2">
+        <shadow type="colour_picker">
+          <field name="COLOUR">#3333ff</field>
+        </shadow>
+      </value>
+      <value name="RATIO">
+        <shadow type="math_number">
+          <field name="NUM">0.5</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  <sep></sep>
+  <category name="変数" colour="330" custom="VARIABLE"></category>
+  <category name="関数" colour="290" custom="PROCEDURE"></category>
+</xml>
+
+<xml id="startBlocks" style="display: none;">
+</xml>
+
+<table>
+<tr>
+    <td>
+       <table width='100%'>
+          <tr id="tabRow" height="1em">
+            <td id="tabBlocks" class="tabon" style="white-space:nowrap;" data-step="1" data-intro="このタブをクリックして、編集をはじめます。">ブロック</td>
+            <td class="tabmin">&nbsp;</td>
+            <td id="tabHaskell" class="taboff" style="white-space:nowrap;">Haskell</td>
+            <td class="tabmin">&nbsp;</td>
+            <td id="tabXml" class="taboff" style="font-family:'Segoe UI Emoji'; white-space:nowrap;">(管理者用)</td>
+            <td class="tabmax">
+              <a href="#" id="intro" title="ヘルプ" class="button_like">&#x2753;</a>
+              <a href="#" id="openButton" title="読込み" class="button_like" data-step="5"
+                          data-intro="保存したプログラムを読み込みます。">&#x1f4c2;</a>
+              <input type="file" id="openButtonAux" name="openButtonAux"  style="display:none;" />
+              <a href="#" id="saveButton" download="blocks.xml" title="保存" class="button_like" data-step="4"
+                          data-intro="プログラムを保存します。">&#x1f4be;</a>
+              <a href="#" id="resetButton" title="リセット" class="button_like" data-step="7"
+                          data-intro="これまでの変更を捨てて、最初のプログラムに戻します。">&#x21bb;</a>
+            </td>
+          </tr>
+       </table>
+    </td>
+</tr>
+<tr>
+  <td id="blocklyArea" style='border: 0pt; height: 99%;'>
+  </td>
+</tr>
+</table>
+<div id="contentBlock" style="position: absolute;"></div>
+<pre id="contentHaskell" class="content"></pre>
+<textarea id="contentXml" class="content" wrap="off"></textarea>
+<script>
+var tabs = ["Blocks", "Haskell", "Xml"];
+var selected = tabs[0];
+var draw;
+var workspace = null;
+
+function onResize() {
+    var area = $("#blocklyArea");
+    var divs = [ $("#contentBlock"), $("#contentHaskell"), $("#contentXml") ];
+
+    var width = area.width();
+    var height = area.height();
+    var offset = area.offset();
+    for (var i = 0; i < divs.length ; i++) {
+       var div = divs[i];
+       div.height(height);
+       div.width(width);
+       div.offset(offset);
+    }
+}
+
+$(window).on('load resize', onResize);
+
+function renderContent(clickedName) {
+  var content = $("#content" + clickedName);
+  if (clickedName == "Xml") {
+    var xmlDom  = Blockly.Xml.workspaceToDom(workspace);
+    var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+    content.val(xmlText);
+  } else if (clickedName == "Haskell") {
+    console.log("Haskell", workspace.getTopBlocks(!0)[0]);
+    var code = Blockly.Haskell.workspaceToCode(workspace);
+    console.log(code);
+    content.html(code);
+
+    // TODO: CodeMirror
+    code = content.html();
+    code = prettyPrintOne(code, 'js');
+    content.html(code);
+  } 
+}
+
+function tabClick(clickedName) {
+  // If the XML tab was open, save and render the content.
+  if ($("#tabXml").hasClass('tabon')) {
+    var xmlTextarea = $('#contentXml');
+    var xmlText = xmlTextarea.val();
+    var xmlDom = null;
+    try {
+      xmlDom = Blockly.Xml.textToDom(xmlText);
+    } catch (e) {
+      var q = window.confirm(MSG['badXml'].replace('%1', e));
+      if (!q) {
+        // Leave the user on the XML tab.
+        return;
+      }
+    }
+    if (xmlDom) {
+      workspace.clear();
+      Blockly.Xml.domToWorkspace(xmlDom, workspace);
+    }
+  }
+
+  if ($("#tabBlocks").hasClass('tabon')) {
+    workspace.setVisible(false);
+  }
+
+  // Deselect all tabs and hide all panes.
+  for (var i = 0; i < tabs.length; i++) {
+    var name = tabs[i];
+    $('#tab' + name).removeClass('tabon');
+    $('#tab' + name).addClass('taboff');
+    $('#content' + name).css("visibility", 'hidden');
+  }
+
+  // Select the active tab.
+  selected = clickedName;
+  $('#tab' + clickedName).removeClass('taboff');
+  $('#tab' + clickedName).addClass('tabon');
+  $('#content' + clickedName).css("visibility", 'visible');
+
+  renderContent(clickedName);
+
+  if (clickedName == 'Blocks') {
+    workspace.setVisible(true);
+  }
+  Blockly.svgResize(workspace);
+}
+
+$(function() {
+    workspace = Blockly.inject('contentBlock',
+       { toolbox: document.getElementById('toolbox'),
+         zoom: { controls: true, wheel: true, startScale: 1.0, maxScale: 3, minScale: 0.3, scaleSpeed: 1.2 }
+       });
+
+    BlocklyStorage.backupOnUnload(workspace);
+
+//    workspace.addChangeListener(Blockly.Events.disableOrphans);
+
+    var clean = $.query.get("clean");
+    if (clean != null && (clean.toLowerCase() == "true" || clean.toLowerCase() == "yes")) {
+        Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspace);
+    } else {
+        window.setTimeout(function () {
+//            BlocklyStorage.restoreBlocks(workspace);
+              var url = window.location.href.split('#')[0];
+              if ('localStorage' in window) {
+                var memo = window.localStorage[url];
+                if (memo) {
+                    var xml = Blockly.Xml.textToDom(memo);
+                    if (xml.hasChildNodes()) {
+                        Blockly.Xml.domToWorkspace(xml, workspace);
+                        return;
+                    }
+                    // xml が空だったら続行する
+                }
+              }
+              var xmlUrl = $.query.get("url");
+              if (xmlUrl) {
+              	$.ajax({ url: xmlUrl, dataType: "text" }).done(function(data) {
+              	    var xml = Blockly.Xml.textToDom(data);
+              	    Blockly.Xml.domToWorkspace(xml, workspace);
+              	});
+              } else {
+                Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspace);
+              }
+        }, 0);
+    }
+
+    $("#intro").click(function() {
+//      alert("intro");
+      var tour = introJs();
+      tour.setOption('tooltipPosition', 'auto');
+      tour.start();
+      return false;
+    });
+
+    $("#saveButton").click(function() {
+       var xmlText;
+       if ($('#tabXml').hasClass('tabon')) {
+           xmlText = $('#contentXml').val();
+       } else {
+           var xmlDom  = Blockly.Xml.workspaceToDom(workspace);
+           xmlText     = Blockly.Xml.domToPrettyText(xmlDom);
+       }
+       var blob    = new Blob([xmlText], { type: 'text/xml' });
+       $("#saveButton").attr('href', window.URL.createObjectURL(blob));
+    });
+
+    $("#openButton").click(function() {
+      $("#openButtonAux").click();
+      return false;
+    });
+
+    $("#openButtonAux").change(function(evt) {
+       var f = evt.target.files[0];
+       var reader = new FileReader();
+
+       reader.onload = function(e) {
+         var xmlText = e.target.result;
+         $("contentXml").val(xmlText);
+         if (!$('#tabXml').hasClass('tabon')) {
+           try {
+             xmlDom = Blockly.Xml.textToDom(xmlText);
+           } catch (e) {
+             var q =
+                 window.confirm(MSG['badXml'].replace('%1', e));
+             if (!q) {
+               // Leave the user on the XML tab.
+               return;
+             }
+           }
+           if (xmlDom) {
+             workspace.clear();
+             Blockly.Xml.domToWorkspace(xmlDom, workspace);
+           }
+         }
+       };
+       reader.readAsText(f);
+
+    });
+
+    $("#resetButton").click(function () {
+        var q = window.confirm("編集したプログラムを捨てて、最初の内容に戻します。よろしいですか？");
+        if (!q) return;
+        var xmlUrl = $.query.get("url");
+        if (xmlUrl) {
+          $.ajax({ url: xmlUrl, dataType: "text" }).done(function(data) {
+              workspace.clear();
+              var xml = Blockly.Xml.textToDom(data);
+              Blockly.Xml.domToWorkspace(xml, workspace);
+          });
+        } else {
+           workspace.clear();
+           Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspace);
+        }
+    });
+
+    onResize();
+    Blockly.svgResize(workspace);
+
+    // 無理やりフォントを変更する。
+    var cssNode = document.createElement('style');
+    document.head.appendChild(cssNode);
+    var text = ".blocklyText {"
+      	     + "  cursor: default;"
+      	     + "  fill: #fff;"
+      	     + "  font-family: 'Segoe UI Symbol';"
+      	     + "  font-size: 11pt;"
+      	     + "}";
+    var cssTextNode = document.createTextNode(text);
+    cssNode.appendChild(cssTextNode);
+
+    tabClick(selected);
+    for (var i = 0; i < tabs.length; i++) {
+       var name = tabs[i];
+       $("#tab" + name).click(function(name_) { return function() { tabClick(name_); }; }(name));
+    }
+});
+</script>
+</body>
+</html>
