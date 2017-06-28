@@ -28,7 +28,7 @@ Blockly.Blocks['output_auto'] = {
       return (parent && parent.getInputsInline() && parent.tooltip) ||
           Blockly.Msg.TEXT_TEXT_TOOLTIP;
     });
-    this.itemCount_ = 2;
+    this.itemCount_ = 0;
     this.updateShape_();
   },
 
@@ -51,6 +51,20 @@ Blockly.Blocks['output_auto'] = {
    * @this Blockly.Block
    */
   updateShape_: function() {
+  	var target = this.getFieldValue('TEXT');
+  	var item = "%";
+  	var count = 0;
+  	var s = 0;
+
+  	console.log();
+
+  	while (s < target.length) {
+      var index = target.indexOf(item, s);
+      s += (index + item.length);
+      count++;
+    }
+    this.itemCount_ = count;
+    
     if (this.itemCount_ && this.getInput('EMPTY')) {
       this.removeInput('EMPTY');
     } else if (!this.itemCount_ && !this.getInput('EMPTY')) {
@@ -98,19 +112,19 @@ Blockly.C['output_auto'] = function(block) {
   var code = 'printf("';
   
   for (var n = 0; n < block.itemCount_; n++) {
-    arr[n] = Blockly.C.valueToCode(block, 'ADD' + n,  Blockly.C.ORDER_NONE) || '0';
+    arr[n] = Blockly.C.valueToCode(block, 'ADD' + n,  Blockly.C.ORDER_NONE);
   }
 
   code += block.getFieldValue('TEXT');
-
+/*
   for (n = 0; n < block.itemCount_; n++) {
   	code += '%d '
-  	/*
     if ( dropdown_type == 'int') { code += '%d '}
     else if ( dropdown_type == 'double') { code += '%f '}
     else if ( dropdown_type == 'char') { code += '%c '}
-    else if ( dropdown_type == 'char*') { code += '%s '}*/
-  }
+    else if ( dropdown_type == 'char*') { code += '%s '}
+  }*/
+	console.log(code);
 
   code += '\\n"';
   for (n = 0; n < block.itemCount_; n++) {
