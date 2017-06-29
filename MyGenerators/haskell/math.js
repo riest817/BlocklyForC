@@ -192,13 +192,13 @@ Blockly.Haskell['math_number_property'] = function(block) {
   }
   switch (dropdown_property) {
     case 'EVEN':
-      code = number_to_check + ' % 2 == 0';
+      code = number_to_check + ' `div` 2 == 0';
       break;
     case 'ODD':
-      code = number_to_check + ' % 2 == 1';
+      code = number_to_check + ' `div` 2 == 1';
       break;
     case 'WHOLE':
-      code = number_to_check + ' % 1 == 0';
+      code = number_to_check + ' `div` 1 == 0';
       break;
     case 'POSITIVE':
       code = number_to_check + ' > 0';
@@ -209,7 +209,7 @@ Blockly.Haskell['math_number_property'] = function(block) {
     case 'DIVISIBLE_BY':
       var divisor = Blockly.Haskell.valueToCode(block, 'DIVISOR',
           Blockly.Haskell.ORDER_MODULUS) || '0';
-      code = number_to_check + ' % ' + divisor + ' == 0';
+      code = number_to_check + ' `div` ' + divisor + ' == 0';
       break;
   }
   return [code, Blockly.Haskell.ORDER_EQUALITY];
@@ -238,19 +238,20 @@ Blockly.Haskell['math_on_list'] = function(block) {
     case 'SUM':
       list = Blockly.Haskell.valueToCode(block, 'LIST',
           Blockly.Haskell.ORDER_MEMBER) || '[]';
-      code = list + '.reduce(function(x, y) {return x + y;})';
+      code = 'sum ' + list;
       break;
     case 'MIN':
       list = Blockly.Haskell.valueToCode(block, 'LIST',
           Blockly.Haskell.ORDER_COMMA) || '[]';
-      code = 'Math.min.apply(null, ' + list + ')';
+      code = 'minimum' + list + '';
       break;
     case 'MAX':
       list = Blockly.Haskell.valueToCode(block, 'LIST',
           Blockly.Haskell.ORDER_COMMA) || '[]';
-      code = 'Math.max.apply(null, ' + list + ')';
+      code = 'maximum ' + list + '';
       break;
     case 'AVERAGE':
+      /*
       // mathMean([null,null,1,3]) == 2.0.
       var functionName = Blockly.Haskell.provideFunction_(
           'mathMean',
@@ -262,8 +263,10 @@ Blockly.Haskell['math_on_list'] = function(block) {
       list = Blockly.Haskell.valueToCode(block, 'LIST',
           Blockly.Haskell.ORDER_NONE) || '[]';
       code = functionName + '(' + list + ')';
+      */
       break;
     case 'MEDIAN':
+      /*
       // mathMedian([null,null,1,3]) == 2.0.
       var functionName = Blockly.Haskell.provideFunction_(
           'mathMedian',
@@ -283,11 +286,13 @@ Blockly.Haskell['math_on_list'] = function(block) {
       list = Blockly.Haskell.valueToCode(block, 'LIST',
           Blockly.Haskell.ORDER_NONE) || '[]';
       code = functionName + '(' + list + ')';
+      */
       break;
     case 'MODE':
       // As a list of numbers can contain more than one mode,
       // the returned result is provided as an array.
       // Mode of [3, 'x', 'x', 1, 1, 2, '3'] -> ['x', 1].
+      /*
       var functionName = Blockly.Haskell.provideFunction_(
           'mathModes',
           ['function ' + Blockly.Haskell.FUNCTION_NAME_PLACEHOLDER_ +
@@ -322,8 +327,10 @@ Blockly.Haskell['math_on_list'] = function(block) {
       list = Blockly.Haskell.valueToCode(block, 'LIST',
           Blockly.Haskell.ORDER_NONE) || '[]';
       code = functionName + '(' + list + ')';
+      */
       break;
     case 'STD_DEV':
+      /*
       var functionName = Blockly.Haskell.provideFunction_(
           'mathStandardDeviation',
           ['function ' + Blockly.Haskell.FUNCTION_NAME_PLACEHOLDER_ +
@@ -341,8 +348,10 @@ Blockly.Haskell['math_on_list'] = function(block) {
       list = Blockly.Haskell.valueToCode(block, 'LIST',
           Blockly.Haskell.ORDER_NONE) || '[]';
       code = functionName + '(' + list + ')';
+      */
       break;
     case 'RANDOM':
+      /*
       var functionName = Blockly.Haskell.provideFunction_(
           'mathRandomList',
           ['function ' + Blockly.Haskell.FUNCTION_NAME_PLACEHOLDER_ +
@@ -353,6 +362,7 @@ Blockly.Haskell['math_on_list'] = function(block) {
       list = Blockly.Haskell.valueToCode(block, 'LIST',
           Blockly.Haskell.ORDER_NONE) || '[]';
       code = functionName + '(' + list + ')';
+      */
       break;
     default:
       throw 'Unknown operator: ' + func;
@@ -372,6 +382,7 @@ Blockly.Haskell['math_modulo'] = function(block) {
 
 Blockly.Haskell['math_constrain'] = function(block) {
   // Constrain a number between two limits.
+  /*
   var argument0 = Blockly.Haskell.valueToCode(block, 'VALUE',
       Blockly.Haskell.ORDER_COMMA) || '0';
   var argument1 = Blockly.Haskell.valueToCode(block, 'LOW',
@@ -381,10 +392,12 @@ Blockly.Haskell['math_constrain'] = function(block) {
   var code = 'Math.min(Math.max(' + argument0 + ', ' + argument1 + '), ' +
       argument2 + ')';
   return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
+  */
 };
 
 Blockly.Haskell['math_random_int'] = function(block) {
   // Random integer between [X] and [Y].
+  /*
   var argument0 = Blockly.Haskell.valueToCode(block, 'FROM',
       Blockly.Haskell.ORDER_COMMA) || '0';
   var argument1 = Blockly.Haskell.valueToCode(block, 'TO',
@@ -403,9 +416,10 @@ Blockly.Haskell['math_random_int'] = function(block) {
        '}']);
   var code = functionName + '(' + argument0 + ', ' + argument1 + ')';
   return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
+  */
 };
 
 Blockly.Haskell['math_random_float'] = function(block) {
   // Random fraction between 0 and 1.
-  return ['Math.random()', Blockly.Haskell.ORDER_FUNCTION_CALL];
+  // return ['Math.random()', Blockly.Haskell.ORDER_FUNCTION_CALL];
 };
