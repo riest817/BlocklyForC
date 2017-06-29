@@ -42,7 +42,7 @@ Blockly.Haskell['math_arithmetic'] = function(block) {
     'MINUS': [' - ', Blockly.Haskell.ORDER_SUBTRACTION],
     'MULTIPLY': [' * ', Blockly.Haskell.ORDER_MULTIPLICATION],
     'DIVIDE': [' / ', Blockly.Haskell.ORDER_DIVISION],
-    'POWER': [null, Blockly.Haskell.ORDER_COMMA]  // Handle power separately.
+    'POWER': [' ^ ', Blockly.Haskell.ORDER_COMMA]  // Handle power separately.
   };
   var tuple = OPERATORS[block.getFieldValue('OP')];
   var operator = tuple[0];
@@ -72,7 +72,7 @@ Blockly.Haskell['math_single'] = function(block) {
       // --3 is not legal in JS.
       arg = ' ' + arg;
     }
-    code = '-' + arg;
+    code = '(-' + arg + ')';
     return [code, Blockly.Haskell.ORDER_UNARY_NEGATION];
   }
   if (operator == 'SIN' || operator == 'COS' || operator == 'TAN') {
@@ -86,37 +86,40 @@ Blockly.Haskell['math_single'] = function(block) {
   // wrapping the code.
   switch (operator) {
     case 'ABS':
-      code = 'Math.abs(' + arg + ')';
+      code = 'abs ' + arg + '';
       break;
     case 'ROOT':
-      code = 'Math.sqrt(' + arg + ')';
+      code = 'sqrt ' + arg + '';
       break;
     case 'LN':
-      code = 'Math.log(' + arg + ')';
+      code = 'log ' + arg + '';
+      break;
+    case 'LOG10':
+      code = 'logBase 10 ' + arg + '';
       break;
     case 'EXP':
-      code = 'Math.exp(' + arg + ')';
+      code = 'exp ' + arg + '';
       break;
     case 'POW10':
-      code = 'Math.pow(10,' + arg + ')';
+      code = '10 ^ ' + arg + '';
       break;
     case 'ROUND':
-      code = 'Math.round(' + arg + ')';
+      code = 'round ' + arg + '';
       break;
     case 'ROUNDUP':
-      code = 'Math.ceil(' + arg + ')';
+      code = 'ceiling ' + arg + '';
       break;
     case 'ROUNDDOWN':
-      code = 'Math.floor(' + arg + ')';
+      code = 'floor ' + arg + '';
       break;
     case 'SIN':
-      code = 'Math.sin(' + arg + ' / 180 * Math.PI)';
+      code = 'sin (' + arg + ' / 180 * pi)';
       break;
     case 'COS':
-      code = 'Math.cos(' + arg + ' / 180 * Math.PI)';
+      code = 'cos (' + arg + ' / 180 * pi)';
       break;
     case 'TAN':
-      code = 'Math.tan(' + arg + ' / 180 * Math.PI)';
+      code = 'tan (' + arg + ' / 180 * pi)';
       break;
   }
   if (code) {
@@ -125,17 +128,14 @@ Blockly.Haskell['math_single'] = function(block) {
   // Second, handle cases which generate values that may need parentheses
   // wrapping the code.
   switch (operator) {
-    case 'LOG10':
-      code = 'Math.log(' + arg + ') / Math.log(10)';
-      break;
     case 'ASIN':
-      code = 'Math.asin(' + arg + ') / Math.PI * 180';
+      code = 'asin (' + arg + ') / pi * 180';
       break;
     case 'ACOS':
-      code = 'Math.acos(' + arg + ') / Math.PI * 180';
+      code = 'acos (' + arg + ') / pi * 180';
       break;
     case 'ATAN':
-      code = 'Math.atan(' + arg + ') / Math.PI * 180';
+      code = 'atan (' + arg + ') / pi * 180';
       break;
     default:
       throw 'Unknown math operator: ' + operator;
@@ -146,12 +146,12 @@ Blockly.Haskell['math_single'] = function(block) {
 Blockly.Haskell['math_constant'] = function(block) {
   // Constants: PI, E, the Golden Ratio, sqrt(2), 1/sqrt(2), INFINITY.
   var CONSTANTS = {
-    'PI': ['Math.PI', Blockly.Haskell.ORDER_MEMBER],
-    'E': ['Math.E', Blockly.Haskell.ORDER_MEMBER],
+    'PI': ['pi', Blockly.Haskell.ORDER_MEMBER],
+    'E': ['exp 1', Blockly.Haskell.ORDER_MEMBER],
     'GOLDEN_RATIO':
-        ['(1 + Math.sqrt(5)) / 2', Blockly.Haskell.ORDER_DIVISION],
-    'SQRT2': ['Math.SQRT2', Blockly.Haskell.ORDER_MEMBER],
-    'SQRT1_2': ['Math.SQRT1_2', Blockly.Haskell.ORDER_MEMBER],
+        ['(1 + sqrt (5)) / 2', Blockly.Haskell.ORDER_DIVISION],
+    'SQRT2': ['sqrt 2', Blockly.Haskell.ORDER_MEMBER],
+    'SQRT1_2': ['sqrt 0.5', Blockly.Haskell.ORDER_MEMBER],
     'INFINITY': ['Infinity', Blockly.Haskell.ORDER_ATOMIC]
   };
   return CONSTANTS[block.getFieldValue('CONSTANT')];
@@ -366,7 +366,7 @@ Blockly.Haskell['math_modulo'] = function(block) {
       Blockly.Haskell.ORDER_MODULUS) || '0';
   var argument1 = Blockly.Haskell.valueToCode(block, 'DIVISOR',
       Blockly.Haskell.ORDER_MODULUS) || '0';
-  var code = argument0 + ' % ' + argument1;
+  var code = argument0 + ' `div` ' + argument1;
   return [code, Blockly.Haskell.ORDER_MODULUS];
 };
 

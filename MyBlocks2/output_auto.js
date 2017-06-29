@@ -52,11 +52,12 @@ Blockly.Blocks['output_auto'] = {
    */
   updateShape_: function() {
   	var target = this.getFieldValue('TEXT');
+  	// var target = this.getText();
   	var item = "%";
   	var count = 0;
   	var s = 0;
 
-  	console.log();
+  	console.log(target);	// 出力
 
   	while (s < target.length) {
       var index = target.indexOf(item, s);
