@@ -22,6 +22,11 @@
  * @fileoverview Generating C for math blocks.
  * @author q.neutron@gmail.com (Quynh Neutron)
  */
+
+ /**
+ * 2017/07/03  コード最適化(一部コメントアウト)
+ */
+
 'use strict';
 
 goog.provide('Blockly.C.math');
@@ -126,16 +131,16 @@ Blockly.C['math_single'] = function(block) {
   // wrapping the code.
   switch (operator) {
     case 'LOG10':
-      code = 'log(' + arg + ') / Math.log(10)';
+      code = 'log(' + arg + ') / log(10)';
       break;
     case 'ASIN':
-      code = 'asin(' + arg + ') / Math.PI * 180';
+      code = 'asin(' + arg + ') / M_PI * 180';
       break;
     case 'ACOS':
-      code = 'acos(' + arg + ') / Math.PI * 180';
+      code = 'acos(' + arg + ') / M_PI * 180';
       break;
     case 'ATAN':
-      code = 'atan(' + arg + ') / Math.PI * 180';
+      code = 'atan(' + arg + ') / M_PI * 180';
       break;
     default:
       throw 'Unknown math operator: ' + operator;
@@ -146,12 +151,12 @@ Blockly.C['math_single'] = function(block) {
 Blockly.C['math_constant'] = function(block) {
   // Constants: PI, E, the Golden Ratio, sqrt(2), 1/sqrt(2), INFINITY.
   var CONSTANTS = {
-    'PI': ['PI', Blockly.C.ORDER_MEMBER],
-    'E': ['Math.E', Blockly.C.ORDER_MEMBER],
+    'PI': ['M_PI', Blockly.C.ORDER_MEMBER],
+    'E': ['exp(1)', Blockly.C.ORDER_MEMBER],
     'GOLDEN_RATIO':
         ['(1 + sqrt(5)) / 2', Blockly.C.ORDER_DIVISION],
-    'SQRT2': ['SQRT2', Blockly.C.ORDER_MEMBER],
-    'SQRT1_2': ['SQRT1_2', Blockly.C.ORDER_MEMBER],
+    'SQRT2': ['sqrt(2)', Blockly.C.ORDER_MEMBER],
+    'SQRT1_2': ['sqrt(0.5)', Blockly.C.ORDER_MEMBER],
     'INFINITY': ['Infinity', Blockly.C.ORDER_ATOMIC]
   };
   return CONSTANTS[block.getFieldValue('CONSTANT')];
@@ -166,6 +171,7 @@ Blockly.C['math_number_property'] = function(block) {
   var code;
   if (dropdown_property == 'PRIME') {
     // Prime is a special case as it is not a one-liner test.
+    /*
     var functionName = Blockly.C.provideFunction_(
         'mathIsPrime',
         ['function ' + Blockly.C.FUNCTION_NAME_PLACEHOLDER_ + '(n) {',
@@ -189,6 +195,7 @@ Blockly.C['math_number_property'] = function(block) {
          '}']);
     code = functionName + '(' + number_to_check + ')';
     return [code, Blockly.C.ORDER_FUNCTION_CALL];
+    */
   }
   switch (dropdown_property) {
     case 'EVEN':
@@ -232,6 +239,7 @@ Blockly.C['math_trig'] = Blockly.C['math_single'];
 
 Blockly.C['math_on_list'] = function(block) {
   // Math functions for lists.
+  /*
   var func = block.getFieldValue('OP');
   var list, code;
   switch (func) {
@@ -358,6 +366,7 @@ Blockly.C['math_on_list'] = function(block) {
       throw 'Unknown operator: ' + func;
   }
   return [code, Blockly.C.ORDER_FUNCTION_CALL];
+  */
 };
 
 Blockly.C['math_modulo'] = function(block) {
@@ -372,6 +381,7 @@ Blockly.C['math_modulo'] = function(block) {
 
 Blockly.C['math_constrain'] = function(block) {
   // Constrain a number between two limits.
+  /*
   var argument0 = Blockly.C.valueToCode(block, 'VALUE',
       Blockly.C.ORDER_COMMA) || '0';
   var argument1 = Blockly.C.valueToCode(block, 'LOW',
@@ -381,14 +391,17 @@ Blockly.C['math_constrain'] = function(block) {
   var code = 'Math.min(Math.max(' + argument0 + ', ' + argument1 + '), ' +
       argument2 + ')';
   return [code, Blockly.C.ORDER_FUNCTION_CALL];
+  */
 };
 
 Blockly.C['math_random_int'] = function(block) {
   // Random integer between [X] and [Y].
+  /*
   var argument0 = Blockly.C.valueToCode(block, 'FROM',
       Blockly.C.ORDER_COMMA) || '0';
   var argument1 = Blockly.C.valueToCode(block, 'TO',
       Blockly.C.ORDER_COMMA) || '0';
+  
   var functionName = Blockly.C.provideFunction_(
       'mathRandomInt',
       ['function ' + Blockly.C.FUNCTION_NAME_PLACEHOLDER_ +
@@ -401,11 +414,13 @@ Blockly.C['math_random_int'] = function(block) {
        '  }',
        '  return Math.floor(Math.random() * (b - a + 1) + a);',
        '}']);
+
   var code = functionName + '(' + argument0 + ', ' + argument1 + ')';
   return [code, Blockly.C.ORDER_FUNCTION_CALL];
+  */
 };
 
 Blockly.C['math_random_float'] = function(block) {
   // Random fraction between 0 and 1.
-  return ['Math.random()', Blockly.C.ORDER_FUNCTION_CALL];
+  // return ['Math.random()', Blockly.C.ORDER_FUNCTION_CALL];
 };

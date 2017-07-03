@@ -15,7 +15,7 @@ Blockly.Blocks['output_auto'] = {
     this.appendDummyInput()
         .appendField("出力(%d自動検出)")
         .appendField(this.newQuote_(true))
-        .appendField(new Blockly.FieldTextInput(''), 'TEXT')
+        .appendField(new Blockly.FieldTextInput('', this.validator), 'TEXT')
         .appendField(this.newQuote_(false));
     this.setInputsInline(true);		  // インプットを内側にする
     this.setPreviousStatement(true);  // 上部との接続を可能にする
@@ -28,7 +28,7 @@ Blockly.Blocks['output_auto'] = {
       return (parent && parent.getInputsInline() && parent.tooltip) ||
           Blockly.Msg.TEXT_TEXT_TOOLTIP;
     });
-    this.itemCount_ = 0;
+    //this.itemCount_ = 0;
     this.updateShape_();
   },
 
@@ -45,27 +45,27 @@ Blockly.Blocks['output_auto'] = {
     this.updateShape_();
   },
 
+  // ==============  追加 (06/29) ======================
+  validator: function(text) {
+  	//var target = this.getFieldValue('TEXT');	// 入力文字を動的に記録する
+  	var target = this.getText(text);			// 入力文字を動的に記録する
+  	var counter = function(str,seq){
+    	return str.split(seq).length - 1;
+		}
+    this.sourceBlock_.itemCount_ = counter(target,"%");
+    //console.log(this.sourceBlock_.itemCount_);				// コンソール出力
+    //this.updateShape_();
+    this.sourceBlock_.updateShape_();
+  },
+  // ==============  追加ここまで (06/29) ======================
+
   /**
    * このブロックを修正して、正しい数の入力を持つようにします。
    * @private
    * @this Blockly.Block
    */
   updateShape_: function() {
-  	var target = this.getFieldValue('TEXT');
-  	// var target = this.getText();
-  	var item = "%";
-  	var count = 0;
-  	var s = 0;
-
-  	console.log(target);	// 出力
-
-  	while (s < target.length) {
-      var index = target.indexOf(item, s);
-      s += (index + item.length);
-      count++;
-    }
-    this.itemCount_ = count;
-    
+  	    
     if (this.itemCount_ && this.getInput('EMPTY')) {
       this.removeInput('EMPTY');
     } else if (!this.itemCount_ && !this.getInput('EMPTY')) {
@@ -125,7 +125,6 @@ Blockly.C['output_auto'] = function(block) {
     else if ( dropdown_type == 'char') { code += '%c '}
     else if ( dropdown_type == 'char*') { code += '%s '}
   }*/
-	console.log(code);
 
   code += '\\n"';
   for (n = 0; n < block.itemCount_; n++) {

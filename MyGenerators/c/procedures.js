@@ -22,6 +22,10 @@
  * @fileoverview Generating C for procedure blocks.
  * @author fraser@google.com (Neil Fraser)
  */
+
+  /**
+ * 2017/07/03  61,86行目あたり追加
+ */
 'use strict';
 
 goog.provide('Blockly.C.procedures');
@@ -53,7 +57,10 @@ Blockly.C['procedures_defreturn'] = function(block) {
     args[i] = Blockly.C.variableDB_.getName(block.arguments_[i],
         Blockly.Variables.NAME_TYPE);
   }
-  var code = 'function ' + funcName + '(' + args.join(', ') + ') {\n' +
+  // ===== 追加 (2017/07/03) =====
+  if ( block.arguments_.length == 0 ) { args[0] = 'void'; }
+  // ===== 追加ここまで
+  var code = 'void ' + funcName + '(' + args.join(', ') + ') {\n' +
       branch + returnValue + '}';
   code = Blockly.C.scrub_(block, code);
   // Add % so as not to collide with helper functions in definitions list.
@@ -75,6 +82,9 @@ Blockly.C['procedures_callreturn'] = function(block) {
     args[i] = Blockly.C.valueToCode(block, 'ARG' + i,
         Blockly.C.ORDER_COMMA) || 'null';
   }
+  // ===== 追加 (2017/07/03) =====
+  if ( block.arguments_.length == 0 ) { args[0] = 'void'; }
+  // ===== 追加ここまで
   var code = funcName + '(' + args.join(', ') + ')';
   return [code, Blockly.C.ORDER_FUNCTION_CALL];
 };
@@ -88,6 +98,9 @@ Blockly.C['procedures_callnoreturn'] = function(block) {
     args[i] = Blockly.C.valueToCode(block, 'ARG' + i,
         Blockly.C.ORDER_COMMA) || 'null';
   }
+  // ===== 追加 (2017/07/03) =====
+  if ( block.arguments_.length == 0 ) { args[0] = 'void'; }
+  // ===== 追加ここまで
   var code = funcName + '(' + args.join(', ') + ');\n';
   return code;
 };

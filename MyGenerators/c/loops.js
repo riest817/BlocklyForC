@@ -42,14 +42,14 @@ Blockly.C['controls_repeat_ext'] = function(block) {
   branch = Blockly.C.addLoopTrap(branch, block.id);
   var code = '';
   var loopVar = Blockly.C.variableDB_.getDistinctName(
-      'count', Blockly.Variables.NAME_TYPE);
+      'i', Blockly.Variables.NAME_TYPE);
   var endVar = repeats;
   if (!repeats.match(/^\w+$/) && !Blockly.isNumber(repeats)) {
     var endVar = Blockly.C.variableDB_.getDistinctName(
         'repeat_end', Blockly.Variables.NAME_TYPE);
-    code += 'var ' + endVar + ' = ' + repeats + ';\n';
+    code += 'int ' + endVar + ' = ' + repeats + ';\n';
   }
-  code += 'for (int ' + loopVar + ' = 0; ' +
+  code += 'for (' + loopVar + ' = 0; ' +
       loopVar + ' < ' + endVar + '; ' +
       loopVar + '++) {\n' +
       branch + '}\n';
@@ -107,19 +107,19 @@ Blockly.C['controls_for'] = function(block) {
     if (!argument0.match(/^\w+$/) && !Blockly.isNumber(argument0)) {
       startVar = Blockly.C.variableDB_.getDistinctName(
           variable0 + '_start', Blockly.Variables.NAME_TYPE);
-      code += 'var ' + startVar + ' = ' + argument0 + ';\n';
+      code += 'int ' + startVar + ' = ' + argument0 + ';\n';
     }
     var endVar = argument1;
     if (!argument1.match(/^\w+$/) && !Blockly.isNumber(argument1)) {
       var endVar = Blockly.C.variableDB_.getDistinctName(
           variable0 + '_end', Blockly.Variables.NAME_TYPE);
-      code += 'var ' + endVar + ' = ' + argument1 + ';\n';
+      code += 'int ' + endVar + ' = ' + argument1 + ';\n';
     }
     // Determine loop direction at start, in case one of the bounds
     // changes during loop execution.
     var incVar = Blockly.C.variableDB_.getDistinctName(
         variable0 + '_inc', Blockly.Variables.NAME_TYPE);
-    code += 'var ' + incVar + ' = ';
+    code += 'int ' + incVar + ' = ';
     if (Blockly.isNumber(increment)) {
       code += Math.abs(increment) + ';\n';
     } else {
@@ -152,13 +152,13 @@ Blockly.C['controls_forEach'] = function(block) {
   if (!argument0.match(/^\w+$/)) {
     listVar = Blockly.C.variableDB_.getDistinctName(
         variable0 + '_list', Blockly.Variables.NAME_TYPE);
-    code += 'var ' + listVar + ' = ' + argument0 + ';\n';
+    code += 'int ' + listVar + ' = ' + argument0 + ';\n';
   }
   var indexVar = Blockly.C.variableDB_.getDistinctName(
       variable0 + '_index', Blockly.Variables.NAME_TYPE);
   branch = Blockly.C.INDENT + variable0 + ' = ' +
       listVar + '[' + indexVar + '];\n' + branch;
-  code += 'for (var ' + indexVar + ' in ' + listVar + ') {\n' + branch + '}\n';
+  code += 'for (int ' + indexVar + ' in ' + listVar + ') {\n' + branch + '}\n';
   return code;
 };
 

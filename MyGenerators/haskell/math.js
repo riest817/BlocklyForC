@@ -22,6 +22,14 @@
  * @fileoverview Generating Haskell for math blocks.
  * @author q.neutron@gmail.com (Quynh Neutron)
  */
+
+
+/**
+ * 2017/06/28  javascriptのソースコードをhaskell用に編集
+ * 編集できないところをコメントアウト
+ * 2017/07/03  コード最適化(一部コメントアウト)
+ */
+ 
 'use strict';
 
 goog.provide('Blockly.Haskell.math');
@@ -160,6 +168,7 @@ Blockly.Haskell['math_constant'] = function(block) {
 Blockly.Haskell['math_number_property'] = function(block) {
   // Check if a number is even, odd, prime, whole, positive, or negative
   // or if it is divisible by certain number. Returns true or false.
+  /*
   var number_to_check = Blockly.Haskell.valueToCode(block, 'NUMBER_TO_CHECK',
       Blockly.Haskell.ORDER_MODULUS) || '0';
   var dropdown_property = block.getFieldValue('PROPERTY');
@@ -189,6 +198,7 @@ Blockly.Haskell['math_number_property'] = function(block) {
          '}']);
     code = functionName + '(' + number_to_check + ')';
     return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
+    */
   }
   switch (dropdown_property) {
     case 'EVEN':
@@ -243,7 +253,7 @@ Blockly.Haskell['math_on_list'] = function(block) {
     case 'MIN':
       list = Blockly.Haskell.valueToCode(block, 'LIST',
           Blockly.Haskell.ORDER_COMMA) || '[]';
-      code = 'minimum' + list + '';
+      code = 'minimum ' + list + '';
       break;
     case 'MAX':
       list = Blockly.Haskell.valueToCode(block, 'LIST',

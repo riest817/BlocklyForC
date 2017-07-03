@@ -22,6 +22,14 @@
  * @fileoverview Generating Haskell for logic blocks.
  * @author q.neutron@gmail.com (Quynh Neutron)
  */
+
+ /**
+ * 2017/06/28  javascriptのソースコードをhaskell用に編集
+ * 編集できないところをコメントアウト
+ * おそらく山形さんが作ったと思われるブロックをコメントアウト
+ * 'quiz_if'など
+ */
+
 'use strict';
 
 goog.provide('Blockly.Haskell.logic');
@@ -125,7 +133,7 @@ Blockly.Haskell['logic_ternary'] = function(block) {
   var code = value_if + ' ? ' + value_then + ' : ' + value_else;
   return [code, Blockly.Haskell.ORDER_CONDITIONAL];
 };
-
+/*
 Blockly.Haskell['quiz3_if0'] = function(block) {
   var branch1 = Blockly.Haskell.statementToCode(block, 'DO1');
   var branch2 = Blockly.Haskell.statementToCode(block, 'DO2');
@@ -182,3 +190,4 @@ Blockly.Haskell['quiz_if'] = function(block) {
 
   return code;
 };
+*/

@@ -22,16 +22,16 @@
 <script src="Library/blockly/appengine/storage.js"></script>
 <link rel="stylesheet" type="text/css"
       href="Library/blockly/demos/prettify.css">
-<script src="myCBlocks.js"></script>
-<!-- 追加 -->
-<script src="MyBlocks2/output.js"></script>	
-<script src="MyBlocks2/output_auto.js"></script>	
-<script src="MyBlocks2/input.js"></script>
-<script src="MyBlocks2/switch.js"></script>	
 
 <script src="Library/jquery-2.2.4.min.js"></script>
 <script src="Library/jquery.query.js"></script>
 <script src="Library/intro.js"></script>
+<!-- 追加 -->
+<script src="MyBlocks2/output.js"></script> 
+<script src="MyBlocks2/output_auto.js"></script>  
+<script src="MyBlocks2/input.js"></script>
+<script src="MyBlocks2/switch.js"></script> 
+
 <link rel="stylesheet"
       href="Library/introjs.css"/>
 <style>
@@ -127,8 +127,6 @@
     <block type="logic_boolean"></block>
     <block type="logic_null"></block>
     <block type="logic_ternary"></block>
-    <block type="quiz_variable2"></block>
-    <block type="printf_join"></block>
   </category>
   <category name="繰り返し" colour="120">
     <block type="controls_repeat_ext">
@@ -156,7 +154,7 @@
         </shadow>
       </value>
     </block>
-    <block type="controls_forEach"></block>
+    <!--block type="controls_forEach"></block-->
     <block type="controls_flow_statements"></block>
   </category>
   <category name="数" colour="230">
@@ -209,7 +207,7 @@
         </shadow>
       </value>
     </block>
-    <block type="math_on_list"></block>
+    <!--block type="math_on_list"></block-->
     <block type="math_modulo">
       <value name="DIVIDEND">
         <shadow type="math_number">
@@ -222,7 +220,7 @@
         </shadow>
       </value>
     </block>
-    <block type="math_constrain">
+    <!--block type="math_constrain">
       <value name="VALUE">
         <shadow type="math_number">
           <field name="NUM">50</field>
@@ -238,8 +236,8 @@
           <field name="NUM">100</field>
         </shadow>
       </value>
-    </block>
-    <block type="math_random_int">
+    </block-->
+    <!--block type="math_random_int">
       <value name="FROM">
         <shadow type="math_number">
           <field name="NUM">1</field>
@@ -251,7 +249,7 @@
         </shadow>
       </value>
     </block>
-    <block type="math_random_float"></block>
+    <block type="math_random_float"></block-->
   </category>
   <category name="文字列" colour="160">
     <block type="text"></block>
