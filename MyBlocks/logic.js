@@ -34,7 +34,7 @@ goog.require('Blockly.Blocks');
  */
 Blockly.Blocks.logic.HUE = 210;
 
-Blockly.Blocks['controls_if'] = {
+//Blockly.Blocks['controls_if'] = {
   /**
    * Block for if/elseif/else condition.
    * @this Blockly.Block

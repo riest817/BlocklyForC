@@ -139,7 +139,7 @@ Blockly.C.init = function(workspace) {
           Blockly.Variables.NAME_TYPE);
     }
     Blockly.C.definitions_['variables'] =
-        'var ' + defvars.join(', ') + ';';    // ????
+        'int ' + defvars.join(', ') + ';';    // ????
   }
 };
 
