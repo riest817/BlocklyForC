@@ -452,6 +452,7 @@ Blockly.C['output_text'] = function(block) {
   return code;
 };
 
+
 Blockly.C['output_text_join'] = function(block) {
   // Create a string made up of any number of elements of any type.
   switch (block.itemCount_) {

@@ -168,13 +168,14 @@ Blockly.Haskell['math_constant'] = function(block) {
 Blockly.Haskell['math_number_property'] = function(block) {
   // Check if a number is even, odd, prime, whole, positive, or negative
   // or if it is divisible by certain number. Returns true or false.
-  /*
+  
   var number_to_check = Blockly.Haskell.valueToCode(block, 'NUMBER_TO_CHECK',
       Blockly.Haskell.ORDER_MODULUS) || '0';
   var dropdown_property = block.getFieldValue('PROPERTY');
   var code;
   if (dropdown_property == 'PRIME') {
     // Prime is a special case as it is not a one-liner test.
+    /*
     var functionName = Blockly.Haskell.provideFunction_(
         'mathIsPrime',
         ['function ' + Blockly.Haskell.FUNCTION_NAME_PLACEHOLDER_ + '(n) {',
@@ -196,9 +197,11 @@ Blockly.Haskell['math_number_property'] = function(block) {
          '  }',
          '  return true;',
          '}']);
+         */
     code = functionName + '(' + number_to_check + ')';
+
     return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-    */
+    
   }
   switch (dropdown_property) {
     case 'EVEN':

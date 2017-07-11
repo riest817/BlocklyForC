@@ -28,10 +28,9 @@
 <script src="Library/jquery.query.js"></script>
 <script src="Library/intro.js"></script>
 <!-- 追加 -->
-<script src="MyBlocks2/output.js"></script> 
-<script src="MyBlocks2/output_auto.js"></script>  
-<script src="MyBlocks2/input.js"></script>
-<script src="MyBlocks2/switch.js"></script> 
+<script src="MyBlocks2/haskell/output.js"></script> 
+<script src="MyBlocks2/haskell/logic.js"></script> 
+<script src="MyBlocks2/haskell/math.js"></script> 
 
 <link rel="stylesheet"
       href="Library/introjs.css"/>
@@ -160,18 +159,7 @@
   </category>
   <category name="数" colour="230">
     <block type="math_number"></block>
-    <block type="math_arithmetic">
-      <value name="A">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-      <value name="B">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-    </block>
+    <block type="var_arithmetic"></block>
     <block type="math_single">
       <value name="NUM">
         <shadow type="math_number">
@@ -221,36 +209,6 @@
         </shadow>
       </value>
     </block>
-    <!--block type="math_constrain">
-      <value name="VALUE">
-        <shadow type="math_number">
-          <field name="NUM">50</field>
-        </shadow>
-      </value>
-      <value name="LOW">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-      <value name="HIGH">
-        <shadow type="math_number">
-          <field name="NUM">100</field>
-        </shadow>
-      </value>
-    </block-->
-    <!--block type="math_random_int">
-      <value name="FROM">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-      <value name="TO">
-        <shadow type="math_number">
-          <field name="NUM">100</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="math_random_float"></block-->
   </category>
   <category name="文字列" colour="160">
     <block type="text"></block>
@@ -422,14 +380,14 @@
   <category name="変数" colour="330" custom="VARIABLE"></category>
   <category name="関数" colour="290" custom="PROCEDURE"></category>
   <category name="自作" colour="1000">
-    <block type="output_dropdown"></block>
-    <block type="output_mutator"></block>
-    <block type="output_text"></block>
-    <!--block type="output_text_join"></block-->
-    <block type="output_auto"></block>
-    <block type="input_dropdown"></block>
-    <block type="input_mutator"></block>
-    <block type="switch"></block>
+      <block type="main_haskell"></block>
+      <block type="do_haskell"></block>
+      <block type="where_haskell"></block>
+      <block type="let_haskell"></block>
+      <block type="in_haskell"></block>
+      <block type="output_text"></block>
+      <block type="output_var"></block>
+      <block type="if_then_else_haskell"></block>
   </category>
 </xml>
 

@@ -166,7 +166,8 @@ Blockly.Haskell.init = function(workspace) {
           Blockly.Variables.NAME_TYPE);
     }
     Blockly.Haskell.definitions_['variables'] =
-        'var ' + defvars.join(', ') + ';';
+        //'var ' + defvars.join(', ') + ';';  2017/07/11 コメントアウト
+        ''; // 2017/07/11 追加
   }
 };
 
