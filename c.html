@@ -33,6 +33,7 @@
 <script src="MyBlocks2/c/switch.js"></script> 
 <script src="MyBlocks2/c/variables_c.js"></script> 
 <script src="MyBlocks2/c/math.js"></script> 
+<script src="MyBlocks2/c/header.js"></script> 
 
 <link rel="stylesheet"
       href="Library/introjs.css"/>
@@ -161,7 +162,7 @@
   </category>
   <category name="数" colour="230">
     <block type="math_number"></block>
-    <block type="var_arithmetic"></block>
+    <block type="var_arithmetic"></block>     <!-->自作ブロック<-->
     <block type="math_single">
       <value name="NUM">
         <shadow type="math_number">
@@ -382,6 +383,16 @@
   <category name="変数" colour="330" custom="VARIABLE"></category>
     <!--block type="variables_set"></block-->
   <category name="関数" colour="290" custom="PROCEDURE"></category>
+  <sep></sep>
+  <category name="ヘッダ" colour="60">
+    <block type="header_container_c"></block>
+    <block type="include_stdio_c"></block>
+    <block type="include_stdlib_c"></block>
+    <block type="include_string_c"></block>
+    <block type="include_math_c"></block>
+  </category>
+  <sep></sep>
+  <sep></sep>
   <category name="自作" colour="1000">
   	<block type="output_dropdown"></block>
   	<block type="output_mutator"></block>

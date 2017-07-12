@@ -166,7 +166,7 @@ Blockly.Haskell.init = function(workspace) {
           Blockly.Variables.NAME_TYPE);
     }
     Blockly.Haskell.definitions_['variables'] =
-        //'var ' + defvars.join(', ') + ';';  2017/07/11 コメントアウト
+        //'var ' + defvars.join(', ') + ';';  //  2017/07/11 コメントアウト
         ''; // 2017/07/11 追加
   }
 };
@@ -186,7 +186,8 @@ Blockly.Haskell.finish = function(code) {
   delete Blockly.Haskell.definitions_;
   delete Blockly.Haskell.functionNames_;
   Blockly.Haskell.variableDB_.reset();
-  return definitions.join('\n\n') + '\n\n\n' + code;
+  // ↓  ブロックが離れているとき、どれだけ改行するか
+  return definitions.join('\n\n') + '\n' + code;    // 2017/07/13 \nを2個消去 
 };
 
 /**
@@ -194,9 +195,10 @@ Blockly.Haskell.finish = function(code) {
  * anything.  A trailing semicolon is needed to make this legal.
  * @param {string} line Line of generated code.
  * @return {string} Legal line of code.
+ 行の終わりを示す
  */
 Blockly.Haskell.scrubNakedValue = function(line) {
-  return line + ';\n';
+  return line + '\n';     // 2017/07/13 セミコロン(;)を消去
 };
 
 /**

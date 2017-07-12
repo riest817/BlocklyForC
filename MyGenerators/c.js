@@ -139,7 +139,8 @@ Blockly.C.init = function(workspace) {
           Blockly.Variables.NAME_TYPE);
     }
     Blockly.C.definitions_['variables'] =
-        'int ' + defvars.join(', ') + ';';    // ????
+        //'int ' + defvars.join(', ') + ';';    //  2017/07/13  一旦、コメントアウト
+        ''; // 2017/07/13 一旦、追加
   }
 };
 

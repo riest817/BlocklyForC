@@ -11,16 +11,16 @@
  *
  *   http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * 
  */
 
 /**
  * @fileoverview Generating Haskell for procedure blocks.
  * @author fraser@google.com (Neil Fraser)
+ */
+
+/**
+ * 2017/07/13  Haskellにコード最適化
  */
 'use strict';
 
@@ -46,15 +46,15 @@ Blockly.Haskell['procedures_defreturn'] = function(block) {
   var returnValue = Blockly.Haskell.valueToCode(block, 'RETURN',
       Blockly.Haskell.ORDER_NONE) || '';
   if (returnValue) {
-    returnValue = '  return ' + returnValue + ';\n';
+    returnValue = ' ' + returnValue + '\n';
   }
   var args = [];
   for (var i = 0; i < block.arguments_.length; i++) {
     args[i] = Blockly.Haskell.variableDB_.getName(block.arguments_[i],
         Blockly.Variables.NAME_TYPE);
   }
-  var code = 'function ' + funcName + '(' + args.join(', ') + ') {\n' +
-      branch + returnValue + '}';
+  var code = funcName + ' ' + args.join(' ') + ' =' +
+      branch + returnValue + '';
   code = Blockly.Haskell.scrub_(block, code);
   // Add % so as not to collide with helper functions in definitions list.
   Blockly.Haskell.definitions_['%' + funcName] = code;
@@ -75,7 +75,7 @@ Blockly.Haskell['procedures_callreturn'] = function(block) {
     args[i] = Blockly.Haskell.valueToCode(block, 'ARG' + i,
         Blockly.Haskell.ORDER_COMMA) || 'null';
   }
-  var code = funcName + '(' + args.join(', ') + ')';
+  var code = funcName + ' ' + args.join(' ') + '';
   return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
 };
 
@@ -88,7 +88,7 @@ Blockly.Haskell['procedures_callnoreturn'] = function(block) {
     args[i] = Blockly.Haskell.valueToCode(block, 'ARG' + i,
         Blockly.Haskell.ORDER_COMMA) || 'null';
   }
-  var code = funcName + '(' + args.join(', ') + ');\n';
+  var code = funcName + ' ' + args.join(' ') + '';
   return code;
 };
 
