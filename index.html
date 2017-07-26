@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://http://ymir.eng.kagawa-u.ac.jp/~sano/" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<link rel="stylesheet" href="css/common.css" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript">
+$(function() {
+    $('#slide').slideshow({
+        autoSlide    : true,
+        effect       : 'fade',
+        type         : 'repeat',
+        interval     : 3000,
+        duration     : 1000,
+        imgHoverStop : true,
+        navHoverStop : true
+    });
+    $(window).load(function() {
+        $(".topNaviColumn").uniformHeight();
+    });
+});
+</script>
+<title>Blockly Demo</title>
+</head>
+<body>
+
+<div id="container">
+    <div id="header">
+        <h1><img src="images/logo3.PNG" alt="Blockly" />demo</h1>
+        <h6>香川研究室　佐野</h6>
+        <div id="menu">
+            <ul><p><b>　　　　　　　　　　　　　　　　↓各言語のシステムはこちらから行えます↓　　　　　　　　　　　　</b></p>
+                <li class="home active"><a href="index.html">ホーム</a></li>
+                <li><a href="c.html">【Blockly for C】</a></li>
+                <li><a href="javascript.html">【Blockly for JavaScript】</a></li>
+                <li><a href="haskell.html">【Blockly for Haskell】</a></li>
+            </ul>
+        </div><!-- /#menu -->
+    </div><!-- /#header -->
+    <div id="slide" >
+        <ul class="slideInner" align="center">
+            <li><img src="images/1.jpg" alt="" width="940" height="300" /></li>
+            <li><img src="images/2.png" alt="" width="800" height="300" /></li>
+            <li><img src="images/3.jpg" alt="" width="940" height="300" /></li>
+            
+        </ul>
+         <div class="slidePrev"><img src="images/nav_prev.png" alt="前へ"></div>
+         <div class="slideNext"><img src="images/nav_next.png" alt="次へ"></div>
+         <div class="controlNav"></div>
+    </div><!-- /#slide -->
+    <div id="contents">
+    <div class="topNavi">
+        <div id="conL">
+            <div class="information">
+                <h2>更新履歴</h2>
+                <dl>
+                    <dt>2017-07-26</dt>
+                    <dd>
+                    デモページを作成しました。</a>
+                    </dd>
+                </dl>
+            </div><!-- /.information -->
+        </div><!-- /.conL -->
+        <div id="conR">
+            <div class="submenu">
+                <h2>リンク</h2>
+                <ul>
+                　　<li><a href="http://ymir.eng.kagawa-u.ac.jp/">香川研究室</a></li>
+                    <li><a href="https://developers.google.com/blockly/">Google Developers</a></li>
+                </ul>
+            </div><!-- /.submenu -->
+        </div><!-- /.conR -->
+
+    </div><!-- /#contents -->
+<div id="footer">
+        <div class="copyright">Copyright &copy; 2017 Kagawa Lab. and Yuya SANO. All Rights Reserved.</div>
+    </div><!-- /#footer -->
+</div><!-- /#container -->
+<div id="pageTop">
+    <a href="index.html">ホーム</a><br>
+        <li><a href="c.html">【C】</a></li>
+        <li><a href="javascript.html">【JavaScript】</a></li>
+        <li><a href="haskell.html">【Haskell】</a></li>
+    <a href="#">ページのトップへ戻る</a>
+</div><!-- /#pageTop -->
+</body>
+</html>

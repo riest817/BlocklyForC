@@ -1,0 +1,636 @@
+@charset "UTF-8";
+
+/* ========BASIC======== */
+html {
+    overflow-y:scroll;
+}
+
+body {
+    margin:0;
+    padding:0;
+    line-height:1.6;
+    letter-spacing:1px;
+    font-family:"Hiragino Kaku Gothic Pro",HiraKakuPro-W3,"ヒラギノ角ゴ Pro W3","メイリオ", Meiryo,"ＭＳ Ｐゴシック",verdana,sans-serif;
+    font-size:13.5px;
+    color:#000;
+    background:#efefef;
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.80, #fff), color-stop(0.00, #efefef));
+    background:-webkit-linear-gradient(top, #efefef 0%, #fff 80%);
+    background:-moz-linear-gradient(top, #efefef 0%, #fff 80%);
+    background:-o-linear-gradient(top, #efefef 0%, #fff 80%);
+    background:-ms-linear-gradient(top, #efefef 0%, #fff 80%);
+    background:linear-gradient(to bottom, #efefef 0%, #fff 80%);
+}
+
+br {
+    letter-spacing:normal;
+}
+
+a {
+    color:#134D99;
+    text-decoration:none;
+}
+
+a:hover {
+    color:#134D99;
+    text-decoration:underline;
+}
+
+img {
+    border:0;
+    vertical-align:bottom;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    margin:0;
+}
+
+h1 {
+    font-size:25px;
+}
+
+h2 {
+    clear:both;
+    padding:0 10px;
+    line-height:3.0;
+    color:#fff;
+    font-size:20px;
+    font-weight:bold;
+    background:#2323aa;
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.85, #000), color-stop(0.00, #2323aa));
+    background:-webkit-linear-gradient(top, #2323aa 0%, #000032 85%);
+    background:-moz-linear-gradient(top, #2323aa 0%, #000032 85%);
+    background:-o-linear-gradient(top, #2323aa 0%, #000032 85%);
+    background:-ms-linear-gradient(top, #2323aa 0%, #000032 85%);
+    background:linear-gradient(to bottom, #2323aa 0%, #000032 85%);
+}
+
+h3 {
+    clear:both;
+    padding:0 10px;
+    line-height:3.0;
+    font-size:20px;
+    font-weight:bold;
+    margin:0;
+    color:#000;
+    border:1px solid #ddd;
+    background:#ccc;
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.85, #ccc), color-stop(0.00, #f3f3f3));
+    background:-webkit-linear-gradient(top, #f3f3f3 0%, #ccc 85%);
+    background:-moz-linear-gradient(top, #f3f3f3 0%, #ccc 85%);
+    background:-o-linear-gradient(top, #f3f3f3 0%, #ccc 85%);
+    background:-ms-linear-gradient(top, #f3f3f3 0%, #ccc 85%);
+    background:linear-gradient(to bottom, #f3f3f3 0%, #ccc 85%);
+}
+
+h4 {
+    padding:0 10px;
+    line-height:2.0;
+    color:#000;
+    font-weight:normal;
+    font-size:13px;
+    border:0;
+    background:#f1f1f1;
+}
+
+h5 {
+    padding:0 10px;
+    line-height:4.0;
+    font-size:20px;
+    font-weight:bold;
+    border-left:5px solid #000077;
+}
+
+h6 {
+    line-height:2.0;
+    font-size:15px;
+    font-weight: bold
+}
+
+p {
+    margin:10px;
+}
+
+ul,ol,dl {
+    margin:10px;
+    padding:0;
+}
+
+li {
+    padding:0;
+    margin:0 0 0 30px;
+}
+
+dt {
+    margin:0;
+    padding:0;
+}
+
+dd {
+    margin:0 0 0.5em 1em;
+    padding:0;
+    background:#f1f1f1;
+}
+
+table {
+    font-size:12px;
+}
+
+table {
+    width:600px;
+    margin:10px;
+    border-collapse:collapse;
+    border:1px solid #999;
+    border-spacing:0;
+    line-height:1.8;
+}
+
+table th {
+    padding:5px;
+    border:1px solid #999;
+    border-width:0 0 1px 1px;
+    background:#EFEBEF;
+    font-weight:bold;
+    text-align:left;
+}
+
+table td {
+    padding:5px;
+    border:1px solid #999;
+    border-width:0 0 1px 1px;
+    text-align:left;
+}
+
+table td ol {
+    margin:0;
+    padding:0 0 0 30px;
+}
+
+table td li {
+    margin:0;
+    padding:0;
+}
+
+/* ========TEMPLATE LAYOUT======== */
+#container {
+    font-size:12px;
+    width:940px;
+    margin:30px auto;
+    padding:20px;
+    border:1px solid #ddd;
+    -moz-box-shadow:0 0 10px #bfbfbf; /* Firefox用 */  
+    -webkit-box-shadow:0 0 10px #bfbfbf; /* Safari,Google Chrome用 */ 
+    box-shadow:0 0 10px #bfbfbf;
+    background:#fff;
+}
+
+#header {
+    position:relative;
+    width:940px;
+    margin-bottom:20px;
+}
+
+#menu {
+    position:absolute;
+    right:0;
+    top:30px;
+}
+
+#icatch {
+    width:940px;
+}
+
+#contents {
+    font-size:14px;
+    float:left;
+    width:940px;
+    padding:10px 0;
+    background:#fff;
+}
+
+#conL {
+    float:left;
+    width:720px;
+}
+
+#conR {
+    float:right;
+    width:200px;
+}
+
+#footMenu {
+    float:left;
+    width:940px;
+    margin-top:10px;
+}
+
+#footer {
+    clear:both;
+    width:940px;
+}
+
+/* ========HEADER CUSTOMIZE======== */
+#header h1 {
+    font-size:20px;
+    margin:0;
+    padding:20px 0 0 0;
+    color:#770000;
+    line-height:1.0;
+}
+
+#header h1 a {
+    color:#770000;
+}
+
+#header h1 a:hover {
+    color:#770000;
+}
+
+/* ========MENU CUSTOMIZE======== */
+#menu ul {
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+
+#menu li {
+    overflow:hidden;
+    float:left;
+    margin:0;
+    padding:0 0 0 30px;
+}
+
+#menu li a {
+    display:block;
+    font-weight:bold;
+    color:#000;
+    outline:none;
+}
+
+#menu li a:hover {
+    color:#000;
+    border-bottom:3px solid #000077;
+    text-decoration:none;
+}
+
+/* ========SLIDESHOW CUSTOMIZE======== */
+#slide {
+    width:940px;
+    height:300px;
+    overflow:hidden;
+    position:relative;
+    padding-bottom:25px;
+}
+
+.slideInner {
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+
+.slideInner li {
+    position:absolute;
+    background:#fff;
+    margin:0;
+    padding:0;
+}
+
+.slidePrev {
+     position:absolute;
+     width:50px;
+     height:60px;
+     top:120px;
+     left:0;
+     cursor:pointer;
+     z-index:100;
+}
+
+.slideNext {
+     position:absolute;
+     display:block;
+     width:50px;
+     height:60px;
+     top:120px;
+     right:0;
+     cursor:pointer;
+     z-index:100;
+}
+
+.controlNav {
+     position:absolute;
+     float:left;
+     left:50%;
+     bottom:0;
+}
+
+.controlNav span {
+     position:relative;
+     left:-50%;
+     float:left;
+     margin:5px;
+     -webkit-border-radius:5px;
+     -moz-border-radius:5px;
+     border-radius:5px;
+     width:10px;
+     height:10px;
+     overflow:hidden;
+     -webkit-box-shadow:1px 1px 2px rgba(0, 0, 0, 0.5) inset;
+     -moz-box-shadow:1px 1px 2px rgba(0, 0, 0, 0.5) inset;
+     box-shadow:1px 1px 2px rgba(0, 0, 0, 0.5) inset;
+     background:#eee;
+     text-indent:-9999px;
+     vertical-align:middle;
+}
+
+.controlNav span:hover {
+     background:#ccc;
+     cursor:pointer;
+}
+
+.controlNav span.current {
+     -webkit-box-shadow:1px 1px 2px rgba(0, 0, 0, 0.5) inset, 0 0 2px rgba(133, 209, 198, 0.5);
+     -moz-box-shadow:1px 1px 2px rgba(0, 0, 0, 0.5) inset, 0 0 2px rgba(133, 209, 198, 0.5);
+     box-shadow:1px 1px 2px rgba(0, 0, 0, 0.5) inset, 0 0 2px rgba(133, 209, 198, 0.5);
+     background:#85d1c6;
+}
+
+
+/* ========MAINCONTENTS CUSTOMIZE======== */
+/* TOPNAVI CUSTOMIZE */
+.topNavi {
+    overflow:hidden;
+    position:relative;
+    margin-left:-20px;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+* html .topNavi {
+    height:1em;
+    overflow:visible;
+}
+
+.topNaviColumn {
+    display:inline;
+    width:300px;
+    float:left;
+    margin-left:20px;
+    padding:0 0 2em 0;
+    background:#eee;
+}
+
+.topNaviImg {
+    margin:0;
+    padding:0;
+    background:none;
+}
+
+.topNaviDetail {
+    position:absolute;
+    bottom:0;
+    width:280px;
+    text-align:right;
+}
+
+.topNaviDetail a {
+    padding:0 0 0 7px;
+    background:url("../images/bg_arrow.gif") no-repeat left 50%;
+}
+
+/* INFORMATION CUSTOMIZE */
+.information {
+    width:720px;
+    margin-bottom:20px;
+}
+
+.information dl {
+    margin:0;
+}
+.information dt {
+    float:left;
+    padding-top:5px;
+}
+
+.information dd {
+    margin:0 0 5px 0;
+    padding:5px 0px 5px 9em;
+    background:url("../images/bg_dotline.gif") 0 100% repeat-x;
+}
+
+/* SUBMENU CUSTOMIZE */
+.submenu {
+    border:1px solid #ddd;
+}
+
+.submenu h3 {
+    border:none;
+}
+
+.submenu ul {
+    margin:10px;
+    padding:0;
+}
+.submenu li {
+    margin:0;
+    padding:0 0 0 7px;
+    list-style:none;
+    background:url("../images/bg_arrow.gif") no-repeat left 50%;
+}
+
+.submenu p {
+    margin:10px;
+}
+
+/* BANNER CUSTOMIZE */
+.bnrL {
+    margin:20px 0;
+}
+
+.bnrL ul {
+    width:630px;/* for IE7 */
+    margin:0 -10px 0 0;
+    padding:0;
+}
+
+.bnrL li {
+    float:left;
+    margin:0 10px 0 0;
+    padding:0;
+    list-style:none;
+    margin-bottom:10px;
+}
+
+.bnrR {
+    width:278px;
+    margin:20px 0;
+    padding:10px;
+    border:1px solid #ddd;
+}
+
+.bnrR ul {
+    margin:0 0 -10px 0;
+    padding:0;
+}
+
+.bnrR li {
+    margin:0;
+    padding:10px;
+    list-style:none;
+    margin-bottom:10px;
+    background:#eee;
+}
+
+/* ========FOOTMENU CUSTOMIZE======== */
+#footMenu ul {
+    margin:5px 0;
+    padding:20px 0;
+    text-align:center;
+    border-top:1px solid #ddd;
+}
+
+#footMenu li {
+    display:inline;
+    margin:0 0 0 20px;
+    list-style:none;
+}
+
+#footMenu li a {
+    color:#000;
+}
+
+#footMenu li a:hover {
+    color:#666;
+    text-decoration:underline;
+}
+
+/* ========FOOTER CUSTOMIZE======== */
+.copyright {
+    font-style:normal;
+    font-size:11px;
+    color:#999;
+    line-height:3.0;
+    text-align:center;
+}
+
+/* ========PAGRTOP CUSTOMIZE========= */
+#pageTop {
+    position:fixed;
+    right:0;
+    bottom:0;
+    padding:10px;
+    background:#000
+}
+
+#pageTop a {
+    padding:0 0 0 12px;
+    color:#fff;
+    font-size:11px;
+    background:#000 url("../images/bg_pagetop.gif") 0 50% no-repeat;
+}
+
+/* ========オリジナル CUSTOMIZE========= */
+
+.code {
+    font-size:12px;
+    background-color: #ced6fe; 
+    border-style: solid;
+    border-width: 1px; 
+    padding: 10px 5px 10px 20px;
+    border-color: BRACK;
+    font-family:"Hiragino Kaku Gothic Pro",HiraKakuPro-W3,"ヒラギノ角ゴ Pro W3","メイリオ", Meiryo,"ＭＳ Ｐゴシック",verdana,sans-serif;
+}
+
+em {
+    background-color: #ced6fe;
+}
+
+b {
+    background: linear-gradient(transparent 60%, #ffff66 60%);
+    color:#ed1c24;
+}
+
+
+#conS {
+    /*position: fixed;*/
+    font-size:11px;
+    float: right;
+    width: 200px;
+    bottom: 0px;
+    right: 195px;
+    background:#eee;
+
+    border: 1px solid #000000;
+    border-radius: 10px; /* 角を丸める */
+
+    /* 影を入れる。指定のピクセルは前から順に横方向のズレ、縦方向のズレ、ぼかし具合、 */
+    /* 影の色を指定している。 */
+    -moz-box-shadow: 0px 0px 7px #454545; /* Firefox用 */
+    -webkit-box-shadow: 0px 0px 7px #454545; /* Google ChromeやSafari用 */
+    box-shadow: 0px 0px 7px #454545; /* CSS3対応ブラウザ用 */
+
+    z-index: 9999;
+}
+
+#conS dd {
+   border-bottom: 1px solid black;
+   margin-top: 0px; /* 上線の外側の余白はナシ */
+   padding-top: 0px; /* 上線の内側の余白はナシ */
+   margin-bottom: 0.3em; /* 下線の外側の余白量 */
+   padding-bottom: 0.3em; /* 下線の内側の余白量 */
+}
+
+#conS a {
+    display:block;
+    font-weight:bold;
+    color:#000;
+    outline:none;
+}
+
+#conS a:hover {
+    color:#000;
+    border-top:3px solid #000077;
+    border-bottom:3px solid #000077;
+    border-right:3px solid #000077;
+    border-left:3px solid #000077;
+    text-decoration:none;
+}
+
+#conS h2 {
+    clear:both;
+    padding:0 10px;
+    line-height:2.0;
+    color:#fff;
+    font-size:20px;
+    font-weight:bold;
+    background:#2323aa;
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.85, #000), color-stop(0.00, #2323aa));
+    background:-webkit-linear-gradient(top, #2323aa 0%, #000032 85%);
+    background:-moz-linear-gradient(top, #2323aa 0%, #000032 85%);
+    background:-o-linear-gradient(top, #2323aa 0%, #000032 85%);
+    background:-ms-linear-gradient(top, #2323aa 0%, #000032 85%);
+    background:linear-gradient(to bottom, #2323aa 0%, #000032 85%);
+}
+
+#conS h3 {
+    clear:both;
+    padding:0 10px;
+    line-height:2.0;
+    font-size:11px;
+    font-weight:bold;
+    margin:0;
+    color:#000;
+    border:1px solid #ddd;
+    background:#ccc;
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.85, #ccc), color-stop(0.00, #f3f3f3));
+    background:-webkit-linear-gradient(top, #f3f3f3 0%, #ccc 85%);
+    background:-moz-linear-gradient(top, #f3f3f3 0%, #ccc 85%);
+    background:-o-linear-gradient(top, #f3f3f3 0%, #ccc 85%);
+    background:-ms-linear-gradient(top, #f3f3f3 0%, #ccc 85%);
+    background:linear-gradient(to bottom, #f3f3f3 0%, #ccc 85%);
+}
+
+#conR {
+    float:right;
+    width:200px;
+}
+
