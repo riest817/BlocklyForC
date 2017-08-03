@@ -9,3 +9,4 @@
 2017/07/13 ヘッダ項目 新規作成
 2017/07/26 デモペーシ(index.html)を作成
 2017/08/02 flex.html flex\regular_expression.js control.js function.js 新規作成
+2017/08/03 flex\definition.js operation.js  新規作成
