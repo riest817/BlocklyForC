@@ -259,59 +259,6 @@ Blockly.Blocks['RT_connection'] = {
   }
 };
 
-Blockly.Blocks['RT_connection_auto'] = {
-
-  init: function() {
-    this.setHelpUrl("http://okumocchi.jp/php/re.php");
-    this.setColour(0);
-    this.appendDummyInput()
-    this.setOutput(true, 'String');   // 左部との接続を可能にする
-    //this.setPreviousStatement(true);  // 上部との接続を可能にする
-    //this.setNextStatement(true);      // 下部との接続を可能にする
-    //this.appendValueInput('A');
-    //this.appendValueInput('B');
-    this.setInputsInline(true);
-    // Assign 'this' to a variable for use in the tooltip closure below.
-    var thisBlock = this;
-    // Text block is trivial.  Use tooltip of parent block if it exists.
-    this.setTooltip(function() {
-      var parent = thisBlock.getParent();
-      return (parent && parent.getInputsInline() && parent.tooltip) ||
-          "正規表現r1の後に正規表現r2を繋げます。";      // ポインタを合わせたときの説明文
-    });
-    this.itemCount_ = 2;
-    this.updateShape_();
-  },
-  /**
-   * このブロックを修正して、正しい数の入力を持つようにします。
-   * @private
-   * @this Blockly.Block
-   */
-  updateShape_: function() {
-        
-    if (this.itemCount_ && this.getInput('EMPTY')) {
-      this.removeInput('EMPTY');
-    } else if (!this.itemCount_ && !this.getInput('EMPTY')) {
-      /*this.appendDummyInput('EMPTY')
-          .appendField(this.newQuote_(true))
-          .appendField(this.newQuote_(false));*/
-    }
-    // Add new inputs.
-    for (var i = 0; i < this.itemCount_; i++) {
-      if (!this.getInput('ADD' + i)) {
-        var input = this.appendValueInput('ADD' + i);
-        if (i == 0) {
-          //input.appendField(Blockly.Msg.TEXT_JOIN_TITLE_CREATEWITH);
-        }
-      }
-    }
-    // Remove deleted inputs.
-    while (this.getInput('ADD' + i)) {
-      this.removeInput('ADD' + i);
-      i++;
-    }
-  }
-};
 
 Blockly.Blocks['RT_connection_or'] = {
 
