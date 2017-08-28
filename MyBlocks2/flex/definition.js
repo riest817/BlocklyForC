@@ -7,7 +7,7 @@
   を追加する。
 */
 
-Blockly.Blocks['definition1_flex'] = {
+Blockly.Blocks['declaration'] = {
   /**
    * Block for text value.
    * @this Blockly.Block
@@ -16,7 +16,7 @@ Blockly.Blocks['definition1_flex'] = {
     this.setHelpUrl("http://okumocchi.jp/php/re.php");
     this.setColour(65);
     this.appendValueInput('A')
-        .appendField("定義")
+        .appendField("宣言")
         .appendField(new Blockly.FieldTextInput(''), 'TEXT')
         .appendField("");
         //.appendValueInput('A');
@@ -49,7 +49,7 @@ Blockly.Blocks['definition1_flex'] = {
   }
 };
 
-Blockly.Blocks['definition2_flex'] = {
+Blockly.Blocks['use'] = {
   /**
    * Block for text value.
    * @this Blockly.Block
@@ -58,7 +58,7 @@ Blockly.Blocks['definition2_flex'] = {
     this.setHelpUrl("http://okumocchi.jp/php/re.php");
     this.setColour(65);
     this.appendDummyInput()
-        .appendField("定義")
+        .appendField("使用")
         .appendField(new Blockly.FieldTextInput(''), 'TEXT')
         .appendField("");
     this.setOutput(true, 'String');		// 左部との接続を可能にする

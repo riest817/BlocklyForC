@@ -11,3 +11,4 @@
 2017/08/02 flex.html flex\regular_expression.js control.js function.js 新規作成
 2017/08/03 flex\definition.js operation.js  新規作成
 2017/08/21 flex\RT_connection.js  新規作成
+2017/08/29 flex 正規表現以外は一応コード化

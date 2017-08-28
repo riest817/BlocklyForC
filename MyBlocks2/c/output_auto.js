@@ -15,7 +15,7 @@ Blockly.Blocks['output_auto'] = {
     this.appendDummyInput()
         .appendField("出力(自動)")
         .appendField(this.newQuote_(true))
-        .appendField(new Blockly.FieldTextInput('', this.validator), 'TEXT')
+        .appendField(new Blockly.FieldTextInput('%d', this.validator), 'TEXT')
         .appendField(this.newQuote_(false));
     this.setInputsInline(true);		  // インプットを内側にする
     this.setPreviousStatement(true);  // 上部との接続を可能にする
@@ -28,7 +28,7 @@ Blockly.Blocks['output_auto'] = {
       return (parent && parent.getInputsInline() && parent.tooltip) ||
           "テキストボックスの中の%の数で変数を動的に検出して出力します。";
     });
-    //this.itemCount_ = 0;
+    this.itemCount_ = 1;
     this.updateShape_();
   },
 
@@ -45,7 +45,7 @@ Blockly.Blocks['output_auto'] = {
     this.updateShape_();
   },
 
-  // ==============  追加 (06/29) ======================
+  // ==============  追加 (06/29) ===========================
   validator: function(text) {
   	//var target = this.getFieldValue('TEXT');	// 入力文字を動的に記録する
   	var target = this.getText(text);			// 入力文字を動的に記録する

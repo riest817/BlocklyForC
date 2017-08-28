@@ -1,5 +1,6 @@
 /*
 2017/08/02 regular_expression.js 新規作成
+2017/08/22 Blockly.Blocks['RT_connection_mutator'] 作成
 */
 /*
 ・myCBlocks.js に新しいブロックの定義:
@@ -258,7 +259,6 @@ Blockly.Blocks['RT_connection'] = {
     });
   }
 };
-
 
 Blockly.Blocks['RT_connection_or'] = {
 

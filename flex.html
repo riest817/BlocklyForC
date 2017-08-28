@@ -11,15 +11,13 @@
 <!--<script src="Library/blockly/flex_compressed.js"></script>-->
 <!-- -->
 <script src="MyGenerators/flex.js"></script>
-<script src="MyGenerators/flex/colour.js"></script>
-<script src="MyGenerators/flex/lists.js"></script>
-<script src="MyGenerators/flex/logic.js"></script>
-<script src="MyGenerators/flex/loops.js"></script>
-<script src="MyGenerators/flex/math.js"></script>
-<script src="MyGenerators/flex/procedures.js"></script>
-<script src="MyGenerators/flex/start.js"></script>
-<script src="MyGenerators/flex/text.js"></script>
-<script src="MyGenerators/flex/variables.js"></script>
+<script src="MyGenerators/flex/control.js"></script> 
+<script src="MyGenerators/flex/regular_expression.js"></script> 
+<script src="MyGenerators/flex/operation.js"></script> 
+<script src="MyGenerators/flex/definition.js"></script> 
+<script src="MyGenerators/flex/function.js"></script> 
+<script src="MyGenerators/flex/RT_connection.js"></script> 
+
 <!-- -->
 <script src="Library/blockly/demos/prettify.js"></script>
 <script src="Library/blockly/msg/js/ja.js"></script>
@@ -134,6 +132,7 @@
     <block type="RT_any_one"></block>
     <block type="RT_not_any_one"></block>
     <block type="RT_from_to"></block>
+    <block type="RT_from_to_auto"></block>
     <block type="RT_anything"></block>
     <block type="RT_new_line"></block>
     <block type="RT_tab"></block>
@@ -149,8 +148,8 @@
     <block type="operation"></block>
   </category>
   <category name="定義" colour="65">
-    <block type="definition1_flex"></block>
-    <block type="definition2_flex"></block>
+    <block type="declaration"></block>
+    <block type="use"></block>
   </category>
   <category name="関数" colour="290">
      <block type="yylex"></block>

@@ -17,7 +17,7 @@ Blockly.Blocks['regular_expression_connection'] = {
     this.setPreviousStatement(true);  // 上部との接続を可能にする
     this.setNextStatement(true);      // 下部との接続を可能にする
     this.appendValueInput('IF')
-        .setCheck('Boolean')
+        //.setCheck('Boolean')
         .appendField("　　　　　　　　正規表現");
     this.appendValueInput('THEN')
         .appendField("　　　　　　　　　　　　　のとき");

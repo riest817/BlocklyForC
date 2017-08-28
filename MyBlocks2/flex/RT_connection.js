@@ -178,3 +178,150 @@ Blockly.Blocks['RT_connection_join_item'] = {
 
   }
 };
+
+Blockly.Blocks['RT_connection_auto'] = {
+
+  init: function() {
+    this.setHelpUrl("http://okumocchi.jp/php/re.php");
+    this.setColour(500);
+    this.appendDummyInput()
+        .appendField();
+    this.setOutput(true, 'String');   // 左部との接続を可能にする
+    //this.setPreviousStatement(true);  // 上部との接続を可能にする
+    //this.setNextStatement(true);      // 下部との接続を可能にする
+    //this.appendValueInput('A');
+    //this.appendValueInput('B');
+    this.setInputsInline(true);     // ソケットを内側にする
+    // Assign 'this' to a variable for use in the tooltip closure below.
+    var thisBlock = this;
+    // Text block is trivial.  Use tooltip of parent block if it exists.
+    this.setTooltip(function() {
+      var parent = thisBlock.getParent();
+      return (parent && parent.getInputsInline() && parent.tooltip) ||
+          "正規表現r1の後に正規表現r2を繋げます。";      // ポインタを合わせたときの説明文
+    });
+    this.itemCount_ = 2;
+    this.updateShape_();
+  },
+  /**
+   * このブロックを修正して、正しい数の入力を持つようにします。
+   * @private
+   * @this Blockly.Block
+   */
+  updateShape_: function() {
+        
+    if (this.itemCount_ && this.getInput('EMPTY')) {
+      this.removeInput('EMPTY');
+    } else if (!this.itemCount_ && !this.getInput('EMPTY')) {
+      /*this.appendDummyInput('EMPTY')
+          .appendField(this.newQuote_(true))
+          .appendField(this.newQuote_(false));*/
+    }
+    // Add new inputs.  値ブロックを挿入するソケットを作成する
+    for (var i = 0; i < this.itemCount_; i++) {
+      if (!this.getInput('ADD' + i)) {
+        var input = this.appendValueInput('ADD' + i);
+        if (i == 0) {
+          //input.appendField(Blockly.Msg.TEXT_JOIN_TITLE_CREATEWITH);
+        }
+      }
+    }
+    // Remove deleted inputs.
+    
+    while (this.getInput('ADD' + i)) {
+      this.removeInput('ADD' + i);
+      i++;
+    }
+
+  }
+};
+
+Blockly.Blocks['RT_from_to_auto'] = {
+  /**
+   * Block for text value.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl("http://okumocchi.jp/php/re.php");
+    this.setColour(500);
+    this.appendDummyInput()
+        .appendField("\[")
+        .appendField(new Blockly.FieldTextInput('', this.validator), 'TEXT')
+        .appendField("-")
+        .appendField(new Blockly.FieldTextInput('', this.validator), 'TEXT')
+        .appendField("\]");
+    this.setOutput(true, 'String');   // 左部との接続を可能にする
+    //this.setPreviousStatement(true);  // 上部との接続を可能にする
+    //this.setNextStatement(true);      // 下部との接続を可能にする
+    // Assign 'this' to a variable for use in the tooltip closure below.
+    var thisBlock = this;
+    // Text block is trivial.  Use tooltip of parent block if it exists.
+    this.setTooltip(function() {
+      var parent = thisBlock.getParent();
+      return (parent && parent.getInputsInline() && parent.tooltip) ||
+          "左の文字から右の文字の範囲の任意の文字を表します。";      // ポインタを合わせたときの説明文
+    });
+    this.itemCount_ = 1;
+    this.updateShape_();
+  },
+
+  // ==============  追加 (08/22) ===========================
+  validator: function(text) {
+  	//var target = this.getFieldValue('TEXT');	// 入力文字を動的に記録する
+  	var target = this.getText(text);			// 入力文字を動的に記録する
+  	var counter = function(str,seq){
+    	return str.split(seq).length - 1;
+		}
+    this.sourceBlock_.itemCount_ = counter(target,"%");
+    console.log(target);				// コンソール出力
+    //this.updateShape_();
+    this.sourceBlock_.updateShape_();
+  },
+
+
+  /**
+   * このブロックを修正して、正しい数の入力を持つようにします。
+   * @private
+   * @this Blockly.Block
+   */
+  updateShape_: function() {
+  	    
+    if (this.itemCount_ && this.getInput('EMPTY')) {
+      this.removeInput('EMPTY');
+    } else if (!this.itemCount_ && !this.getInput('EMPTY')) {
+      /*this.appendDummyInput('EMPTY')
+          .appendField(this.newQuote_(true))
+          .appendField(this.newQuote_(false));*/
+    }
+    // Add new inputs.
+    for (var i = 0; i < this.itemCount_; i++) {
+      if (!this.getInput('ADD' + i)) {
+        //var input = this.appendValueInput('ADD' + i);
+        if (i == 0) {
+          //input.appendField(Blockly.Msg.TEXT_JOIN_TITLE_CREATEWITH);
+        }
+      }
+    }
+    // Remove deleted inputs.
+    while (this.getInput('ADD' + i)) {
+      this.removeInput('ADD' + i);
+      i++;
+    }
+  },
+  // ==============  追加ここまで (08/22) ======================
+  /**
+   * Create an image of an open or closed quote.
+   * @param {boolean} open True if open quote, false if closed.
+   * @return {!Blockly.FieldImage} The field image of the quote.
+   * @this Blockly.Block
+   * @private
+   */
+  newQuote_: function(open) {
+    if (open == this.RTL) {
+      var file = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAKCAQAAAAqJXdxAAAAqUlEQVQI1z3KvUpCcRiA8ef9E4JNHhI0aFEacm1o0BsI0Slx8wa8gLauoDnoBhq7DcfWhggONDmJJgqCPA7neJ7p934EOOKOnM8Q7PDElo/4x4lFb2DmuUjcUzS3URnGib9qaPNbuXvBO3sGPHJDRG6fGVdMSeWDP2q99FQdFrz26Gu5Tq7dFMzUvbXy8KXeAj57cOklgA+u1B5AoslLtGIHQMaCVnwDnADZIFIrXsoXrgAAAABJRU5ErkJggg==';
+    } else {
+      var file = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAKCAQAAAAqJXdxAAAAn0lEQVQI1z3OMa5BURSF4f/cQhAKjUQhuQmFNwGJEUi0RKN5rU7FHKhpjEH3TEMtkdBSCY1EIv8r7nFX9e29V7EBAOvu7RPjwmWGH/VuF8CyN9/OAdvqIXYLvtRaNjx9mMTDyo+NjAN1HNcl9ZQ5oQMM3dgDUqDo1l8DzvwmtZN7mnD+PkmLa+4mhrxVA9fRowBWmVBhFy5gYEjKMfz9AylsaRRgGzvZAAAAAElFTkSuQmCC';
+    }
+    return new Blockly.FieldImage(file, 12, 12, '"');
+  }
+};
