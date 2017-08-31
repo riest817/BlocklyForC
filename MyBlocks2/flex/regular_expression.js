@@ -1,6 +1,6 @@
 /*
 2017/08/02 regular_expression.js 新規作成
-2017/08/22 Blockly.Blocks['RT_connection_mutator'] 作成
+2017/08/22 Blockly.Blocks['RE_connection_mutator'] 作成
 */
 /*
 ・myCBlocks.js に新しいブロックの定義:
@@ -8,7 +8,7 @@
   を追加する。
 */
 
-Blockly.Blocks['RT_text'] = {
+Blockly.Blocks['RE_text'] = {
   /**
    * Block for text value.
    * @this Blockly.Block
@@ -49,7 +49,7 @@ Blockly.Blocks['RT_text'] = {
   }
 };
 
-Blockly.Blocks['RT_any_one'] = {
+Blockly.Blocks['RE_any_one'] = {
   /**
    * Block for text value.
    * @this Blockly.Block
@@ -90,7 +90,7 @@ Blockly.Blocks['RT_any_one'] = {
   }
 };
 
-Blockly.Blocks['RT_not_any_one'] = {
+Blockly.Blocks['RE_not_any_one'] = {
   /**
    * Block for text value.
    * @this Blockly.Block
@@ -131,7 +131,7 @@ Blockly.Blocks['RT_not_any_one'] = {
   }
 };
 
-Blockly.Blocks['RT_from_to'] = {
+Blockly.Blocks['RE_from_to'] = {
   /**
    * Block for text value.
    * @this Blockly.Block
@@ -141,9 +141,9 @@ Blockly.Blocks['RT_from_to'] = {
     this.setColour(0);
     this.appendDummyInput()
         .appendField("\[")
-        .appendField(new Blockly.FieldTextInput(''), 'TEXT')
+        .appendField(new Blockly.FieldTextInput(''), 'FROM')
         .appendField("-")
-        .appendField(new Blockly.FieldTextInput(''), 'TEXT')
+        .appendField(new Blockly.FieldTextInput(''), 'TO')
         .appendField("\]");
     this.setOutput(true, 'String');		// 左部との接続を可能にする
     //this.setPreviousStatement(true);  // 上部との接続を可能にする
@@ -174,7 +174,7 @@ Blockly.Blocks['RT_from_to'] = {
   }
 };
 
-Blockly.Blocks['RT_anything'] = {
+Blockly.Blocks['RE_anything'] = {
 
   init: function() {
     this.setHelpUrl("http://okumocchi.jp/php/re.php");
@@ -195,7 +195,7 @@ Blockly.Blocks['RT_anything'] = {
   }
 };
 
-Blockly.Blocks['RT_new_line'] = {
+Blockly.Blocks['RE_new_line'] = {
 
   init: function() {
     this.setHelpUrl("http://okumocchi.jp/php/re.php");
@@ -216,7 +216,7 @@ Blockly.Blocks['RT_new_line'] = {
   }
 };
 
-Blockly.Blocks['RT_tab'] = {
+Blockly.Blocks['RE_tab'] = {
 
   init: function() {
     this.setHelpUrl("http://okumocchi.jp/php/re.php");
@@ -237,7 +237,7 @@ Blockly.Blocks['RT_tab'] = {
   }
 };
 
-Blockly.Blocks['RT_connection'] = {
+Blockly.Blocks['RE_connection'] = {
 
   init: function() {
     this.setHelpUrl("http://okumocchi.jp/php/re.php");
@@ -260,7 +260,7 @@ Blockly.Blocks['RT_connection'] = {
   }
 };
 
-Blockly.Blocks['RT_connection_or'] = {
+Blockly.Blocks['RE_connection_or'] = {
 
   init: function() {
     this.setHelpUrl("http://okumocchi.jp/php/re.php");
@@ -285,14 +285,14 @@ Blockly.Blocks['RT_connection_or'] = {
   }
 };
 
-Blockly.Blocks['RT_repetition'] = {
+Blockly.Blocks['RE_repetition'] = {
 
   init: function() {
     this.setHelpUrl("http://okumocchi.jp/php/re.php");
     this.setColour(0);
     this.appendValueInput('A');
     this.appendDummyInput()
-    	.appendField(new Blockly.FieldDropdown([["*", "*"], ["+", "+"]]), "TYPE")
+    	  .appendField(new Blockly.FieldDropdown([["*", "*"], ["+", "+"]]), "TYPE")
         .appendField(" ");
     this.setOutput(true, 'String');		// 左部との接続を可能にする
     //this.setPreviousStatement(true);  // 上部との接続を可能にする
@@ -309,7 +309,7 @@ Blockly.Blocks['RT_repetition'] = {
   }
 };
 
-Blockly.Blocks['RT_minimum_match'] = {
+Blockly.Blocks['RE_minimum_match'] = {
 
   init: function() {
     this.setHelpUrl("http://okumocchi.jp/php/re.php");
