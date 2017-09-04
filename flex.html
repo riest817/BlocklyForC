@@ -17,6 +17,7 @@
 <script src="MyGenerators/flex/definition.js"></script> 
 <script src="MyGenerators/flex/function.js"></script> 
 <script src="MyGenerators/flex/RE_mutator.js"></script> 
+<script src="MyGenerators/flex/output.js"></script> 
 
 <!-- -->
 <script src="Library/blockly/demos/prettify.js"></script>
@@ -35,6 +36,7 @@
 <script src="MyBlocks2/flex/definition.js"></script> 
 <script src="MyBlocks2/flex/function.js"></script> 
 <script src="MyBlocks2/flex/RE_mutator.js"></script> 
+<script src="MyBlocks2/flex/output.js"></script> 
 
 
 <link rel="stylesheet"
@@ -128,6 +130,7 @@
     <block type="first_flex"></block>
   </category>
   <category name="正規表現" colour="0">
+    <block type="RE_text0"></block>
     <block type="RE_text"></block>
     <block type="RE_any_one"></block>
     <block type="RE_not_any_one"></block>
@@ -153,7 +156,13 @@
     <block type="use"></block>
   </category>
   <category name="関数" colour="290">
-     <block type="yylex"></block>
+    <block type="yylex"></block>
+  </category>
+  <category name="出力" colour="100">
+    <block type="printf"></block>
+    <block type="putchar"></block>
+    <block type="output_dropdown"></block>
+    <block type="echo"></block>
   </category>
   
   <sep></sep>

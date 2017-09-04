@@ -8,6 +8,12 @@ goog.provide('Blockly.Flex.regular_expression');
 goog.require('Blockly.Flex');
 
 
+Blockly.Flex['RE_text0'] = function(block) {
+
+  var code = block.getFieldValue('TEXT');
+  return code;
+};
+
 Blockly.Flex['RE_text'] = function(block) {
 
   var text = block.getFieldValue('TEXT');
