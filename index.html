@@ -1,94 +1,157 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://http://ymir.eng.kagawa-u.ac.jp/~sano/" xml:lang="ja" lang="ja">
+<!--
+2017/09/05 index.html 作成開始
+-->
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="Content-Style-Type" content="text/css" />
-<meta http-equiv="Content-Script-Type" content="text/javascript" />
-<meta http-equiv="imagetoolbar" content="no" />
-<meta name="description" content="" />
-<meta name="keywords" content="" />
-<link rel="stylesheet" href="css/common.css" type="text/css" />
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/common.js"></script>
-<script type="text/javascript">
-$(function() {
-    $('#slide').slideshow({
-        autoSlide    : true,
-        effect       : 'fade',
-        type         : 'repeat',
-        interval     : 3000,
-        duration     : 1000,
-        imgHoverStop : true,
-        navHoverStop : true
-    });
-    $(window).load(function() {
-        $(".topNaviColumn").uniformHeight();
-    });
-});
-</script>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Blockly Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Blocklyのデモを行います。">
+<meta name="keywords" content="Blockly Demo">
+<link rel="stylesheet" href="css/style.css">
+<script type="text/javascript" src="js/openclose.js"></script>
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
 </head>
+
 <body>
 
-<div id="container">
-    <div id="header">
-        <h1><img src="images/logo3.PNG" alt="Blockly" />demo</h1>
-        <h6>香川研究室　佐野</h6>
-        <div id="menu">
-            <ul><p><b>　　　　　　　　　　　　　　　　↓各言語のシステムはこちらから行えます↓　　　　　　　　　　　　</b></p>
-                <li class="home active"><a href="index.html">ホーム</a></li>
-                <li><a href="c.html">【C】</a></li>
-                <li><a href="javascript.html">【JavaScript】</a></li>
-                <li><a href="haskell.html">【Haskell】</a></li>
-                <li><a href="flex.html">【flex】</a></li>
-            </ul>
-        </div><!-- /#menu -->
-    </div><!-- /#header -->
-    <div id="slide" >
-        <ul class="slideInner" align="center">
-            <li><img src="images/1.jpg" alt="" width="940" height="300" /></li>
-            <li><img src="images/2.png" alt="" width="800" height="300" /></li>
-            <li><img src="images/3.jpg" alt="" width="940" height="300" /></li>
-            
-        </ul>
-         <div class="slidePrev"><img src="images/nav_prev.png" alt="前へ"></div>
-         <div class="slideNext"><img src="images/nav_next.png" alt="次へ"></div>
-         <div class="controlNav"></div>
-    </div><!-- /#slide -->
-    <div id="contents">
-    <div class="topNavi">
-        <div id="conL">
-            <div class="information">
-                <h2>更新履歴</h2>
-                <dl>
-                    <dt>2017-07-26</dt>
-                    <dd>
-                    デモページを作成しました。</a>
-                    </dd>
-                </dl>
-            </div><!-- /.information -->
-        </div><!-- /.conL -->
-        <div id="conR">
-            <div class="submenu">
-                <h2>リンク</h2>
-                <ul>
-                　　<li><a href="http://ymir.eng.kagawa-u.ac.jp/">香川研究室</a></li>
-                    <li><a href="https://developers.google.com/blockly/">Google Developers</a></li>
-                </ul>
-            </div><!-- /.submenu -->
-        </div><!-- /.conR -->
+<header>
+<div class="inner">
+<h1 id="logo"><a href="index.html"><img src="images/logo4.PNG" alt="Blockly Demo"></a></h1>
+<div id="contact">
+<p class="tel">香川研究室<span>B4 佐野</span></p>
+</div>
+</div>
+</header>
 
-    </div><!-- /#contents -->
-<div id="footer">
-        <div class="copyright">Copyright &copy; 2017 Kagawa Lab. and Yuya SANO. All Rights Reserved.</div>
-    </div><!-- /#footer -->
-</div><!-- /#container -->
-<div id="pageTop">
-    <a href="index.html">ホーム</a><br>
-        <li><a href="c.html">【C】</a></li>
-        <li><a href="javascript.html">【JavaScript】</a></li>
-        <li><a href="haskell.html">【Haskell】</a></li>
-    <a href="#">ページのトップへ戻る</a>
-</div><!-- /#pageTop -->
+<!--PC用（801px以上端末）メニュー-->
+<nav id="menubar">
+<ul class="inner">
+<li class="current"><a href="index.html">Home</a></li>
+<li><a href="html/link.html">Link</a></li>
+<li><a href="html/form.html">Contact</a></li>
+</ul>
+</nav>
+<!--小さな端末用（800px以下端末）メニュー-->
+<nav id="menubar-s">
+<ul>
+<li class="current"><a href="index.html">Home</a></li>
+<li><a href="html/link.html">Link</a></li>
+<li><a href="html/form.html">Contact</a></li>
+</ul>
+</nav>
+
+<div class="contents">
+<div class="inner">
+
+<section id="new">
+<h2 id="newinfo_hdr" class="close">更新情報・お知らせ<span>What's New</span></h2>
+<dl id="newinfo">
+<dt>2017/07/26</dt>
+<dd>デモページを公開しました。</dd>
+<dt>2017/09/00</dt>
+<dd>デモページをリニューアルしました。<span class="newicon">NEW</span>
+<br>＊お問い合わせフォーム未完成</dd>
+</dl>
+</section>
+
+<section>
+
+<h2>デモページ一覧<span>Demo page list</span></h2>
+
+<div class="list">
+<a href="c.html">
+<img src="images/c.png" alt="" class="img">
+<div class="text">
+<h4>Blockly for C</h4>
+<p>任意で組み立てたブロックをC言語ソースコードに変換します。ブロックは、C言語専用に用意されています。</p>
+</div>
+</a>
+</div>
+
+<div class="list">
+<a href="javascript.html">
+<img src="images/js.png" alt="" class="img">
+<div class="text">
+<h4>Blockly for JavaScript</h4>
+<p>任意で組み立てたブロックをJavaScript言語ソースコードに変換します。ブロックは、JavaScript言語専用に用意されています。</p>
+</div>
+</a>
+</div>
+
+<div class="list">
+<a href="haskell.html">
+<img src="images/haskell.svg" alt="" class="img">
+<div class="text">
+<h4>Blockly for Haskell</h4>
+<p>任意で組み立てたブロックをHaskell言語ソースコードに変換します。ブロックは、Haskell言語専用に用意されています。</p>
+</div>
+</a>
+</div>
+
+<div class="list">
+<a href="flex.html">
+<img src="images/flex.png" alt="" class="img">
+<div class="text">
+<h4>Blockly for Flex</h4>
+<p>任意で組み立てたブロックをFlex言語ソースコードに変換します。ブロックは、Flex言語専用に用意されています。</p>
+</div>
+</a>
+</div>
+
+<h2>システム概要<span>System overview</span></h2>
+
+<div class="list c1">
+<a href="https://techacademy.jp/magazine/1812">
+<img src="images/google-blockly.jpg" alt="" class="img">
+<div class="text">
+<h4>Google Blocklyとは</h4>
+<!--p>&lt;div class=&quot;list&quot;&gt;を&lt;div class=&quot;list c1&quot;&gt;にすると１カラムになります。</p!-->
+<p>
+Googleが提供するビジュアルプログラミング言語で、パズルのようにブロックを組み合わせることで、プログラムを作ることができることできます。<br>
+Scratchなど他のビジュアルプログラミング言語と同じく、命令文やコマンド名の英単語を覚えたり、打ち込んだりする必要がなく、マウスの操作だけで作ることができます。<br>
+ブロックもカラフルなため、子どもが使ってもレゴブロックで遊んでいるような感覚で学習できます。
+</p>
+</div>
+</a>
+</div>
+
+</section>
+
+</div>
+<!--/inner-->
+</div>
+<!--/contents-->
+
+<p id="pagetop" class="inner"><a href="#">↑</a></p>
+
+<footer>
+
+<div id="copyright">
+<small>Copyright&copy; @2017 <a href="http://ymir.eng.kagawa-u.ac.jp/">Kagawa Lab.</a> and Yuya SANO. All Rights Reserved.</small>
+</div>
+
+</footer>
+
+<!--スマホ用更新情報　800px以下-->
+<script type="text/javascript">
+if (OCwindowWidth() <= 800) {
+	open_close("newinfo_hdr", "newinfo");
+}
+</script>
+
+<!--メニューの３本バー-->
+<div id="menubar_hdr" class="close"><span></span><span></span><span></span></div>
+<!--メニューの開閉処理条件設定　800px以下-->
+<script type="text/javascript">
+if (OCwindowWidth() <= 800) {
+	open_close("menubar_hdr", "menubar-s");
+}
+</script>
 </body>
 </html>
