@@ -1,43 +1,43 @@
 <!--
-2017/08/02 flex.html を新規作成
+2017/10/05 programming2017.html を新規作成
 -->
+
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Blockly for Flex</title>
+<title>Blockly for プログラミング2017</title>
 <link rel="shortcut icon" href="favicon.png" type="image/png"/>
 <script src="Library/blockly/blockly_compressed.js"></script>
 <script src="Library/blockly/blocks_compressed.js"></script>
-<!--<script src="Library/blockly/flex_compressed.js"></script>-->
 <!-- -->
-<script src="MyGenerators/flex.js"></script>
-<script src="MyGenerators/flex/control.js"></script> 
-<script src="MyGenerators/flex/regular_expression.js"></script> 
-<script src="MyGenerators/flex/operation.js"></script> 
-<script src="MyGenerators/flex/definition.js"></script> 
-<script src="MyGenerators/flex/function.js"></script> 
-<script src="MyGenerators/flex/RE_mutator.js"></script> 
-<script src="MyGenerators/flex/output.js"></script> 
-
+<script src="MyGenerators/c.js"></script>
+<script src="MyGenerators/c/colour.js"></script>
+<script src="MyGenerators/c/lists.js"></script>
+<script src="MyGenerators/c/logic.js"></script>
+<script src="MyGenerators/c/loops.js"></script>
+<script src="MyGenerators/c/math.js"></script>
+<script src="MyGenerators/c/procedures.js"></script>
+<script src="MyGenerators/c/start.js"></script>
+<script src="MyGenerators/c/text.js"></script>
+<script src="MyGenerators/c/variables.js"></script>
 <!-- -->
 <script src="Library/blockly/demos/prettify.js"></script>
 <script src="Library/blockly/msg/js/ja.js"></script>
 <script src="Library/blockly/appengine/storage.js"></script>
 <link rel="stylesheet" type="text/css"
       href="Library/blockly/demos/prettify.css">
-<!-- <script src="myFlexBlocks.js"></script> -->
+
 <script src="Library/jquery-2.2.4.min.js"></script>
 <script src="Library/jquery.query.js"></script>
 <script src="Library/intro.js"></script>
 <!-- 追加 -->
-<script src="MyBlocks2/flex/control.js"></script> 
-<script src="MyBlocks2/flex/regular_expression.js"></script> 
-<script src="MyBlocks2/flex/operation.js"></script> 
-<script src="MyBlocks2/flex/definition.js"></script> 
-<script src="MyBlocks2/flex/function.js"></script> 
-<script src="MyBlocks2/flex/RE_mutator.js"></script> 
-<script src="MyBlocks2/flex/output.js"></script> 
-
+<script src="MyBlocks2/c/output.js"></script> 
+<script src="MyBlocks2/c/output_auto.js"></script>  
+<script src="MyBlocks2/c/input.js"></script>
+<script src="MyBlocks2/c/switch.js"></script> 
+<script src="MyBlocks2/c/variables_c.js"></script> 
+<script src="MyBlocks2/c/math.js"></script> 
+<script src="MyBlocks2/c/header.js"></script> 
 
 <link rel="stylesheet"
       href="Library/introjs.css"/>
@@ -133,57 +133,286 @@
 </head>
 <body>
 <xml id="toolbox" style="display: none">
-  <category name="制御" colour="170">
-    <block type="first_flex"></block>
+  <!--category name="論理" colour="210">
+    <block type="controls_if"></block>
+    <block type="logic_compare"></block>
+    <block type="logic_operation"></block>
+    <block type="logic_negate"></block>
+    <block type="logic_boolean"></block>
+    <block type="logic_null"></block>
+    <block type="logic_ternary"></block>
   </category>
-  <category name="正規表現" colour="0">
-    <block type="RE_text0"></block>
-    <block type="RE_text"></block>
-    <block type="RE_any_one"></block>
-    <block type="RE_not_any_one"></block>
-    <block type="RE_from_to"></block>
-    <block type="RE_from_to_auto"></block>
-    <block type="RE_from_to_mutator"></block>
-    <block type="RE_anything"></block>
-    <block type="RE_new_line"></block>
-    <block type="RE_tab"></block>
-    <block type="RE_connection"></block>
-    <block type="RE_connection_auto"></block>
-    <block type="RE_connection_mutator"></block>
-    <block type="RE_connection_or"></block>
-    <block type="RE_repetition"></block>
-    <block type="RE_minimum_match"></block>
+  <category name="繰り返し" colour="120">
+    <block type="controls_repeat_ext">
+      <value name="TIMES">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="controls_whileUntil"></block>
+    <block type="controls_for">
+      <value name="FROM">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="TO">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+      <value name="BY">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="controls_flow_statements"></block>
   </category>
-  <category name="動作" colour="210">
-    <block type="regular_expression_connection"></block>
-    <block type="operation"></block>
+  <category name="数" colour="230">
+    <block type="math_number"></block>
+    <block type="var_arithmetic"></block>     
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">9</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_trig">
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">45</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_constant"></block>
+    <block type="math_number_property">
+      <value name="NUMBER_TO_CHECK">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_change">
+      <value name="DELTA">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_round">
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">3.1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_modulo">
+      <value name="DIVIDEND">
+        <shadow type="math_number">
+          <field name="NUM">64</field>
+        </shadow>
+      </value>
+      <value name="DIVISOR">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+    </block>
   </category>
-  <category name="定義" colour="65">
-    <block type="declaration"></block>
-    <block type="use"></block>
+  <category name="文字列" colour="160">
+    <block type="text"></block>
+    <block type="text_join"></block>
+    <block type="text_append">
+      <value name="TEXT">
+        <shadow type="text"></shadow>
+      </value>
+    </block>
+    <block type="text_length">
+      <value name="VALUE">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_isEmpty">
+      <value name="VALUE">
+        <shadow type="text">
+          <field name="TEXT"></field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_indexOf">
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR">{textVariable}</field>
+        </block>
+      </value>
+      <value name="FIND">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_charAt">
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR">{textVariable}</field>
+        </block>
+      </value>
+    </block>
+    <block type="text_getSubstring">
+      <value name="STRING">
+        <block type="variables_get">
+          <field name="VAR">{textVariable}</field>
+        </block>
+      </value>
+    </block>
+    <block type="text_changeCase">
+      <value name="TEXT">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_trim">
+      <value name="TEXT">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_print">
+      <value name="TEXT">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_prompt_ext">
+      <value name="TEXT">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
   </category>
-  <category name="関数" colour="290">
-    <block type="yylex"></block>
+  <category name="リスト" colour="260">
+    <block type="lists_create_with">
+      <mutation items="0"></mutation>
+    </block>
+    <block type="lists_create_with"></block>
+    <block type="lists_repeat">
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">5</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="lists_length"></block>
+    <block type="lists_isEmpty"></block>
+    <block type="lists_indexOf">
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR">{listVariable}</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_getIndex">
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR">{listVariable}</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_setIndex">
+      <value name="LIST">
+        <block type="variables_get">
+          <field name="VAR">{listVariable}</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_getSublist">
+      <value name="LIST">
+        <block type="variables_get">
+          <field name="VAR">{listVariable}</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_split">
+      <value name="DELIM">
+        <shadow type="text">
+          <field name="TEXT">,</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="lists_sort"></block>
   </category>
-  <category name="出力" colour="100">
-    <block type="printf"></block>
-    <block type="putchar"></block>
-    <block type="output_dropdown"></block>
-    <block type="echo"></block>
+  <category name="色" colour="20">
+    <block type="colour_picker"></block>
+    <block type="colour_random"></block>
+    <block type="colour_rgb">
+      <value name="RED">
+        <shadow type="math_number">
+          <field name="NUM">100</field>
+        </shadow>
+      </value>
+      <value name="GREEN">
+        <shadow type="math_number">
+          <field name="NUM">50</field>
+        </shadow>
+      </value>
+      <value name="BLUE">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="colour_blend">
+      <value name="COLOUR1">
+        <shadow type="colour_picker">
+          <field name="COLOUR">#ff0000</field>
+        </shadow>
+      </value>
+      <value name="COLOUR2">
+        <shadow type="colour_picker">
+          <field name="COLOUR">#3333ff</field>
+        </shadow>
+      </value>
+      <value name="RATIO">
+        <shadow type="math_number">
+          <field name="NUM">0.5</field>
+        </shadow>
+      </value>
+    </block>
   </category>
-  <sep></sep>
-  <sep></sep>
-  <category name="自作" colour="500">
-    <block type="RE_from_to2"></block>
-    <block type="RE_from_to3"></block>
-  </category>
-  
-  <sep></sep>
-  <sep></sep>
+  <sep></sep-->
+  <category name="変数" colour="330" custom="VARIABLE"></category>
 
+  <category name="関数" colour="290" custom="PROCEDURE"></category>
+  <sep></sep>
+  <category name="ヘッダ" colour="60">
+    <block type="header_container_c"></block>
+    <block type="include_stdio_c"></block>
+  </category>
+  <sep></sep>
+  <sep></sep>
+  <category name="出力" colour="0">
+  	<block type="output_dropdown"></block>
+  	<block type="output_mutator"></block>
+  	<block type="output_text"></block>
+  	<!--block type="output_text_join"></block-->
+  	<block type="output_auto"></block>
+  	<block type="input_dropdown"></block>
+  	<block type="input_mutator"></block>
+  	<block type="switch"></block>
+    <block type="variables_new_c"></block>
+  </category>
 </xml>
 
-<xml id="startBlocks" style="display: none;">
+<xml id="startBlocks" style="display: none;"> <!--blockの初期状態-->
+
 </xml>
 
 <table>
@@ -193,9 +422,9 @@
           <tr id="tabRow" height="1em">
             <td id="tabBlocks" class="tabon" style="white-space:nowrap;" data-step="1" data-intro="このタブをクリックして、編集をはじめます。">ブロック</td>
             <td class="tabmin">&nbsp;</td>
-            <td id="tabFlex" class="taboff" style="white-space:nowrap;" data-step="2" data-intro="このタブをクリックして、ソースコードを表示します。>Flex</td>
+            <td id="tabC" class="taboff" style="white-space:nowrap;" data-step="2" data-intro="このタブをクリックして、ソースコードを表示します。>C</td>
             <td class="tabmin">&nbsp;</td>
-            <td id="tabXml" class="taboff" style="font-family:'Segoe UI Emoji'; white-space:nowrap;" data-step="3" data-intro="このタブをクリックして、XMLコードを表示します。>XML</td>
+            <td id="tabXml" class="taboff" style="font-family:'Segoe UI Emoji'; white-space:nowrap;" data-step="3" data-intro="このタブをクリックして、XMLコードを表示します。">XML</td>
             <td class="tabmax">
               <a href="#" id="intro" title="ヘルプ" class="button_like">&#x2753;</a>
               <a href="#" id="openButton" title="読込み" class="button_like" data-step="5"
@@ -216,17 +445,17 @@
 </tr>
 </table>
 <div id="contentBlock" style="position: absolute;"></div>
-<pre id="contentFlex" class="content"></pre>
+<pre id="contentC" class="content"></pre>
 <textarea id="contentXml" class="content" wrap="off"></textarea>
 <script>
-var tabs = ["Blocks", "Flex", "Xml"];
+var tabs = ["Blocks", "C", "Xml"];
 var selected = tabs[0];
 var draw;
 var workspace = null;
 
 function onResize() {
     var area = $("#blocklyArea");
-    var divs = [ $("#contentBlock"), $("#contentFlex"), $("#contentXml") ];
+    var divs = [ $("#contentBlock"), $("#contentC"), $("#contentXml") ];
 
     var width = area.width();
     var height = area.height();
@@ -247,9 +476,9 @@ function renderContent(clickedName) {
     var xmlDom  = Blockly.Xml.workspaceToDom(workspace);
     var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
     content.val(xmlText);
-  } else if (clickedName == "Flex") {
-    console.log("Flex", workspace.getTopBlocks(!0)[0]);
-    var code = Blockly.Flex.workspaceToCode(workspace);
+  } else if (clickedName == "C") {
+    console.log("C", workspace.getTopBlocks(!0)[0]);
+    var code = Blockly.C.workspaceToCode(workspace);
     console.log(code);
     content.html(code);
 

@@ -6,7 +6,7 @@
 
 Blockly.Blocks['input_dropdown'] = {
   init: function() {
-    this.setColour(1000);
+    this.setColour(0);
     this.jsonInit({ "message0": "入力" });
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown([["int", "int"], ["double", "double"], ["char", "char"], ["char*", "char*"]]), "TYPE")
@@ -31,7 +31,7 @@ Blockly.Blocks['input_dropdown'] = {
 
 Blockly.Blocks['input_mutator'] = {
   init: function() {
-    this.setColour(1000);
+    this.setColour(0);
     this.jsonInit({ "message0": "入力" });
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown([["int", "int"], ["double", "double"], ["char", "char"], ["char*", "char*"]]), "TYPE")
@@ -171,7 +171,7 @@ Blockly.Blocks['input_create_join_container'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(1000);
+    this.setColour(0);
     this.appendDummyInput()
         .appendField("結合");
     this.appendStatementInput('STACK');
@@ -186,7 +186,7 @@ Blockly.Blocks['input_create_join_item'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(1000);
+    this.setColour(0);
     this.appendDummyInput()
         .appendField("項目");
     this.setPreviousStatement(true);

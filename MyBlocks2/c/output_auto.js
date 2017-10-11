@@ -11,7 +11,7 @@ Blockly.Blocks['output_auto'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
-    this.setColour(1000);
+    this.setColour(0);
     this.appendDummyInput()
         .appendField("出力(自動)")
         .appendField(this.newQuote_(true))

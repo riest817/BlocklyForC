@@ -113,6 +113,13 @@
       border-color: #aaaacc #444466 #444466 #aaaacc;
     }
 </style>
+  <form>
+    <div id="variable_input_text" data-step="4" data-intro="このボタンをクリックして、サンプルブロックを組み立てます。">
+      <input type="button" value="サンプル1" class = "sample" id = "sample1" style="font-size: 0.8em;" />
+      <input type="button" value="サンプル2" class = "sample" id = "sample2" style="font-size: 0.8em;" />
+      <input type="button" value="サンプル3" class = "sample" id = "sample3" style="font-size: 0.8em;" /></br>
+    </div>
+  </form>
 </head>
 <body>
 <xml id="toolbox" style="display: none">
@@ -124,8 +131,6 @@
     <block type="logic_boolean"></block>
     <block type="logic_null"></block>
     <block type="logic_ternary"></block>
-    <block type="quiz_variable2"></block>
-    <block type="printf_join"></block>
   </category>
   <category name="繰り返し" colour="120">
     <block type="controls_repeat_ext">
@@ -420,19 +425,7 @@
   <category name="変数" colour="330" custom="VARIABLE"></category>
   <category name="関数" colour="290" custom="PROCEDURE"></category>
   <sep></sep>
-  <category name="ヘッダ" colour="60"></category>
   <sep></sep>
-  <sep></sep>
-  <category name="自作" colour="1000">
-    <block type="output_dropdown"></block>
-    <block type="output_mutator"></block>
-    <block type="output_text"></block>
-    <!--block type="output_text_join"></block-->
-    <block type="output_auto"></block>
-    <block type="input_dropdown"></block>
-    <block type="input_mutator"></block>
-    <block type="switch"></block>
-  </category>
 </xml>
 
 <xml id="startBlocks" style="display: none;">
@@ -445,15 +438,15 @@
           <tr id="tabRow" height="1em">
             <td id="tabBlocks" class="tabon" style="white-space:nowrap;" data-step="1" data-intro="このタブをクリックして、編集をはじめます。">ブロック</td>
             <td class="tabmin">&nbsp;</td>
-            <td id="tabJavaScript" class="taboff" style="white-space:nowrap;">JavaScript</td>
+            <td id="tabJavaScript" class="taboff" style="white-space:nowrap;" data-step="2" data-intro="このタブをクリックして、ソースコードを表示します。">JavaScript</td>
             <td class="tabmin">&nbsp;</td>
-            <td id="tabXml" class="taboff" style="font-family:'Segoe UI Emoji'; white-space:nowrap;">XML</td>
+            <td id="tabXml" class="taboff" style="font-family:'Segoe UI Emoji'; white-space:nowrap;" data-step="3" data-intro="このタブをクリックして、XMLコードを表示します。>XML</td>
             <td class="tabmax">
               <a href="#" id="intro" title="ヘルプ" class="button_like">&#x2753;</a>
               <a href="#" id="openButton" title="読込み" class="button_like" data-step="5"
                           data-intro="保存したプログラムを読み込みます。">&#x1f4c2;</a>
               <input type="file" id="openButtonAux" name="openButtonAux"  style="display:none;" />
-              <a href="#" id="saveButton" download="blocks.xml" title="保存" class="button_like" data-step="4"
+              <a href="#" id="saveButton" download="blocks.xml" title="保存" class="button_like" data-step="6"
                           data-intro="プログラムを保存します。">&#x1f4be;</a>
               <a href="#" id="resetButton" title="リセット" class="button_like" data-step="7"
                           data-intro="これまでの変更を捨てて、最初のプログラムに戻します。">&#x21bb;</a>

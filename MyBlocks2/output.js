@@ -6,7 +6,7 @@
 
 Blockly.Blocks['output_dropdown'] = {
   init: function() {
-    this.setColour(1000);
+    this.setColour(0);
     this.jsonInit({ "message0": "出力" });
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown([["int", "int"], ["double", "double"], ["char", "char"], ["char*", "char*"]]), "TYPE")
@@ -31,7 +31,7 @@ Blockly.Blocks['output_dropdown'] = {
 
 Blockly.Blocks['output_mutator'] = {
   init: function() {
-    this.setColour(1000);
+    this.setColour(0);
     this.jsonInit({ "message0": "出力" });
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown([["int", "int"], ["double", "double"], ["char", "char"], ["char*", "char*"]]), "TYPE")
@@ -171,7 +171,7 @@ Blockly.Blocks['output_create_join_container'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(1000);
+    this.setColour(0);
     this.appendDummyInput()
         .appendField("結合");
     this.appendStatementInput('STACK');
@@ -186,7 +186,7 @@ Blockly.Blocks['output_create_join_item'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(1000);
+    this.setColour(0);
     this.appendDummyInput()
         .appendField("項目");
     this.setPreviousStatement(true);
@@ -204,7 +204,7 @@ Blockly.Blocks['output_text'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
-    this.setColour(1000);
+    this.setColour(0);
     this.appendDummyInput()
         .appendField("出力")
         .appendField(this.newQuote_(true))
@@ -371,7 +371,7 @@ Blockly.Blocks['output_text_create_join_container'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(1000);
+    this.setColour(0);
     this.appendDummyInput()
         .appendField("結合");
     this.appendStatementInput('STACK');
@@ -386,7 +386,7 @@ Blockly.Blocks['output_text_create_join_item'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(1000);
+    this.setColour(0);
     this.appendDummyInput()
         .appendField("行");
     this.setPreviousStatement(true);
