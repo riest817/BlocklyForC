@@ -1,6 +1,7 @@
 <!--
 2017/10/11 sampleボタン追加
 -->
+
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -434,6 +435,7 @@
             <td class="tabmin">&nbsp;</td>
             <td id="tabXml" class="taboff" style="font-family:'Segoe UI Emoji'; white-space:nowrap;" data-step="3" data-intro="このタブをクリックして、XMLコードを表示します。">XML</td>
             <td class="tabmax">
+              <a href="index.html" id="homeButton" title="Homeへ" class="button_like">&#x1f3e0;</a>
               <a href="#" id="intro" title="ヘルプ" class="button_like">&#x2753;</a>
               <a href="#" id="openButton" title="読込み" class="button_like" data-step="5"
                           data-intro="保存したプログラムを読み込みます。">&#x1f4c2;</a>
@@ -567,11 +569,11 @@ function sample(select) {
 
   if (select == 2 ) {
     var defaultXml =
-    '<xml>' +
-    '<block type="output_text" x="0" y="0">' +
-    '<field name="TEXT">aaaa</field>' +
-    '</block>' +
-    '</xml>';
+    `<xml>
+    <block type="output_text" x="0" y="0">
+    <field name="TEXT">aaaa</field>
+    </block>
+    </xml>`;
     loadBlocks(defaultXml);
   }
   
@@ -605,7 +607,7 @@ function sample(select) {
         '</value>'+
         '<statement name="DO0">'+
           '<block type="output_text">'+
-            '<field name="TEXT">おはようございます！</field>'+
+            '<field name="TEXT">Good morinig！</field>'+
           '</block>'+
         '</statement>'+
         '<value name="IF1">'+
@@ -625,12 +627,12 @@ function sample(select) {
         '</value>'+
         '<statement name="DO1">'+
           '<block type="output_text">'+
-            '<field name="TEXT">こんにちは。</field>'+
+            '<field name="TEXT">Hello</field>'+
           '</block>'+
         '</statement>'+
         '<statement name="ELSE">'+
           '<block type="output_text">'+
-            '<field name="TEXT">こんばんは～</field>'+
+            '<field name="TEXT">Good evening</field>'+
           '</block>'+
         '</statement>'+
       '</block>'+
@@ -806,3 +808,13 @@ $(function() {
 </script>
 </body>
 </html>
+
+<!-- Global site tag (gtag.js) - Google Analytics (2017/10/12 追加)-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-107589514-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-107589514-2');
+</script>

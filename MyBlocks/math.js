@@ -1,27 +1,7 @@
 /**
- * @license
- * Visual Blocks Editor
- *
- * Copyright 2012 Google Inc.
- * https://developers.google.com/blockly/
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+2017/10/17 Blockly.Blocks['math_arithmetic']　コード修正、追加
  */
 
-/**
- * @fileoverview Math blocks for Blockly.
- * @author q.neutron@gmail.com (Quynh Neutron)
- */
 'use strict';
 
 goog.provide('Blockly.Blocks.math');
@@ -74,11 +54,14 @@ Blockly.Blocks['math_arithmetic'] = {
           "type": "field_dropdown",
           "name": "OP",
           "options":
-            [[Blockly.Msg.MATH_ADDITION_SYMBOL, 'ADD'],
-             [Blockly.Msg.MATH_SUBTRACTION_SYMBOL, 'MINUS'],
-             [Blockly.Msg.MATH_MULTIPLICATION_SYMBOL, 'MULTIPLY'],
-             [Blockly.Msg.MATH_DIVISION_SYMBOL, 'DIVIDE'],
-             [Blockly.Msg.MATH_POWER_SYMBOL, 'POWER']]
+          // 2017/10/17 変更
+            [["+", 'ADD'],
+             ["-", 'MINUS'],
+             ["*", 'MULTIPLY'],
+             ["/", 'DIVIDE'],
+             ["%", 'REMAINDER'],   // 追加
+             ["^", 'POWER']]
+          // 2017/10/17 ここまで
         },
         {
           "type": "input_value",
@@ -100,6 +83,7 @@ Blockly.Blocks['math_arithmetic'] = {
         'MINUS': Blockly.Msg.MATH_ARITHMETIC_TOOLTIP_MINUS,
         'MULTIPLY': Blockly.Msg.MATH_ARITHMETIC_TOOLTIP_MULTIPLY,
         'DIVIDE': Blockly.Msg.MATH_ARITHMETIC_TOOLTIP_DIVIDE,
+        'REMAINDER': "2 つの数の剰余を返します。",    // 2017/10/17 追加
         'POWER': Blockly.Msg.MATH_ARITHMETIC_TOOLTIP_POWER
       };
       return TOOLTIPS[mode];

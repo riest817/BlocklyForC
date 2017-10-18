@@ -1,26 +1,5 @@
 /**
- * @license
- * Visual Blocks Language
- *
- * Copyright 2012 Google Inc.
- * https://developers.google.com/blockly/
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/**
- * @fileoverview Helper functions for generating C for blocks.
- * 
+ 2017/10/18 コメント一部日本語化
  */
 'use strict';
 
@@ -108,20 +87,20 @@ Blockly.C.ORDER_OVERRIDES = [
 ];
 
 /**
- * Allow for switching between one and zero based indexing for lists and text,
- * one based by default.
+ * リストとテキストの1と0の間のインデックス付けを切り替えることができます。
+ * デフォルトでは1つです。
  */
 Blockly.C.ONE_BASED_INDEXING = true;
 
 /**
- * Initialise the database of variable names.
- * @param {!Blockly.Workspace} workspace Workspace to generate code from.
+ * 変数名のデータベースを初期化する。
+ * @param {！Blockly.Workspace} workspaceコードを生成するためのワークスペース。
  */
 Blockly.C.init = function(workspace) {
-  // Create a dictionary of definitions to be printed before the code.
+  // コードの前に印刷される定義の辞書を作成します。
   Blockly.C.definitions_ = Object.create(null);
-  // Create a dictionary mapping desired function names in definitions_
-  // to actual function names (to avoid collisions with user functions).
+  // 定義に必要な関数名をマッピングするディクショナリを作成する_
+  //（ユーザー関数との衝突を避けるために）実際の関数名に変換します。
   Blockly.C.functionNames_ = Object.create(null);
 
   if (!Blockly.C.variableDB_) {
@@ -145,17 +124,17 @@ Blockly.C.init = function(workspace) {
 };
 
 /**
- * Prepend the generated code with the variable definitions.
- * @param {string} code Generated code.
- * @return {string} Completed code.
+ * 生成されたコードの前に変数定義を追加します。
+ * @param {string}コード生成されたコード。
+ * @return {string}完了したコード。
  */
 Blockly.C.finish = function(code) {
-  // Convert the definitions dictionary into a list.
+ // 定義辞書をリストに変換します。
   var definitions = [];
   for (var name in Blockly.C.definitions_) {
     definitions.push(Blockly.C.definitions_[name]);
   }
-  // Clean up temporary data.
+ // 一時的なデータを整理します。
   delete Blockly.C.definitions_;
   delete Blockly.C.functionNames_;
   Blockly.C.variableDB_.reset();
@@ -163,25 +142,25 @@ Blockly.C.finish = function(code) {
 };
 
 /**
- * Naked values are top-level blocks with outputs that aren't plugged into
- * anything.  A trailing semicolon is needed to make this legal.
- * @param {string} line Line of generated code.
- * @return {string} Legal line of code.
+  * 裸の値は、接続されていない出力を持つトップレベルのブロックです
+  * 何でも。 これを法的にするには、後続のセミコロンが必要です。
+  * @param {string} line生成されたコードの行。
+  * @return {string}コードの合法的な行。
  */
 Blockly.C.scrubNakedValue = function(line) {
   return line + ';\n';
 };
 
 /**
- * Encode a string as a properly escaped C string, complete with
- * quotes.
- * @param {string} string Text to encode.
- * @return {string} C string.
- * @private
+  * 適切にエスケープされたC文字列として文字列をエンコードします。
+  * 引用符。
+  * @param {string} stringエンコードするテキスト。
+  * @return {string} C文字列です。
+  * @private
  */
 Blockly.C.quote_ = function(string) {
-  // Can't use goog.string.quote since Google's style guide recommends
-  // JS string literals use single quotes.
+  // Googleのスタイルガイドで推奨されているのでgoog.string.quoteを使用できません
+  // JS文字列リテラルは一重引用符を使用します。
   string = string.replace(/\\/g, '\\\\')
                  .replace(/\n/g, '\\\n')
                  .replace(/'/g, '\\\'');
@@ -189,24 +168,24 @@ Blockly.C.quote_ = function(string) {
 };
 
 /**
- * Common tasks for generating C from blocks.
- * Handles comments for the specified block and any connected value blocks.
- * Calls any statements following this block.
- * @param {!Blockly.Block} block The current block.
- * @param {string} code The C code created for this block.
- * @return {string} C code with comments and subsequent blocks added.
- * @private
+  * ブロックからCを生成するための共通タスク。
+  * 指定されたブロックと接続された値ブロックのコメントを処理します。
+  * このブロックに続くすべての文を呼び出します。
+  * @param {！Blockly.Block}ブロック現在のブロック。
+  * @param {string} codeこのブロック用に作成されたCコード。
+  * @return {string}コメントと後続のブロックが追加されたCコード。
+  * @private
  */
 Blockly.C.scrub_ = function(block, code) {
   var commentCode = '';
-  // Only collect comments for blocks that aren't inline.
+  // インラインでないブロックのコメントのみを収集します。
   if (!block.outputConnection || !block.outputConnection.targetConnection) {
-    // Collect comment for this block.
+    // このブロックのコメントを収集します。
     var comment = block.getCommentText();
     comment = Blockly.utils.wrap(comment, Blockly.C.COMMENT_WRAP - 3);
     if (comment) {
       if (block.getProcedureDef) {
-        // Use a comment block for function comments.
+        // 関数コメントにコメントブロックを使用する.
         commentCode += '/**\n' +
                        Blockly.C.prefixLines(comment + '\n', ' * ') +
                        ' */\n';
@@ -214,8 +193,8 @@ Blockly.C.scrub_ = function(block, code) {
         commentCode += Blockly.C.prefixLines(comment + '\n', '// ');
       }
     }
-    // Collect comments for all value arguments.
-    // Don't collect comments for nested statements.
+    //すべての値引数のコメントを収集します。
+    //ネストしたステートメントのコメントを収集しない。
     for (var i = 0; i < block.inputList.length; i++) {
       if (block.inputList[i].type == Blockly.INPUT_VALUE) {
         var childBlock = block.inputList[i].connection.targetBlock();
@@ -234,13 +213,13 @@ Blockly.C.scrub_ = function(block, code) {
 };
 
 /**
- * Gets a property and adjusts the value while taking into account indexing.
- * @param {!Blockly.Block} block The block.
- * @param {string} atId The property ID of the element to get.
- * @param {number=} opt_delta Value to add.
- * @param {boolean=} opt_negate Whether to negate the value.
- * @param {number=} opt_order The highest order acting on this value.
- * @return {string|number}
+  * プロパティを取得し、インデックス作成を考慮しながら値を調整します。
+  * @param {！Blockly.Block} blockブロックです。
+  * @param {string} atId取得する要素のプロパティID。
+  * @param {number =} opt_delta追加する値。
+  * @param {boolean =} opt_negate値を否定するかどうかを指定します。
+  * @param {number =} opt_orderこの値に作用する最も高い順位。
+  * @return {文字列|数値}
  */
 Blockly.C.getAdjusted = function(block, atId, opt_delta, opt_negate,
     opt_order) {
@@ -265,13 +244,13 @@ Blockly.C.getAdjusted = function(block, atId, opt_delta, opt_negate,
   }
 
   if (Blockly.isNumber(at)) {
-    // If the index is a naked number, adjust it right now.
+    // インデックスが裸の数値の場合は、今すぐ調整します。
     at = parseFloat(at) + delta;
     if (opt_negate) {
       at = -at;
     }
   } else {
-    // If the index is dynamic, adjust it in code.
+    // インデックスが動的な場合は、コードで調整します。
     if (delta > 0) {
       at = at + ' + ' + delta;
       var innerOrder = Blockly.C.ORDER_ADDITION;

@@ -1,30 +1,7 @@
-/**
- * @license
- * Visual Blocks Language
- *
- * Copyright 2012 Google Inc.
- * https://developers.google.com/blockly/
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/**
- * @fileoverview Generating C for math blocks.
- * @author q.neutron@gmail.com (Quynh Neutron)
- */
 
  /**
  * 2017/07/03  コード最適化(一部コメントアウト)
+ * 2017/10/18  Blockly.C['math_arithmetic'] をコメントアウト
  */
 
 'use strict';
@@ -40,6 +17,7 @@ Blockly.C['math_number'] = function(block) {
   return [code, Blockly.C.ORDER_ATOMIC];
 };
 
+/* MyBlocks2/c/math.js と重複しているのでコメントアウト (2017/10/18)
 Blockly.C['math_arithmetic'] = function(block) {
   // Basic arithmetic operators, and power.
   var OPERATORS = {
@@ -63,6 +41,7 @@ Blockly.C['math_arithmetic'] = function(block) {
   code = argument0 + operator + argument1;
   return [code, order];
 };
+*/
 
 Blockly.C['math_single'] = function(block) {
   // Math operators with single operand.

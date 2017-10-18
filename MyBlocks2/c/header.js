@@ -1,5 +1,6 @@
 /*
 2017/07/13 c/header.js 新規作成
+2017/10/18 headerのソースコードが一番上にくるよう改良（インデントの問題あり）
 */
 /*
 ・myCBlocks.js に新しいブロックの定義:
@@ -23,7 +24,7 @@ Blockly.Blocks['header_container_c'] = {
     this.setColour(Blockly.Msg.HEADER);
     this.appendDummyInput()
         .appendField("ヘッダ結合");
-    this.appendStatementInput('STACK');
+    this.appendStatementInput('CONTAINER');
     var thisBlock = this;
     this.setTooltip(Blockly.Msg.TEXT_CREATE_JOIN_TOOLTIP);
   }
@@ -31,10 +32,12 @@ Blockly.Blocks['header_container_c'] = {
 
 Blockly.C['header_container_c'] = function(block) {
   var n = 0;
-  var branch = Blockly.C.statementToCode(block, 'DO' + n);
+  var branch = Blockly.C.statementToCode(block, 'CONTAINER');
   var code = branch + '\n';
+  code = Blockly.C.scrub_(block, code);
 
-  return code + '\n';
+  Blockly.C.definitions_['header_container_c'] = code;
+  return null;
 };
 
 
@@ -58,7 +61,10 @@ Blockly.C['include_stdio_c'] = function(block) {
   var code = '#include &lt';
   code += 'stdio.h';
   code += '&gt\n'
+
   return code;
+  //Blockly.C.definitions_['include_stdio_c'] = code;
+  //return null;
 };
 
 
@@ -82,7 +88,10 @@ Blockly.C['include_stdlib_c'] = function(block) {
   var code = '#include &lt';
   code += 'stdlib.h';
   code += '&gt\n'
+
   return code;
+  //Blockly.C.definitions_['include_stdlib_c'] = code;
+  //return null;
 };
 
 
@@ -106,7 +115,10 @@ Blockly.C['include_string_c'] = function(block) {
   var code = '#include &lt';
   code += 'string.h';
   code += '&gt\n'
-  return code;
+
+  //return code;
+  Blockly.C.definitions_['include_string_c'] = code;
+  return null;
 };
 
 
@@ -130,5 +142,7 @@ Blockly.C['include_math_c'] = function(block) {
   var code = '#include &lt';
   code += 'math.h';
   code += '&gt\n'
-  return code;
+
+  Blockly.C.definitions_['include_math_c'] = code;
+  return null;
 };

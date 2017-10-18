@@ -125,9 +125,9 @@
 </style>
   <form>
     <div id="variable_input_text" data-step="4" data-intro="このボタンをクリックして、サンプルブロックを組み立てます。">
-      <input type="button" value="サンプル1" class = "sample" id = "sample1" style="font-size: 0.8em;" />
-      <input type="button" value="サンプル2" class = "sample" id = "sample2" style="font-size: 0.8em;" />
-      <input type="button" value="サンプル3" class = "sample" id = "sample3" style="font-size: 0.8em;" /></br>
+      <input type="button" value="サンプル1" class = "sample" id = "sample1" style="font-size: 0.8em;" onclick="sample(1);"/>
+      <input type="button" value="サンプル2" class = "sample" id = "sample2" style="font-size: 0.8em;" onclick="sample(2);"/>
+      <input type="button" value="サンプル3" class = "sample" id = "sample3" style="font-size: 0.8em;" onclick="sample(3);"/></br>
     </div>
   </form>
 </head>
@@ -193,10 +193,11 @@
           <tr id="tabRow" height="1em">
             <td id="tabBlocks" class="tabon" style="white-space:nowrap;" data-step="1" data-intro="このタブをクリックして、編集をはじめます。">ブロック</td>
             <td class="tabmin">&nbsp;</td>
-            <td id="tabFlex" class="taboff" style="white-space:nowrap;" data-step="2" data-intro="このタブをクリックして、ソースコードを表示します。>Flex</td>
+            <td id="tabFlex" class="taboff" style="white-space:nowrap;" data-step="2" data-intro="このタブをクリックして、ソースコードを表示します。">Flex</td>
             <td class="tabmin">&nbsp;</td>
-            <td id="tabXml" class="taboff" style="font-family:'Segoe UI Emoji'; white-space:nowrap;" data-step="3" data-intro="このタブをクリックして、XMLコードを表示します。>XML</td>
+            <td id="tabXml" class="taboff" style="font-family:'Segoe UI Emoji'; white-space:nowrap;" data-step="3" data-intro="このタブをクリックして、XMLコードを表示します。">XML</td>
             <td class="tabmax">
+              <a href="index.html" id="homeButton" title="Homeへ" class="button_like">&#x1f3e0;</a>
               <a href="#" id="intro" title="ヘルプ" class="button_like">&#x2753;</a>
               <a href="#" id="openButton" title="読込み" class="button_like" data-step="5"
                           data-intro="保存したプログラムを読み込みます。">&#x1f4c2;</a>
@@ -440,3 +441,13 @@ $(function() {
 </script>
 </body>
 </html>
+
+<!-- Global site tag (gtag.js) - Google Analytics (2017/10/12 追加)-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-107589514-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-107589514-5');
+</script>

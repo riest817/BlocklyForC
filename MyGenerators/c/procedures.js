@@ -1,26 +1,6 @@
 /**
- * @license
- * Visual Blocks Language
- *
- * Copyright 2012 Google Inc.
- * https://developers.google.com/blockly/
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * 
- */
-
-/**
- * @fileoverview Generating C for procedure blocks.
- * @author fraser@google.com (Neil Fraser)
- */
-
-  /**
- * 2017/07/03  61,86行目あたり追加
+2017/07/03  61,86行目あたり追加
+2017/10/17  60行目あたり変更
  */
 'use strict';
 
@@ -56,10 +36,10 @@ Blockly.C['procedures_defreturn'] = function(block) {
   // ===== 追加 (2017/07/03) =====
   if ( block.arguments_.length == 0 ) { args[0] = 'void'; }
   // ===== 追加ここまで
-  var code = 'void ' + funcName + '(' + args.join(', ') + ') {\n' +
+  var code = 'int ' + funcName + '(' + args.join(', ') + ') {\n' +  // voidからintに変更(2017/10/17)
       branch + returnValue + '}';
   code = Blockly.C.scrub_(block, code);
-  // Add % so as not to collide with helper functions in definitions list.
+  // 定義リストのヘルパー関数と衝突しないように％を追加する。
   Blockly.C.definitions_['%' + funcName] = code;
   return null;
 };
@@ -96,7 +76,7 @@ Blockly.C['procedures_callnoreturn'] = function(block) {
   }
   // ===== 追加 (2017/07/03) =====
   if ( block.arguments_.length == 0 ) { args[0] = 'void'; }
-  // ===== 追加ここまで
+  // ===== 追加 (2017/07/03) ここまで
   var code = funcName + '(' + args.join(', ') + ');\n';
   return code;
 };

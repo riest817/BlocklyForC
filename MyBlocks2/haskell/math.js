@@ -1,5 +1,6 @@
 /*
 2017/07/11 haskell/math.js 新規作成
+2017/10/18 Blockly.Blocks['var_arithmetic']　コード修正、追加
 */
 /*
 ・myCBlocks.js に新しいブロックの定義:
@@ -14,6 +15,8 @@
     }
   を追加する。
 */
+
+
 
 Blockly.Blocks['var_arithmetic'] = {
   /**
@@ -32,11 +35,14 @@ Blockly.Blocks['var_arithmetic'] = {
           "type": "field_dropdown",
           "name": "OP",
           "options":
-            [[Blockly.Msg.MATH_ADDITION_SYMBOL, 'ADD'],
-             [Blockly.Msg.MATH_SUBTRACTION_SYMBOL, 'MINUS'],
-             [Blockly.Msg.MATH_MULTIPLICATION_SYMBOL, 'MULTIPLY'],
-             [Blockly.Msg.MATH_DIVISION_SYMBOL, 'DIVIDE'],
-             [Blockly.Msg.MATH_POWER_SYMBOL, 'POWER']]
+          // 2017/10/18 変更
+            [["+", 'ADD'],
+             ["-", 'MINUS'],
+             ["*", 'MULTIPLY'],
+             ["/", 'DIVIDE'],
+             //["%", 'REMAINDER'],   // 追加
+             ["^", 'POWER']]
+          // 2017/10/18 ここまで
         },
         {
           "type": "input_value",
@@ -57,6 +63,7 @@ Blockly.Blocks['var_arithmetic'] = {
         'MINUS': Blockly.Msg.MATH_ARITHMETIC_TOOLTIP_MINUS,
         'MULTIPLY': Blockly.Msg.MATH_ARITHMETIC_TOOLTIP_MULTIPLY,
         'DIVIDE': Blockly.Msg.MATH_ARITHMETIC_TOOLTIP_DIVIDE,
+        //'REMAINDER': "2 つの数の剰余を返します。",    // 2017/10/17 追加
         'POWER': Blockly.Msg.MATH_ARITHMETIC_TOOLTIP_POWER
       };
       return TOOLTIPS[mode];
@@ -71,6 +78,7 @@ Blockly.Haskell['var_arithmetic'] = function(block) {
     'MINUS': [' - ', Blockly.Haskell.ORDER_SUBTRACTION],
     'MULTIPLY': [' * ', Blockly.Haskell.ORDER_MULTIPLICATION],
     'DIVIDE': [' / ', Blockly.Haskell.ORDER_DIVISION],
+    //'REMAINDER': [' % ', 5.4],  // 2017/10/18 追加
     'POWER': [' ^ ', Blockly.Haskell.ORDER_COMMA]  // Handle power separately.
   };
   var tuple = OPERATORS[block.getFieldValue('OP')];
