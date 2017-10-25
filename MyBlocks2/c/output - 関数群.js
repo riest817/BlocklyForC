@@ -1,5 +1,5 @@
 /*
-2017/10/24 Blockly.Blocks['output_mutator2'] 作成
+2017/10/24 新規作成
 
 ・myCBlocks.js に新しいブロックの定義:
     Blockly.Blocks['〜'] = { 〜 }
@@ -31,6 +31,141 @@ Blockly.Blocks['output_dropdown'] = {
   }
 };
 
+Blockly.Blocks['output_mutator'] = {
+  init: function() {
+    this.setColour(0);
+    this.jsonInit({ "message0": "出力" });
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown([["int", "int"], ["double", "double"], ["char", "char"], ["char*", "char*"]]), "TYPE")
+        .appendField(" ");
+    //this.appendValueInput('B');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setMutator(new Blockly.Mutator(['output_create_join_item']));
+    this.setTooltip("変数の出力");
+  },
+
+  getVars: function() {
+    return [this.getFieldValue('VAR')];
+  },
+
+  renameVar: function(oldName, newName) {
+    if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+      this.setFieldValue(newName, 'VAR');
+    }
+  },
+  /**
+   * テキスト入力の数を表すXMLを作成します。
+   * @return {!Element} XML storage element.
+   * @this Blockly.Block
+   */
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    container.setAttribute('items', this.itemCount_);
+    return container;
+  },
+  /**
+   * XMLを解析してテキスト入力を復元する。
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+  domToMutation: function(xmlElement) {
+    this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+    this.updateShape_();
+  },
+  /**
+   * ミューテータのダイアログにこのブロックのコンポーネントを挿入します。
+   * @param {!Blockly.Workspace} workspace Mutator's workspace.
+   * @return {!Blockly.Block} Root block in mutator.
+   * @this Blockly.Block
+   */
+  decompose: function(workspace) {
+    var containerBlock = workspace.newBlock('output_create_join_container');
+    containerBlock.initSvg();
+    var connection = containerBlock.getInput('STACK').connection;
+    for (var i = 0; i < this.itemCount_; i++) {
+      var itemBlock = workspace.newBlock('output_create_join_item');
+      itemBlock.initSvg();
+      connection.connect(itemBlock.previousConnection);
+      connection = itemBlock.nextConnection;
+    }
+    return containerBlock;
+  },
+  /**
+   * ミューテータダイアログのコンポーネントに基づいてこのブロックを再設定します。
+   * @param {!Blockly.Block} containerBlock Root block in mutator.
+   * @this Blockly.Block
+   */
+  compose: function(containerBlock) {
+    var itemBlock = containerBlock.getInputTargetBlock('STACK');
+    // Count number of inputs.
+    var connections = [];
+    while (itemBlock) {
+      connections.push(itemBlock.valueConnection_);
+      itemBlock = itemBlock.nextConnection &&
+          itemBlock.nextConnection.targetBlock();
+    }
+    // Disconnect any children that don't belong.
+    for (var i = 0; i < this.itemCount_; i++) {
+      var connection = this.getInput('ADD' + i).connection.targetConnection;
+      if (connection && connections.indexOf(connection) == -1) {
+        connection.disconnect();
+      }
+    }
+    this.itemCount_ = connections.length;
+    this.updateShape_();
+    // Reconnect any child blocks.
+    for (var i = 0; i < this.itemCount_; i++) {
+      Blockly.Mutator.reconnect(connections[i], this, 'ADD' + i);
+    }
+  },
+  /**
+   * 接続された子ブロックへのポインタを格納します。
+   * @param {!Blockly.Block} containerBlock Root block in mutator.
+   * @this Blockly.Block
+   */
+  saveConnections: function(containerBlock) {
+    var itemBlock = containerBlock.getInputTargetBlock('STACK');
+    var i = 0;
+    while (itemBlock) {
+      var input = this.getInput('ADD' + i);
+      itemBlock.valueConnection_ = input && input.connection.targetConnection;
+      i++;
+      itemBlock = itemBlock.nextConnection &&
+          itemBlock.nextConnection.targetBlock();
+    }
+  },
+  /**
+   * このブロックを修正して、正しい数の入力を持つようにします。
+   * @private
+   * @this Blockly.Block
+   */
+  updateShape_: function() {
+    if (this.itemCount_ && this.getInput('EMPTY')) {
+      this.removeInput('EMPTY');
+    } else if (!this.itemCount_ && !this.getInput('EMPTY')) {
+      /*this.appendDummyInput('EMPTY')
+          .appendField(this.newQuote_(true))
+          .appendField(this.newQuote_(false));*/
+    }
+    // Add new inputs.
+    for (var i = 0; i < this.itemCount_; i++) {
+      if (!this.getInput('ADD' + i)) {
+        var input = this.appendValueInput('ADD' + i);
+        if (i == 0) {
+          //input.appendField(Blockly.Msg.TEXT_JOIN_TITLE_CREATEWITH);
+        }
+      }
+    }
+    // Remove deleted inputs.
+    while (this.getInput('ADD' + i)) {
+      this.removeInput('ADD' + i);
+      i++;
+    }
+  },
+  newQuote_: Blockly.Blocks['text'].newQuote_
+};
 
 Blockly.Blocks['output_create_join_container'] = {
   /**
@@ -96,6 +231,7 @@ Blockly.Blocks['output_text'] = {
    * @this Blockly.Block
    * @private
    */
+   //newQuote_: function(open) は、最後に挿入しないと呼び出しにエラーを吐く。
   newQuote_: function(open) {
     if (open == this.RTL) {
       var file = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAKCAQAAAAqJXdxAAAAqUlEQVQI1z3KvUpCcRiA8ef9E4JNHhI0aFEacm1o0BsI0Slx8wa8gLauoDnoBhq7DcfWhggONDmJJgqCPA7neJ7p934EOOKOnM8Q7PDElo/4x4lFb2DmuUjcUzS3URnGib9qaPNbuXvBO3sGPHJDRG6fGVdMSeWDP2q99FQdFrz26Gu5Tq7dFMzUvbXy8KXeAj57cOklgA+u1B5AoslLtGIHQMaCVnwDnADZIFIrXsoXrgAAAABJRU5ErkJggg==';
@@ -232,164 +368,6 @@ Blockly.Blocks['output_text_join'] = {
   newQuote_: Blockly.Blocks['text'].newQuote_
 };
 
-Blockly.Blocks['output_mutator2'] = {
-  init: function() {
-    this.setColour(0);
-    this.jsonInit({ "message0": "printf" });
-    this.appendDummyInput()
-        .appendField(this.newQuote_(true))
-        .appendField(new Blockly.FieldTextInput(" ",), 'TEXT')
-        .appendField(this.newQuote_(false));
-    //this.appendValueInput('B');
-    this.setInputsInline(true);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setMutator(new Blockly.Mutator(['output_create_join_item']));
-    this.setTooltip("変数または行の出力");
-    console.log(this.getFieldValue('TEXT'));
-  },
-
-  getVars: function() {
-    return [this.getFieldValue('VAR')];
-  },
-
-  renameVar: function(oldName, newName) {
-    if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
-      this.setFieldValue(newName, 'VAR');
-    }
-  },
-
-  /**
-   * テキスト入力の数を表すXMLを作成します。
-   */
-  mutationToDom: function() {
-    var container = document.createElement('mutation');
-    container.setAttribute('items', this.itemCount_);
-    return container;
-  },
-
-  /**
-   * XMLを解析してテキスト入力を復元する。
-   */
-  domToMutation: function(xmlElement) {
-    this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
-    this.updateShape_();
-  },
-
-  /**
-   * ミューテータのダイアログにこのブロックのコンポーネントを挿入します。
-   */
-  decompose: function(workspace) {
-    var containerBlock = workspace.newBlock('output_create_join_container');
-    containerBlock.initSvg();
-    var connection = containerBlock.getInput('STACK').connection;
-    for (var i = 0; i < this.itemCount_; i++) {
-      var itemBlock = workspace.newBlock('output_create_join_item');
-      itemBlock.initSvg();
-      connection.connect(itemBlock.previousConnection);
-      connection = itemBlock.nextConnection;
-    }
-    return containerBlock;
-  },
-
-  /**
-   * ミューテータダイアログのコンポーネントに基づいてこのブロックを再設定します。
-   */
-  compose: function(containerBlock) {
-    var itemBlock = containerBlock.getInputTargetBlock('STACK');
-    // Count number of inputs.
-    var connections = [];
-    while (itemBlock) {
-      connections.push(itemBlock.valueConnection_);
-      itemBlock = itemBlock.nextConnection &&
-          itemBlock.nextConnection.targetBlock();
-    }
-    // Disconnect any children that don't belong.
-    for (var i = 0; i < this.itemCount_; i++) {
-      var connection = this.getInput('ADD' + i).connection.targetConnection;
-      if (connection && connections.indexOf(connection) == -1) {
-        connection.disconnect();
-      }
-    }
-    this.itemCount_ = connections.length;
-    this.updateShape_();
-    // Reconnect any child blocks.
-    for (var i = 0; i < this.itemCount_; i++) {
-      Blockly.Mutator.reconnect(connections[i], this, 'ADD' + i);
-    }
-  },
-  /**
-   * 接続された子ブロックへのポインタを格納します。
-   * @param {!Blockly.Block} containerBlock Root block in mutator.
-   * @this Blockly.Block
-   */
-  saveConnections: function(containerBlock) {
-    var itemBlock = containerBlock.getInputTargetBlock('STACK');
-    var i = 0;
-    while (itemBlock) {
-      var input = this.getInput('ADD' + i);
-      itemBlock.valueConnection_ = input && input.connection.targetConnection;
-      i++;
-      itemBlock = itemBlock.nextConnection &&
-          itemBlock.nextConnection.targetBlock();
-    }
-  },
-
-  // ==============  追加 (2017/10/24) ===========================
-  // 入力フォームから任意の文字を自動検出する関数
-  validator: function(text) {
-    //var target = this.getFieldValue('TEXT');  // 入力文字を動的に記録する
-    var target = this.getText(text);      // 入力文字を動的に記録する
-    var counter = function(str,seq){
-      return str.split(seq).length - 1;
-    }
-    this.sourceBlock_.itemCount_ = counter(target,"%");
-    //console.log(this.sourceBlock_.itemCount_);        // コンソール出力
-    //this.updateShape_();
-    this.sourceBlock_.updateShape_();
-  },
-  // ==============  追加ここまで (2017/10/24) ======================
-
-  /**
-   * このブロックを修正して、正しい数の入力を持つようにします。
-   * @private
-   * @this Blockly.Block
-   */
-  updateShape_: function() {
-    if (this.itemCount_ && this.getInput('EMPTY')) {
-      this.removeInput('EMPTY');
-    } else if (!this.itemCount_ && !this.getInput('EMPTY')) {
-      /*this.appendDummyInput('EMPTY')
-          .appendField(this.newQuote_(true))
-          .appendField(this.newQuote_(false));*/
-    }
-    // Add new inputs.
-    for (var i = 0; i < this.itemCount_; i++) {
-      if (!this.getInput('ADD' + i)) {
-        var input = this.appendValueInput('ADD' + i);
-        if (i == 0) {
-          //input.appendField(Blockly.Msg.TEXT_JOIN_TITLE_CREATEWITH);
-        }
-      }
-    }
-    // Remove deleted inputs.
-    while (this.getInput('ADD' + i)) {
-      this.removeInput('ADD' + i);
-      i++;
-    }
-  },
-
-  //newQuote_: function(open) は、最後に挿入しないと呼び出しにエラーを吐く。
-  newQuote_: function(open) {
-    if (open == this.RTL) {
-      var file = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAKCAQAAAAqJXdxAAAAqUlEQVQI1z3KvUpCcRiA8ef9E4JNHhI0aFEacm1o0BsI0Slx8wa8gLauoDnoBhq7DcfWhggONDmJJgqCPA7neJ7p934EOOKOnM8Q7PDElo/4x4lFb2DmuUjcUzS3URnGib9qaPNbuXvBO3sGPHJDRG6fGVdMSeWDP2q99FQdFrz26Gu5Tq7dFMzUvbXy8KXeAj57cOklgA+u1B5AoslLtGIHQMaCVnwDnADZIFIrXsoXrgAAAABJRU5ErkJggg==';
-    } else {
-      var file = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAKCAQAAAAqJXdxAAAAn0lEQVQI1z3OMa5BURSF4f/cQhAKjUQhuQmFNwGJEUi0RKN5rU7FHKhpjEH3TEMtkdBSCY1EIv8r7nFX9e29V7EBAOvu7RPjwmWGH/VuF8CyN9/OAdvqIXYLvtRaNjx9mMTDyo+NjAN1HNcl9ZQ5oQMM3dgDUqDo1l8DzvwmtZN7mnD+PkmLa+4mhrxVA9fRowBWmVBhFy5gYEjKMfz9AylsaRRgGzvZAAAAAElFTkSuQmCC';
-    }
-    return new Blockly.FieldImage(file, 12, 12, '"');
-  }
-};
-
 Blockly.Blocks['output_text_create_join_container'] = {
   /**
    * Mutator block for container.
@@ -445,7 +423,7 @@ Blockly.C['output_dropdown'] = function(block) {
   return code;
 };
 
-Blockly.C['output_mutator2'] = function(block) {
+Blockly.C['output_mutator'] = function(block) {
   var dropdown_type = block.getFieldValue('TYPE');
   var arr = new Array(block.itemCount_);
   var code = 'printf("';
@@ -455,8 +433,12 @@ Blockly.C['output_mutator2'] = function(block) {
       Blockly.C.ORDER_NONE) || '0';
   }
   
-  code += block.getFieldValue('TEXT');
-
+  for (n = 0; n < block.itemCount_; n++) {
+    if ( dropdown_type == 'int') { code += '%d '}
+    else if ( dropdown_type == 'double') { code += '%f '}
+    else if ( dropdown_type == 'char') { code += '%c '}
+    else if ( dropdown_type == 'char*') { code += '%s '}
+  }
   code += '\\n"';
   for (n = 0; n < block.itemCount_; n++) {
     code += ', ' + arr[n];
@@ -482,7 +464,7 @@ Blockly.C['output_text_join'] = function(block) {
     case 1:
       var element = Blockly.C.valueToCode(block, 'ADD0',
           Blockly.C.ORDER_NONE) || '\'\'';
-      var code = 'printf(" + element + ")';
+      var code = 'printf("' + element + '")';
       return [code, Blockly.C.ORDER_FUNCTION_CALL];
     case 2:
       var element0 = Blockly.C.valueToCode(block, 'ADD0',

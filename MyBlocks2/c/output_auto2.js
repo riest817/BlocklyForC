@@ -1,17 +1,15 @@
 /*
-・myCBlocks.js に新しいブロックの定義:
-    Blockly.Blocks['〜'] = { 〜 }
-  を追加する。
+2017/10/19 新規作成
 */
 
-Blockly.Blocks['output_auto'] = {
+Blockly.Blocks['output_auto2'] = {
   /**
    * Block for text value.
    * @this Blockly.Block
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
-    this.setColour(0);
+    this.setColour(500);
     this.appendDummyInput()
         .appendField("出力(自動)")
         .appendField(this.newQuote_(true))
@@ -45,8 +43,6 @@ Blockly.Blocks['output_auto'] = {
     this.updateShape_();
   },
 
-  // ==============  追加 (2017/06/29) ===========================
-  // 入力フォームから任意の文字を自動検出する関数
   validator: function(text) {
   	//var target = this.getFieldValue('TEXT');	// 入力文字を動的に記録する
   	var target = this.getText(text);			// 入力文字を動的に記録する
@@ -58,8 +54,7 @@ Blockly.Blocks['output_auto'] = {
     //this.updateShape_();
     this.sourceBlock_.updateShape_();
   },
-  // ==============  追加ここまで (2017/06/29) ======================
-
+  
   /**
    * このブロックを修正して、正しい数の入力を持つようにします。
    * @private
@@ -108,7 +103,7 @@ Blockly.Blocks['output_auto'] = {
   を追加する。
 */
 
-Blockly.C['output_auto'] = function(block) {
+Blockly.C['output_auto2'] = function(block) {
   // Text value.
   var arr = new Array(block.itemCount_);
   var code = 'printf("';
@@ -118,14 +113,7 @@ Blockly.C['output_auto'] = function(block) {
   }
 
   code += block.getFieldValue('TEXT');
-/*
-  for (n = 0; n < block.itemCount_; n++) {
-  	code += '%d '
-    if ( dropdown_type == 'int') { code += '%d '}
-    else if ( dropdown_type == 'double') { code += '%f '}
-    else if ( dropdown_type == 'char') { code += '%c '}
-    else if ( dropdown_type == 'char*') { code += '%s '}
-  }*/
+
 
   code += '\\n"';
   for (n = 0; n < block.itemCount_; n++) {

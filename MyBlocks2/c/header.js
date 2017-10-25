@@ -23,7 +23,7 @@ Blockly.Blocks['header_container_c'] = {
   	this.setHelpUrl("http://www.c-tipsref.com/reference.html");
     this.setColour(Blockly.Msg.HEADER);
     this.appendDummyInput()
-        .appendField("ヘッダ結合");
+        .appendField("ヘッダ");
     this.appendStatementInput('CONTAINER');
     var thisBlock = this;
     this.setTooltip(Blockly.Msg.TEXT_CREATE_JOIN_TOOLTIP);

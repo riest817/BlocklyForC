@@ -1,4 +1,6 @@
 /*
+2017/10/24 Blockly.Blocks['output_mutator2'] 作成
+
 ・myCBlocks.js に新しいブロックの定義:
     Blockly.Blocks['〜'] = { 〜 }
   を追加する。
@@ -29,19 +31,21 @@ Blockly.Blocks['output_dropdown'] = {
   }
 };
 
-Blockly.Blocks['output_mutator'] = {
+Blockly.Blocks['output_mutator2'] = {
   init: function() {
     this.setColour(0);
     this.jsonInit({ "message0": "出力" });
     this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["int", "int"], ["double", "double"], ["char", "char"], ["char*", "char*"]]), "TYPE")
-        .appendField(" ");
+        .appendField(this.newQuote_(true))
+        .appendField(new Blockly.FieldTextInput(this.getFieldValue('TEXT'), this.validator), 'TEXT')
+        .appendField(this.newQuote_(false));
     //this.appendValueInput('B');
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setMutator(new Blockly.Mutator(['output_create_join_item']));
-    this.setTooltip("変数の出力");
+    this.setTooltip("変数または行の出力");
+    console.log(this.getFieldValue('TEXT'));
   },
 
   getVars: function() {
@@ -53,30 +57,26 @@ Blockly.Blocks['output_mutator'] = {
       this.setFieldValue(newName, 'VAR');
     }
   },
+
   /**
    * テキスト入力の数を表すXMLを作成します。
-   * @return {!Element} XML storage element.
-   * @this Blockly.Block
    */
   mutationToDom: function() {
     var container = document.createElement('mutation');
     container.setAttribute('items', this.itemCount_);
     return container;
   },
+
   /**
    * XMLを解析してテキスト入力を復元する。
-   * @param {!Element} xmlElement XML storage element.
-   * @this Blockly.Block
    */
   domToMutation: function(xmlElement) {
     this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
     this.updateShape_();
   },
+
   /**
    * ミューテータのダイアログにこのブロックのコンポーネントを挿入します。
-   * @param {!Blockly.Workspace} workspace Mutator's workspace.
-   * @return {!Blockly.Block} Root block in mutator.
-   * @this Blockly.Block
    */
   decompose: function(workspace) {
     var containerBlock = workspace.newBlock('output_create_join_container');
@@ -90,10 +90,9 @@ Blockly.Blocks['output_mutator'] = {
     }
     return containerBlock;
   },
+
   /**
    * ミューテータダイアログのコンポーネントに基づいてこのブロックを再設定します。
-   * @param {!Blockly.Block} containerBlock Root block in mutator.
-   * @this Blockly.Block
    */
   compose: function(containerBlock) {
     var itemBlock = containerBlock.getInputTargetBlock('STACK');
@@ -134,6 +133,22 @@ Blockly.Blocks['output_mutator'] = {
           itemBlock.nextConnection.targetBlock();
     }
   },
+
+  // ==============  追加 (2017/10/24) ===========================
+  // 入力フォームから任意の文字を自動検出する関数
+  validator: function(text) {
+    //var target = this.getFieldValue('TEXT');  // 入力文字を動的に記録する
+    var target = this.getText(text);      // 入力文字を動的に記録する
+    var counter = function(str,seq){
+      return str.split(seq).length - 1;
+    }
+    this.sourceBlock_.itemCount_ = counter(target,"%");
+    //console.log(this.sourceBlock_.itemCount_);        // コンソール出力
+    //this.updateShape_();
+    this.sourceBlock_.updateShape_();
+  },
+  // ==============  追加ここまで (2017/10/24) ======================
+
   /**
    * このブロックを修正して、正しい数の入力を持つようにします。
    * @private
@@ -162,7 +177,16 @@ Blockly.Blocks['output_mutator'] = {
       i++;
     }
   },
-  newQuote_: Blockly.Blocks['text'].newQuote_
+
+  //newQuote_: function(open) は、最後に挿入しないと呼び出しにエラーを吐く。
+  newQuote_: function(open) {
+    if (open == this.RTL) {
+      var file = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAKCAQAAAAqJXdxAAAAqUlEQVQI1z3KvUpCcRiA8ef9E4JNHhI0aFEacm1o0BsI0Slx8wa8gLauoDnoBhq7DcfWhggONDmJJgqCPA7neJ7p934EOOKOnM8Q7PDElo/4x4lFb2DmuUjcUzS3URnGib9qaPNbuXvBO3sGPHJDRG6fGVdMSeWDP2q99FQdFrz26Gu5Tq7dFMzUvbXy8KXeAj57cOklgA+u1B5AoslLtGIHQMaCVnwDnADZIFIrXsoXrgAAAABJRU5ErkJggg==';
+    } else {
+      var file = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAKCAQAAAAqJXdxAAAAn0lEQVQI1z3OMa5BURSF4f/cQhAKjUQhuQmFNwGJEUi0RKN5rU7FHKhpjEH3TEMtkdBSCY1EIv8r7nFX9e29V7EBAOvu7RPjwmWGH/VuF8CyN9/OAdvqIXYLvtRaNjx9mMTDyo+NjAN1HNcl9ZQ5oQMM3dgDUqDo1l8DzvwmtZN7mnD+PkmLa+4mhrxVA9fRowBWmVBhFy5gYEjKMfz9AylsaRRgGzvZAAAAAElFTkSuQmCC';
+    }
+    return new Blockly.FieldImage(file, 12, 12, '"');
+  }
 };
 
 Blockly.Blocks['output_create_join_container'] = {
@@ -365,36 +389,6 @@ Blockly.Blocks['output_text_join'] = {
   newQuote_: Blockly.Blocks['text'].newQuote_
 };
 
-Blockly.Blocks['output_text_create_join_container'] = {
-  /**
-   * Mutator block for container.
-   * @this Blockly.Block
-   */
-  init: function() {
-    this.setColour(0);
-    this.appendDummyInput()
-        .appendField("結合");
-    this.appendStatementInput('STACK');
-    this.setTooltip(Blockly.Msg.TEXT_CREATE_JOIN_TOOLTIP);
-    this.contextMenu = false;
-  }
-};
-
-Blockly.Blocks['output_text_create_join_item'] = {
-  /**
-   * Mutator block for add items.
-   * @this Blockly.Block
-   */
-  init: function() {
-    this.setColour(0);
-    this.appendDummyInput()
-        .appendField("行");
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.TEXT_CREATE_JOIN_ITEM_TOOLTIP);
-    this.contextMenu = false;
-  }
-};
 
   /*
 ・myCBlocks.js に新しいブロックが生成する C 言語のソース:
@@ -420,7 +414,7 @@ Blockly.C['output_dropdown'] = function(block) {
   return code;
 };
 
-Blockly.C['output_mutator'] = function(block) {
+Blockly.C['output_mutator2'] = function(block) {
   var dropdown_type = block.getFieldValue('TYPE');
   var arr = new Array(block.itemCount_);
   var code = 'printf("';
@@ -430,12 +424,8 @@ Blockly.C['output_mutator'] = function(block) {
       Blockly.C.ORDER_NONE) || '0';
   }
   
-  for (n = 0; n < block.itemCount_; n++) {
-    if ( dropdown_type == 'int') { code += '%d '}
-    else if ( dropdown_type == 'double') { code += '%f '}
-    else if ( dropdown_type == 'char') { code += '%c '}
-    else if ( dropdown_type == 'char*') { code += '%s '}
-  }
+  code += block.getFieldValue('TEXT');
+
   code += '\\n"';
   for (n = 0; n < block.itemCount_; n++) {
     code += ', ' + arr[n];
