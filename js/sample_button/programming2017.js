@@ -53,6 +53,7 @@ function sample(select) {
     </value>
   </block>
 </xml>`;
+  document.cookie = "output_auto=" + "あなたは%dと入力しましたね。";    // 2017/10/31 追加
   loadBlocks(defaultXml);
   }
 

@@ -8,12 +8,14 @@ Blockly.Blocks['output_auto'] = {
    * @this Blockly.Block
    */
   init: function() {
+    var result = GetCookies();    // 2017/10/31 追加
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
     this.setColour(0);
     this.appendDummyInput()
         .appendField("printf")
         .appendField(this.newQuote_(true))
-        .appendField(new Blockly.FieldTextInput('', this.validator), 'TEXT')
+        //.appendField(new Blockly.FieldTextInput('%d', this.validator), 'TEXT')    2017/10/31 ↓に変更
+        .appendField(new Blockly.FieldTextInput(result['output_auto'], this.validator), 'TEXT')
         .appendField(this.newQuote_(false));
     this.setInputsInline(true);		  // インプットを内側にする
     this.setPreviousStatement(true);  // 上部との接続を可能にする
@@ -43,7 +45,7 @@ Blockly.Blocks['output_auto'] = {
     this.updateShape_();
   },
 
-  // ==============  追加 (06/29) ===========================
+  // ==============  追加 (2017/06/29) ===========================
   validator: function(text) {
   	//var target = this.getFieldValue('TEXT');	// 入力文字を動的に記録する
   	var target = this.getText(text);			// 入力文字を動的に記録する
@@ -54,8 +56,9 @@ Blockly.Blocks['output_auto'] = {
     //console.log(this.sourceBlock_.itemCount_);				// コンソール出力
     //this.updateShape_();
     this.sourceBlock_.updateShape_();
+    document.cookie = "output_auto=" + target;    // 2017/10/31 追加
   },
-  // ==============  追加ここまで (06/29) ======================
+  // ==============  追加ここまで (2017/06/29) ======================
 
   /**
    * このブロックを修正して、正しい数の入力を持つようにします。

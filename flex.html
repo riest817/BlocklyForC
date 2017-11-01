@@ -1,5 +1,7 @@
 <!--
 2017/08/02 flex.html を新規作成
+2017/10/31 function GetCookies() 追加
+2017/11/01 sampleボタンの実行
 -->
 <!DOCTYPE html>
 <head>
@@ -307,6 +309,29 @@ function tabClick(clickedName) {
   }
   Blockly.svgResize(workspace);
 }
+
+// ==============  追加 (2017/10/31) ===========================
+function GetCookies()
+{
+    var result = new Array();
+
+    var allcookies = document.cookie;
+    if( allcookies != '' )
+    {
+        var cookies = allcookies.split( '; ' );
+
+        for( var i = 0; i < cookies.length; i++ )
+        {
+            var cookie = cookies[ i ].split( '=' );
+
+            // クッキーの名前をキーとして 配列に追加する
+            //result[ cookie[ 0 ] ] = decodeURIComponent( cookie[ 1 ] );
+            result[ cookie[ 0 ] ] = cookie[ 1 ];
+        }
+    }
+    return result;
+}
+// ==============  追加 (2017/10/31) ここまで ===========================
 
 $(function() {
     workspace = Blockly.inject('contentBlock',

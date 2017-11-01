@@ -1,5 +1,7 @@
 /*
 2017/10/24 Blockly.Blocks['output_mutator2'] 作成
+2017/10/26 Blockly.Blocks['output_char'] 作成
+2017/10/31 Blockly.Blocks['output_mutator2'] に cookie機能を追加
 
 ・myCBlocks.js に新しいブロックの定義:
     Blockly.Blocks['〜'] = { 〜 }
@@ -64,19 +66,19 @@ Blockly.Blocks['output_create_join_item'] = {
   }
 };
 
-Blockly.Blocks['output_text'] = {
+Blockly.Blocks['output_char'] = {
   /**
    * Block for text value.
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
+    this.setHelpUrl("文字の出力");
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("出力")
-        .appendField(this.newQuote_(true))
+        .appendField("putchar")
+        .appendField("\'")
         .appendField(new Blockly.FieldTextInput(''), 'TEXT')
-        .appendField(this.newQuote_(false));
+        .appendField("\'");
     //this.setOutput(true, 'String');
     this.setPreviousStatement(true);  // 上部との接続を可能にする
     this.setNextStatement(true);      // 下部との接続を可能にする
@@ -234,11 +236,13 @@ Blockly.Blocks['output_text_join'] = {
 
 Blockly.Blocks['output_mutator2'] = {
   init: function() {
+    var result = GetCookies();
     this.setColour(0);
     this.jsonInit({ "message0": "printf" });
     this.appendDummyInput()
         .appendField(this.newQuote_(true))
-        .appendField(new Blockly.FieldTextInput(" ",), 'TEXT')
+        .appendField(new Blockly.FieldTextInput(result['data1'], this.validator), 'TEXT')
+        //.appendField(new Blockly.FieldTextInput("", this.validator), 'TEXT')
         .appendField(this.newQuote_(false));
     //this.appendValueInput('B');
     this.setInputsInline(true);
@@ -246,7 +250,10 @@ Blockly.Blocks['output_mutator2'] = {
     this.setNextStatement(true);
     this.setMutator(new Blockly.Mutator(['output_create_join_item']));
     this.setTooltip("変数または行の出力");
-    console.log(this.getFieldValue('TEXT'));
+    var sampleElement = Blockly.Xml.domToPrettyText(this);
+    //attrValue     = sampleElement.getAttribute('id');
+    alert(sampleElement);
+
   },
 
   getVars: function() {
@@ -347,6 +354,8 @@ Blockly.Blocks['output_mutator2'] = {
     //console.log(this.sourceBlock_.itemCount_);        // コンソール出力
     //this.updateShape_();
     this.sourceBlock_.updateShape_();
+    document.cookie = "data1=" + target;
+    //console.log(target);
   },
   // ==============  追加ここまで (2017/10/24) ======================
 
@@ -377,6 +386,7 @@ Blockly.Blocks['output_mutator2'] = {
       this.removeInput('ADD' + i);
       i++;
     }
+
   },
 
   //newQuote_: function(open) は、最後に挿入しないと呼び出しにエラーを吐く。
@@ -465,11 +475,11 @@ Blockly.C['output_mutator2'] = function(block) {
   return code;
 };
 
-Blockly.C['output_text'] = function(block) {
+Blockly.C['output_char'] = function(block) {
   // Text value.
-  var code = 'printf("';
+  var code = 'putchar(\'';
   code += block.getFieldValue('TEXT');
-  code += '\\n");\n';
+  code += '\');\n';
   return code;
 };
 

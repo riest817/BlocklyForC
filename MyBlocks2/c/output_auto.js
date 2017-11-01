@@ -1,21 +1,22 @@
 /*
+2017/10/31 Blockly.Blocks['output_auto']　にcookies機能を追加
+
 ・myCBlocks.js に新しいブロックの定義:
     Blockly.Blocks['〜'] = { 〜 }
   を追加する。
 */
 
 Blockly.Blocks['output_auto'] = {
-  /**
-   * Block for text value.
-   * @this Blockly.Block
-   */
+
   init: function() {
+    var result = GetCookies();    // 2017/10/31 追加
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
     this.setColour(0);
     this.appendDummyInput()
         .appendField("出力(自動)")
         .appendField(this.newQuote_(true))
-        .appendField(new Blockly.FieldTextInput('%d', this.validator), 'TEXT')
+        //.appendField(new Blockly.FieldTextInput('%d', this.validator), 'TEXT')    2017/10/31 ↓に変更
+        .appendField(new Blockly.FieldTextInput(result['output_auto'], this.validator), 'TEXT')
         .appendField(this.newQuote_(false));
     this.setInputsInline(true);		  // インプットを内側にする
     this.setPreviousStatement(true);  // 上部との接続を可能にする
@@ -28,7 +29,7 @@ Blockly.Blocks['output_auto'] = {
       return (parent && parent.getInputsInline() && parent.tooltip) ||
           "テキストボックスの中の%の数で変数を動的に検出して出力します。";
     });
-    this.itemCount_ = 1;
+    //this.itemCount_ = 1;
     this.updateShape_();
   },
 
@@ -57,6 +58,7 @@ Blockly.Blocks['output_auto'] = {
     //console.log(this.sourceBlock_.itemCount_);				// コンソール出力
     //this.updateShape_();
     this.sourceBlock_.updateShape_();
+    document.cookie = "output_auto=" + target;    // 2017/10/31 追加
   },
   // ==============  追加ここまで (2017/06/29) ======================
 
