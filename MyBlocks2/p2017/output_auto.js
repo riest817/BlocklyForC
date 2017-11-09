@@ -9,13 +9,20 @@ Blockly.Blocks['output_auto'] = {
    */
   init: function() {
     var result = GetCookies();    // 2017/10/31 追加
+    // ==============  追加 (2017/11/08) ================
+    var element = Blockly.Xml.blockToDom(this, false);
+    var text = Blockly.Xml.domToText(element);
+    id = this.findID(text);
+    if ( result[id] === undefined ) { result[id] = ""; }
+    //console.log(id);        // コンソール出力
+    // ==============  追加ここまで (2017/11/08) ===========
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
     this.setColour(0);
     this.appendDummyInput()
         .appendField("printf")
         .appendField(this.newQuote_(true))
         //.appendField(new Blockly.FieldTextInput('%d', this.validator), 'TEXT')    2017/10/31 ↓に変更
-        .appendField(new Blockly.FieldTextInput(result['output_auto'], this.validator), 'TEXT')
+        .appendField(new Blockly.FieldTextInput(result[id], this.validator), 'TEXT')
         .appendField(this.newQuote_(false));
     this.setInputsInline(true);		  // インプットを内側にする
     this.setPreviousStatement(true);  // 上部との接続を可能にする
@@ -28,7 +35,7 @@ Blockly.Blocks['output_auto'] = {
       return (parent && parent.getInputsInline() && parent.tooltip) ||
           "テキストボックスの中の%の数で変数を動的に検出して出力します。";
     });
-    this.itemCount_ = 1;
+    //this.itemCount_ = 1;   
     this.updateShape_();
   },
 
@@ -46,19 +53,31 @@ Blockly.Blocks['output_auto'] = {
   },
 
   // ==============  追加 (2017/06/29) ===========================
-  validator: function(text) {
-  	//var target = this.getFieldValue('TEXT');	// 入力文字を動的に記録する
+  validator: function(text) {    
+
   	var target = this.getText(text);			// 入力文字を動的に記録する
   	var counter = function(str,seq){
     	return str.split(seq).length - 1;
 		}
-    this.sourceBlock_.itemCount_ = counter(target,"%");
-    //console.log(this.sourceBlock_.itemCount_);				// コンソール出力
+    this.sourceBlock_.itemCount_ = counter(target,"%");    
     //this.updateShape_();
     this.sourceBlock_.updateShape_();
-    document.cookie = "output_auto=" + target;    // 2017/10/31 追加
+    document.cookie = id + "=" + target;    // 2017/10/31 追加
+    console.log(document.cookie);        // コンソール出力
   },
   // ==============  追加ここまで (2017/06/29) ======================
+
+
+  // ==============  追加 (2017/11/08) ===========================
+  findID: function(text) {
+    var p = text.indexOf("id");
+    var text2 = text.substr(p+4);
+    p = text2.indexOf("\"");
+    var text0 = text2.substr(0, p);
+    //console.log(result);
+    return text0;
+  },
+  // ==============  追加ここまで (2017/11/08) ======================
 
   /**
    * このブロックを修正して、正しい数の入力を持つようにします。

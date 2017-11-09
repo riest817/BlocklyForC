@@ -31,7 +31,7 @@ function sample(select) {
                   </block>
                 </value>
                 <next>
-                  <block type="output_auto" id="KD3w=a}F*+jazpXP3J=S">
+                  <block type="output_auto" id="KD3wa}F*+jazpXP3JS">
                     <field name="TEXT">あなたは%dと入力しましたね。</field>
                     <value name="ADD0">
                       <block type="variables_get" id="u;^D[M}6OzMm-lw01ZnB">
@@ -53,7 +53,7 @@ function sample(select) {
     </value>
   </block>
 </xml>`;
-  document.cookie = "output_auto=" + "あなたは%dと入力しましたね。";    // 2017/10/31 追加
+  document.cookie = "KD3wa}F*+jazpXP3JS=" + "あなたは%dと入力しましたね。";    // 2017/10/31 追加
   loadBlocks(defaultXml);
   }
 

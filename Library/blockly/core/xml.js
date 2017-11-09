@@ -632,6 +632,8 @@ Blockly.Xml.deleteNext = function(xmlBlock) {
   }
 };
 
+
+
 // Export symbols that would otherwise be renamed by Closure compiler.
 if (!goog.global['Blockly']) {
   goog.global['Blockly'] = {};

@@ -1,27 +1,8 @@
 /**
- * @license
- * Visual Blocks Editor
- *
- * Copyright 2012 Google Inc.
- * https://developers.google.com/blockly/
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+2017/11/09 一部日本語化
  */
 
-/**
- * @fileoverview Loading and saving blocks with localStorage and cloud storage.
- * @author q.neutron@gmail.com (Quynh Neutron)
- */
+
 'use strict';
 
 // Create a namespace.
@@ -29,6 +10,7 @@ var BlocklyStorage = {};
 
 /**
  * Backup code blocks to localStorage.
+ コードブロックをlocalStorageにバックアップします。
  * @param {!Blockly.WorkspaceSvg} workspace Workspace.
  * @private
  */
@@ -43,6 +25,7 @@ BlocklyStorage.backupBlocks_ = function(workspace) {
 
 /**
  * Bind the localStorage backup function to the unload event.
+ localStorageバックアップ関数をunloadイベントにバインドします。
  * @param {Blockly.WorkspaceSvg=} opt_workspace Workspace.
  */
 BlocklyStorage.backupOnUnload = function(opt_workspace) {
@@ -53,6 +36,7 @@ BlocklyStorage.backupOnUnload = function(opt_workspace) {
 
 /**
  * Restore code blocks from localStorage.
+ localStorageからコードブロックを復元します。
  * @param {Blockly.WorkspaceSvg=} opt_workspace Workspace.
  */
 BlocklyStorage.restoreBlocks = function(opt_workspace) {
@@ -66,6 +50,7 @@ BlocklyStorage.restoreBlocks = function(opt_workspace) {
 
 /**
  * Save blocks to database and return a link containing key to XML.
+ ブロックをデータベースに保存し、キーを含むリンクをXMLに返します。
  * @param {Blockly.WorkspaceSvg=} opt_workspace Workspace.
  */
 BlocklyStorage.link = function(opt_workspace) {
@@ -77,6 +62,7 @@ BlocklyStorage.link = function(opt_workspace) {
 
 /**
  * Retrieve XML text from database using given key.
+ 指定されたキーを使用してデータベースからXMLテキストを取得します。
  * @param {string} key Key to XML, obtained from href.
  * @param {Blockly.WorkspaceSvg=} opt_workspace Workspace.
  */
@@ -94,6 +80,7 @@ BlocklyStorage.httpRequest_ = null;
 
 /**
  * Fire a new AJAX request.
+ 新しいAJAXリクエストを発行します。
  * @param {string} url URL to fetch.
  * @param {string} name Name of parameter.
  * @param {string} content Content of parameter.
@@ -118,6 +105,7 @@ BlocklyStorage.makeRequest_ = function(url, name, content, workspace) {
 
 /**
  * Callback function for AJAX call.
+ AJAX呼び出しのコールバック関数。
  * @private
  */
 BlocklyStorage.handleRequest_ = function() {
@@ -149,6 +137,8 @@ BlocklyStorage.handleRequest_ = function() {
  * Start monitoring the workspace.  If a change is made that changes the XML,
  * clear the key from the URL.  Stop monitoring the workspace once such a
  * change is detected.
+ ワークスペースの監視を開始します。 XMLを変更する変更が行われた場合は、URLからキーをクリアします。 一度ワークスペースの監視を停止する
+変化が検出される。
  * @param {!Blockly.WorkspaceSvg} workspace Workspace.
  * @private
  */
@@ -168,6 +158,7 @@ BlocklyStorage.monitorChanges_ = function(workspace) {
 
 /**
  * Load blocks from XML.
+ XMLからブロックをロードする。
  * @param {string} xml Text representation of XML.
  * @param {!Blockly.WorkspaceSvg} workspace Workspace.
  * @private
@@ -187,6 +178,8 @@ BlocklyStorage.loadXml_ = function(xml, workspace) {
 /**
  * Present a text message to the user.
  * Designed to be overridden if an app has custom dialogs, or a butter bar.
+ テキストメッセージをユーザに提示する。
+ アプリケーションにカスタムダイアログやバターバーがある場合はオーバーライドされるように設計されています。
  * @param {string} message Text to alert.
  */
 BlocklyStorage.alert = function(message) {
