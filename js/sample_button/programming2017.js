@@ -53,7 +53,9 @@ function sample(select) {
     </value>
   </block>
 </xml>`;
-  document.cookie = "KD3wa}F*+jazpXP3JS=" + "あなたは%dと入力しましたね。";    // 2017/10/31 追加
+  // データの保存
+  //document.cookie = "KD3wa}F*+jazpXP3JS=" + "あなたは%dと入力しましたね。";    // 2017/10/31 追加
+  localStorage.setItem('KD3wa}F*+jazpXP3JS', "あなたは%dと入力しましたね。");    // 2017/11/14 追加
   loadBlocks(defaultXml);
   }
 

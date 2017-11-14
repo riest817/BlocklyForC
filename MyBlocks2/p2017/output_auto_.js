@@ -1,6 +1,6 @@
 /*
 2017/10/12 output_auto.js 新規作成
-2017/11/14 output_auto.js (localStorage専用) に変更
+2017/11/14 output_auto.js (Cookie専用) に変更
 */
 
 Blockly.Blocks['output_auto'] = {
@@ -9,10 +9,12 @@ Blockly.Blocks['output_auto'] = {
    * @this Blockly.Block
    */
   init: function() {
+    var result = GetCookies();    // 2017/10/31 追加
     // ==============  追加 (2017/11/08) ================
     var element = Blockly.Xml.blockToDom(this, false);
     var text = Blockly.Xml.domToText(element);
     id = this.findID(text);   // グローバル変数
+    if ( result[id] === undefined ) { result[id] = ""; }
     //console.log(id);        // コンソール出力
     // ==============  追加ここまで (2017/11/08) ===========
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
@@ -20,8 +22,8 @@ Blockly.Blocks['output_auto'] = {
     this.appendDummyInput()
         .appendField("printf")
         .appendField(this.newQuote_(true))
-        //.appendField(new Blockly.FieldTextInput('%d', this.validator), 'TEXT')    2017/11/14 ↓に変更
-        .appendField(new Blockly.FieldTextInput(localStorage.getItem(id), this.validator), 'TEXT')
+        //.appendField(new Blockly.FieldTextInput('%d', this.validator), 'TEXT')    2017/10/31 ↓に変更
+        .appendField(new Blockly.FieldTextInput(result[id], this.validator), 'TEXT')
         .appendField(this.newQuote_(false));
     this.setInputsInline(true);		  // インプットを内側にする
     this.setPreviousStatement(true);  // 上部との接続を可能にする
@@ -34,8 +36,8 @@ Blockly.Blocks['output_auto'] = {
       return (parent && parent.getInputsInline() && parent.tooltip) ||
           "テキストボックスの中の%の数で変数を動的に検出して出力します。";
     });
-    //this.itemCount_ = 1;
-    //console.log(localStorage.getItem(id));  // コンソール出力
+    //this.itemCount_ = 1;   
+    console.log(result[id]); 
     this.updateShape_();
   },
 
@@ -62,7 +64,8 @@ Blockly.Blocks['output_auto'] = {
     this.sourceBlock_.itemCount_ = counter(target,"%");    
     //this.updateShape_();
     this.sourceBlock_.updateShape_();
-    localStorage.id = target;    // 2017/11/14 変更
+    document.cookie = id + "=" + target;    // 2017/10/31 追加
+    //console.log(document.cookie);        // コンソール出力
   },
   // ==============  追加ここまで (2017/06/29) ======================
 
