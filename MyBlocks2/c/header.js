@@ -60,7 +60,7 @@ Blockly.Blocks['include_stdio_c'] = {
 Blockly.C['include_stdio_c'] = function(block) {
   var code = '#include &lt';
   code += 'stdio.h';
-  code += '&gt\n'
+  code += '&gt\n';
 
   return code;
   //Blockly.C.definitions_['include_stdio_c'] = code;
@@ -87,7 +87,7 @@ Blockly.Blocks['include_stdlib_c'] = {
 Blockly.C['include_stdlib_c'] = function(block) {
   var code = '#include &lt';
   code += 'stdlib.h';
-  code += '&gt\n'
+  code += '&gt\n';
 
   return code;
   //Blockly.C.definitions_['include_stdlib_c'] = code;
@@ -114,7 +114,7 @@ Blockly.Blocks['include_string_c'] = {
 Blockly.C['include_string_c'] = function(block) {
   var code = '#include &lt';
   code += 'string.h';
-  code += '&gt\n'
+  code += '&gt\n';
 
   //return code;
   Blockly.C.definitions_['include_string_c'] = code;
@@ -141,7 +141,7 @@ Blockly.Blocks['include_math_c'] = {
 Blockly.C['include_math_c'] = function(block) {
   var code = '#include &lt';
   code += 'math.h';
-  code += '&gt\n'
+  code += '&gt\n';
 
   Blockly.C.definitions_['include_math_c'] = code;
   return null;

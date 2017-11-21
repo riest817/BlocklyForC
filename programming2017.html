@@ -3,14 +3,20 @@
 2017/10/17 sampleボタンの実行
 2017/10/25 function GetCookies() 追加 
 2017/11/14 各言語の html ファイルの共通する関数群を common2.js に移動
+
 -->
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Blockly for プログラミング2017</title>
 <link rel="shortcut icon" href="favicon.png" type="image/png"/>
-<script src="Library/blockly/blockly_compressed.js"></script>
-<script src="Library/blockly/blocks_compressed.js"></script>   
+  
+<!--  解凍ファイルを追加  17/11/21 -->
+<script src="Library/blockly/00_uncompressed/blockly_uncompressed.js"></script>
+<script src="Library/blockly/00_uncompressed/blocks_uncompressed.js"></script>
+<!--  圧縮ファイルをコメントアウト  17/11/21 -->
+<!--script src="Library/blockly/blockly_compressed.js"></script>
+<script src="Library/blockly/blocks_compressed.js"></script--> 
 <!-- -->
 <script src="MyGenerators/c.js"></script>
 <script src="MyGenerators/c/colour.js"></script>
@@ -41,6 +47,7 @@
 <script src="MyBlocks2/c/variables_c.js"></script> 
 <script src="MyBlocks2/c/math.js"></script> 
 <script src="MyBlocks2/c/header.js"></script> 
+<script src="MyBlocks2/loop.js"></script> 
 
 <script src="js/sample_button/programming2017.js"></script>  <!-- (2017/10/19 追加)-->
 <script src="js/cookie.js"></script>  <!-- (2017/11/14 追加)-->
@@ -133,7 +140,7 @@
   <form>
     <div id="variable_input_text" data-step="4" data-intro="このボタンをクリックして、サンプルブロックを組み立てます。">
       <input type="button" value="List1-11" class = "sample" id = "sample1" style="font-size: 0.8em;" onclick="sample(1);"/>
-      <input type="button" value="サンプル2" class = "sample" id = "sample2" style="font-size: 0.8em;" onclick="sample(2);"/>
+      <input type="button" value="List4-12" class = "sample" id = "sample2" style="font-size: 0.8em;" onclick="sample(2);"/>
       <input type="button" value="サンプル3" class = "sample" id = "sample3" style="font-size: 0.8em;" onclick="sample(3);"/></br>
     </div>
   </form>
@@ -178,6 +185,17 @@
     </block>
     <block type="controls_flow_statements"></block>
   </category>
+    <!--category name="繰り返し2" colour="120">
+    <block type="quiz1_for"></block>
+    <block type="quiz2_while"></block>
+    <block type="quiz3_for"></block>
+    <block type="for_custom_before"></block>
+    <block type="quiz_for"></block>
+    <block type="quiz_for_simple"></block>
+    <block type="quiz_for_simple2"></block>
+    <block type="quiz_while"></block>
+    <block type="do_while"></block>
+  </category-->
   <category name="数" colour="230">
     <block type="math_number"></block>
     <block type="var_arithmetic"></block>     <!-->2017/10/17 追加<-->

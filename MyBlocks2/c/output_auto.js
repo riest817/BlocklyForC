@@ -1,5 +1,6 @@
 /*
-2017/10/31 Blockly.Blocks['output_auto']　にcookies機能を追加
+2017/10/31 Blockly.Blocks['output_auto']　にcookie機能を追加
+2017/11/15 Blockly.Blocks['output_auto']　cookie から localStorage に変更
 
 ・myCBlocks.js に新しいブロックの定義:
     Blockly.Blocks['〜'] = { 〜 }
@@ -9,14 +10,18 @@
 Blockly.Blocks['output_auto'] = {
 
   init: function() {
-    var result = GetCookies();    // 2017/10/31 追加
+    // ==============  追加 (2017/11/15) ================
+    var element = Blockly.Xml.blockToDom(this, false);
+    var text = Blockly.Xml.domToText(element);
+    id = this.findID(text);   // グローバル変数
+    // ==============  追加ここまで (2017/11/15) ===========
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
     this.setColour(0);
     this.appendDummyInput()
         .appendField("出力(自動)")
         .appendField(this.newQuote_(true))
-        //.appendField(new Blockly.FieldTextInput('%d', this.validator), 'TEXT')    2017/10/31 ↓に変更
-        .appendField(new Blockly.FieldTextInput(result['output_auto'], this.validator), 'TEXT')
+        //.appendField(new Blockly.FieldTextInput('%d', this.validator), 'TEXT')    2017/11/15 ↓に変更
+        .appendField(new Blockly.FieldTextInput(localStorage.getItem(id), this.validator), 'TEXT')
         .appendField(this.newQuote_(false));
     this.setInputsInline(true);		  // インプットを内側にする
     this.setPreviousStatement(true);  // 上部との接続を可能にする
@@ -45,22 +50,28 @@ Blockly.Blocks['output_auto'] = {
     this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
     this.updateShape_();
   },
+  // ==============  追加 (2017/11/15) ===========================
+  validator: function(text) {    
 
-  // ==============  追加 (2017/06/29) ===========================
-  // 入力フォームから任意の文字を自動検出する関数
-  validator: function(text) {
-  	//var target = this.getFieldValue('TEXT');	// 入力文字を動的に記録する
-  	var target = this.getText(text);			// 入力文字を動的に記録する
-  	var counter = function(str,seq){
-    	return str.split(seq).length - 1;
-		}
-    this.sourceBlock_.itemCount_ = counter(target,"%");
-    //console.log(this.sourceBlock_.itemCount_);				// コンソール出力
+    var target = this.getText(text);      // 入力文字を動的に記録する
+    var counter = function(str,seq){
+      return str.split(seq).length - 1;
+    }
+    this.sourceBlock_.itemCount_ = counter(target,"%");    
     //this.updateShape_();
     this.sourceBlock_.updateShape_();
-    document.cookie = "output_auto=" + target;    // 2017/10/31 追加
+    localStorage.id = target;
   },
-  // ==============  追加ここまで (2017/06/29) ======================
+
+  findID: function(text) {
+    var p = text.indexOf("id");
+    var text2 = text.substr(p+4);
+    p = text2.indexOf("\"");
+    var text0 = text2.substr(0, p);
+    //console.log(result);
+    return text0;
+  },
+  // ==============  追加ここまで (2017/11/15) ======================
 
   /**
    * このブロックを修正して、正しい数の入力を持つようにします。

@@ -1,5 +1,6 @@
 <!--
 2017/09/05 index.html 作成開始
+2017/11/21 htmlファイルの共通部分をcommonフォルダに移動
 -->
 
 <!DOCTYPE html>
@@ -13,39 +14,25 @@
 <meta name="keywords" content="Blockly Demo">
 <link rel="stylesheet" href="css/style.css">
 <script type="text/javascript" src="js/openclose.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+<script type="text/javascript">
+$(function(){
+$("#header").load("html/common/header0.html");
+$("#menu").load("html/common/menu0.html");
+$("#footer").load("html/common/footer.html");
+})
+</script>
 </head>
 
 <body>
 
-<header>
-<div class="inner">
-<h1 id="logo"><a href="index.html"><img src="images/logo4.PNG" alt="Blockly Demo"></a></h1>
-<div id="contact">
-<p class="tel"><a href="http://ymir.eng.kagawa-u.ac.jp/">香川研究室</a><span>B4 佐野</span></p>
-</div>
-</div>
-</header>
+<div id="header"></div>		<!-- (2017/11/21 追加)-->
 
-<!--PC用（801px以上端末）メニュー-->
-<nav id="menubar">
-<ul class="inner">
-<li class="current"><a href="index.html">Home</a></li>
-<li><a href="html/link.html">Link</a></li>
-<li><a href="html/form.html">Contact</a></li>
-</ul>
-</nav>
-<!--小さな端末用（800px以下端末）メニュー-->
-<nav id="menubar-s">
-<ul>
-<li class="current"><a href="index.html">Home</a></li>
-<li><a href="html/link.html">Link</a></li>
-<li><a href="html/form.html">Contact</a></li>
-</ul>
-</nav>
+<div id="menu"></div>		<!-- (2017/11/21 追加)-->
 
 <div class="contents">
 <div class="inner">
@@ -141,31 +128,7 @@ Scratchなど他のビジュアルプログラミング言語と同じく、命�
 </div>
 <!--/contents-->
 
-<p id="pagetop" class="inner"><a href="#">↑</a></p>
-
-<footer>
-
-<div id="copyright">
-<small>Copyright&copy; @2017 <a href="http://ymir.eng.kagawa-u.ac.jp/">Kagawa Lab.</a> and Yuya SANO. All Rights Reserved.</small>
-</div>
-
-</footer>
-
-<!--スマホ用更新情報　800px以下-->
-<script type="text/javascript">
-if (OCwindowWidth() <= 800) {
-	open_close("newinfo_hdr", "newinfo");
-}
-</script>
-
-<!--メニューの３本バー-->
-<div id="menubar_hdr" class="close"><span></span><span></span><span></span></div>
-<!--メニューの開閉処理条件設定　800px以下-->
-<script type="text/javascript">
-if (OCwindowWidth() <= 800) {
-	open_close("menubar_hdr", "menubar-s");
-}
-</script>
+<div id="footer"></div>		<!-- (2017/11/21 追加)-->
 
 <!-- Global site tag (gtag.js) - Google Analytics (2017/10/12 追加)-->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107589514-1"></script>
