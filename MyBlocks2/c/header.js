@@ -32,7 +32,7 @@ Blockly.Blocks['header_container_c'] = {
 
 Blockly.C['header_container_c'] = function(block) {
   var n = 0;
-  var branch = Blockly.C.statementToCode(block, 'CONTAINER');
+  var branch = Blockly.C.statementToCode_0indent(block, 'CONTAINER');
   var code = branch + '\n';
   code = Blockly.C.scrub_(block, code);
 

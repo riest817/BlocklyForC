@@ -1,33 +1,9 @@
-/**
- * @license
- * Visual Blocks Language
- *
- * Copyright 2012 Google Inc.
- * https://developers.google.com/blockly/
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/**
- * @fileoverview Generating Haskell for logic blocks.
- * @author q.neutron@gmail.com (Quynh Neutron)
- */
-
  /**
- * 2017/06/28  javascriptのソースコードをhaskell用に編集
+ 2017/06/28  javascriptのソースコードをhaskell用に編集
  * 編集できないところをコメントアウト
  * おそらく山形さんが作ったと思われるブロックをコメントアウト
  * 'quiz_if'など
+
  */
 
 'use strict';
@@ -43,7 +19,7 @@ Blockly.Haskell['controls_if'] = function(block) {
   var argument = Blockly.Haskell.valueToCode(block, 'IF' + n,
       Blockly.Haskell.ORDER_NONE) || 'false';
   var branch = Blockly.Haskell.statementToCode(block, 'DO' + n);
-  var code = 'if ' + argument + '\n  then ' + branch + '\n';
+  var code = 'if ' + argument + ' then ' + branch;
   /*
   for (n = 1; n <= block.elseifCount_; n++) {
     argument = Blockly.Haskell.valueToCode(block, 'IF' + n,

@@ -1,26 +1,6 @@
 /**
- * @license
- * Visual Blocks Language
- *
- * Copyright 2012 Google Inc.
- * https://developers.google.com/blockly/
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * 
- */
-
-/**
- * @fileoverview Generating Haskell for procedure blocks.
- * @author fraser@google.com (Neil Fraser)
- */
-
-/**
- * 2017/07/13  Haskellにコード最適化
+2017/07/13  Haskellにコード最適化
+2017/12/05  Blockly.Haskell['procedures_defreturn'] Blockly.Haskell['procedures_callreturn'] 改良
  */
 'use strict';
 
@@ -33,7 +13,7 @@ Blockly.Haskell['procedures_defreturn'] = function(block) {
   // Define a procedure with a return value.
   var funcName = Blockly.Haskell.variableDB_.getName(
       block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
-  var branch = Blockly.Haskell.statementToCode(block, 'STACK');
+  var branch = Blockly.Haskell.statementToCode_0indent(block, 'STACK');
   if (Blockly.Haskell.STATEMENT_PREFIX) {
     branch = Blockly.Haskell.prefixLines(
         Blockly.Haskell.STATEMENT_PREFIX.replace(/%1/g,
@@ -45,18 +25,13 @@ Blockly.Haskell['procedures_defreturn'] = function(block) {
   }
   var returnValue = Blockly.Haskell.valueToCode(block, 'RETURN',
       Blockly.Haskell.ORDER_NONE) || '';
-  if (returnValue) {
-    returnValue = ' ' + returnValue + '\n';
-  }
   var args = [];
   for (var i = 0; i < block.arguments_.length; i++) {
-    args[i] = Blockly.Haskell.variableDB_.getName(block.arguments_[i],
-        Blockly.Variables.NAME_TYPE);
+    args[i] = block.arguments_[i];
   }
-  var code = funcName + ' ' + args.join(' ') + ' =' +
-      branch + returnValue + '';
+  var code = funcName + ' :: ' + args.join(' -> ') + '\n' + branch + returnValue;
   code = Blockly.Haskell.scrub_(block, code);
-  // Add % so as not to collide with helper functions in definitions list.
+  // 定義リストのヘルパー関数と衝突しないように％を追加する。
   Blockly.Haskell.definitions_['%' + funcName] = code;
   return null;
 };
@@ -71,7 +46,7 @@ Blockly.Haskell['procedures_callreturn'] = function(block) {
   var funcName = Blockly.Haskell.variableDB_.getName(
       block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
   var args = [];
-  for (var i = 0; i < block.arguments_.length; i++) {
+  for (var i = 0; i < block.arguments_.length-1; i++) { // 17/12/05 this.arguments_.lengthに-1
     args[i] = Blockly.Haskell.valueToCode(block, 'ARG' + i,
         Blockly.Haskell.ORDER_COMMA) || 'null';
   }

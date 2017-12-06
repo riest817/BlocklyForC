@@ -1,3 +1,4 @@
+17/12/06	インデント問題解決、Blockly for Haskell 関数カテゴリ改良
 17/11/21	htmlファイルの共通部分をcommonフォルダに移動
 17/11/14	cookieからlocalStorageに変更, common2.js 新規作成
 17/11/09	xmlのidからcookieで記録
@@ -19,13 +20,14 @@
 	履修生の理解度に応じて後期の終盤にアンケートをとりたい
 	
 	明解C言語の書籍のサンプルコードを参考に
-	headerのソースコードにインデントの問題あり
+	headerのソースコードにインデントの問題あり → (17/12/05) 解決
 	
 	Blockly for JavaScript のリスト を Blockly for C の配列として適用させる (優先度：低)
 	
 ○ Blockly for Haskell
 	haskellの理解を深める
 	大学院講義「プログラミング・パラダイム」と「プログラミンング言語意味論」で理解を深めながらBlocklyを改善する
+	↑ 今ここ (17/12/05)
 	
 ○ Blockly for flex
 	正規表現にまつわる動的変形ブロックがまだ未対応

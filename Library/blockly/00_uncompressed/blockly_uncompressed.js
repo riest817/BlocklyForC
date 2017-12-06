@@ -30105,6 +30105,19 @@ goog.dom.TagIterator.prototype.next = function () {
             d && (d = this.prefixLines(d, this.INDENT));
             return d
         };
+
+        // 2017/12/05 追加 /////////////////////////////////////////////////////////////////////////////
+        Blockly.Generator.prototype.statementToCode_0indent     = function (a, b) {
+            var c = a.getInputTargetBlock(b),
+                d = this.blockToCode(c);
+            goog
+                .asserts
+                .assertString(d, 'Expecting code from statement block "%s".', c && c.type);
+            d && (d = this.prefixLines(d, ""));
+            return d
+        };
+        // 2017/12/05 追加ここまで ///////////////////////////////////////////////////////////////////////
+        
         Blockly.Generator.prototype.addLoopTrap                = function (a, b) {
             b = b.replace(/\$/g, "$$$$");
             this.INFINITE_LOOP_TRAP && (

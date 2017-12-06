@@ -1,26 +1,5 @@
 /**
- * @license
- * Visual Blocks Language
- *
- * Copyright 2012 Google Inc.
- * https://developers.google.com/blockly/
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/**
- * @fileoverview Helper functions for generating Haskell for blocks.
- * @author fraser@google.com (Neil Fraser)
+2017/12/05 コメントアウトのコード 変更
  */
 'use strict';
 
@@ -31,7 +10,7 @@ goog.require('Blockly.Generator');
 
 /**
  * Haskell code generator.
- * @type {!Blockly.Generator}
+ * @type {!Blockly.Generator};
  */
 Blockly.Haskell = new Blockly.Generator('Haskell');
 
@@ -137,6 +116,8 @@ Blockly.Haskell.ORDER_OVERRIDES = [
 /**
  * Allow for switching between one and zero based indexing for lists and text,
  * one based by default.
+ リストとテキストの1と0の間のインデックス付けを切り替えることができます。
+ デフォルトでは1つです。
  */
 Blockly.Haskell.ONE_BASED_INDEXING = true;
 
@@ -236,11 +217,11 @@ Blockly.Haskell.scrub_ = function(block, code) {
     if (comment) {
       if (block.getProcedureDef) {
         // Use a comment block for function comments.
-        commentCode += '/**\n' +
-                       Blockly.Haskell.prefixLines(comment + '\n', ' * ') +
-                       ' */\n';
+        commentCode += '{-\n' +
+                       Blockly.Haskell.prefixLines(comment + '\n', ' ') +
+                       ' -}\n';                                 // 17/12/05 コメントアウトのコードをhaskell用に変更
       } else {
-        commentCode += Blockly.Haskell.prefixLines(comment + '\n', '// ');
+        commentCode += Blockly.Haskell.prefixLines(comment + '\n', '-- ');  // 17/12/05 ↑と同様
       }
     }
     // Collect comments for all value arguments.
@@ -251,7 +232,7 @@ Blockly.Haskell.scrub_ = function(block, code) {
         if (childBlock) {
           var comment = Blockly.Haskell.allNestedComments(childBlock);
           if (comment) {
-            commentCode += Blockly.Haskell.prefixLines(comment, '// ');
+            commentCode += Blockly.Haskell.prefixLines(comment, '-- '); // 17/12/05 ↑と同様
           }
         }
       }
