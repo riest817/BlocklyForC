@@ -30300,7 +30300,7 @@ goog.dom.TagIterator.prototype.next = function () {
                 d.setAttribute("gap", 16);
                 var e = goog
                     .dom
-                    .createDom("field", null, Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE);
+                    .createDom("field", null, "関数名を入力");
                 e.setAttribute("name", "NAME");
                 d.appendChild(e);
                 c.push(d)

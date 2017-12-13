@@ -1,3 +1,4 @@
+17/12/13	Haskell 複数ブロック作成
 17/12/06	インデント問題解決、Blockly for Haskell 関数カテゴリ改良
 17/11/21	htmlファイルの共通部分をcommonフォルダに移動
 17/11/14	cookieからlocalStorageに変更, common2.js 新規作成

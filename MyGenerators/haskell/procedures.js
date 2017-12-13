@@ -1,6 +1,7 @@
 /**
 2017/07/13  Haskellにコード最適化
 2017/12/05  Blockly.Haskell['procedures_defreturn'] Blockly.Haskell['procedures_callreturn'] 改良
+17/12/12    ['procedures_call'] 作成
  */
 'use strict';
 
@@ -29,7 +30,7 @@ Blockly.Haskell['procedures_defreturn'] = function(block) {
   for (var i = 0; i < block.arguments_.length; i++) {
     args[i] = block.arguments_[i];
   }
-  var code = funcName + ' :: ' + args.join(' -> ') + '\n' + branch + returnValue;
+  var code = /* funcName + ' :: ' + args.join(' -> ') + '\n' + */ branch + returnValue;   // 17/12/07 
   code = Blockly.Haskell.scrub_(block, code);
   // 定義リストのヘルパー関数と衝突しないように％を追加する。
   Blockly.Haskell.definitions_['%' + funcName] = code;
@@ -48,7 +49,7 @@ Blockly.Haskell['procedures_callreturn'] = function(block) {
   var args = [];
   for (var i = 0; i < block.arguments_.length-1; i++) { // 17/12/05 this.arguments_.lengthに-1
     args[i] = Blockly.Haskell.valueToCode(block, 'ARG' + i,
-        Blockly.Haskell.ORDER_COMMA) || 'null';
+        Blockly.Haskell.ORDER_COMMA) || '_';
   }
   var code = funcName + ' ' + args.join(' ') + '';
   return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
@@ -81,4 +82,20 @@ Blockly.Haskell['procedures_ifreturn'] = function(block) {
   }
   code += '}\n';
   return code;
+};
+
+Blockly.Haskell['procedures_call'] = function(block) {
+    // Call a procedure with a return value.
+  var funcName = Blockly.Haskell.variableDB_.getName(
+      block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
+  var args = [];
+  
+  for (var i = 0; i < block.itemCount_; i++) {
+    args[i] = Blockly.Haskell.valueToCode(block, 'ADD' + i,
+        Blockly.Haskell.ORDER_COMMA) || '_';
+  }
+  var code = funcName + ' ' + args.join(' ');
+  
+  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
+  //return code + '\n';
 };
