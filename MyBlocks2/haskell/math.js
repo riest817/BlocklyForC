@@ -1,22 +1,8 @@
 /*
 2017/07/11 haskell/math.js 新規作成
 2017/10/18 Blockly.Blocks['var_arithmetic']　コード修正、追加
+18/01/10   ['bondage'] 作成
 */
-/*
-・myCBlocks.js に新しいブロックの定義:
-    Blockly.Blocks['〜'] = { 〜 }
-  を追加する。
-*/
-
-/*
-・myCBlocks.js に新しいブロックが生成する C 言語のソース:
-    Blockly.C['〜'] = function(block) {
-        〜
-    }
-  を追加する。
-*/
-
-
 
 Blockly.Blocks['var_arithmetic'] = {
   /**
@@ -90,4 +76,44 @@ Blockly.Haskell['var_arithmetic'] = function(block) {
   
   code = argument0 + operator + argument1;
   return [code, order];
+};
+
+Blockly.Blocks['bondage'] = {
+  /**
+   * Block for variable setter.
+   * @this Blockly.Block
+   */
+  init: function() {
+
+    this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
+    this.setColour(Blockly.Blocks.variables.HUE);
+    this.appendValueInput('VALUE')
+        .appendField("束縛")
+        .appendField(new Blockly.FieldVariable("項目"), 'VAR');
+    this.setOutput(true);
+    this.setInputsInline(false);
+    this.setTooltip("変数を束縛します。");
+    this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+  },
+  contextMenuType_: 'variables_get',
+  customContextMenu: function(options) {
+    var option = {enabled: true};
+    var name = this.getFieldValue('VAR');
+    option.text = this.contextMenuMsg_.replace('%1', name);
+    var xmlField = goog.dom.createDom('field', null, name);
+    xmlField.setAttribute('name', 'VAR');
+    var xmlBlock = goog.dom.createDom('block', null, xmlField);
+    xmlBlock.setAttribute('type', this.contextMenuType_);
+    option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
+    options.push(option);
+  }
+};
+
+Blockly.Haskell['bondage'] = function(block) {
+  // Variable setter.
+  var argument0 = Blockly.Haskell.valueToCode(block, 'VALUE',
+      Blockly.Haskell.ORDER_ASSIGNMENT) || '0';
+  var varName = Blockly.Haskell.variableDB_.getName(
+      block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  return varName + ' <- ' + argument0 + ';\n';
 };

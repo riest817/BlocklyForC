@@ -5,6 +5,7 @@
 2017/07/11 ['do_haskell'] ブロック作成
 2017/07/13 setTooltipの内容を変更
 17/12/12  ['controls_if_haskell'] 作成
+18/01/10  ['logic_compare'] 作成
 */
 Blockly.Blocks['controls_if_haskell'] = {
   /**
