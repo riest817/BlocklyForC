@@ -201,13 +201,13 @@ Blockly.Blocks['inner_table'] = {
     this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
     this.setColour(Blockly.Blocks.lists.HUE);
     this.appendDummyInput()
-        .appendField("[");
+        .appendField("内包表記");
     this.itemCount_ = 2;
     this.updateShape_();
     this.setOutput(true);
     this.setInputsInline(true);
     this.setMutator(new Blockly.Mutator(['intable_create_join_item']));
-    this.setTooltip("内包表記を表します。");
+    this.setTooltip("リストの内包表記を表します。");
   },
   /**
    * Create XML to represent number of text inputs.
@@ -306,17 +306,9 @@ Blockly.Blocks['inner_table'] = {
     // Add new inputs.
     for (var i = 0; i < this.itemCount_+1; i++) {
       if (!this.getInput('ADD' + i)) {
-        this.removeInput('END');  // Remove deleted inputs.
-        var input = this.appendValueInput('ADD' + i);
-        if ( i > 1 ) {
-          input.appendField(",");
-        } else if ( i == 1 ) {
-          input.appendField("|");
-        }
-        if ( i == this.itemCount_ ) {
-        this.appendDummyInput('END')
-            .appendField("]");
-        }
+        if ( i == 0 ) { var input = this.appendValueInput('ADD' + i); }
+        else { var input = this.appendStatementInput('ADD' + i); }        
+        if ( i > 0 ) { input.appendField("限定式" + i); }
       }
     }
 

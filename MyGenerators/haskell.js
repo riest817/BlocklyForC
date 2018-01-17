@@ -217,9 +217,10 @@ Blockly.Haskell.scrub_ = function(block, code) {
     if (comment) {
       if (block.getProcedureDef) {
         // Use a comment block for function comments.
+        /* 18/01/17
         commentCode += '{-\n' +
                        Blockly.Haskell.prefixLines(comment + '\n', ' ') +
-                       ' -}\n';                                 // 17/12/05 コメントアウトのコードをhaskell用に変更
+                       ' -}\n';*/                                 // 17/12/05 コメントアウトのコードをhaskell用に変更
       } else {
         commentCode += Blockly.Haskell.prefixLines(comment + '\n', '-- ');  // 17/12/05 ↑と同様
       }

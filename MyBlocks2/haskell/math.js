@@ -90,8 +90,10 @@ Blockly.Blocks['bondage'] = {
     this.appendValueInput('VALUE')
         .appendField("束縛")
         .appendField(new Blockly.FieldVariable("項目"), 'VAR');
-    this.setOutput(true);
+    this.setOutput(false);
     this.setInputsInline(false);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
     this.setTooltip("変数を束縛します。");
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
   },
@@ -115,5 +117,6 @@ Blockly.Haskell['bondage'] = function(block) {
       Blockly.Haskell.ORDER_ASSIGNMENT) || '0';
   var varName = Blockly.Haskell.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-  return varName + ' <- ' + argument0 + ';\n';
+  var code = varName + ' <- ' + argument0;
+  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
 };

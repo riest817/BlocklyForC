@@ -1,5 +1,6 @@
 /*
 2017/12/05 haskell\original.js 新規作成
+18/01/16 ['emer_block'] 作成
 */
 
 Blockly.Blocks['pattern_match'] = {
@@ -119,3 +120,28 @@ Blockly.Haskell['pattern_match'] = function(block) {
   
 };
 
+Blockly.Blocks['emer_block'] = {
+  /**
+   * Block for variable setter.
+   * @this Blockly.Block
+   */
+  init: function() {
+
+    this.setHelpUrl();
+    this.setColour(500);
+    this.appendValueInput('VALUE');
+    this.setOutput(true);
+    this.setInputsInline(false);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip("ブロックの形状で接続できないとき使う(開発用)");
+  }
+};
+
+Blockly.Haskell['emer_block'] = function(block) {
+  // Variable setter.
+  var argument0 = Blockly.Haskell.valueToCode(block, 'VALUE',
+      Blockly.Haskell.ORDER_ASSIGNMENT);
+  var code = argument0;
+  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
+};
