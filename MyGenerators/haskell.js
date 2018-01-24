@@ -217,7 +217,7 @@ Blockly.Haskell.scrub_ = function(block, code) {
     if (comment) {
       if (block.getProcedureDef) {
         // Use a comment block for function comments.
-        /* 18/01/17
+        /* 18/01/17 ['procedures_defreturn']のパターンマッチングで邪魔なため
         commentCode += '{-\n' +
                        Blockly.Haskell.prefixLines(comment + '\n', ' ') +
                        ' -}\n';*/                                 // 17/12/05 コメントアウトのコードをhaskell用に変更

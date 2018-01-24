@@ -130,7 +130,7 @@ Blockly.Blocks['emer_block'] = {
     this.setHelpUrl();
     this.setColour(500);
     this.appendValueInput('VALUE');
-    this.setOutput(true);
+    this.setOutput(false);
     this.setInputsInline(false);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -143,5 +143,7 @@ Blockly.Haskell['emer_block'] = function(block) {
   var argument0 = Blockly.Haskell.valueToCode(block, 'VALUE',
       Blockly.Haskell.ORDER_ASSIGNMENT);
   var code = argument0;
-  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
+  //return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
+  //return ["", code];
+  return code;
 };

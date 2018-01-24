@@ -1,0 +1,69 @@
+\setlength{\textwidth}{17cm}
+\setlength{\textheight}{24cm}
+\setlength{\evensidemargin}{-0.4cm}
+\setlength{\oddsidemargin}{-0.4cm}
+\setlength{\columnsep}{1cm}
+\setlength{\intextsep}{10pt}
+\setlength{\floatsep}{8pt}
+\setlength{\textfloatsep}{10pt}
+\setcounter{topnumber}{3}
+\setlength{\topmargin}{-0.5cm}
+\setlength{\headsep}{0.3cm}
+\renewcommand{\baselinestretch}{1.1}
+\newcommand{\bm}[1]{{\mbox{\boldmath ${#1}$}}}
+\newcommand{\fra}[2]{\displaystyle{\frac{#1}{#2}}}
+\newcommand{\ns}{\!\!\!\!}
+\newcommand{\lw}[1]{\smash{\lower2.ex\hbox{#1}}}
+\newcommand{\namelistlabel}[1]{\mbox{#1}\hfil}
+%
+\newdimen\vspace@title
+\vspace@title=0.18\textheight
+%
+\def\abstract#1{\long\def\@abstract{#1}}
+\def\@abstract{}
+%
+\def\maketitle{\par
+\begingroup
+\def\thefootnote{\fnsymbol{footnote}}%
+\def\@makefnmark{\hbox
+        to\z@{$\m@th^{\@thefnmark}$\hss}}%
+\if@twocolumn
+        \twocolumn[\@maketitle]%
+        \else \newpage
+        \global\@topnum\z@
+        \@maketitle \fi\thispagestyle{plain}\@thanks
+\endgroup
+\setcounter{footnote}{0}%
+\let\maketitle\relax
+\let\@maketitle\relax
+\gdef\@thanks{}\gdef\@author{}\gdef\@title{}\let\thanks\relax}
+%
+\def\@maketitle{\newpage\null
+%
+\vbox to \vspace@title{%
+\begin{center}\vspace{-1.9cm}{\LARGE \@title} \end{center}
+%
+\begin{center}\vspace{-1.9cm}{\normalsize \@author} \end{center}
+%\begin{center}{\normalsize \lineskip .5em \@author} \end{center}
+} \vspace{-1.0cm} \par}
+\let\@oldmaketitle=\@maketitle
+\def\@maketitle{\newpage\null
+    \@oldmaketitle
+    \vspace{-1.3cm}
+%    \begin{center}\small\gt あらまし\end{center}
+%    \begin{center}\small\bf あらまし\end{center}
+    \begin{quotation}\@abstract\end{quotation}
+    \vskip 1.5em}
+\def\section{\vspace{-.3cm}\@startsection {section}{1}{\z@}{3.0ex plus 1ex minus .2ex}{2.0ex plus .2ex}{\large\bf}}
+ \def\subsection{\@startsection{subsection}{2}{\z@}{2.75ex plus 1ex minus .2ex}{1.5ex plus .2ex}{\normalsize\bf}}
+%
+% ヘッダ，フッタの定義
+%
+\mark{{}{}}
+
+\def\ps@headings{
+        \def\@oddfoot{}
+        \def\@evenfoot{}
+        \def\@oddhead{}
+%        \def\@oddhead{\vbox{\hbox to \textwidth{\footnotesize \hbox{} \rm RISE 卒業論文要旨集 \hfill \hbox{} \rm March 2006 \hbox{}}\kern 1pt \hrule height .2pt}}
+}

@@ -2,6 +2,7 @@
 2017/10/31 function GetCookies() 追加
 2017/11/01 sampleボタンの実行
 2017/11/14 各言語の html ファイルの共通する関数群を common2.js に移動
+18/01/23  正常に動作するように修復
 -->
 
 <!DOCTYPE html>
@@ -35,7 +36,6 @@
 <script src="Library/intro.js"></script>
 <!-- 追加 -->
 <script src="MyBlocks2/javascript/math.js"></script> 
-
 <script src="js/sample_button/javascript.js"></script>  <!-- (2017/10/19 追加)-->
 <script src="js/cookie.js"></script>  <!-- (2017/11/14 追加)-->
 
@@ -516,6 +516,206 @@ function renderContent(clickedName) {
   } 
 }
 
+function tabClick(clickedName) {
+  // If the XML tab was open, save and render the content.
+  if ($("#tabXml").hasClass('tabon')) {
+    var xmlTextarea = $('#contentXml');
+    var xmlText = xmlTextarea.val();
+    var xmlDom = null;
+    try {
+      xmlDom = Blockly.Xml.textToDom(xmlText);
+    } catch (e) {
+      var q = window.confirm(MSG['badXml'].replace('%1', e));
+      if (!q) {
+        // Leave the user on the XML tab.
+        return;
+      }
+    }
+    if (xmlDom) {
+      workspace.clear();
+      Blockly.Xml.domToWorkspace(xmlDom, workspace);
+    }
+  }
+
+  if ($("#tabBlocks").hasClass('tabon')) {
+    workspace.setVisible(false);
+  }
+
+  // Deselect all tabs and hide all panes.
+  for (var i = 0; i < tabs.length; i++) {
+    var name = tabs[i];
+    $('#tab' + name).removeClass('tabon');
+    $('#tab' + name).addClass('taboff');
+    $('#content' + name).css("visibility", 'hidden');
+  }
+
+  // Select the active tab.
+  selected = clickedName;
+  $('#tab' + clickedName).removeClass('taboff');
+  $('#tab' + clickedName).addClass('tabon');
+  $('#content' + clickedName).css("visibility", 'visible');
+
+  renderContent(clickedName);
+
+  if (clickedName == 'Blocks') {
+    workspace.setVisible(true);
+  }
+  Blockly.svgResize(workspace);
+}
+
+// ==============  追加 (2017/10/31) ===========================
+function GetCookies()
+{
+    var result = new Array();
+
+    var allcookies = document.cookie;
+    if( allcookies != '' )
+    {
+        var cookies = allcookies.split( '; ' );
+
+        for( var i = 0; i < cookies.length; i++ )
+        {
+            var cookie = cookies[ i ].split( '=' );
+
+            // クッキーの名前をキーとして 配列に追加する
+            //result[ cookie[ 0 ] ] = decodeURIComponent( cookie[ 1 ] );
+            result[ cookie[ 0 ] ] = cookie[ 1 ];
+        }
+    }
+    return result;
+}
+// ==============  追加 (2017/10/31) ここまで ===========================
+
+$(function() {
+    workspace = Blockly.inject('contentBlock',
+       { toolbox: document.getElementById('toolbox'),
+         zoom: { controls: true, wheel: true, startScale: 1.0, maxScale: 3, minScale: 0.3, scaleSpeed: 1.2 }
+       });
+
+    BlocklyStorage.backupOnUnload(workspace);
+
+//    workspace.addChangeListener(Blockly.Events.disableOrphans);
+
+    var clean = $.query.get("clean");
+    if (clean != null && (clean.toLowerCase() == "true" || clean.toLowerCase() == "yes")) {
+        Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspace);
+    } else {
+        window.setTimeout(function () {
+//            BlocklyStorage.restoreBlocks(workspace);
+              var url = window.location.href.split('#')[0];
+              if ('localStorage' in window) {
+                var memo = window.localStorage[url];
+                if (memo) {
+                    var xml = Blockly.Xml.textToDom(memo);
+                    if (xml.hasChildNodes()) {
+                        Blockly.Xml.domToWorkspace(xml, workspace);
+                        return;
+                    }
+                    // xml が空だったら続行する
+                }
+              }
+              var xmlUrl = $.query.get("url");
+              if (xmlUrl) {
+                $.ajax({ url: xmlUrl, dataType: "text" }).done(function(data) {
+                    var xml = Blockly.Xml.textToDom(data);
+                    Blockly.Xml.domToWorkspace(xml, workspace);
+                });
+              } else {
+                Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspace);
+              }
+        }, 0);
+    }
+
+    $("#intro").click(function() {
+//      alert("intro");
+      var tour = introJs();
+      tour.setOption('tooltipPosition', 'auto');
+      tour.start();
+      return false;
+    });
+
+    $("#saveButton").click(function() {
+       var xmlText;
+       if ($('#tabXml').hasClass('tabon')) {
+           xmlText = $('#contentXml').val();
+       } else {
+           var xmlDom  = Blockly.Xml.workspaceToDom(workspace);
+           xmlText     = Blockly.Xml.domToPrettyText(xmlDom);
+       }
+       var blob    = new Blob([xmlText], { type: 'text/xml' });
+       $("#saveButton").attr('href', window.URL.createObjectURL(blob));
+    });
+
+    $("#openButton").click(function() {
+      $("#openButtonAux").click();
+      return false;
+    });
+
+    $("#openButtonAux").change(function(evt) {
+       var f = evt.target.files[0];
+       var reader = new FileReader();
+
+       reader.onload = function(e) {
+         var xmlText = e.target.result;
+         $("contentXml").val(xmlText);
+         if (!$('#tabXml').hasClass('tabon')) {
+           try {
+             xmlDom = Blockly.Xml.textToDom(xmlText);
+           } catch (e) {
+             var q =
+                 window.confirm(MSG['badXml'].replace('%1', e));
+             if (!q) {
+               // Leave the user on the XML tab.
+               return;
+             }
+           }
+           if (xmlDom) {
+             workspace.clear();
+             Blockly.Xml.domToWorkspace(xmlDom, workspace);
+           }
+         }
+       };
+       reader.readAsText(f);
+
+    });
+
+    $("#resetButton").click(function () {
+        var q = window.confirm("編集したプログラムを捨てて、最初の内容に戻します。よろしいですか？");
+        if (!q) return;
+        var xmlUrl = $.query.get("url");
+        if (xmlUrl) {
+          $.ajax({ url: xmlUrl, dataType: "text" }).done(function(data) {
+              workspace.clear();
+              var xml = Blockly.Xml.textToDom(data);
+              Blockly.Xml.domToWorkspace(xml, workspace);
+          });
+        } else {
+           workspace.clear();
+           Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspace);
+        }
+    });
+
+    onResize();
+    Blockly.svgResize(workspace);
+
+    // 無理やりフォントを変更する。
+    var cssNode = document.createElement('style');
+    document.head.appendChild(cssNode);
+    var text = ".blocklyText {"
+             + "  cursor: default;"
+             + "  fill: #fff;"
+             + "  font-family: 'Segoe UI Symbol';"
+             + "  font-size: 11pt;"
+             + "}";
+    var cssTextNode = document.createTextNode(text);
+    cssNode.appendChild(cssTextNode);
+
+    tabClick(selected);
+    for (var i = 0; i < tabs.length; i++) {
+       var name = tabs[i];
+       $("#tab" + name).click(function(name_) { return function() { tabClick(name_); }; }(name));
+    }
+});
 </script>
 
 <script type="text/javascript" src="js/sample_button/javascript.js"></script>  <!-- (2017/10/19 追加)-->

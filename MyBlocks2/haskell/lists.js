@@ -202,11 +202,12 @@ Blockly.Blocks['inner_table'] = {
     this.setColour(Blockly.Blocks.lists.HUE);
     this.appendDummyInput()
         .appendField("内包表記");
-    this.itemCount_ = 2;
+    this.itemCount_ = 0;
     this.updateShape_();
     this.setOutput(true);
     this.setInputsInline(true);
-    this.setMutator(new Blockly.Mutator(['intable_create_join_item']));
+    this.appendStatementInput('ADD')
+        .appendField("限定式");
     this.setTooltip("リストの内包表記を表します。");
   },
   /**
@@ -359,20 +360,16 @@ Blockly.Haskell['inner_table'] = function(block) {
   code += Blockly.Haskell.valueToCode(block, 'ADD' + 0,
         Blockly.Haskell.ORDER_COMMA) || '_';
   code += ' | ';
-  for (var i = 1; i < block.itemCount_+1; i++) {
-    code += Blockly.Haskell.valueToCode(block, 'ADD' + i,
-        Blockly.Haskell.ORDER_COMMA) || '_';
-    if ( i != block.itemCount_ ) {
-      code += ', ';
-    }
-  }
+
+  code += Blockly.Haskell.valueToCode(block, 'ADD',  Blockly.Haskell.ORDER_COMMA) || '_';
+  //code += Blockly.Haskell.statementToCode(block, 'ADD');
   code += ']';
   
-  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-  //return code + '\n';
+  //return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
+  return code + '\n';
 };
 
-// ↑ 内包表記ここまで
+/////////////////////////////// ↑ 内包表記ここまで
 
 Blockly.Blocks['lists_group'] = {
   /**

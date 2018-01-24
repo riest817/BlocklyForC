@@ -118,5 +118,7 @@ Blockly.Haskell['bondage'] = function(block) {
   var varName = Blockly.Haskell.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   var code = varName + ' <- ' + argument0;
-  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
+  return [code, Blockly.Haskell.ORDER_COMMA];
+  //return ["", code];
+  //return code;
 };
