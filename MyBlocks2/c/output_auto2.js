@@ -4,10 +4,7 @@
 */
 
 Blockly.Blocks['output_auto2'] = {
-  /**
-   * Block for text value.
-   * @this Blockly.Block
-   */
+
   init: function() {
     // ==============  追加 (2017/11/15) ================
     var element = Blockly.Xml.blockToDom(this, false);
@@ -49,7 +46,6 @@ Blockly.Blocks['output_auto2'] = {
     this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
     this.updateShape_();
   },
-
   // ==============  追加 (2017/11/15) ===========================
   validator: function(text) {    
 
@@ -131,7 +127,6 @@ Blockly.C['output_auto2'] = function(block) {
   }
 
   code += block.getFieldValue('TEXT');
-
 
   code += '\\n"';
   for (n = 0; n < block.itemCount_; n++) {

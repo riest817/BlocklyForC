@@ -359,14 +359,14 @@ Blockly.Haskell['inner_table'] = function(block) {
   var code = '[ ';
   code += Blockly.Haskell.valueToCode(block, 'ADD' + 0,
         Blockly.Haskell.ORDER_COMMA) || '_';
-  code += ' | ';
+  code += ' |';
 
-  code += Blockly.Haskell.valueToCode(block, 'ADD',  Blockly.Haskell.ORDER_COMMA) || '_';
+  code += Blockly.Haskell.statementToCode(block, 'ADD');
   //code += Blockly.Haskell.statementToCode(block, 'ADD');
   code += ']';
   
-  //return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-  return code + '\n';
+  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
+  //return code + '\n';
 };
 
 /////////////////////////////// ↑ 内包表記ここまで

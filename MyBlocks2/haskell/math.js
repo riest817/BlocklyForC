@@ -79,10 +79,7 @@ Blockly.Haskell['var_arithmetic'] = function(block) {
 };
 
 Blockly.Blocks['bondage'] = {
-  /**
-   * Block for variable setter.
-   * @this Blockly.Block
-   */
+
   init: function() {
 
     this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
@@ -113,12 +110,11 @@ Blockly.Blocks['bondage'] = {
 
 Blockly.Haskell['bondage'] = function(block) {
   // Variable setter.
-  var argument0 = Blockly.Haskell.valueToCode(block, 'VALUE',
-      Blockly.Haskell.ORDER_ASSIGNMENT) || '0';
+  var argument0 = Blockly.Haskell.valueToCode(block, 'VALUE') || '0';
   var varName = Blockly.Haskell.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-  var code = varName + ' <- ' + argument0;
-  return [code, Blockly.Haskell.ORDER_COMMA];
-  //return ["", code];
-  //return code;
+  var code = varName + ' <- ' + argument0 + ', ';
+  
+  return code;
 };
+
