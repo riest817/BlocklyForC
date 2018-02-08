@@ -2,6 +2,8 @@
 2017/12/05 procedures.js 新規作成
 17/12/12 ['procedures_call'] 追加
 17/12/21 ['procedures_defreturn'] パターンマッチングの形に変更
+18/02/01 ['procedures_call2'] 作成
+18/02/01  関数呼び出しを['procedures_call']から['procedures_call2']に変更
  */
 
 /**
@@ -224,7 +226,7 @@ Blockly.Blocks['procedures_defreturn'] = {
   //renameVar: Blockly.Blocks['procedures_defnoreturn'].renameVar,
   customContextMenu: Blockly.Blocks['procedures_defnoreturn'].customContextMenu,
   //callType_: 'procedures_callreturn'
-  callType_: 'procedures_call'
+  callType_: 'procedures_call2'
 };
 
 Blockly.Blocks['procedures_mutatorcontainer'] = {
@@ -740,4 +742,81 @@ Blockly.Haskell['procedures_defreturn'] = function(block) {
   //return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
   return code + '\n';
   
+};
+
+Blockly.Blocks['procedures_call2'] = {
+  /**
+   * Block for calling a procedure with a return value.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.appendDummyInput('TOPROW')
+        .appendField('', 'NAME');
+    this.setOutput(true);
+    this.setInputsInline(true);
+    this.setColour(Blockly.Blocks.procedures.HUE);
+    //this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
+    // Tooltip is set in domToMutation.
+    this.setHelpUrl(Blockly.Msg.PROCEDURES_CALLRETURN_HELPURL);
+    this.arguments_ = [];
+    this.quarkConnections_ = {};
+    this.quarkIds_ = null;
+  },
+
+  updateShape_: function() {
+    for (var i = 0; i < this.arguments_.length-1; i++) {
+      var field = this.getField('ARGNAME' + i);
+      if (field) {
+        // Ensure argument name is up to date.
+        // The argument name field is deterministic based on the mutation,
+        // no need to fire a change event.
+        Blockly.Events.disable();
+        try {
+          field.setValue(this.arguments_[i]);
+        } finally {
+          Blockly.Events.enable();
+        }
+      } else {
+        // Add new input.
+        field = new Blockly.FieldLabel(this.arguments_[i]);
+        var input = this.appendValueInput('ARG' + i)
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField(field, 'ARGNAME' + i);
+        input.init();
+      }
+    }
+    // Remove deleted inputs.
+    while (this.getInput('ARG' + i)) {
+      this.removeInput('ARG' + i);
+      i++;
+    }
+    // Add 'with:' if there are parameters, remove otherwise.
+    var topRow = this.getInput('TOPROW');
+    if (topRow) {
+      if (this.arguments_.length-1) {
+        if (!this.getField('WITH')) {
+          topRow.appendField(Blockly.Msg.PROCEDURES_CALL_BEFORE_PARAMS, 'WITH');
+          topRow.init();
+        }
+      } else {
+        if (this.getField('WITH')) {
+          topRow.removeField('WITH');
+        }
+      }
+    }
+  },
+
+  getProcedureCall: Blockly.Blocks['procedures_callnoreturn'].getProcedureCall,
+  renameProcedure: Blockly.Blocks['procedures_callnoreturn'].renameProcedure,
+  setProcedureParameters_:
+      Blockly.Blocks['procedures_callnoreturn'].setProcedureParameters_,
+  //updateShape_: Blockly.Blocks['procedures_callnoreturn'].updateShape_,
+  mutationToDom: Blockly.Blocks['procedures_callnoreturn'].mutationToDom,
+  domToMutation: Blockly.Blocks['procedures_callnoreturn'].domToMutation,
+  renameVar: Blockly.Blocks['procedures_callnoreturn'].renameVar,
+  onchange: Blockly.Blocks['procedures_callnoreturn'].onchange,
+  customContextMenu:
+      Blockly.Blocks['procedures_callnoreturn'].customContextMenu,
+  defType_: 'procedures_defreturn',
+  decompose: Blockly.Blocks['procedures_defreturn'].decompose    // ← 問題あり
 };

@@ -22,6 +22,7 @@
 <script src="MyGenerators/c/start.js"></script>
 <script src="MyGenerators/c/text.js"></script>
 <script src="MyGenerators/c/variables.js"></script>
+<script src="MyGenerators/c/output_auto.js"></script>   <!-- (18/02/05 追加)-->
 <!-- -->
 <script src="Library/blockly/demos/prettify.js"></script>
 <script src="Library/blockly/msg/js/ja.js"></script>
@@ -33,8 +34,9 @@
 <script src="Library/jquery.query.js"></script>
 <script src="Library/intro.js"></script>
 <!-- 追加 -->
+<script src="MyBlocks2/output_auto.js"></script>  
+
 <script src="MyBlocks2/c/output.js"></script> 
-<script src="MyBlocks2/c/output_auto.js"></script>   
 <script src="MyBlocks2/c/input.js"></script>
 <script src="MyBlocks2/c/switch.js"></script> 
 <script src="MyBlocks2/c/variables_c.js"></script> 
@@ -149,25 +151,9 @@
     <block type="logic_ternary"></block>
   </category>
   <category name="繰り返し" colour="120">
-    <block type="controls_repeat_ext">
-      <value name="TIMES">
-        <shadow type="math_number">
-          <field name="NUM">10</field>
-        </shadow>
-      </value>
-    </block>
+    <block type="controls_repeat_ext"></block>
     <block type="controls_whileUntil"></block>
     <block type="controls_for">
-      <value name="FROM">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-      <value name="TO">
-        <shadow type="math_number">
-          <field name="NUM">10</field>
-        </shadow>
-      </value>
       <value name="BY">
         <shadow type="math_number">
           <field name="NUM">1</field>

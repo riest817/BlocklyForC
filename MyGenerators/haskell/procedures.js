@@ -91,11 +91,25 @@ Blockly.Haskell['procedures_call'] = function(block) {
   var args = [];
   
   for (var i = 0; i < block.itemCount_; i++) {
-    args[i] = Blockly.Haskell.valueToCode(block, 'ADD' + i,
+    args[i] = Blockly.Haskell.valueToStatement(block, 'ADD' + i,
         Blockly.Haskell.ORDER_COMMA) || '_';
   }
   var code = funcName + ' ' + args.join(' ');
   
   return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
   //return code + '\n';
+};
+
+Blockly.Haskell['procedures_call2'] = function(block) {
+  // Call a procedure with a return value.
+  var funcName = Blockly.Haskell.variableDB_.getName(
+      block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
+  var args = [];
+  for (var i = 0; i < block.arguments_.length-1; i++) {
+    args[i] = Blockly.Haskell.valueToCode(block, 'ARG' + i,
+        Blockly.Haskell.ORDER_COMMA) || '_';
+  }
+
+  var code = funcName + ' ' + args.join(' ');
+  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
 };

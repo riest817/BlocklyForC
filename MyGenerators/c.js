@@ -117,7 +117,7 @@ Blockly.C.init = function(workspace) {
       defvars[i] = Blockly.C.variableDB_.getName(variables[i],
           Blockly.Variables.NAME_TYPE);
     }
-    //Blockly.C.definitions_['variables'] = 'int ' + defvars.join(', ') + ';';  2017/07/13  一旦、コメントアウト
+    Blockly.C.definitions_['variables'] = 'int ' + defvars.join(', ') + ';';  //2017/02/05  コメントアウト解除
   }
   //Blockly.C.definitions_['header_container_c'];  // 2017/11/15  追加
 };

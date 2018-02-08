@@ -24,6 +24,7 @@
 <script src="MyGenerators/javascript/start.js"></script>
 <script src="MyGenerators/javascript/text.js"></script>
 <script src="MyGenerators/javascript/variables.js"></script>
+<script src="MyGenerators/javascript/output_auto.js"></script>   <!-- (18/02/05 追加)-->
 <!-- -->
 <script src="Library/blockly/demos/prettify.js"></script>
 <script src="Library/blockly/msg/js/ja.js"></script>
@@ -35,6 +36,8 @@
 <script src="Library/jquery.query.js"></script>
 <script src="Library/intro.js"></script>
 <!-- 追加 -->
+<script src="MyBlocks2/output_auto.js"></script>  <!-- (18/02/05 追加)-->
+
 <script src="MyBlocks2/javascript/math.js"></script> 
 <script src="js/sample_button/javascript.js"></script>  <!-- (2017/10/19 追加)-->
 <script src="js/cookie.js"></script>  <!-- (2017/11/14 追加)-->
@@ -173,18 +176,7 @@
   </category>
   <category name="数" colour="230">
     <block type="math_number"></block>
-    <block type="var_arithmetic">
-      <value name="A">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-      <value name="B">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-    </block>
+    <block type="var_arithmetic"></block>
     <block type="math_single">
       <value name="NUM">
         <shadow type="math_number">
@@ -436,6 +428,10 @@
   <category name="関数" colour="290" custom="PROCEDURE"></category>
   <sep></sep>
   <sep></sep>
+  <category name="入出力" colour="0">    <!--> 18/02/05 追加<-->
+    <block type="output_auto"></block>
+    <!--block type="input_auto"></block-->
+  </category>
 </xml>
 
 <xml id="startBlocks" style="display: none;">

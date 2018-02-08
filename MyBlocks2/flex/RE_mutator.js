@@ -267,7 +267,7 @@ Blockly.Blocks['RE_from_to_auto'] = {
     this.updateShape_();
   },
 
-  // ==============  追加 (08/22) ===========================
+  // ==============  追加 (17/08/22) ===========================
   validator: function(text) {
   	//var target = this.getFieldValue('TEXT');	// 入力文字を動的に記録する
   	var target = this.getText(text);			// 入力文字を動的に記録する
@@ -310,7 +310,7 @@ Blockly.Blocks['RE_from_to_auto'] = {
       i++;
     }
   },
-  // ==============  追加ここまで (08/22) ======================
+  // ==============  追加ここまで (17/08/22) ======================
   /**
    * Create an image of an open or closed quote.
    * @param {boolean} open True if open quote, false if closed.
@@ -328,43 +328,25 @@ Blockly.Blocks['RE_from_to_auto'] = {
   }
 };
 
-// ============== 追加 (08/31) ===========================
-
 Blockly.Blocks['RE_from_to_mutator'] = {
+  /**
+   * Block for creating a string made up of any number of elements of any type.
+   * @this Blockly.Block
+   */
   init: function() {
-    this.setHelpUrl("http://okumocchi.jp/php/re.php");
-    this.setColour(500);
+    this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
+    this.setColour(Blockly.Blocks.lists.HUE);
     this.appendDummyInput()
-        .appendField("\[");
-        //.appendField(new Blockly.FieldTextInput(''), 'TEXT')
-        //.appendField("-")
-        //.appendField(new Blockly.FieldTextInput(''), 'TEXT')
-        //.appendField("\]");
-    this.setOutput(true, 'String');   // 左部との接続を可能にする
-    //this.setPreviousStatement(true);  // 上部との接続を可能にする
-    //this.setNextStatement(true);      // 下部との接続を可能にする
-    this.setInputsInline(true);     // ソケットを内側にする
-    // Assign 'this' to a variable for use in the tooltip closure below.
-    var thisBlock = this;
-    this.setMutator(new Blockly.Mutator(['RE_connection_join_item']));
-    this.setTooltip("左の文字から右の文字の範囲の任意の文字を複数表します。");
-    this.itemCount_ = 1;
+        .appendField("[");
+    this.itemCount_ = 2;
     this.updateShape_();
-    this.appendDummyInput()
-        .appendField("\]");
-  },
-
-  getVars: function() {
-    return [this.getFieldValue('VAR')];
-  },
-
-  renameVar: function(oldName, newName) {
-    if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
-      this.setFieldValue(newName, 'VAR');
-    }
+    this.setOutput(true);
+    this.setInputsInline(true);
+    this.setMutator(new Blockly.Mutator(['RE_connection_join_item']));
+    this.setTooltip("リストの中の組を表します。");
   },
   /**
-   * テキスト入力の数を表すXMLを作成します。
+   * Create XML to represent number of text inputs.
    * @return {!Element} XML storage element.
    * @this Blockly.Block
    */
@@ -374,7 +356,7 @@ Blockly.Blocks['RE_from_to_mutator'] = {
     return container;
   },
   /**
-   * XMLを解析してテキスト入力を復元する。
+   * Parse XML to restore the text inputs.
    * @param {!Element} xmlElement XML storage element.
    * @this Blockly.Block
    */
@@ -383,7 +365,7 @@ Blockly.Blocks['RE_from_to_mutator'] = {
     this.updateShape_();
   },
   /**
-   * ミューテータのダイアログにこのブロックのコンポーネントを挿入します。
+   * Populate the mutator's dialog with this block's components.
    * @param {!Blockly.Workspace} workspace Mutator's workspace.
    * @return {!Blockly.Block} Root block in mutator.
    * @this Blockly.Block
@@ -401,7 +383,7 @@ Blockly.Blocks['RE_from_to_mutator'] = {
     return containerBlock;
   },
   /**
-   * ミューテータダイアログのコンポーネントに基づいてこのブロックを再設定します。
+   * Reconfigure this block based on the mutator dialog's components.
    * @param {!Blockly.Block} containerBlock Root block in mutator.
    * @this Blockly.Block
    */
@@ -429,7 +411,7 @@ Blockly.Blocks['RE_from_to_mutator'] = {
     }
   },
   /**
-   * 接続された子ブロックへのポインタを格納します。
+   * Store pointers to any connected child blocks.
    * @param {!Blockly.Block} containerBlock Root block in mutator.
    * @this Blockly.Block
    */
@@ -445,7 +427,7 @@ Blockly.Blocks['RE_from_to_mutator'] = {
     }
   },
   /**
-   * このブロックを修正して、正しい数の入力を持つようにします。
+   * Modify this block to have the correct number of inputs.
    * @private
    * @this Blockly.Block
    */
@@ -453,30 +435,29 @@ Blockly.Blocks['RE_from_to_mutator'] = {
     if (this.itemCount_ && this.getInput('EMPTY')) {
       this.removeInput('EMPTY');
     } else if (!this.itemCount_ && !this.getInput('EMPTY')) {
-      /*this.appendDummyInput('EMPTY')
-          .appendField(this.newQuote_(true))
-          .appendField(this.newQuote_(false));*/
+      this.appendDummyInput('EMPTY');
     }
     // Add new inputs.
     for (var i = 0; i < this.itemCount_; i++) {
       if (!this.getInput('ADD' + i)) {
-        var input = this.appendDummyInput()        
-                        .appendField(new Blockly.FieldTextInput(''), 'ADD_a' + i)
+        this.removeInput('END');  // Remove deleted inputs.
+        var input = this.appendDummyInput()
+                        .appendField(new Blockly.FieldTextInput(''), 'FROM' + i)
                         .appendField("-")
-                        .appendField(new Blockly.FieldTextInput(''), 'ADD_b' + i);
-        if (i == 0) {
-          //input.appendField(Blockly.Msg.TEXT_JOIN_TITLE_CREATEWITH);
+                        .appendField(new Blockly.FieldTextInput(''), 'TO' + i)
+                        .appendField(" ");
+        if ( i == this.itemCount_-1 ) {
+        this.appendDummyInput('END')
+            .appendField("]");
         }
       }
     }
     // Remove deleted inputs.
     while (this.getInput('ADD' + i)) {
-      this.removeInput('ADD' + i);
+      this.removeInput('FROM' + i)
+          .removeInput('TO' + i);
       i++;
     }
-
   },
   newQuote_: Blockly.Blocks['text'].newQuote_
 };
-
-// ============== 追加ここまで (08/31) ===========================

@@ -1,19 +1,8 @@
 /*
 2017/07/11 haskell\output.js 新規作成
+18/02/01 ['procedures_call2'] 作成
 */
 
-/*
-・myCBlocks.js に新しいブロックの定義:
-    Blockly.Blocks['〜'] = { 〜 }
-  を追加する。
-*/
-/*
-・myCBlocks.js に新しいブロックが生成する C 言語のソース:
-    Blockly.C['〜'] = function(block) {
-        〜
-    }
-  を追加する。
-*/
 Blockly.Blocks['output_text'] = {
   /**
    * Block for text value.
@@ -21,7 +10,7 @@ Blockly.Blocks['output_text'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
-    this.setColour(1000);
+    this.setColour(0);
     this.appendDummyInput()
         .appendField("出力")
         .appendField(this.newQuote_(true))
@@ -67,7 +56,7 @@ Blockly.Haskell['output_text'] = function(block) {
 
 Blockly.Blocks['output_var'] = {
   init: function() {
-    this.setColour(1000);
+    this.setColour(0);
     this.jsonInit({ "message0": "出力" });
     this.appendValueInput('B');
     this.setInputsInline(true);
