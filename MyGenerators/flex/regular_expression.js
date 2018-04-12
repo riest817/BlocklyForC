@@ -1,5 +1,7 @@
 /**
 2017/08/31 regular_expression.js を新規作成
+18/04/04 Blockly.Flex['RE_minimum_match']をBlockly.Flex['RE_repetition']に統合
+18/04/10 Blockly.Flex['RE_from_to_mutator'] 作成
  */
 'use strict';
 
@@ -62,17 +64,17 @@ Blockly.Flex['RE_tab'] = function(block) {
 };
 
 Blockly.Flex['RE_connection'] = function(block) {
-
-  var a = Blockly.Flex.statementToCode(block, 'A');
-  var b = Blockly.Flex.statementToCode(block, 'B');
+//18/04/05  インデント無効化
+  var a = Blockly.Flex.statementToCode_0indent(block, 'A');
+  var b = Blockly.Flex.statementToCode_0indent(block, 'B');
   var code = a + b;
   return code;
 };
 
 Blockly.Flex['RE_connection_or'] = function(block) {
-
-  var a = Blockly.Flex.statementToCode(block, 'A');
-  var b = Blockly.Flex.statementToCode(block, 'B');
+//18/04/05  インデント無効化
+  var a = Blockly.Flex.statementToCode_0indent(block, 'A');
+  var b = Blockly.Flex.statementToCode_0indent(block, 'B');
   var code = a + '  |' + b;
   return code;
 };
@@ -82,16 +84,34 @@ Blockly.Flex['RE_repetition'] = function(block) {
   var OPERATORS = {
     '*': '*',
     '+': '+',
+    '?': '?',
   };
-  var operator = OPERATORS[block.getFieldValue('TYPE')];
-  var a = Blockly.Flex.statementToCode(block, 'A');
+  var operator = OPERATORS[block.getFieldValue('MODE')];
+  var a = Blockly.Flex.statementToCode_0indent(block, 'A');
   var code = a + operator;
   return code;
 };
-
+/*
 Blockly.Flex['RE_minimum_match'] = function(block) {
 
   var a = Blockly.Flex.statementToCode(block, 'A');
   var code = a + '?';
+  return code;
+};
+*/
+
+Blockly.Flex['RE_from_to_mutator'] = function(block) {
+
+  var from = block.getFieldValue('FROM');
+  var to = block.getFieldValue('TO');
+  var elements = new Array(block.itemCount_);
+  var code = '[';
+
+  for (var i = 0; i < block.itemCount_; i++) {
+    from = block.getFieldValue('FROM' + i);
+    to = block.getFieldValue('TO' + i);
+    code += from + '-' + to; 
+  }
+  code += ']';
   return code;
 };

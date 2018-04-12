@@ -9,8 +9,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Blockly for Flex</title>
 <link rel="shortcut icon" href="favicon.png" type="image/png"/>
-<script src="Library/blockly/blockly_compressed.js"></script>
-<script src="Library/blockly/blocks_compressed.js"></script>
+<!--  解凍ファイルを追加  18/04/05 -->
+<script src="Library/blockly/00_uncompressed/blockly_uncompressed.js"></script>
+<script src="Library/blockly/00_uncompressed/blocks_uncompressed.js"></script>
+<!--  圧縮ファイルをコメントアウト  18/04/05 -->
+<!--script src="Library/blockly/blockly_compressed.js"></script>
+<script src="Library/blockly/blocks_compressed.js"></script--> 
 <!--<script src="Library/blockly/flex_compressed.js"></script>-->
 <!-- -->
 <script src="MyGenerators/flex.js"></script>
@@ -148,8 +152,8 @@
     <block type="RE_any_one"></block>
     <block type="RE_not_any_one"></block>
     <block type="RE_from_to"></block>
-    <block type="RE_from_to_auto"></block>   <!-- エラーブロック -->
-    <block type="RE_from_to_mutator"></block>  <!-- エラーブロック -->
+    <!--block type="RE_from_to_auto"></block-->   <!-- エラーブロック -->
+    <block type="RE_from_to_mutator"></block>
     <block type="RE_anything"></block>
     <block type="RE_new_line"></block>
     <block type="RE_tab"></block>
@@ -158,7 +162,7 @@
     <block type="RE_connection_mutator"></block>  <!-- エラーブロック -->
     <block type="RE_connection_or"></block>
     <block type="RE_repetition"></block>
-    <block type="RE_minimum_match"></block>
+    <!--block type="RE_minimum_match"></block-->
   </category>
   <category name="動作" colour="210">
     <block type="regular_expression_connection"></block>

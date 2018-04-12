@@ -15,12 +15,13 @@ Blockly.Blocks['declaration'] = {
   init: function() {
     this.setHelpUrl("http://okumocchi.jp/php/re.php");
     this.setColour(65);
-    this.appendValueInput('A')
-        .appendField("宣言")
+    this.appendDummyInput()
+        .appendField("定義名")
         .appendField(new Blockly.FieldTextInput(''), 'TEXT')
         .appendField("");
-        //.appendValueInput('A');
-    //this.setOutput(true, 'String');		// 左部との接続を可能にする
+    this.appendValueInput('A')
+        .appendField("正規表現  ");
+    //this.setOutput(true, 'String');   // 左部との接続を可能にする
     this.setPreviousStatement(true);  // 上部との接続を可能にする
     this.setNextStatement(true);      // 下部との接続を可能にする
     // Assign 'this' to a variable for use in the tooltip closure below.
@@ -89,3 +90,4 @@ Blockly.Blocks['use'] = {
     return new Blockly.FieldImage(file, 12, 12, '"');
   }
 };
+
