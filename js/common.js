@@ -63,12 +63,12 @@ $.fn.slideshow = function(options) {
     }, options);
 
     // セレクター
-    var $slider     = $(this),
-        $container  = $slider.find('.slideInner'),
-        $element    = $container.children(),
-        $prevNav    = $slider.find('.slidePrev'),
-        $nextNav    = $slider.find('.slideNext'),
-        $controlNav = $slider.find('.controlNav');
+    var slider     = $(this),
+        container  = slider.find('.slideInner'),
+        element    = container.children(),
+        prevNav    = slider.find('.slidePrev'),
+        nextNav    = slider.find('.slideNext'),
+        controlNav = slider.find('.controlNav');
 
     // カウンター初期化
     var current = 0;
@@ -84,28 +84,28 @@ $.fn.slideshow = function(options) {
     var onClick = ('ontouchstart' in document) ? 'touchstart' : 'click';
 
     // 最初の要素だけ表示する
-    $element.not(':first').css('display' , 'none');
+    element.not(':first').css('display' , 'none');
 
     // 読み込み時
     $(window).on('load resize', function(){
         // 要素の高さを取得
         elementHeight();
         // ナビゲーションの位置を取得
-        var nextNavPosition = ($element.height() - $nextNav.find('img').height()) / 2;
-        $prevNav.css('top', nextNavPosition +'px');
-        $nextNav.css('top', nextNavPosition +'px');
+        var nextNavPosition = (element.height() - nextNav.find('img').height()) / 2;
+        prevNav.css('top', nextNavPosition +'px');
+        nextNav.css('top', nextNavPosition +'px');
     });
 
     // 画像の高さ分、表示領域を確保
     var elementHeight = function(){
-        $container.height($element.height());
+        container.height(element.height());
     };
 
     // 画像が一枚のときはスライドショーにしない
-    if($element.length <= 1 ){
-        $slider.css('padding-bottom' , '0');
-        $prevNav.css('display' , 'none');
-        $nextNav.css('display' , 'none');
+    if(element.length <= 1 ){
+        slider.css('padding-bottom' , '0');
+        prevNav.css('display' , 'none');
+        nextNav.css('display' , 'none');
         return false;
     }
 
@@ -122,7 +122,7 @@ $.fn.slideshow = function(options) {
 
     // 繰り返しなしの場合PREVボタン非表示
     if (o.type == 'stop') {
-        $prevNav.hide();
+        prevNav.hide();
     }
 
     // 要素を切り替えるスクリプト
@@ -130,62 +130,62 @@ $.fn.slideshow = function(options) {
         // PREV/NEXTボタンデザイン
         if (o.type == 'stop') {
             if(next > 0){
-                $prevNav.fadeIn('slow');
+                prevNav.fadeIn('slow');
             }else{
-                $prevNav.fadeOut('slow');
+                prevNav.fadeOut('slow');
             }
         }
 
         // コントールナビデザイン
-        $controlNav.children('span').removeClass('current');
-        $controlNav.children('span:eq(' + next + ')').addClass('current');
+        controlNav.children('span').removeClass('current');
+        controlNav.children('span:eq(' + next + ')').addClass('current');
 
         // フェードしながら切り替える場合
         if (o.effect == 'fade') {
-            $($element[current]).not(':animated').fadeOut(o.duration);
-            $($element[next]).not(':animated').fadeIn(o.duration);
+            $(element[current]).not(':animated').fadeOut(o.duration);
+            $(element[next]).not(':animated').fadeIn(o.duration);
 
         // スライドしながら切り替える場合
         } else if  (o.effect == 'slide') {
-            var elementWidth = $container.width();
-            $element.css('display', 'block');
-            $element.css('width', elementWidth +'px');
+            var elementWidth = container.width();
+            element.css('display', 'block');
+            element.css('width', elementWidth +'px');
             if(flag == 'prevElement') {
-                $element.css('left', - elementWidth +'px');
-                $($element[current]).css('left', 0 +'px');
-                $($element[current]).not(':animated').animate({'left': '+=' + elementWidth +'px'}, o.duration, o.easing);
-                $($element[next]).not(':animated').animate({'left': '+=' + elementWidth +'px'}, o.duration, o.easing);
+                element.css('left', - elementWidth +'px');
+                $(element[current]).css('left', 0 +'px');
+                $(element[current]).not(':animated').animate({'left': '+=' + elementWidth +'px'}, o.duration, o.easing);
+                $(element[next]).not(':animated').animate({'left': '+=' + elementWidth +'px'}, o.duration, o.easing);
             }
             if(flag == 'nextElement') {
-                $element.css('left', elementWidth +'px');
-                $($element[current]).css('left', 0 +'px');
-                $($element[current]).not(':animated').animate({'left': '-=' + elementWidth +'px'}, o.duration, o.easing);
-                $($element[next]).not(':animated').animate({'left': '-=' + elementWidth +'px'}, o.duration, o.easing);
+                element.css('left', elementWidth +'px');
+                $(element[current]).css('left', 0 +'px');
+                $(element[current]).not(':animated').animate({'left': '-=' + elementWidth +'px'}, o.duration, o.easing);
+                $(element[next]).not(':animated').animate({'left': '-=' + elementWidth +'px'}, o.duration, o.easing);
             }
         }
 
         // リピートする場合
         if (o.type == 'repeat') {
-            if ((next + 1) < $element.length) {
+            if ((next + 1) < element.length) {
                  current = next;
                  next++;
             } else {
-                 current = $element.length - 1;
+                 current = element.length - 1;
                  next = 0;
             }
         }
 
         // 最後の要素でストップする場合
         if (o.type == 'stop') {
-            if ((next + 1) < $element.length) {
+            if ((next + 1) < element.length) {
                 current = next;
                 next++;
-                $nextNav.fadeIn();
+                nextNav.fadeIn();
             } else {
-                current = $element.length - 1;
+                current = element.length - 1;
                 next = 0;
                 stopTimer();
-                $nextNav.fadeOut();
+                nextNav.fadeOut();
                 stopFlag = true;
           }
         }
@@ -195,7 +195,7 @@ $.fn.slideshow = function(options) {
     var prevSlide = function () {
         flag = 'prevElement';
         if(current == 0) {
-            next = $element.length - 1;
+            next = element.length - 1;
         }else {
             next = current -1;
         }
@@ -228,25 +228,25 @@ $.fn.slideshow = function(options) {
     }
 
     // PREVスライド
-    $prevNav.on(onClick,function() {
-        if($element.is(':animated')) {
+    prevNav.on(onClick,function() {
+        if(element.is(':animated')) {
             return false;
         }
         prevSlide();
     });
 
     // NEXTスライド
-    $nextNav.on(onClick,function() {
-        if($element.is(':animated')) {
+    nextNav.on(onClick,function() {
+        if(element.is(':animated')) {
             return false;
         }
         nextSlide();
     });
 
     // コントローラーの生成
-    $element.each(function (i) {
-        $('<span/>').text(i + 1).appendTo($controlNav).on('click',function() {
-            if($element.is(':animated')) {
+    element.each(function (i) {
+        $('<span/>').text(i + 1).appendTo(controlNav).on('click',function() {
+            if(element.is(':animated')) {
                 return false;
             }
             if(i < current) {
@@ -255,7 +255,7 @@ $.fn.slideshow = function(options) {
                 flag='nextElement';
             }
             if(i != current) {
-                if(i == $element.length) {
+                if(i == element.length) {
                     next = 0;
                 }else {
                     next = i;
@@ -274,13 +274,13 @@ $.fn.slideshow = function(options) {
             }
         });
     });
-    $controlNav.find('span:first-child').addClass('current');
+    controlNav.find('span:first-child').addClass('current');
 
     // タッチパネルはホバー動作無効
     if(!('ontouchstart' in document)) {
         // 画像にホバーした際の動作
         if(o.imgHoverStop){
-            $container.hover(function() {
+            container.hover(function() {
                 stopTimer();
             },function() {
                 if(!stopFlag && o.autoSlide) {
@@ -291,7 +291,7 @@ $.fn.slideshow = function(options) {
 
         // ナビゲーションにホバーした際の動作
         if(o.navHoverStop){
-            $prevNav.hover(function() {
+            prevNav.hover(function() {
                 stopTimer();
             },function() {
                 if(!stopFlag && o.autoSlide) {
@@ -299,7 +299,7 @@ $.fn.slideshow = function(options) {
                 }
             });
 
-            $nextNav.hover(function() {
+            nextNav.hover(function() {
                 stopTimer();
             },function() {
                 if(!stopFlag && o.autoSlide) {
@@ -307,7 +307,7 @@ $.fn.slideshow = function(options) {
                 }
             });
 
-            $controlNav.hover(function() {
+            controlNav.hover(function() {
                 stopTimer();
             },function() {
                 if(!stopFlag && o.autoSlide) {
@@ -318,13 +318,13 @@ $.fn.slideshow = function(options) {
     }
 
     // タッチパネル対応
-    $element.on('touchstart', touchStart);
-    $element.on('touchmove' , touchMove);
+    element.on('touchstart', touchStart);
+    element.on('touchmove' , touchMove);
 
     // タップした位置をメモリーする
     function touchStart(e) {
         var pos = Position(e);
-        $element.data('memory',pos.x);
+        element.data('memory',pos.x);
     }
 
     // スワイプ（タップした位置からプラスかマイナスかで左右移動を判断）
@@ -332,14 +332,14 @@ $.fn.slideshow = function(options) {
         // 位置情報を取得
         var pos = Position(e);
         // 左から右へスワイプ
-        if( pos.x > $element.data('memory') ){
-            if($element.is(':animated')) {
+        if( pos.x > element.data('memory') ){
+            if(element.is(':animated')) {
                 return false;
             }
             prevSlide();
         // 右から左へスワイプ
         }else{
-            if($element.is(':animated')) {
+            if(element.is(':animated')) {
                 return false;
             }
             nextSlide();

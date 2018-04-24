@@ -1,3 +1,6 @@
+/*
+このファイルは変更加えても影響なし(18/04/17)
+*/
 @charset "utf-8";
 
 
@@ -844,3 +847,4 @@ img.fr,img.fl {float: none;margin: 0;width: 100%;}
 .fl-half{float:none;width:100%;margin-left:0;}
 
 }
+
