@@ -455,7 +455,7 @@
   </td>
 </tr>
 </table>
-<div id="contentBlock" style="position: absolute;"></div>
+<div id="contentBlocks" style="position: absolute;"></div>
 <pre id="contentHaskell" class="content"></pre>
 <textarea id="contentXml" class="content" wrap="off"></textarea>
 <script>
@@ -466,7 +466,7 @@ var workspace = null;
 
 function onResize() {
     var area = $("#blocklyArea");
-    var divs = [ $("#contentBlock"), $("#contentHaskell"), $("#contentXml") ];
+    var divs = [ $("#contentBlocks"), $("#contentHaskell"), $("#contentXml") ];
 
     var width = area.width();
     var height = area.height();

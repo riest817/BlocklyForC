@@ -3,6 +3,7 @@
 2017/08/22 Blockly.Blocks['RE_connection_mutator'] 作成
 18/04/04 Blockly.Blockls['RE_minimum_match']をBlockly.Blocks['RE_repetition']に統合
 18/04/10 Blockly.Blocks['RE_from_to_mutator'] 改良
+18/05/08 概念と文法を分別化
 */
 /*
 ・myCBlocks.js に新しいブロックの定義:
@@ -19,7 +20,7 @@ Blockly.Blocks['RE_text0'] = {
     this.setHelpUrl("http://okumocchi.jp/php/re.php");
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("文字")
+        .appendField(Blockly.Msg.RE_text0)
         .appendField(new Blockly.FieldTextInput(''), 'TEXT');
     this.setOutput(true, 'String');   // 左部との接続を可能にする
     //this.setPreviousStatement(true);  // 上部との接続を可能にする
@@ -59,7 +60,7 @@ Blockly.Blocks['RE_text'] = {
     this.setHelpUrl("http://okumocchi.jp/php/re.php");
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("文字列")
+        .appendField(Blockly.Msg.RE_text)
         .appendField("\"")
         .appendField(new Blockly.FieldTextInput(''), 'TEXT')
         .appendField("\"");
@@ -101,11 +102,9 @@ Blockly.Blocks['RE_any_one'] = {
     this.setHelpUrl("http://okumocchi.jp/php/re.php");
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("文字列")
-        .appendField("\"")
+        .appendField(Blockly.Msg.RE_any_one_left)
         .appendField(new Blockly.FieldTextInput(''), 'TEXT')
-        .appendField("\"")
-        .appendField("中の任意の文字");
+        .appendField(Blockly.Msg.RE_any_one_right);
     this.setOutput(true, 'String');		// 左部との接続を可能にする
     //this.setPreviousStatement(true);  // 上部との接続を可能にする
     //this.setNextStatement(true);      // 下部との接続を可能にする
@@ -144,11 +143,9 @@ Blockly.Blocks['RE_not_any_one'] = {
     this.setHelpUrl("http://okumocchi.jp/php/re.php");
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("文字列")
-        .appendField("\"")
+        .appendField(Blockly.Msg.RE_not_any_one_left)
         .appendField(new Blockly.FieldTextInput(''), 'TEXT')
-        .appendField("\"")
-        .appendField("以外の任意の文字");
+        .appendField(Blockly.Msg.RE_not_any_one_right);
     this.setOutput(true, 'String');		// 左部との接続を可能にする
     //this.setPreviousStatement(true);  // 上部との接続を可能にする
     //this.setNextStatement(true);      // 下部との接続を可能にする
@@ -187,11 +184,11 @@ Blockly.Blocks['RE_from_to'] = {
     this.setHelpUrl("http://okumocchi.jp/php/re.php");
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("文字")
+        .appendField(Blockly.Msg.RE_from_to_left)
         .appendField(new Blockly.FieldTextInput(''), 'FROM')
-        .appendField("から文字")
+        .appendField(Blockly.Msg.RE_from_to_middle)
         .appendField(new Blockly.FieldTextInput(''), 'TO')
-        .appendField("の範囲の任意の文字");
+        .appendField(Blockly.Msg.RE_from_to_right);
     this.setOutput(true, 'String');   // 左部との接続を可能にする
     //this.setPreviousStatement(true);  // 上部との接続を可能にする
     //this.setNextStatement(true);      // 下部との接続を可能にする
@@ -227,7 +224,7 @@ Blockly.Blocks['RE_anything'] = {
     this.setHelpUrl("http://okumocchi.jp/php/re.php");
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("任意の文字");
+        .appendField(Blockly.Msg.RE_anything);
     this.setOutput(true, 'String');		// 左部との接続を可能にする
     //this.setPreviousStatement(true);  // 上部との接続を可能にする
     //this.setNextStatement(true);      // 下部との接続を可能にする
@@ -248,7 +245,7 @@ Blockly.Blocks['RE_new_line'] = {
     this.setHelpUrl("http://okumocchi.jp/php/re.php");
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("改行(特殊文字)");
+        .appendField(Blockly.Msg.RE_new_line);
     this.setOutput(true, 'String');		// 左部との接続を可能にする
     //this.setPreviousStatement(true);  // 上部との接続を可能にする
     //this.setNextStatement(true);      // 下部との接続を可能にする
@@ -269,7 +266,7 @@ Blockly.Blocks['RE_tab'] = {
     this.setHelpUrl("http://okumocchi.jp/php/re.php");
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("タブ(特殊文字)");
+        .appendField(Blockly.Msg.RE_tab);
     this.setOutput(true, 'String');		// 左部との接続を可能にする
     //this.setPreviousStatement(true);  // 上部との接続を可能にする
     //this.setNextStatement(true);      // 下部との接続を可能にする
@@ -336,16 +333,16 @@ Blockly.Blocks['RE_repetition'] = {
 
   init: function() {
     var OPERATORS =
-        [['0回以上の繰り返し', '*'],
-         ['1回以上の繰り返し', '+'],
-         ['0回か1回の出現', '?']];
+        [[Blockly.Msg.RE_repetition_0up, '*'],
+         [Blockly.Msg.RE_repetition_1up, '+'],
+         [Blockly.Msg.RE_repetition_0or1, '?']];
     this.setHelpUrl("http://okumocchi.jp/php/re.php");
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("正規表現");
+        .appendField(Blockly.Msg.RE_repetition_left);
     this.appendValueInput('A');
     this.appendDummyInput()
-        .appendField("の")
+        .appendField(Blockly.Msg.RE_repetition_middle)
     	  .appendField(new Blockly.FieldDropdown(OPERATORS), 'MODE')
         .appendField(" ");
     this.setOutput(true, 'String');		// 左部との接続を可能にする
@@ -388,7 +385,7 @@ Blockly.Blocks['RE_from_to_mutator'] = {
     this.setTooltip(function() {
       var parent = thisBlock.getParent();
       return (parent && parent.getInputsInline() && parent.tooltip) ||
-          "左の文字から右の文字の範囲の任意の文字を表します。";      // ポインタを合わせたときの説明文
+          "複数の左の文字から右の文字の範囲の任意の文字を表します。";      // ポインタを合わせたときの説明文
     });
   },
   mutationToDom: function() {

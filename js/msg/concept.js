@@ -1,4 +1,7 @@
 // This file was automatically generated.  Do not modify.
+/*
+18/05/08 Flexの正規表現に対応
+*/
 
 'use strict';
 
@@ -35,7 +38,32 @@ var MSG = {
 /** @export */ Blockly.Msg.CANNOT_DELETE_VARIABLE_PROCEDURE = "Can't delete the variable '%1' because it's part of the definition of the function '%2'";  // untranslated
 /** @export */ Blockly.Msg.CHANGE_VALUE_TITLE = "値を変える：";
 
+// 正規表現
 Blockly.Msg.RE_text0 = "文字";
+Blockly.Msg.RE_text = "文字列";
+Blockly.Msg.RE_any_one_left = "文字列\"";
+Blockly.Msg.RE_any_one_right = "\"中に任意の文字";
+Blockly.Msg.RE_not_any_one_left = "文字列\"";
+Blockly.Msg.RE_not_any_one_right = "\"以外の任意の文字";
+Blockly.Msg.RE_from_to_left = "文字";
+Blockly.Msg.RE_from_to_middle = "から文字";
+Blockly.Msg.RE_from_to_right = "の範囲の任意の文字";
+Blockly.Msg.RE_anything = "任意の文字";
+Blockly.Msg.RE_new_line = "改行(特殊文字)";
+Blockly.Msg.RE_tab = "タブ(特殊文字)";
+Blockly.Msg.RE_repetition_left = "正規表現";
+Blockly.Msg.RE_repetition_middle = "の";
+Blockly.Msg.RE_repetition_0up = "0回以上の繰り返し";
+Blockly.Msg.RE_repetition_1up = "1回以上の繰り返し";
+Blockly.Msg.RE_repetition_0or1 = "0回か1回の出現";
+// 関数
+Blockly.Msg.yylex = "yylex関数";
+// 出力
+Blockly.Msg.printf_left = "出力";
+Blockly.Msg.printf_right = "";
+Blockly.Msg.putchar_left = "1文字出力";
+Blockly.Msg.putchar_right = "";
+Blockly.Msg.echo = "そのまま出力";
 
 /** @export */ Blockly.Msg.MATH_HUE = "230";
 /** @export */ Blockly.Msg.LOOPS_HUE = "120";

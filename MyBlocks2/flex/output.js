@@ -1,5 +1,6 @@
 /*
 2017/09/04 output.js 新規作成
+18/05/08 概念と文法を分別化
 */
 /*
 ・myCBlocks.js に新しいブロックの定義:
@@ -10,9 +11,10 @@
 Blockly.Blocks['printf'] = {
   init: function() {
     this.setColour(100);
-    this.jsonInit({ "message0": "出力" });
     this.appendDummyInput()
-        .appendField(new Blockly.FieldTextInput(''), 'TEXT');
+        .appendField(Blockly.Msg.printf_left)
+        .appendField(new Blockly.FieldTextInput(''), 'TEXT')
+        .appendField(Blockly.Msg.printf_right);
     this.setOutput(true, 'String');   // 左部との接続を可能にする
     this.setInputsInline(true);       // ソケットを内側にする
     //this.setPreviousStatement(true);  // 上部との接続を可能にする
@@ -32,9 +34,10 @@ Blockly.Blocks['printf'] = {
 Blockly.Blocks['putchar'] = {
   init: function() {
     this.setColour(100);
-    this.jsonInit({ "message0": "1文字出力" });
     this.appendDummyInput()
-        .appendField(new Blockly.FieldTextInput(''), 'TEXT');
+        .appendField(Blockly.Msg.putchar_left)
+        .appendField(new Blockly.FieldTextInput(''), 'TEXT')
+        .appendField(Blockly.Msg.putchar_right);
     this.setOutput(true, 'String');   // 左部との接続を可能にする
     this.setInputsInline(true);       // ソケットを内側にする
     //this.setPreviousStatement(true);  // 上部との接続を可能にする
@@ -51,12 +54,12 @@ Blockly.Blocks['putchar'] = {
   }
 };
 
+// ↓ flex.html で削除 (18/05/08)
 Blockly.Blocks['output_dropdown'] = {
   init: function() {
     this.setColour(100);
-    this.jsonInit({ "message0": "出力" });
     this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["printf", "printf"], ["putchar", "putchar"]]), "TYPE")
+        .appendField(new Blockly.FieldDropdown([[Blockly.Msg.printf_left, "printf"], [Blockly.Msg.putchar_left, "putchar"]]), "TYPE")
         .appendField(" ");
     this.appendDummyInput()
         .appendField(new Blockly.FieldTextInput(''), 'TEXT');
@@ -92,7 +95,7 @@ Blockly.Blocks['echo'] = {
     this.setHelpUrl();
     this.setColour(100);
     this.appendDummyInput()
-        .appendField("そのまま出力");
+        .appendField(Blockly.Msg.echo);
     this.setOutput(true, 'String');   // 左部との接続を可能にする
     //this.setPreviousStatement(true);  // 上部との接続を可能にする
     //this.setNextStatement(true);      // 下部との接続を可能にする

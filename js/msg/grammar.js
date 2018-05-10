@@ -1,5 +1,7 @@
 // This file was automatically generated.  Do not modify.
-
+/*
+18/05/08 Flexの正規表現に対応
+*/
 'use strict';
 
 goog.provide('Blockly.Msg.code');
@@ -35,7 +37,29 @@ var MSG = {
 /** @export */ Blockly.Msg.CANNOT_DELETE_VARIABLE_PROCEDURE = "Can't delete the variable '%1' because it's part of the definition of the function '%2'";  // untranslated
 /** @export */ Blockly.Msg.CHANGE_VALUE_TITLE = "値を変える：";
 
-Blockly.Msg.RE_text0 = "あああああ";
+// 正規表現
+Blockly.Msg.RE_text0 = "";
+Blockly.Msg.RE_text = "";
+Blockly.Msg.RE_any_one_left = "[";
+Blockly.Msg.RE_any_one_right = "]";
+Blockly.Msg.RE_not_any_one_left = "[^";
+Blockly.Msg.RE_not_any_one_right = "]";
+Blockly.Msg.RE_from_to_left = "[";
+Blockly.Msg.RE_from_to_middle = "-";
+Blockly.Msg.RE_from_to_right = "]";
+Blockly.Msg.RE_anything = ".";
+Blockly.Msg.RE_new_line = "\\n";
+Blockly.Msg.RE_tab = "\\t";
+Blockly.Msg.RE_repetition_0up = "*";
+Blockly.Msg.RE_repetition_1up = "+";
+Blockly.Msg.RE_repetition_0or1 = "?";
+// 関数
+Blockly.Msg.yylex = "int main (void) { return yylex(); }";
+Blockly.Msg.printf_left = "printf(\"";
+Blockly.Msg.printf_right = "\");";
+Blockly.Msg.putchar_left = "putchar(\'";
+Blockly.Msg.putchar_right = "\');";
+Blockly.Msg.echo = "ECHO;";
 
 /** @export */ Blockly.Msg.MATH_HUE = "230";
 /** @export */ Blockly.Msg.LOOPS_HUE = "120";

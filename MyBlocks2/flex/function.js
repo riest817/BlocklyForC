@@ -1,5 +1,6 @@
 /*
 2017/08/02 function.js 新規作成
+18/05/08 概念と文法を分別化
 */
 /*
 ・myCBlocks.js に新しいブロックの定義:
@@ -13,7 +14,7 @@ Blockly.Blocks['yylex'] = {
     this.setHelpUrl();
     this.setColour(290);
     this.appendDummyInput()
-        .appendField("yylex関数");
+        .appendField(Blockly.Msg.yylex);
     //this.setOutput(true, 'String');		// 左部との接続を可能にする
     this.setPreviousStatement(true);  // 上部との接続を可能にする
     //this.setNextStatement(true);      // 下部との接続を可能にする

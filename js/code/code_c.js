@@ -14,8 +14,8 @@ var Code = {};
 
 /** ↓　言語切り替えを↓*/
 Code.LANGUAGE_NAME = {
-  'pro': ' プログラム概念',
-  'code': 'コード文法',
+  'concept': ' プログラム概念',
+  'grammar': 'コード文法',
   'ja'  : '日本語'
 };
 
@@ -206,7 +206,7 @@ Code.LANG = Code.getLang();
  * List of tab names.
  * @private
  */
-Code.TABS_ = ['Blocks', 'Flex', 'Xml'];
+Code.TABS_ = ['Blocks', 'C', 'Xml'];
 
 Code.selected = 'Blocks';
 
@@ -271,8 +271,8 @@ Code.renderContent = function() {
     var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
     xmlTextarea.value = xmlText;
     xmlTextarea.focus();
-  } else if (content.id == 'contentFlex') {
-    var code = Blockly.Flex.workspaceToCode(Code.workspace);
+  } else if (content.id == 'contentC') {
+    var code = Blockly.C.workspaceToCode(Code.workspace);
     content.textContent = code;
     if (typeof PR.prettyPrintOne == 'function') {
       code = content.textContent;
@@ -290,7 +290,7 @@ Code.init = function() {
   Code.initLanguage();
 
   var rtl = Code.isRtl();
-  var container = document.getElementById('contentArea');
+  var container = document.getElementById('blocklyArea');
   var onresize = function(e) {
     var bBox = Code.getBBox_(container);
     for (var i = 0; i < Code.TABS_.length; i++) {
@@ -347,7 +347,7 @@ Code.init = function() {
 
   // Add to reserved word list: Local variables in execution environment (runJS)
   // and the infinite loop detection function.
-  Blockly.Flex.addReservedWords('code,timeouts,checkTimeout');
+  Blockly.C.addReservedWords('code,timeouts,checkTimeout');
 
   Code.loadBlocks('');
 
@@ -358,21 +358,20 @@ Code.init = function() {
 
   Code.tabClick(Code.selected);
 
-  Code.bindClick('trashButton',
-      function() {Code.discard(); Code.renderContent();});
-  Code.bindClick('runButton', Code.runJS);
+  //Code.bindClick('trashButton',function() {Code.discard(); Code.renderContent();});
+  //Code.bindClick('runButton', Code.runJS);
   // Disable the link button if page isn't backed by App Engine storage.
-  var linkButton = document.getElementById('linkButton');
+  //var linkButton = document.getElementById('linkButton');
+  /*
   if ('BlocklyStorage' in window) {
     BlocklyStorage['HTTPREQUEST_ERROR'] = MSG['httpRequestError'];
     BlocklyStorage['LINK_ALERT'] = MSG['linkAlert'];
     BlocklyStorage['HASH_ERROR'] = MSG['hashError'];
     BlocklyStorage['XML_ERROR'] = MSG['xmlError'];
-    Code.bindClick(linkButton,
-        function() {BlocklyStorage.link(Code.workspace);});
+    //Code.bindClick(linkButton,function() {BlocklyStorage.link(Code.workspace);});
   } else if (linkButton) {
     linkButton.className = 'disabled';
-  }
+  }*/
 
   for (var i = 0; i < Code.TABS_.length; i++) {
     var name = Code.TABS_[i];
@@ -430,15 +429,15 @@ Code.initLanguage = function() {
  * Just a quick and dirty eval.  Catch infinite loops.
  */
 Code.runJS = function() {
-  Blockly.Flex.INFINITE_LOOP_TRAP = '  checkTimeout();\n';
+  Blockly.C.INFINITE_LOOP_TRAP = '  checkTimeout();\n';
   var timeouts = 0;
   var checkTimeout = function() {
     if (timeouts++ > 1000000) {
       throw MSG['timeout'];
     }
   };
-  var code = Blockly.Flex.workspaceToCode(Code.workspace);
-  Blockly.Flex.INFINITE_LOOP_TRAP = null;
+  var code = Blockly.C.workspaceToCode(Code.workspace);
+  Blockly.C.INFINITE_LOOP_TRAP = null;
   try {
     eval(code);
   } catch (e) {
@@ -463,7 +462,6 @@ Code.discard = function() {
 // Load the Code demo's language strings.
 //document.write('<script src="msg/' + Code.LANG + '.js"></script>\n');
 // Load Blockly's language strings.
-document.write('<script src="msg/js/' + Code.LANG + '.js"></script>\n');
-document.write('<script src="msg/js/ja.js"></script>\n');
+document.write('<script src="js/msg/' + Code.LANG + '.js"></script>\n');
 
 window.addEventListener('load', Code.init);

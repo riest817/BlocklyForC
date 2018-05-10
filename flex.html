@@ -3,6 +3,7 @@
 2017/10/31 function GetCookies() 追加
 2017/11/01 sampleボタンの実行
 2017/11/14 各言語の html ファイルの共通する関数群を common2.js に移動
+18/04 概念と文法の切り替えタブ追加
 -->
 <!DOCTYPE html>
 <head>
@@ -22,8 +23,7 @@
 <script src="MyGenerators/flex/regular_expression.js"></script> 
 <script src="MyGenerators/flex/operation.js"></script> 
 <script src="MyGenerators/flex/definition.js"></script> 
-<script src="MyGenerators/flex/function.js"></script> 
-<script src="MyGenerators/flex/RE_mutator.js"></script> 
+<script src="MyGenerators/flex/function.js"></script>  
 <script src="MyGenerators/flex/output.js"></script> 
 
 <!-- -->
@@ -49,7 +49,7 @@
 <script type="text/javascript" src="js/sample_button/flex.js"></script>  <!-- (2017/10/19 追加)-->
 <script src="js/cookie.js"></script>  <!-- (2017/11/14 追加)-->
 <script src="js/common2.js"></script>  <!-- (2017/11/14 追加)-->
-<!--script src="js/code.js"></script-->  <!-- (18/04/24 削除)-->
+<script src="js/code/code_flex.js"></script>  <!-- (18/04/24)-->
 
 <link rel="stylesheet" href="Library/introjs.css"/>
 <style>
@@ -173,7 +173,7 @@
   <category name="出力" colour="100">
     <block type="printf"></block>
     <block type="putchar"></block>
-    <block type="output_dropdown"></block>
+    <!--block type="output_dropdown"></block-->
     <block type="echo"></block>
   </category>
   <sep></sep>
@@ -212,6 +212,7 @@
             <td class="farSide">
               <select id="languageMenu"></select>
             </td>
+            
             <!-- 18/04/17 追加ここまで -->
             
             <td class="tabmax">
@@ -230,11 +231,12 @@
     </td>
 </tr>
 <tr>
-  <td id="blocklyArea" style='border: 0pt; height: 99%;'>
-  </td>
+  <td id="blocklyArea" style='border: 0pt; height: 99%;'></td>
+  <!--td height="99%" colspan=2 id="contentArea"></td-->
 </tr>
 </table>
-<div id="contentBlock" style="position: absolute;"></div>
+<div id="contentBlocks" style="position: absolute;"></div>
+<!--div id="contentBlock" class="content"></div-->
 <pre id="contentFlex" class="content"></pre>
 <textarea id="contentXml" class="content" wrap="off"></textarea>
 <script>
@@ -245,7 +247,7 @@ var workspace = null;
 
 function onResize() {
     var area = $("#blocklyArea");
-    var divs = [ $("#contentBlock"), $("#contentFlex"), $("#contentXml") ];
+    var divs = [ $("#contentBlocks"), $("#contentFlex"), $("#contentXml") ];
 
     var width = area.width();
     var height = area.height();

@@ -54,7 +54,7 @@ function tabClick(clickedName) {
 }
 
 $(function() {
-    workspace = Blockly.inject('contentBlock',
+    workspace = Blockly.inject('contentBlocks',
        { toolbox: document.getElementById('toolbox'),
          zoom: { controls: true, wheel: true, startScale: 1.0, maxScale: 3, minScale: 0.3, scaleSpeed: 1.2 }
        });
@@ -148,7 +148,7 @@ $(function() {
     });
 
     $("#resetButton").click(function () {
-        var q = window.confirm("編集したプログラムを捨てて、最初の内容に戻します。よろしいですか？");
+    var q = window.confirm("編集したプログラムを捨てて、最初の内容に戻します。よろしいですか？");
         if (!q) return;
         var xmlUrl = $.query.get("url");
         if (xmlUrl) {
