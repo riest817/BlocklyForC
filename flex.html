@@ -263,7 +263,8 @@ function onResize() {
 $(window).on('load resize', onResize);
 
 function renderContent(clickedName) {
-  var content = $("#content" + clickedName);
+  
+  var content = $("#content" + clickedName);  // 問題あり(18/05/10)
   if (clickedName == "Xml") {
     var xmlDom  = Blockly.Xml.workspaceToDom(workspace);
     var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
@@ -271,8 +272,12 @@ function renderContent(clickedName) {
   } else if (clickedName == "Flex") {
     console.log("Flex", workspace.getTopBlocks(!0)[0]);
     var code = Blockly.Flex.workspaceToCode(workspace);
-    console.log(code);
-    content.html(code);
+    //console.log(code);
+    //console.log("[", code,"]");
+    //console.log(content); // 変数contentに問題あり(18/05/10)
+    //content.html(code);
+    //content.html("aaaa");
+    //console.log("bbbb");
 
     // TODO: CodeMirror
     code = content.html();

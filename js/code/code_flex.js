@@ -75,7 +75,7 @@ Code.getLang = function() {
   var lang = Code.getStringParamFromUrl('lang', '');
   if (Code.LANGUAGE_NAME[lang] === undefined) {
     // Default to English.
-    lang = 'ja';
+    lang = 'concept';
   }
   return lang;
 };
@@ -93,6 +93,7 @@ Code.isRtl = function() {
  * @param {string} defaultXml Text representation of default blocks.
  */
 Code.loadBlocks = function(defaultXml) {
+
   try {
     var loadOnce = window.sessionStorage.loadOnceBlocks;
   } catch(e) {
@@ -117,6 +118,7 @@ Code.loadBlocks = function(defaultXml) {
     // initialization is not affected from a failed load.
     window.setTimeout(BlocklyStorage.restoreBlocks, 0);
   }
+
 };
 
 /**
@@ -127,6 +129,7 @@ Code.changeLanguage = function() {
   // This should be skipped for the index page, which has no blocks and does
   // not load Blockly.
   // MSIE 11 does not support sessionStorage on file:// URLs.
+
   if (typeof Blockly != 'undefined' && window.sessionStorage) {
     var xml = Blockly.Xml.workspaceToDom(Code.workspace);
     var text = Blockly.Xml.domToText(xml);
@@ -215,6 +218,7 @@ Code.selected = 'Blocks';
  * @param {string} clickedName Name of tab clicked.
  */
 Code.tabClick = function(clickedName) {
+  
   // If the XML tab was open, save and render the content.
   if (document.getElementById('tabXml').className == 'tabon') {
     var xmlTextarea = document.getElementById('contentXml');
@@ -257,22 +261,25 @@ Code.tabClick = function(clickedName) {
     Code.workspace.setVisible(true);
   }
   Blockly.svgResize(Code.workspace);
+  
 };
 
 /**
  * Populate the currently selected pane with content generated from the blocks.
  */
+ 
 Code.renderContent = function() {
+  
   var content = document.getElementById('content' + Code.selected);
   // Initialize the pane.
   if (content.id == 'contentXml') {
     var xmlTextarea = document.getElementById('contentXml');
-    var xmlDom = Blockly.Xml.workspaceToDom(Code.workspace);
+    var xmlDom = Blockly.Xml.workspaceToDom(workspace);
     var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
     xmlTextarea.value = xmlText;
     xmlTextarea.focus();
   } else if (content.id == 'contentFlex') {
-    var code = Blockly.Flex.workspaceToCode(Code.workspace);
+    var code = Blockly.Flex.workspaceToCode(workspace);
     content.textContent = code;
     if (typeof PR.prettyPrintOne == 'function') {
       code = content.textContent;
@@ -280,6 +287,7 @@ Code.renderContent = function() {
       content.innerHTML = code;
     }
   }
+  
 };
 
 
@@ -408,6 +416,7 @@ Code.initLanguage = function() {
   languages.sort(comp);
   // Populate the language selection menu.
   var languageMenu = document.getElementById('languageMenu');
+
   languageMenu.options.length = 0;
   for (var i = 0; i < languages.length; i++) {
     var tuple = languages[i];
@@ -418,8 +427,7 @@ Code.initLanguage = function() {
     }
     languageMenu.options.add(option);
   }
-  languageMenu.addEventListener('change', Code.changeLanguage, true);
-
+  languageMenu.addEventListener('change', Code.changeLanguage, true)
   // Inject language strings.
 
 };
@@ -431,6 +439,7 @@ Code.initLanguage = function() {
 Code.runJS = function() {
   Blockly.Flex.INFINITE_LOOP_TRAP = '  checkTimeout();\n';
   var timeouts = 0;
+  console.log(timeouts);
   var checkTimeout = function() {
     if (timeouts++ > 1000000) {
       throw MSG['timeout'];

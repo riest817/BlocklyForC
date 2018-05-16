@@ -4,6 +4,9 @@ function sample(select) {
   var q = window.confirm("編集したブロックを捨てて、サンプルブロックを表示します。よろしいですか？");
   if (!q) return;
   workspace.clear();
+  Code.workspace.clear();   // 18/05/16
+  window.location.reload(true); // 18/05/16
+
   if (select == 1 ) {
     var defaultXml =
     `<xml xmlns="http://www.w3.org/1999/xhtml">
@@ -72,7 +75,7 @@ function sample(select) {
         </value>
         <value name="THEN">
           <block type="printf" id="5+%(uaRcqQzWC]L:~U%">
-            <field name="TEXT">printf("namaste");</field>
+            <field name="TEXT">namaste</field>
           </block>
         </value>
         <next>
@@ -122,23 +125,33 @@ function loadBlocks(defaultXml) {
   } catch(e) {
     // Firefox sometimes throws a SecurityError when accessing sessionStorage.
     // Restarting Firefox fixes this, so it looks like a bug.
+    // Firefoxは、sessionStorageにアクセスするときにSecurityErrorをスローすることがあります。
+    // Firefoxを再起動するとこれが修正されるため、バグのように見えます。
     var loadOnce = null;
   }
   if ('BlocklyStorage' in window && window.location.hash.length > 1) {
     // An href with #key trigers an AJAX call to retrieve saved blocks.
     BlocklyStorage.retrieveXml(window.location.hash.substring(1));
+    console.log("1");
   } else if (loadOnce) {
     // Language switching stores the blocks during the reload.
+    // 言語切り替えは、リロード中にブロックを保存します。
     delete window.sessionStorage.loadOnceBlocks;
     var xml = Blockly.Xml.textToDom(loadOnce);
     Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+    console.log("2");
   } else if (defaultXml) {
     // Load the editor with default starting blocks.
+    // エディタをデフォルトの開始ブロックでロードします。
     var xml = Blockly.Xml.textToDom(defaultXml);
     Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+    console.log("3");
   } else if ('BlocklyStorage' in window) {
     // Restore saved blocks in a separate thread so that subsequent
     // initialization is not affected from a failed load.
+    // 保存されたブロックを別のスレッドに復元する
+    // 初期化は失敗したロードの影響を受けません。
     window.setTimeout(BlocklyStorage.restoreBlocks, 0);
+    console.log("4");
   }
 };

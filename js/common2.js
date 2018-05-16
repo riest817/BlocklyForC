@@ -23,6 +23,7 @@ function tabClick(clickedName) {
     }
     if (xmlDom) {
       workspace.clear();
+      Code.workspace.clear();   // 18/05/16
       Blockly.Xml.domToWorkspace(xmlDom, workspace);
     }
   }
@@ -138,6 +139,7 @@ $(function() {
            }
            if (xmlDom) {
              workspace.clear();
+             Code.workspace.clear();   // 18/05/16
              localStorage.clear();   // 2017/11/14
              Blockly.Xml.domToWorkspace(xmlDom, workspace);
            }
@@ -154,15 +156,19 @@ $(function() {
         if (xmlUrl) {
           $.ajax({ url: xmlUrl, dataType: "text" }).done(function(data) {
               workspace.clear();
+              Code.workspace.clear();   // 18/05/16
               localStorage.clear();   // 2017/11/14
               var xml = Blockly.Xml.textToDom(data);
               Blockly.Xml.domToWorkspace(xml, workspace);
           });
         } else {
            workspace.clear();
+           Code.workspace.clear();  // 18/05/16
            localStorage.clear();   // 2017/11/14
            Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspace);
         }
+        console.log(xmlUrl);
+        delete window.sessionStorage.loadOnceBlocks;
     });
 
     onResize();
