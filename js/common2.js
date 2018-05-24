@@ -23,7 +23,7 @@ function tabClick(clickedName) {
     }
     if (xmlDom) {
       workspace.clear();
-      Code.workspace.clear();   // 18/05/16
+      try { Code.workspace.clear(); } catch(e) {} // 18/05/22 
       Blockly.Xml.domToWorkspace(xmlDom, workspace);
     }
   }

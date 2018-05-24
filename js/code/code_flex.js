@@ -129,6 +129,7 @@ Code.changeLanguage = function() {
   // This should be skipped for the index page, which has no blocks and does
   // not load Blockly.
   // MSIE 11 does not support sessionStorage on file:// URLs.
+  console.log("changeLanguage");
 
   if (typeof Blockly != 'undefined' && window.sessionStorage) {
     var xml = Blockly.Xml.workspaceToDom(Code.workspace);
@@ -182,6 +183,7 @@ Code.importPrettify = function() {
  * @private
  */
 Code.getBBox_ = function(element) {
+
   var height = element.offsetHeight;
   var width = element.offsetWidth;
   var x = 0;
@@ -269,7 +271,7 @@ Code.tabClick = function(clickedName) {
  */
  
 Code.renderContent = function() {
-  
+
   var content = document.getElementById('content' + Code.selected);
   // Initialize the pane.
   if (content.id == 'contentXml') {
@@ -437,9 +439,9 @@ Code.initLanguage = function() {
  * Just a quick and dirty eval.  Catch infinite loops.
  */
 Code.runJS = function() {
+
   Blockly.Flex.INFINITE_LOOP_TRAP = '  checkTimeout();\n';
   var timeouts = 0;
-  console.log(timeouts);
   var checkTimeout = function() {
     if (timeouts++ > 1000000) {
       throw MSG['timeout'];
@@ -458,6 +460,7 @@ Code.runJS = function() {
  * Discard all blocks from the workspace.
  */
 Code.discard = function() {
+  
   var count = Code.workspace.getAllBlocks().length;
   if (count < 2 ||
       window.confirm(Blockly.Msg.DELETE_ALL_BLOCKS.replace('%1', count))) {
