@@ -115,3 +115,20 @@ Blockly.Flex['RE_from_to_mutator'] = function(block) {
   code += ']';
   return code;
 };
+
+// 18/05/29 新規作成
+Blockly.Flex['RE_connection_mutator'] = function(block) {
+  // Create a string made up of any number of elements of any type.
+  var code = "";
+  switch (block.itemCount_) {
+    case 1:
+      code += Blockly.Flex.statementToCode_0indent(block, 'ADD0');
+      return [code, Blockly.Flex.ORDER_FUNCTION_CALL];
+    default:
+      for (var i = 0; i < block.itemCount_; i++) {
+        code += Blockly.Flex.statementToCode_0indent(block, 'ADD' + i );
+      }
+
+      return [code, Blockly.Flex.ORDER_FUNCTION_CALL];
+  }
+};

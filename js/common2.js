@@ -1,6 +1,6 @@
 /* ===================================================================
 2017/11/14 common2.js 新規作成
-
+18/05/29 自作のlocalstorageに対応
 
  ///////////////   各言語の html ファイルの共通する関数群をこちらに移動
 
@@ -55,6 +55,7 @@ function tabClick(clickedName) {
 }
 
 $(function() {
+
     workspace = Blockly.inject('contentBlocks',
        { toolbox: document.getElementById('toolbox'),
          zoom: { controls: true, wheel: true, startScale: 1.0, maxScale: 3, minScale: 0.3, scaleSpeed: 1.2 }
@@ -65,18 +66,27 @@ $(function() {
 //    workspace.addChangeListener(Blockly.Events.disableOrphans);
 
     var clean = $.query.get("clean");
+
+    // 18/05/29 追加
+    var xmlDom  = Blockly.Xml.workspaceToDom(workspace);
+    var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+    var BlocksStatus = localStorage.getItem('BlocksStatus', xmlText); 
+    xmlDom = Blockly.Xml.textToDom(BlocksStatus);
+    Blockly.Xml.domToWorkspace(xmlDom, workspace);
+    // 18/05/29 追加ここまで
+
     if (clean != null && (clean.toLowerCase() == "true" || clean.toLowerCase() == "yes")) {
-        Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspace);
+        //Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspace);  18/05/29
     } else {
         window.setTimeout(function () {
-//            BlocklyStorage.restoreBlocks(workspace);
+//            BlocklyStorage.restoreBlocks(workspace);  // 18/05/29
               var url = window.location.href.split('#')[0];
               if ('localStorage' in window) {
                 var memo = window.localStorage[url];
                 if (memo) {
                     var xml = Blockly.Xml.textToDom(memo);
                     if (xml.hasChildNodes()) {
-                        Blockly.Xml.domToWorkspace(xml, workspace);
+                        //  Blockly.Xml.domToWorkspace(xml, workspace); // 18/05/29
                         return;
                     }
                     // xml が空だったら続行する
@@ -89,7 +99,7 @@ $(function() {
                     Blockly.Xml.domToWorkspace(xml, workspace);
                 });
               } else {
-                Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspace);
+                //Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspace);
               }
         }, 0);
     }

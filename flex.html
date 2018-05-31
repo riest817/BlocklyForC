@@ -140,6 +140,7 @@
 <xml id="toolbox" style="display: none">
   <category name="制御" colour="170">
     <block type="first_flex"></block>
+    <block type="exit"></block>
   </category>
   <category name="正規表現" colour="0">
     <block type="RE_text0"></block>
@@ -188,8 +189,7 @@
 
 </xml>
 
-<xml id="startBlocks" style="display: none;">
-</xml>
+<xml id="startBlocks" style="display: none;"></xml>
 
 <table>
 <tr>
@@ -210,7 +210,7 @@
               </form>
             <td class="tabmin">&nbsp;</td>
             <td class="farSide">
-              <select id="languageMenu"></select>
+              <select id="languageMenu" onclick="languageMenu()"></select>
             </td>
             
             <!-- 18/04/17 追加ここまで -->
@@ -246,6 +246,7 @@ var draw;
 var workspace = null;
 
 function onResize() {
+
     var area = $("#blocklyArea");
     var divs = [ $("#contentBlocks"), $("#contentFlex"), $("#contentXml") ];
 
@@ -263,21 +264,15 @@ function onResize() {
 $(window).on('load resize', onResize);
 
 function renderContent(clickedName) {
-  
+
   var content = $("#content" + clickedName);  // 問題あり(18/05/10)
   if (clickedName == "Xml") {
     var xmlDom  = Blockly.Xml.workspaceToDom(workspace);
     var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
     content.val(xmlText);
   } else if (clickedName == "Flex") {
-    console.log("Flex", workspace.getTopBlocks(!0)[0]);
+    //console.log("Flex", workspace.getTopBlocks(!0)[0]);
     var code = Blockly.Flex.workspaceToCode(workspace);
-    //console.log(code);
-    //console.log("[", code,"]");
-    //console.log(content); // 変数contentに問題あり(18/05/10)
-    //content.html(code);
-    //content.html("aaaa");
-    //console.log("bbbb");
 
     // TODO: CodeMirror
     code = content.html();

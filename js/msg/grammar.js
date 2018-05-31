@@ -37,6 +37,10 @@ var MSG = {
 /** @export */ Blockly.Msg.CANNOT_DELETE_VARIABLE_PROCEDURE = "Can't delete the variable '%1' because it's part of the definition of the function '%2'";  // untranslated
 /** @export */ Blockly.Msg.CHANGE_VALUE_TITLE = "値を変える：";
 
+// 制御
+Blockly.Msg.exit = "exit";
+Blockly.Msg.exit_0 = "(0);";
+Blockly.Msg.exit_1 = "(1);";
 // 正規表現
 Blockly.Msg.RE_text0 = "";
 Blockly.Msg.RE_text = "";

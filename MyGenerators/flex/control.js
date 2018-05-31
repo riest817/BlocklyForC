@@ -31,3 +31,14 @@ Blockly.Flex['first_flex'] = function(block) {
 
 };
 
+//  18/05/29
+Blockly.Flex['exit'] = function(block) {
+
+  var OPERATORS = {
+    '0': '0',
+    '1': '1'
+  };
+  var operator = OPERATORS[block.getFieldValue('MODE')];
+  var code = "exit(" + operator + ");";
+  return code;
+};

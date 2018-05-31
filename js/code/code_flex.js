@@ -15,8 +15,7 @@ var Code = {};
 /** ↓　言語切り替えを↓*/
 Code.LANGUAGE_NAME = {
   'concept': ' プログラム概念',
-  'grammar': 'コード文法',
-  'ja'  : '日本語'
+  'grammar': 'ソースコード'
 };
 
 var MSG = {
@@ -129,7 +128,6 @@ Code.changeLanguage = function() {
   // This should be skipped for the index page, which has no blocks and does
   // not load Blockly.
   // MSIE 11 does not support sessionStorage on file:// URLs.
-  console.log("changeLanguage");
 
   if (typeof Blockly != 'undefined' && window.sessionStorage) {
     var xml = Blockly.Xml.workspaceToDom(Code.workspace);
@@ -460,7 +458,7 @@ Code.runJS = function() {
  * Discard all blocks from the workspace.
  */
 Code.discard = function() {
-  
+
   var count = Code.workspace.getAllBlocks().length;
   if (count < 2 ||
       window.confirm(Blockly.Msg.DELETE_ALL_BLOCKS.replace('%1', count))) {
@@ -470,6 +468,21 @@ Code.discard = function() {
     }
   }
 };
+
+// 18/05/24 追加
+function languageMenu() {
+  //console.log("languageMenu");
+  var xmlDom  = Blockly.Xml.workspaceToDom(workspace);
+  var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+
+  localStorage.setItem('BlocksStatus', xmlText); 
+  /*
+  var BlocksStatus = localStorage.getItem('BlocksStatus', xmlText); 
+  xmlDom = Blockly.Xml.textToDom(BlocksStatus);
+  Blockly.Xml.domToWorkspace(xmlDom, workspace);
+  console.log(BlocksStatus);
+  */
+}
 
 // Load the Code demo's language strings.
 //document.write('<script src="msg/' + Code.LANG + '.js"></script>\n');
