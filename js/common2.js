@@ -66,14 +66,26 @@ $(function() {
 //    workspace.addChangeListener(Blockly.Events.disableOrphans);
 
     var clean = $.query.get("clean");
+// 18/06/12
+    var title = document.getElementById('title').getAttribute('title'); 
 
-    // 18/05/29 追加
     var xmlDom  = Blockly.Xml.workspaceToDom(workspace);
     var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
-    var BlocksStatus = localStorage.getItem('BlocksStatus', xmlText); 
-    xmlDom = Blockly.Xml.textToDom(BlocksStatus);
+    if ( title == "C" ) { 
+      var BlocksStatus_C = localStorage.getItem('BlocksStatus_C', xmlText); 
+      xmlDom = Blockly.Xml.textToDom(BlocksStatus_C);
+    } else if ( title == "JavaScript" ) {
+      var BlocksStatus_JavaScript = localStorage.getItem('BlocksStatus_JavaScript', xmlText); 
+      xmlDom = Blockly.Xml.textToDom(BlocksStatus_JavaScript);
+    } else if ( title == "Haskell" ) {
+      var BlocksStatus_Haskell = localStorage.getItem('BlocksStatus_Haskell', xmlText); 
+      xmlDom = Blockly.Xml.textToDom(BlocksStatus_Haskell);
+    } else if ( title == "Flex" ) {
+      var BlocksStatus_Flex = localStorage.getItem('BlocksStatus_Flex', xmlText); 
+      xmlDom = Blockly.Xml.textToDom(BlocksStatus_Flex);
+    }
     Blockly.Xml.domToWorkspace(xmlDom, workspace);
-    // 18/05/29 追加ここまで
+// 18/06/12 追加ここまで
 
     if (clean != null && (clean.toLowerCase() == "true" || clean.toLowerCase() == "yes")) {
         //Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspace);  18/05/29

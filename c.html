@@ -9,6 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Blockly for C</title>
+<div id="title" title="C"></div>  <!-- (18/06/12 追加)-->
 <link rel="shortcut icon" href="favicon.png" type="image/png"/>
 <!--  解凍ファイルを追加  18/04/05 -->
 <script src="Library/blockly/00_uncompressed/blockly_uncompressed.js"></script>
@@ -51,7 +52,7 @@
 <script src="js/sample_button/c.js"></script>  <!-- (2017/10/19 追加)-->
 <script src="js/cookie.js"></script>  <!-- (2017/11/14 追加)-->
 <script src="js/common2.js"></script>  <!-- (2017/11/14 追加)-->
-<!--script src="js/code\code_c.js"></script-->  <!-- (18/05/08)-->
+<script src="js/code/code_c.js"></script>  <!-- (18/05/08)-->
 
 <link rel="stylesheet"
       href="Library/introjs.css"/>
@@ -431,7 +432,7 @@
               </form>
             <td class="tabmin">&nbsp;</td>
             <td class="farSide">
-              <select id="languageMenu"></select>
+              <select id="languageMenu" onclick="languageMenu()"></select>
             </td>
             <!-- 18/05/08 追加ここまで -->
 
@@ -488,10 +489,8 @@ function renderContent(clickedName) {
     var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
     content.val(xmlText);
   } else if (clickedName == "C") {
-    console.log("C", workspace.getTopBlocks(!0)[0]);
+    //console.log("C", workspace.getTopBlocks(!0)[0]);
     var code = Blockly.C.workspaceToCode(workspace);
-    console.log(code);
-    content.html(code);
 
     // TODO: CodeMirror
     code = content.html();

@@ -14,9 +14,8 @@ var Code = {};
 
 /** ↓　言語切り替えを↓*/
 Code.LANGUAGE_NAME = {
-  'concept': ' プログラム概念',
-  'grammar': 'コード文法',
-  'ja'  : '日本語'
+  'concept': ' 日本語表記',
+  'grammar': 'C表記'
 };
 
 var MSG = {
@@ -75,7 +74,7 @@ Code.getLang = function() {
   var lang = Code.getStringParamFromUrl('lang', '');
   if (Code.LANGUAGE_NAME[lang] === undefined) {
     // Default to English.
-    lang = 'ja';
+    lang = 'concept';
   }
   return lang;
 };
@@ -93,6 +92,7 @@ Code.isRtl = function() {
  * @param {string} defaultXml Text representation of default blocks.
  */
 Code.loadBlocks = function(defaultXml) {
+
   try {
     var loadOnce = window.sessionStorage.loadOnceBlocks;
   } catch(e) {
@@ -117,6 +117,7 @@ Code.loadBlocks = function(defaultXml) {
     // initialization is not affected from a failed load.
     window.setTimeout(BlocklyStorage.restoreBlocks, 0);
   }
+
 };
 
 /**
@@ -127,6 +128,7 @@ Code.changeLanguage = function() {
   // This should be skipped for the index page, which has no blocks and does
   // not load Blockly.
   // MSIE 11 does not support sessionStorage on file:// URLs.
+
   if (typeof Blockly != 'undefined' && window.sessionStorage) {
     var xml = Blockly.Xml.workspaceToDom(Code.workspace);
     var text = Blockly.Xml.domToText(xml);
@@ -179,6 +181,7 @@ Code.importPrettify = function() {
  * @private
  */
 Code.getBBox_ = function(element) {
+
   var height = element.offsetHeight;
   var width = element.offsetWidth;
   var x = 0;
@@ -215,6 +218,7 @@ Code.selected = 'Blocks';
  * @param {string} clickedName Name of tab clicked.
  */
 Code.tabClick = function(clickedName) {
+  
   // If the XML tab was open, save and render the content.
   if (document.getElementById('tabXml').className == 'tabon') {
     var xmlTextarea = document.getElementById('contentXml');
@@ -257,22 +261,25 @@ Code.tabClick = function(clickedName) {
     Code.workspace.setVisible(true);
   }
   Blockly.svgResize(Code.workspace);
+  
 };
 
 /**
  * Populate the currently selected pane with content generated from the blocks.
  */
+ 
 Code.renderContent = function() {
+
   var content = document.getElementById('content' + Code.selected);
   // Initialize the pane.
   if (content.id == 'contentXml') {
     var xmlTextarea = document.getElementById('contentXml');
-    var xmlDom = Blockly.Xml.workspaceToDom(Code.workspace);
+    var xmlDom = Blockly.Xml.workspaceToDom(workspace);
     var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
     xmlTextarea.value = xmlText;
     xmlTextarea.focus();
   } else if (content.id == 'contentC') {
-    var code = Blockly.C.workspaceToCode(Code.workspace);
+    var code = Blockly.C.workspaceToCode(workspace);
     content.textContent = code;
     if (typeof PR.prettyPrintOne == 'function') {
       code = content.textContent;
@@ -280,6 +287,7 @@ Code.renderContent = function() {
       content.innerHTML = code;
     }
   }
+  
 };
 
 
@@ -408,6 +416,7 @@ Code.initLanguage = function() {
   languages.sort(comp);
   // Populate the language selection menu.
   var languageMenu = document.getElementById('languageMenu');
+
   languageMenu.options.length = 0;
   for (var i = 0; i < languages.length; i++) {
     var tuple = languages[i];
@@ -418,8 +427,7 @@ Code.initLanguage = function() {
     }
     languageMenu.options.add(option);
   }
-  languageMenu.addEventListener('change', Code.changeLanguage, true);
-
+  languageMenu.addEventListener('change', Code.changeLanguage, true)
   // Inject language strings.
 
 };
@@ -429,6 +437,7 @@ Code.initLanguage = function() {
  * Just a quick and dirty eval.  Catch infinite loops.
  */
 Code.runJS = function() {
+
   Blockly.C.INFINITE_LOOP_TRAP = '  checkTimeout();\n';
   var timeouts = 0;
   var checkTimeout = function() {
@@ -449,6 +458,7 @@ Code.runJS = function() {
  * Discard all blocks from the workspace.
  */
 Code.discard = function() {
+
   var count = Code.workspace.getAllBlocks().length;
   if (count < 2 ||
       window.confirm(Blockly.Msg.DELETE_ALL_BLOCKS.replace('%1', count))) {
@@ -458,6 +468,21 @@ Code.discard = function() {
     }
   }
 };
+
+// 18/05/24 追加
+function languageMenu() {
+  //console.log("languageMenu");
+  var xmlDom  = Blockly.Xml.workspaceToDom(workspace);
+  var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+
+  localStorage.setItem('BlocksStatus_C', xmlText); 
+  /*
+  var BlocksStatus = localStorage.getItem('BlocksStatus', xmlText); 
+  xmlDom = Blockly.Xml.textToDom(BlocksStatus);
+  Blockly.Xml.domToWorkspace(xmlDom, workspace);
+  console.log(BlocksStatus);
+  */
+}
 
 // Load the Code demo's language strings.
 //document.write('<script src="msg/' + Code.LANG + '.js"></script>\n');

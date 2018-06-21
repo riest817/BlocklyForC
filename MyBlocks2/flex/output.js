@@ -15,10 +15,10 @@ Blockly.Blocks['printf'] = {
         .appendField(Blockly.Msg.printf_left)
         .appendField(new Blockly.FieldTextInput(''), 'TEXT')
         .appendField(Blockly.Msg.printf_right);
-    this.setOutput(true, 'String');   // 左部との接続を可能にする
+    //this.setOutput(true, 'String');   // 左部との接続を可能にする
     this.setInputsInline(true);       // ソケットを内側にする
-    //this.setPreviousStatement(true);  // 上部との接続を可能にする
-    //this.setNextStatement(true);      // 下部との接続を可能にする
+    this.setPreviousStatement(true);  // 上部との接続を可能にする
+    this.setNextStatement(true);      // 下部との接続を可能にする
     this.setTooltip("出力");
   },
   newQuote_: function(open) {
@@ -38,10 +38,10 @@ Blockly.Blocks['putchar'] = {
         .appendField(Blockly.Msg.putchar_left)
         .appendField(new Blockly.FieldTextInput(''), 'TEXT')
         .appendField(Blockly.Msg.putchar_right);
-    this.setOutput(true, 'String');   // 左部との接続を可能にする
+    //this.setOutput(true, 'String');   // 左部との接続を可能にする
     this.setInputsInline(true);       // ソケットを内側にする
-    //this.setPreviousStatement(true);  // 上部との接続を可能にする
-    //this.setNextStatement(true);      // 下部との接続を可能にする
+    this.setPreviousStatement(true);  // 上部との接続を可能にする
+    this.setNextStatement(true);      // 下部との接続を可能にする
     this.setTooltip("1文字出力");
   },
   newQuote_: function(open) {
@@ -63,10 +63,10 @@ Blockly.Blocks['output_dropdown'] = {
         .appendField(" ");
     this.appendDummyInput()
         .appendField(new Blockly.FieldTextInput(''), 'TEXT');
-    this.setOutput(true, 'String');   // 左部との接続を可能にする
+    //this.setOutput(true, 'String');   // 左部との接続を可能にする
     this.setInputsInline(true);       // ソケットを内側にする
-    //this.setPreviousStatement(true);  // 上部との接続を可能にする
-    //this.setNextStatement(true);      // 下部との接続を可能にする
+    this.setPreviousStatement(true);  // 上部との接続を可能にする
+    this.setNextStatement(true);      // 下部との接続を可能にする
     this.setTooltip("出力");
   },
 
@@ -96,9 +96,9 @@ Blockly.Blocks['echo'] = {
     this.setColour(100);
     this.appendDummyInput()
         .appendField(Blockly.Msg.echo);
-    this.setOutput(true, 'String');   // 左部との接続を可能にする
-    //this.setPreviousStatement(true);  // 上部との接続を可能にする
-    //this.setNextStatement(true);      // 下部との接続を可能にする
+    //this.setOutput(true, 'String');   // 左部との接続を可能にする
+    this.setPreviousStatement(true);  // 上部との接続を可能にする
+    this.setNextStatement(true);      // 下部との接続を可能にする
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     // Text block is trivial.  Use tooltip of parent block if it exists.

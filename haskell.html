@@ -2,12 +2,14 @@
 2017/10/31 function GetCookies() 追加
 2017/11/01 sampleボタンの実行
 2017/11/14 各言語の html ファイルの共通する関数群を common2.js に移動
+18/06/13 概念と文法の切り替えタブ追加
 -->
 
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Blockly for Haskell</title>
+<div id="title" title="Haskell"></div>  <!-- (18/06/12 追加)-->
 <link rel="shortcut icon" href="favicon.png" type="image/png"/>
 <!--  解凍ファイルを追加  17/12/05 -->
 <script src="Library/blockly/00_uncompressed/blockly_uncompressed.js"></script>
@@ -48,6 +50,7 @@
 <script src="js/sample_button/haskell.js"></script>  <!-- (2017/10/19 追加)-->
 <script src="js/cookie.js"></script>  <!-- (2017/11/14 追加)-->
 <script src="js/common2.js"></script>  <!-- (2017/11/14 追加)-->
+<script src="js/code/code_haskell.js"></script>  <!-- (18/06/13)-->
 
 <link rel="stylesheet"
       href="Library/introjs.css"/>
@@ -133,13 +136,7 @@
       border-color: #aaaacc #444466 #444466 #aaaacc;
     }
 </style>
-  <form>
-    <div id="variable_input_text" data-step="4" data-intro="このボタンをクリックして、サンプルブロックを組み立てます。">
-      <input type="button" value="サンプル1" class = "sample" id = "sample1" style="font-size: 0.8em;" onclick="sample(1);"/>
-      <input type="button" value="サンプル2" class = "sample" id = "sample2" style="font-size: 0.8em;" onclick="sample(2);"/>
-      <input type="button" value="サンプル3" class = "sample" id = "sample3" style="font-size: 0.8em;" onclick="sample(3);"/></br>
-    </div>
-  </form>
+
 </head>
 <body>
 <xml id="toolbox" style="display: none">
@@ -435,6 +432,19 @@
             <td id="tabHaskell" class="taboff" style="white-space:nowrap;" data-step="2" data-intro="このタブをクリックして、ソースコードを表示します。">Haskell</td>
             <td class="tabmin">&nbsp;</td>
             <td id="tabXml" class="taboff" style="font-family:'Segoe UI Emoji'; white-space:nowrap;" data-step="3" data-intro="このタブをクリックして、XMLコードを表示します。">XML</td>
+            <td class="tabmin">&nbsp;</td>
+            <!-- 18/06/13 追加 -->
+              <form>
+                  <td data-step="4" data-intro="このボタンをクリックして、サンプルブロックを組み立てます。"><input type="button" value="サンプル1" class = "sample" id = "sample1" style="font-size: 0.8em;" onclick="sample(1);"/></td>
+                  <td><input type="button" value="サンプル2" class = "sample" id = "sample2" style="font-size: 0.8em;" onclick="sample(2);"/></td>
+                  <td><input type="button" value="サンプル3" class = "sample" id = "sample3" style="font-size: 0.8em;" onclick="sample(3);"/></td>
+              </form>
+            <td class="tabmin">&nbsp;</td>
+            <td class="farSide">
+              <select id="languageMenu" onclick="languageMenu()"></select>
+            </td>  
+            <!-- 18/06/13 追加ここまで -->
+
             <td class="tabmax">
               <a href="index.html" id="homeButton" title="Homeへ" class="button_like">&#x1f3e0;</a>
               <a href="#" id="intro" title="ヘルプ" class="button_like">&#x2753;</a>

@@ -63,6 +63,20 @@ Blockly.Flex['RE_tab'] = function(block) {
   return code;
 };
 
+Blockly.Flex['RE_sequence'] = function(block) {
+
+  var OPERATORS = {
+    'n': 'n',
+    't': 't',
+    '\'': '\'',
+    '\"': '\"',
+    '\\': '\\',
+  };
+  var operator = OPERATORS[block.getFieldValue('MODE')];
+  var code = '\\' + operator;
+  return code;
+};
+
 Blockly.Flex['RE_connection'] = function(block) {
 //18/04/05  インデント無効化
   var a = Blockly.Flex.statementToCode_0indent(block, 'A');
@@ -75,7 +89,7 @@ Blockly.Flex['RE_connection_or'] = function(block) {
 //18/04/05  インデント無効化
   var a = Blockly.Flex.statementToCode_0indent(block, 'A');
   var b = Blockly.Flex.statementToCode_0indent(block, 'B');
-  var code = a + '  |' + b;
+  var code = a + '|' + b;
   return code;
 };
 
@@ -88,7 +102,7 @@ Blockly.Flex['RE_repetition'] = function(block) {
   };
   var operator = OPERATORS[block.getFieldValue('MODE')];
   var a = Blockly.Flex.statementToCode_0indent(block, 'A');
-  var code = a + operator;
+  var code = "(" + a + ")" +operator;
   return code;
 };
 /*
@@ -129,6 +143,31 @@ Blockly.Flex['RE_connection_mutator'] = function(block) {
         code += Blockly.Flex.statementToCode_0indent(block, 'ADD' + i );
       }
 
-      return [code, Blockly.Flex.ORDER_FUNCTION_CALL];
+      return code;
   }
 };
+
+//  18/06/21  作成
+Blockly.Flex['RE_any_one_mutator'] = function(block) {
+  // Create a string made up of any number of elements of any type.
+  var code = "[";
+
+  for (var i = 0; i < block.itemCount_; i++) {
+    code += Blockly.Flex.statementToCode_0indent(block, 'ADD' + i );
+  }
+  code += "]";
+  return code;
+};
+
+//  18/06/21  作成
+Blockly.Flex['RE_not_any_one_mutator'] = function(block) {
+  // Create a string made up of any number of elements of any type.
+  var code = "[^";
+
+  for (var i = 0; i < block.itemCount_; i++) {
+    code += Blockly.Flex.statementToCode_0indent(block, 'ADD' + i );
+  }
+  code += "]";
+  return code;
+};
+

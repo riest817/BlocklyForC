@@ -18,9 +18,9 @@ Blockly.Blocks['regular_expression_connection'] = {
     this.setNextStatement(true);      // 下部との接続を可能にする
     this.appendValueInput('IF')
         //.setCheck('Boolean')
-        .appendField("　　　　　　　　正規表現");
-    this.appendValueInput('THEN')
-        .appendField("　　　　　　　　　　　　　のとき");
+        .appendField("正規表現");
+    this.appendStatementInput('DO')
+        .appendField("のとき");
     // this.setInputsInline(true);
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;

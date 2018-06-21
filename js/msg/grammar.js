@@ -51,9 +51,17 @@ Blockly.Msg.RE_not_any_one_right = "]";
 Blockly.Msg.RE_from_to_left = "[";
 Blockly.Msg.RE_from_to_middle = "-";
 Blockly.Msg.RE_from_to_right = "]";
+Blockly.Msg.RE_from_to_0 = "-";
 Blockly.Msg.RE_anything = ".";
-Blockly.Msg.RE_new_line = "\\n";
-Blockly.Msg.RE_tab = "\\t";
+
+Blockly.Msg.RE_sequence = "\\";
+Blockly.Msg.RE_new_line = "n";
+Blockly.Msg.RE_tab = "t";
+Blockly.Msg.RE_null = "0";
+Blockly.Msg.RE_single_quote = "\'";
+Blockly.Msg.RE_double_quote = "\"";
+Blockly.Msg.RE_backslash = "\\";
+
 Blockly.Msg.RE_repetition_0up = "*";
 Blockly.Msg.RE_repetition_1up = "+";
 Blockly.Msg.RE_repetition_0or1 = "?";

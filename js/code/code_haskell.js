@@ -15,7 +15,7 @@ var Code = {};
 /** ↓　言語切り替えを↓*/
 Code.LANGUAGE_NAME = {
   'concept': ' 日本語表記',
-  'grammar': 'Flex表記'
+  'grammar': 'Haskell表記'
 };
 
 var MSG = {
@@ -209,7 +209,7 @@ Code.LANG = Code.getLang();
  * List of tab names.
  * @private
  */
-Code.TABS_ = ['Blocks', 'Flex', 'Xml'];
+Code.TABS_ = ['Blocks', 'Haskell', 'Xml'];
 
 Code.selected = 'Blocks';
 
@@ -278,8 +278,8 @@ Code.renderContent = function() {
     var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
     xmlTextarea.value = xmlText;
     xmlTextarea.focus();
-  } else if (content.id == 'contentFlex') {
-    var code = Blockly.Flex.workspaceToCode(workspace);
+  } else if (content.id == 'contentHaskell') {
+    var code = Blockly.Haskell.workspaceToCode(workspace);
     content.textContent = code;
     if (typeof PR.prettyPrintOne == 'function') {
       code = content.textContent;
@@ -355,7 +355,7 @@ Code.init = function() {
 
   // Add to reserved word list: Local variables in execution environment (runJS)
   // and the infinite loop detection function.
-  Blockly.Flex.addReservedWords('code,timeouts,checkTimeout');
+  Blockly.Haskell.addReservedWords('code,timeouts,checkTimeout');
 
   Code.loadBlocks('');
 
@@ -438,15 +438,15 @@ Code.initLanguage = function() {
  */
 Code.runJS = function() {
 
-  Blockly.Flex.INFINITE_LOOP_TRAP = '  checkTimeout();\n';
+  Blockly.Haskell.INFINITE_LOOP_TRAP = '  checkTimeout();\n';
   var timeouts = 0;
   var checkTimeout = function() {
     if (timeouts++ > 1000000) {
       throw MSG['timeout'];
     }
   };
-  var code = Blockly.Flex.workspaceToCode(Code.workspace);
-  Blockly.Flex.INFINITE_LOOP_TRAP = null;
+  var code = Blockly.Haskell.workspaceToCode(Code.workspace);
+  Blockly.Haskell.INFINITE_LOOP_TRAP = null;
   try {
     eval(code);
   } catch (e) {
@@ -475,7 +475,7 @@ function languageMenu() {
   var xmlDom  = Blockly.Xml.workspaceToDom(workspace);
   var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
 
-  localStorage.setItem('BlocksStatus_Flex', xmlText); 
+  localStorage.setItem('BlocksStatus_Haskell', xmlText); 
   /*
   var BlocksStatus = localStorage.getItem('BlocksStatus', xmlText); 
   xmlDom = Blockly.Xml.textToDom(BlocksStatus);

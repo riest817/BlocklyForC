@@ -9,6 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Blockly for Flex</title>
+<div id="title" title="Flex"></div>  <!-- (18/06/12 追加)-->
 <link rel="shortcut icon" href="favicon.png" type="image/png"/>
 <!--  解凍ファイルを追加  18/04/05 -->
 <script src="Library/blockly/00_uncompressed/blockly_uncompressed.js"></script>
@@ -146,16 +147,20 @@
     <block type="RE_text0"></block>
     <block type="RE_text"></block>
     <block type="RE_any_one"></block>
+    <block type="RE_any_one_mutator"></block>	<!-- 180621 作成-->
     <block type="RE_not_any_one"></block>
+    <block type="RE_not_any_one_mutator"></block>	<!-- 180621 作成-->
     <block type="RE_from_to"></block>
+    <block type="RE_from_to_0"></block>
     <!--block type="RE_from_to_auto"></block-->   <!-- エラーブロック -->
     <block type="RE_from_to_mutator"></block>
     <block type="RE_anything"></block>
-    <block type="RE_new_line"></block>
-    <block type="RE_tab"></block>
+    <!--block type="RE_new_line"></block-->	<!-- 180621 コメントアウト-->
+    <!--block type="RE_tab"></block-->	<!-- 180621 コメントアウト-->
+    <block type="RE_sequence"></block>	<!-- 180621 作成-->
     <block type="RE_connection"></block>
-    <block type="RE_connection_auto"></block>   <!-- エラーブロック -->
-    <block type="RE_connection_mutator"></block>  <!-- エラーブロック -->
+    <!--block type="RE_connection_auto"></block-->   <!-- エラーブロック -->
+    <block type="RE_connection_mutator"></block>  <!-- 180607 エラー解決? -->
     <block type="RE_connection_or"></block>
     <block type="RE_repetition"></block>
     <!--block type="RE_minimum_match"></block-->
@@ -180,8 +185,8 @@
   <sep></sep>
   <sep></sep>
   <category name="自作" colour="500">
-    <block type="RE_from_to2"></block>
-    <block type="RE_from_to3"></block>
+    <!--block type="RE_from_to2"></block-->
+    <!--block type="RE_from_to3"></block-->
   </category>
   
   <sep></sep>
@@ -207,12 +212,13 @@
                   <td data-step="4" data-intro="このボタンをクリックして、サンプルブロックを組み立てます。"><input type="button" value="サンプル1" class = "sample" id = "sample1" style="font-size: 0.8em;" onclick="sample(1);"/></td>
                   <td><input type="button" value="サンプル2" class = "sample" id = "sample2" style="font-size: 0.8em;" onclick="sample(2);"/></td>
                   <td><input type="button" value="サンプル3" class = "sample" id = "sample3" style="font-size: 0.8em;" onclick="sample(3);"/></td>
+                  <td><input type="button" value="サンプル4" class = "sample" id = "sample3" style="font-size: 0.8em;" onclick="sample(4);"/></td>
+                  <td><input type="button" value="サンプル5" class = "sample" id = "sample3" style="font-size: 0.8em;" onclick="sample(5);"/></td>
               </form>
             <td class="tabmin">&nbsp;</td>
             <td class="farSide">
               <select id="languageMenu" onclick="languageMenu()"></select>
-            </td>
-            
+            </td>  
             <!-- 18/04/17 追加ここまで -->
             
             <td class="tabmax">
@@ -236,7 +242,6 @@
 </tr>
 </table>
 <div id="contentBlocks" style="position: absolute;"></div>
-<!--div id="contentBlock" class="content"></div-->
 <pre id="contentFlex" class="content"></pre>
 <textarea id="contentXml" class="content" wrap="off"></textarea>
 <script>

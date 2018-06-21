@@ -10,14 +10,20 @@ goog.require('Blockly.Flex');
 Blockly.Flex['printf'] = function(block) {
 
   var text = block.getFieldValue('TEXT');
-  var code = 'printf("' + text + '");';
+
+  text = text.replace(/</g, '&lt;');  // 18/06/14
+  text = text.replace(/>/g, '&gt;');  // 18/06/14
+
+  var code = 'printf("' + text + '"); ';
   return code;
 };
 
 Blockly.Flex['putchar'] = function(block) {
 
   var text = block.getFieldValue('TEXT');
-  var code = 'putchar(\'' + text + '\');';
+  text = text.replace(/</g, '&lt;');  // 18/06/14
+  text = text.replace(/>/g, '&gt;');  // 18/06/14
+  var code = 'putchar(\'' + text + '\'); ';
   return code;
 };
 
@@ -29,14 +35,16 @@ Blockly.Flex['output_dropdown'] = function(block) {
   };
   var operator = OPERATORS[block.getFieldValue('TYPE')];
   var text = block.getFieldValue('TEXT');
+  text = text.replace(/</g, '&lt;');  // 18/06/14
+  text = text.replace(/>/g, '&gt;');  // 18/06/14
   var code = '';
-  if ( operator == 'printf' ) { code += 'printf("' + text + '");'; }
-  else if ( operator == 'putchar' ) { code += 'putchar(\'' + text + '\');'; }
+  if ( operator == 'printf' ) { code += 'printf("' + text + '"); '; }
+  else if ( operator == 'putchar' ) { code += 'putchar(\'' + text + '\'); '; }
   return code;
 };
 
 Blockly.Flex['echo'] = function(block) {
 
-  var code = 'ECHO;';
+  var code = 'ECHO; ';
   return code;
 };

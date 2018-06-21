@@ -236,4 +236,5 @@ function loadBlocks(defaultXml) {
     // initialization is not affected from a failed load.
     window.setTimeout(BlocklyStorage.restoreBlocks, 0);
   }
+  localStorage.setItem('BlocksStatus_Haskell', defaultXml);  // 18/06/12 
 };

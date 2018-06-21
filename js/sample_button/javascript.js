@@ -4,6 +4,8 @@ function sample(select) {
   var q = window.confirm("編集したブロックを捨てて、サンプルブロックを表示します。よろしいですか？");
   if (!q) return;
   workspace.clear();
+  Code.workspace.clear();   // 18/06/13
+  window.location.reload(true); // 18/06/13
   if (select == 1 ) {
     var defaultXml =
     `<xml xmlns="http://www.w3.org/1999/xhtml">
@@ -217,7 +219,7 @@ function sample(select) {
     if (select == 3 ) {
     var defaultXml =
     `<xml xmlns="http://www.w3.org/1999/xhtml">
-  <block type="procedures_defreturn" id="}kFHYHwBVz[[#^jcmiJm" x="-55" y="67">
+  <block type="procedures_defreturn" id="}kFHYHwBVz[[#^jcmiJm" x="0" y="0">
     <field name="NAME">main</field>
     <comment pinned="false" h="80" w="160">九九</comment>
     <statement name="STACK">
@@ -318,4 +320,5 @@ function loadBlocks(defaultXml) {
     // initialization is not affected from a failed load.
     window.setTimeout(BlocklyStorage.restoreBlocks, 0);
   }
+  localStorage.setItem('BlocksStatus_JavaScript', defaultXml);  // 18/06/12 
 };

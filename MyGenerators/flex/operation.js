@@ -14,7 +14,7 @@ Blockly.Flex['regular_expression_connection'] = function(block) {
 
   // var argument = Blockly.Flex.valueToCode(block, 'IF',  Blockly.Flex.ORDER_NONE); 2017/09/04 コメントアウト
   var argument = Blockly.Flex.statementToCode_0indent(block, 'IF');		// 2017/09/04 追加
-  var branch = Blockly.Flex.statementToCode_0indent(block, 'THEN');
+  var branch = Blockly.Flex.statementToCode_0indent(block, 'DO');
   var code = argument + '    { ' + branch + ' }';
 
   return code + '\n';

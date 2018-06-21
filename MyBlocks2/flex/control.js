@@ -17,7 +17,7 @@ Blockly.Blocks['first_flex'] = {
         .appendField("定義");
     this.appendStatementInput('DO1')
         .appendField("動作");
-	this.appendStatementInput('DO2')
+	  this.appendStatementInput('DO2')
         .appendField("関数");
     //this.setPreviousStatement(true);  // 上部との接続を可能にする	
     //this.setNextStatement(true);      // 下部との接続を可能にする
@@ -40,7 +40,9 @@ Blockly.Blocks['exit'] = {
     this.appendDummyInput()
         .appendField(Blockly.Msg.exit)
         .appendField(new Blockly.FieldDropdown(OPERATORS), 'MODE');
-    this.setOutput(true);   // 左部との接続を可能にする
+    this.setOutput(false);   // 左部との接続を可能にする
+    this.setPreviousStatement(true);  // 上部との接続を可能にする
+    this.setNextStatement(true);      // 下部との接続を可能にする
     //this.setPreviousStatement(true);  // 上部との接続を可能にする
     //this.setNextStatement(true);      // 下部との接続を可能にする
     // Assign 'this' to a variable for use in the tooltip closure below.

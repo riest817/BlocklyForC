@@ -39,6 +39,6 @@ Blockly.Flex['exit'] = function(block) {
     '1': '1'
   };
   var operator = OPERATORS[block.getFieldValue('MODE')];
-  var code = "exit(" + operator + ");";
+  var code = "exit(" + operator + "); ";
   return code;
 };

@@ -45,16 +45,24 @@ Blockly.Msg.exit_1 = "異常終了";
 // 正規表現
 Blockly.Msg.RE_text0 = "文字";
 Blockly.Msg.RE_text = "文字列";
-Blockly.Msg.RE_any_one_left = "文字列\"";
-Blockly.Msg.RE_any_one_right = "\"中に任意の文字";
-Blockly.Msg.RE_not_any_one_left = "文字列\"";
-Blockly.Msg.RE_not_any_one_right = "\"以外の任意の文字";
+Blockly.Msg.RE_any_one_left = "";
+Blockly.Msg.RE_any_one_right = "中の任意の文字";
+Blockly.Msg.RE_not_any_one_left = "";
+Blockly.Msg.RE_not_any_one_right = "以外の任意の文字";
 Blockly.Msg.RE_from_to_left = "文字";
 Blockly.Msg.RE_from_to_middle = "から文字";
 Blockly.Msg.RE_from_to_right = "の範囲の任意の文字";
+Blockly.Msg.RE_from_to_0 = "";
 Blockly.Msg.RE_anything = "任意の文字";
-Blockly.Msg.RE_new_line = "改行(特殊文字)";
-Blockly.Msg.RE_tab = "タブ(特殊文字)";
+
+Blockly.Msg.RE_sequence = "特殊文字";
+Blockly.Msg.RE_new_line = "改行";
+Blockly.Msg.RE_tab = "タブ";
+Blockly.Msg.RE_null = "ヌル文字";
+Blockly.Msg.RE_single_quote = "シングルクォート" ;
+Blockly.Msg.RE_double_quote = "ダブルクォート";
+Blockly.Msg.RE_backslash = "バックスラッシュ";
+
 Blockly.Msg.RE_repetition_left = "正規表現";
 Blockly.Msg.RE_repetition_middle = "の";
 Blockly.Msg.RE_repetition_0up = "0回以上の繰り返し";
