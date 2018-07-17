@@ -7400,6 +7400,7 @@ goog.dom.append                                                                 
         .append_(goog.dom.getOwnerDocument(a), a, arguments, 1)
 };
 goog.dom.removeChildren                                                               = function (a) {
+    console.log(a);
     for (var b; b = a.firstChild;) 
         a.removeChild(b)
 };

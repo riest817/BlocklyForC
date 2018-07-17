@@ -179,21 +179,30 @@ Blockly.Blocks['RE_connection_mutator'] = {
 };
 
 // 18/06/21 作成
+// 18/07/05 子ブロック改変
 Blockly.Blocks['RE_any_one_mutator'] = {
   /**
    * Block for creating a string made up of any number of elements of any type.
    * @this Blockly.Block
    */
   init: function() {
+    var thisBlock = this;
     this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
     this.setColour(0);
     this.appendDummyInput()
         .appendField(Blockly.Msg.RE_any_one_left);
-    this.itemCount_ = 2;
+    this.appendDummyInput('END')
+        .appendField(Blockly.Msg.RE_any_one_right);
+    this.itemCount_ = 0;
+    this.textCount_ = 0;
+    this.old_textCount_ = 0;
+    this.sequenceCount_ = 0;
+    this.old_sequenceCount_ = 0;
+    this.totalCount_ = 0;
     this.updateShape_();
     this.setOutput(true);
     this.setInputsInline(true);
-    this.setMutator(new Blockly.Mutator(['RE_connection_join_item']));
+    this.setMutator(new Blockly.Mutator(['RE_connection_join_item', 'RE_connection_join_text', 'RE_connection_join_sequence']));
     this.setTooltip("中の文字中の任意の文字を表します。");
   },
   /**
@@ -203,7 +212,15 @@ Blockly.Blocks['RE_any_one_mutator'] = {
    */
   mutationToDom: function() {
     var container = document.createElement('mutation');
-    container.setAttribute('items', this.itemCount_);
+    if (this.itemCount_) {
+      container.setAttribute('items', this.itemCount_);
+    }
+    if (this.textCount_) {
+      container.setAttribute('text', this.textCount_);
+    }
+    if (this.sequence_) {
+      container.setAttribute('sequence', this.sequenceCount_);
+    }
     return container;
   },
   /**
@@ -212,7 +229,9 @@ Blockly.Blocks['RE_any_one_mutator'] = {
    * @this Blockly.Block
    */
   domToMutation: function(xmlElement) {
-    this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+    this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10) || 0;
+    this.textCount_ = parseInt(xmlElement.getAttribute('text'), 10) || 0;
+    this.sequenceCount_ = parseInt(xmlElement.getAttribute('sequence'), 10) || 0;
     this.updateShape_();
   },
   /**
@@ -231,6 +250,18 @@ Blockly.Blocks['RE_any_one_mutator'] = {
       connection.connect(itemBlock.previousConnection);
       connection = itemBlock.nextConnection;
     }
+    for (var i = 0; i < this.textCount_; i++) {
+      var textBlock = workspace.newBlock('RE_connection_join_text');
+      textBlock.initSvg();
+      connection.connect(textBlock.previousConnection);
+      connection = textBlock.nextConnection;
+    }
+    for (var i = 0; i < this.sequenceCount_; i++) {
+      var sequenceBlock = workspace.newBlock('RE_connection_join_sequence');
+      itemBlock.initSvg();
+      connection.connect(sequenceBlock.previousConnection);
+      connection = sequenceBlock.nextConnection;
+    }
     return containerBlock;
   },
   /**
@@ -239,27 +270,58 @@ Blockly.Blocks['RE_any_one_mutator'] = {
    * @this Blockly.Block
    */
   compose: function(containerBlock) {
-    var itemBlock = containerBlock.getInputTargetBlock('STACK');
+    var clauseBlock = containerBlock.getInputTargetBlock('STACK');
+    totalCount_ = this.itemCount_ + this.textCount_ + this.sequenceCount_;
     // Count number of inputs.
-    var connections = [];
-    while (itemBlock) {
-      connections.push(itemBlock.valueConnection_);
-      itemBlock = itemBlock.nextConnection &&
-          itemBlock.nextConnection.targetBlock();
+    this.itemCount_ = 0;
+    this.textCount_ = 0;
+    this.sequenceCount_ = 0;
+    var valueConnections = [null];
+    var itemConnections = [null];
+    var textConnections = [null];
+    var sequenceConnections = [null];
+    while (clauseBlock) {
+      switch (clauseBlock.type) {
+        case 'RE_connection_join_item':
+          this.itemCount_++;
+          valueConnections.push(clauseBlock.valueConnection_);
+          itemConnections.push(clauseBlock.valueConnection_);
+          break;
+        case 'RE_connection_join_text':
+          this.textCount_++;
+          valueConnections.push(clauseBlock.valueConnection_);
+          textConnections.push(clauseBlock.valueConnection_);
+          break;
+        case 'RE_connection_join_sequence':
+          this.sequenceCount_++;
+          valueConnections.push(clauseBlock.valueConnection_);
+          sequenceConnections.push(clauseBlock.valueConnection_);
+          break;
+        default:
+          throw 'Unknown block type.';
+      }
+      clauseBlock = clauseBlock.nextConnection &&
+          clauseBlock.nextConnection.targetBlock();
     }
     // Disconnect any children that don't belong.
-    for (var i = 0; i < this.itemCount_; i++) {
+    for (var i = 0; i < this.totalCount_; i++) {
       var connection = this.getInput('ADD' + i).connection.targetConnection;
       if (connection && connections.indexOf(connection) == -1) {
         connection.disconnect();
       }
     }
-    this.itemCount_ = connections.length;
+    //this.itemCount_ = connections.length;
     this.updateShape_();
     // Reconnect any child blocks.
     for (var i = 0; i < this.itemCount_; i++) {
-      Blockly.Mutator.reconnect(connections[i], this, 'ADD' + i);
+      Blockly.Mutator.reconnect(itemConnections[i], this, 'ADD' + i);
     }
+    for (var i = 0; i < this.textCount_; i++) {
+      Blockly.Mutator.reconnect(textConnections[i], this, 'ADD' + i);
+    }
+    for (var i = 0; i < this.sequenceCount_; i++) {
+      Blockly.Mutator.reconnect(sequenceConnections[i], this, 'ADD' + i);
+    }  
   },
   /**
    * Store pointers to any connected child blocks.
@@ -267,14 +329,18 @@ Blockly.Blocks['RE_any_one_mutator'] = {
    * @this Blockly.Block
    */
   saveConnections: function(containerBlock) {
-    var itemBlock = containerBlock.getInputTargetBlock('STACK');
+    var clauseBlock = containerBlock.getInputTargetBlock('STACK');
     var i = 0;
-    while (itemBlock) {
-      var input = this.getInput('ADD' + i);
-      itemBlock.valueConnection_ = input && input.connection.targetConnection;
-      i++;
-      itemBlock = itemBlock.nextConnection &&
-          itemBlock.nextConnection.targetBlock();
+    while (clauseBlock) {
+          var inputItem = this.getInput('ADD' + i);
+          clauseBlock.valueConnection_ =
+              inputItem && inputItem.connection.targetConnection;
+          clauseBlock.itemConnection_ =
+              inputItem && inputItem.connection.targetConnection;
+          i++;
+          break;
+      clauseBlock = clauseBlock.nextConnection &&
+          clauseBlock.nextConnection.targetBlock();
     }
   },
   /**
@@ -283,22 +349,66 @@ Blockly.Blocks['RE_any_one_mutator'] = {
    * @this Blockly.Block
    */
   updateShape_: function() {
+    var no = 0; // 順番
     if (this.itemCount_ && this.getInput('EMPTY')) {
       this.removeInput('EMPTY');
     } else if (!this.itemCount_ && !this.getInput('EMPTY')) {
       this.appendDummyInput('EMPTY');
     }
+    if (this.textCount_ && this.getInput('EMPTY')) {
+      this.removeInput('EMPTY');
+    } else if (!this.textCount_ && !this.getInput('EMPTY')) {
+      this.appendDummyInput('EMPTY');
+    }
+    if (this.sequenceCount_ && this.getInput('EMPTY')) {
+      this.removeInput('EMPTY');
+    } else if (!this.sequenceCount_ && !this.getInput('EMPTY')) {
+      this.appendDummyInput('EMPTY');
+    }
+
+    var OPERATORS =
+        [[Blockly.Msg.RE_new_line, 'n'],
+         [Blockly.Msg.RE_tab, 't'],
+         [Blockly.Msg.RE_single_quote, '\''],
+         [Blockly.Msg.RE_double_quote, '\"'],
+         [Blockly.Msg.RE_backslash, '\\']];
+
     // Add new inputs.
     for (var i = 0; i < this.itemCount_; i++) {
       if (!this.getInput('ADD' + i)) {
         this.removeInput('END');  // Remove deleted inputs.
         var input = this.appendValueInput('ADD' + i);
+        no++;
+                        //.appendField(" ");
         if ( i == this.itemCount_-1 ) {
         this.appendDummyInput('END')
             .appendField(Blockly.Msg.RE_any_one_right);
         }
       }
     }
+
+    if ( this.textCount_-1 == this.old_textCount_ ) {
+      this.removeInput('END');  // Remove deleted inputs.
+      var input = this.appendDummyInput('TEXT' + this.textCount_)
+                      .appendField(" ")
+                      .appendField(new Blockly.FieldTextInput(''), 'TEXT' + no++);
+      this.appendDummyInput('END')
+          .appendField(Blockly.Msg.RE_any_one_right);
+    } else if ( this.sequenceCount_-1 == this.old_sequenceCount_) {
+      this.removeInput('END');  // Remove deleted inputs.
+      this.appendDummyInput('MODE' + this.sequenceCount_)
+                      .appendField(Blockly.Msg.RE_sequence)
+                      .appendField(new Blockly.FieldDropdown(OPERATORS), 'MODE' + no++);
+      this.appendDummyInput('END')
+          .appendField(Blockly.Msg.RE_any_one_right);
+    }
+    else if ( this.textCount_ == this.old_textCount_-1 ) {
+      this.removeInput( 'TEXT' + this.textCount_ );
+      //console.log("remove text" + this.textCount_);
+    }
+    this.old_textCount_ = this.textCount_;
+    this.old_sequenceCount_ = this.sequenceCount_;
+
     // Remove deleted inputs.
     while (this.getInput('ADD' + i)) {
       this.removeInput('ADD' + i);
@@ -586,6 +696,7 @@ Blockly.Blocks['RE_from_to_auto'] = {
 };
 
 
+
 Blockly.Blocks['RE_connection_join_container'] = {
   /**
    * Mutator block for container.
@@ -609,11 +720,268 @@ Blockly.Blocks['RE_connection_join_item'] = {
   init: function() {
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("項目");
+        .appendField("ソケット");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.TEXT_CREATE_JOIN_ITEM_TOOLTIP);
+    this.setTooltip("ソケット（穴）を追加します。");
     this.contextMenu = false;
 
+  }
+};
+
+//  18/07/05 追加
+Blockly.Blocks['RE_connection_join_text'] = {
+  /**
+   * Mutator block for add items.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setColour(0);
+    this.appendDummyInput()
+        .appendField("文字");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip("入力する文字を追加します。");
+    this.contextMenu = false;
+
+  }
+};
+
+//  18/07/05 追加
+Blockly.Blocks['RE_connection_join_sequence'] = {
+  /**
+   * Mutator block for add items.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setColour(0);
+    this.appendDummyInput()
+        .appendField("特殊文字");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip("特殊文字を追加します。");
+    this.contextMenu = false;
+
+  }
+};
+
+// 18/07/18 追加
+Blockly.Blocks['field_dropdown'] = {
+  // Dropdown menu.
+  init: function() {
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.RE_any_one_left);
+    this.optionList_ = ['range', 'range'];
+    this.updateShape_();
+    this.setOutput(true);
+    this.setInputsInline(true);
+    this.setMutator(new Blockly.Mutator(['field_dropdown_option_range',
+                                         'field_dropdown_option_char',
+                                         'field_dropdown_option_sequence']));
+    this.setColour(0);
+    this.setTooltip("中の文字中の任意の文字を表します。");
+    this.setHelpUrl();
+  },
+  mutationToDom: function(workspace) {
+    // Create XML to represent menu options.
+    var container = document.createElement('mutation');
+    container.setAttribute('options', JSON.stringify(this.optionList_));
+    return container;
+  },
+  domToMutation: function(container) {
+    // Parse XML to restore the menu options.
+    var value = JSON.parse(container.getAttribute('options'));
+    if (typeof value == 'number') {
+      this.optionList_ = [];
+      for (var i = 0; i < value; i++) {
+        this.optionList_.push('range');
+      }
+    } else {
+      this.optionList_ = value;
+    }
+    this.updateShape_();
+  },
+  decompose: function(workspace) {
+    // Populate the mutator's dialog with this block's components.
+    var containerBlock = workspace.newBlock('field_dropdown_container');
+    containerBlock.initSvg();
+    var connection = containerBlock.getInput('STACK').connection;
+    for (var i = 0; i < this.optionList_.length; i++) {
+      var optionBlock = workspace.newBlock(
+          'field_dropdown_option_' + this.optionList_[i]);
+      optionBlock.initSvg();
+      connection.connect(optionBlock.previousConnection);
+      connection = optionBlock.nextConnection;
+    }
+    return containerBlock;
+  },
+  
+  compose: function(containerBlock) {
+    // Reconfigure this block based on the mutator dialog's components.
+    var optionBlock = containerBlock.getInputTargetBlock('STACK');
+    var type_blocks = [];
+    var num = 0;
+    // Count number of inputs.
+    this.optionList_.length = 0;
+    var data = [];
+    while (optionBlock) {
+      if (optionBlock.type == 'field_dropdown_option_range') {
+        this.optionList_.push('range');
+        type_blocks[num] = 'range';
+      } else if (optionBlock.type == 'field_dropdown_option_char') {
+        this.optionList_.push('char');
+        type_blocks[num] = 'char';
+      } else if (optionBlock.type == 'field_dropdown_option_sequence') {
+        this.optionList_.push('sequence');
+        type_blocks[num] = 'sequence';
+      }
+      num++;
+      data.push([optionBlock.userData_, optionBlock.cpuData_]);
+      optionBlock = optionBlock.nextConnection &&
+          optionBlock.nextConnection.targetBlock();
+    }
+    this.updateShape_();
+
+    for (var i = 0; i < this.optionList_.length; i++) {
+      var userData = data[i][0];
+      if (userData !== undefined) {
+        if (type_blocks[i] == 'range') {
+          this.setFieldValue(userData  , 'USER' + i);
+          this.setFieldValue(data[i][1] , 'CPU' + i);
+        } else if (type_blocks[i] == 'char') {
+          this.setFieldValue(userData, 'CHAR' + i);
+        } else if (type_blocks[i] == 'sequence') {
+          this.setFieldValue(userData, 'SEQ' + i);
+        }
+      }
+    }
+  },
+
+  saveConnections: function(containerBlock) {
+    // Store all data for each option.
+    var optionBlock = containerBlock.getInputTargetBlock('STACK');
+    var i = 0;
+    while (optionBlock) {
+      optionBlock.userData_ = this.getUserData(i);
+      optionBlock.cpuData_ = this.getFieldValue('CPU' + i);
+      i++;
+      optionBlock = optionBlock.nextConnection &&
+          optionBlock.nextConnection.targetBlock();
+    }
+  },
+  updateShape_: function() {
+    // Delete everything.
+    var i = 0;
+    while (this.getInput('OPTION' + i)) {
+      this.removeInput('OPTION' + i);
+      i++;
+    }
+    // Rebuild block.
+    var OPERATORS =
+        [[Blockly.Msg.RE_new_line, 'n'],
+         [Blockly.Msg.RE_tab, 't'],
+         [Blockly.Msg.RE_single_quote, '\''],
+         [Blockly.Msg.RE_double_quote, '\"'],
+         [Blockly.Msg.RE_backslash, '\\']];
+
+    for (var i = 0; i <= this.optionList_.length; i++) {
+      var type = this.optionList_[i];
+      if (type == 'range') {
+        this.removeInput('END');  // Remove deleted inputs.
+        this.appendDummyInput('OPTION' + i)
+            .appendField('')
+            .appendField(new Blockly.FieldTextInput(''), 'USER' + i)
+            .appendField('-')
+            .appendField(new Blockly.FieldTextInput(''), 'CPU' + i)
+            .appendField(' ');
+      } else if (type == 'char') {
+        this.appendDummyInput('OPTION' + i)
+            .appendField('')
+            .appendField(new Blockly.FieldTextInput(''), 'CHAR' + i)
+            .appendField(' ');
+      } else if (type == 'sequence') {
+        this.appendDummyInput('OPTION' + i)
+            .appendField(Blockly.Msg.RE_sequence)
+            .appendField(new Blockly.FieldDropdown(OPERATORS), 'SEQ' + i);
+      }
+      if ( i == this.optionList_.length ) {
+        this.appendDummyInput('END')
+            .appendField(Blockly.Msg.RE_any_one_right);
+      }
+    }
+  },
+  onchange: function() {
+    if (this.workspace && this.optionList_.length < 1) {
+      this.setWarningText('歯車マークを押したときに表示される\n子ブロックを必ず一つ以上接続してください');
+    } else {
+      //fieldNameCheck(this);
+    }
+  },
+  getUserData: function(n) {
+    if (this.optionList_[n] == 'range') {
+      return this.getFieldValue('USER' + n);
+    }
+    if (this.optionList_[n] == 'char') {
+      return this.getFieldValue('CHAR' + n);
+    }
+    if (this.optionList_[n] == 'sequence') {
+      return this.getFieldValue('SEQ' + n);
+    }
+    throw 'Unknown dropdown type';
+  }
+};
+
+Blockly.Blocks['field_dropdown_container'] = {
+  // Container.
+  init: function() {
+    this.setColour(0);
+    this.appendDummyInput()
+        .appendField('結合');
+    this.appendStatementInput('STACK');
+    this.setTooltip(Blockly.Msg.TEXT_CREATE_JOIN_TOOLTIP);
+    this.setHelpUrl();
+    this.contextMenu = false;
+  }
+};
+
+Blockly.Blocks['field_dropdown_option_range'] = {
+  // Add text option.
+  init: function() {
+    this.setColour(0);
+    this.appendDummyInput()
+        .appendField('範囲');
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip("範囲を追加します。");
+    this.setHelpUrl();
+    this.contextMenu = false;
+  }
+};
+
+Blockly.Blocks['field_dropdown_option_char'] = {
+  // Add text option.
+  init: function() {
+    this.setColour(0);
+    this.appendDummyInput()
+        .appendField('文字');
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip("文字を追加します。");
+    this.setHelpUrl();
+    this.contextMenu = false;
+  }
+};
+
+Blockly.Blocks['field_dropdown_option_sequence'] = {
+  // Add image option.
+  init: function() {
+    this.setColour(0);
+    this.appendDummyInput()
+        .appendField("特殊文字");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip("特殊文字を追加します。");
+    this.setHelpUrl();
+    this.contextMenu = false;
   }
 };

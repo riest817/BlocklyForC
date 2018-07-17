@@ -102,7 +102,7 @@ Blockly.Flex['RE_repetition'] = function(block) {
   };
   var operator = OPERATORS[block.getFieldValue('MODE')];
   var a = Blockly.Flex.statementToCode_0indent(block, 'A');
-  var code = "(" + a + ")" +operator;
+  var code = "(" + a + ")" + operator;
   return code;
 };
 /*
@@ -150,10 +150,21 @@ Blockly.Flex['RE_connection_mutator'] = function(block) {
 //  18/06/21  作成
 Blockly.Flex['RE_any_one_mutator'] = function(block) {
   // Create a string made up of any number of elements of any type.
+  var OPERATORS = {
+    'n': '\\n',
+    't': '\\t',
+    '\'': '\\\'',
+    '\"': '\\\"',
+    '\\': '\\\\',
+  };
+  var total = block.itemCount_ + block.textCount_ + block.sequenceCount_;
   var code = "[";
-
-  for (var i = 0; i < block.itemCount_; i++) {
-    code += Blockly.Flex.statementToCode_0indent(block, 'ADD' + i );
+  
+  for (var i = 0; i < total; i++) {
+    code += Blockly.Flex.statementToCode_0indent(block, 'ADD' + i ) || '';;
+    code += block.getFieldValue('TEXT' + i) || '';;
+    code += OPERATORS[block.getFieldValue('MODE' + i)] || '';;
+    console.log("a");
   }
   code += "]";
   return code;
@@ -166,6 +177,7 @@ Blockly.Flex['RE_not_any_one_mutator'] = function(block) {
 
   for (var i = 0; i < block.itemCount_; i++) {
     code += Blockly.Flex.statementToCode_0indent(block, 'ADD' + i );
+    console.log("b");
   }
   code += "]";
   return code;
