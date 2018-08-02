@@ -161,10 +161,9 @@ Blockly.Flex['RE_any_one_mutator'] = function(block) {
   var code = "[";
   
   for (var i = 0; i < total; i++) {
-    code += Blockly.Flex.statementToCode_0indent(block, 'ADD' + i ) || '';;
-    code += block.getFieldValue('TEXT' + i) || '';;
-    code += OPERATORS[block.getFieldValue('MODE' + i)] || '';;
-    console.log("a");
+    code += Blockly.Flex.statementToCode_0indent(block, 'ADD' + i ) || '';
+    code += block.getFieldValue('TEXT' + i) || '';
+    code += OPERATORS[block.getFieldValue('MODE' + i)] || '';
   }
   code += "]";
   return code;
@@ -177,9 +176,60 @@ Blockly.Flex['RE_not_any_one_mutator'] = function(block) {
 
   for (var i = 0; i < block.itemCount_; i++) {
     code += Blockly.Flex.statementToCode_0indent(block, 'ADD' + i );
-    console.log("b");
   }
   code += "]";
   return code;
 };
 
+
+//  18/07/18  作成
+Blockly.Flex['field_dropdown'] = function(block) {
+  // Create a string made up of any number of elements of any type.
+  var OPERATORS = {
+    'n': '\\n',
+    't': '\\t',
+    '\'': '\\\'',
+    '\"': '\\\"',
+    '\\': '\\\\',
+  };
+  
+  var code = "[";
+  for (var i = 0; i < block.optionList_.length; i++) {
+    code += block.getFieldValue('BEGIN' + i) || '';
+    //console.log(block.getFieldValue('BEGIN' + i));
+    if ( block.getFieldValue('BEGIN' + i) != null ) {
+      code += "-"
+    }
+    code += block.getFieldValue('END' + i) || '';
+    code += block.getFieldValue('CHAR' + i) || '';
+    code += OPERATORS[block.getFieldValue('SEQ' + i)] || '';
+  }
+  code += "]";
+  return code;
+};
+
+//  18/07/19  作成
+Blockly.Flex['field_dropdown_not'] = function(block) {
+  // Create a string made up of any number of elements of any type.
+  var OPERATORS = {
+    'n': '\\n',
+    't': '\\t',
+    '\'': '\\\'',
+    '\"': '\\\"',
+    '\\': '\\\\',
+  };
+  
+  var code = "[^";
+  for (var i = 0; i < block.optionList_.length; i++) {
+    code += block.getFieldValue('BEGIN' + i) || '';
+    //console.log(block.getFieldValue('BEGIN' + i));
+    if ( block.getFieldValue('BEGIN' + i) != null ) {
+      code += "-"
+    }
+    code += block.getFieldValue('END' + i) || '';
+    code += block.getFieldValue('CHAR' + i) || '';
+    code += OPERATORS[block.getFieldValue('SEQ' + i)] || '';
+  }
+  code += "]";
+  return code;
+};

@@ -209,104 +209,212 @@ function sample(select) {
     if (select == 3 ) {
     var defaultXml =
     `<xml xmlns="http://www.w3.org/1999/xhtml">
-  <block type="include_stdio_c" id="QfBu=ZEYMDO5Jt^CG0bt" x="9" y="3"></block>
-  <block type="procedures_defnoreturn" id="NgG3s#eFPHvD,Vt1[?~y" x="23" y="44">
-    <field name="NAME">main</field>
+  <block type="procedures_defreturn" id="X%!9aWizGb)!pG.tt+6z" x="35" y="104">
+    <mutation>
+      <arg name="num"></arg>
+    </mutation>
+    <field name="NAME">prime_number</field>
     <comment pinned="false" h="80" w="160">この関数の説明…</comment>
     <statement name="STACK">
-      <block type="variables_set" id="Zg~:B*e%=,cnAuF}/kzr">
-        <field name="VAR">year</field>
+      <block type="variables_set" id="DN5?;pSH+tE:#Q}a1-@C">
+        <field name="VAR">i</field>
         <value name="VALUE">
-          <block type="math_number" id="T^D1tk:bjOmhMxw^#s!">
-            <field name="NUM">2018</field>
+          <block type="math_number" id="K3:1(kkykLNw4cF_Js0d">
+            <field name="NUM">2</field>
           </block>
         </value>
         <next>
-          <block type="variables_set" id="DGRhE|htQ3,?qn:8Ic_}">
-            <field name="VAR">month</field>
-            <value name="VALUE">
-              <block type="math_number" id=")oDP!$.f-7d6#ueNw4g_">
-                <field name="NUM">2</field>
+          <block type="controls_whileUntil" id="I.}j^@fp:TEj7(mN%S=i">
+            <field name="MODE">WHILE</field>
+            <value name="BOOL">
+              <block type="logic_compare" id="LBi^pdJG8k(p@U?.0z|#">
+                <field name="OP">LT</field>
+                <value name="A">
+                  <block type="variables_get" id="I6Rw8NLk[QHRvp}Ju(6">
+                    <field name="VAR">j</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="variables_get" id="Ed%q_Va+{=4|ChF7a[/l">
+                    <field name="VAR">num</field>
+                  </block>
+                </value>
               </block>
             </value>
-            <next>
-              <block type="variables_set" id="A/joM~Nn;F0}d7d/?]9">
-                <field name="VAR">date</field>
+            <statement name="DO">
+              <block type="procedures_ifreturn" id="w.M4mJT6rOoaGpoD+TCs">
+                <mutation value="1"></mutation>
+                <value name="CONDITION">
+                  <block type="logic_compare" id="rdSUNHArkKi7-Gye)u|(">
+                    <field name="OP">EQ</field>
+                    <value name="A">
+                      <block type="var_arithmetic" id="?/+9;W5YXFJ,z=IS=J,S">
+                        <field name="OP">REMAINDER</field>
+                        <value name="A">
+                          <block type="variables_get" id="JQ{sCd+c)7,Ot$4%H?b">
+                            <field name="VAR">num</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="variables_get" id="q:7@IuX!8Gc642v1bBS">
+                            <field name="VAR">j</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_number" id="2Pr=0Mc|NpT9v8ncy_%h">
+                        <field name="NUM">0</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
                 <value name="VALUE">
-                  <block type="math_number" id="AcCVAnes2iR]Pt7aS3eP">
-                    <field name="NUM">15</field>
+                  <block type="math_number" id="sBc.c;pBVOUj,e?{Qnq]">
+                    <field name="NUM">1</field>
                   </block>
                 </value>
                 <next>
-                  <block type="controls_whileUntil" id="NcEA@zEz{k7a#q4k^p_]">
-                    <field name="MODE">WHILE</field>
-                    <value name="BOOL">
-                      <block type="logic_boolean" id="9Sdb@gI@SAj7s*$FTIXK">
-                        <field name="BOOL">TRUE</field>
+                  <block type="variables_set" id="s3*Dn2ePax!Qk18{CKs=">
+                    <field name="VAR">j</field>
+                    <value name="VALUE">
+                      <block type="var_arithmetic" id="e{mwnpV4-8u7a;y3E{*}">
+                        <field name="OP">ADD</field>
+                        <value name="A">
+                          <block type="variables_get" id="Q(ZZ6lp_LsoJ1_gI_b%S">
+                            <field name="VAR">j</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="math_number" id="L^MKY}wp4}rO{MLaI8a">
+                            <field name="NUM">1</field>
+                          </block>
+                        </value>
                       </block>
                     </value>
-                    <statement name="DO">
-                      <block type="output_auto" id="=Ymj0~#U4*XZ=hO^gUL">
-                        <field name="TEXT">卒業論文の締切は%d年%d月%d日です。</field>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="RETURN">
+      <block type="math_number" id="!-]#^)hL:ui/eAD-=:xQ">
+        <field name="NUM">0</field>
+      </block>
+    </value>
+  </block>
+  <block type="procedures_defreturn" id="Wy63r1l#nc5{TTXS(q?r" x="41" y="358">
+    <field name="NAME">main</field>
+    <comment pinned="false" h="80" w="160">この関数の説明…</comment>
+    <statement name="STACK">
+      <block type="variables_set" id="|=bu?eAKnum~3aEu{J~s">
+        <field name="VAR">i</field>
+        <value name="VALUE">
+          <block type="math_number" id="9lLKqdv9fcX~o.;7|~Xu">
+            <field name="NUM">2</field>
+          </block>
+        </value>
+        <next>
+          <block type="controls_whileUntil" id="yZR[#$FHrrq~a6PmZ2f]">
+            <field name="MODE">WHILE</field>
+            <value name="BOOL">
+              <block type="logic_compare" id="TVd6iH7%BnHfi|9wQRhs">
+                <field name="OP">LT</field>
+                <value name="A">
+                  <block type="variables_get" id="*~!ec6(5wX03@k{=Q6q?">
+                    <field name="VAR">i</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="math_number" id="|t$(,{cX%c-sPQ*~43{X">
+                    <field name="NUM">1000</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO">
+              <block type="variables_set" id="157$LuE2ynJO6Dum~f/e">
+                <field name="VAR">flag</field>
+                <value name="VALUE">
+                  <block type="math_number" id="f3EA9]ji*tl]SD03|^-B">
+                    <field name="NUM">0</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="variables_set" id="alx/;fB3Ik8Kw(#kTJtt">
+                    <field name="VAR">flag</field>
+                    <value name="VALUE">
+                      <block type="procedures_callreturn" id=":h2md%P@Tp1t%N3Av0i">
+                        <mutation name="prime_number">
+                          <arg name="num"></arg>
+                        </mutation>
+                        <value name="ARG0">
+                          <block type="variables_get" id="vC$9^e!)oL*M:W!=[M1">
+                            <field name="VAR">i</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="controls_if" id="O2grA:Y^cU{/$QCeZHg,">
+                        <value name="IF0">
+                          <block type="logic_compare" id="%sxRFb}~3^)-cB)3nVq">
+                            <field name="OP">EQ</field>
+                            <value name="A">
+                              <block type="variables_get" id="GQn=uAj9^6zLly#Nf5tm">
+                                <field name="VAR">flag</field>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="math_number" id="5,G86)XR@o%.:nENbJ4q">
+                                <field name="NUM">0</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <statement name="DO0">
+                          <block type="output_auto" id="uYldTpJED8Ia:02!Egq">
+                            <field name="TEXT">%d  </field>
+                          </block>
+                        </statement>
                         <next>
-                          <block type="output_auto" id="#bpFQb5IBN_yo8Qy#Eqg">
-                            <field name="TEXT">間に合いますか?(1:間に合う 2:間に合わない)</field>
-                            <next>
-                              <block type="input_auto" id="5v5L.T3,V_pAn|?!:yU3">
-                                <field name="TEXT">%d</field>
-                                <value name="ADD0">
-                                  <block type="variables_get" id="CD;xx:^*dXVO7D0-18FI">
-                                    <field name="VAR">answer</field>
+                          <block type="variables_set" id="d{ciF)Sl)R@r?8@ZJ5FS">
+                            <field name="VAR">i</field>
+                            <value name="VALUE">
+                              <block type="var_arithmetic" id="iH8Z^Dh00u|nB%Oy5Q{x">
+                                <field name="OP">ADD</field>
+                                <value name="A">
+                                  <block type="variables_get" id="Sru[lVwY/U[m2M!3UPV?">
+                                    <field name="VAR">i</field>
                                   </block>
                                 </value>
-                                <next>
-                                  <block type="controls_if" id="a{Z,W1Z{U(5ULu;%xcom">
-                                    <value name="IF0">
-                                      <block type="logic_compare" id="fH?O#cKcO3(5{4Jy]fc">
-                                        <field name="OP">EQ</field>
-                                        <value name="A">
-                                          <block type="variables_get" id="iS78+)2QV,5yU-b[Z5W2">
-                                            <field name="VAR">answer</field>
-                                          </block>
-                                        </value>
-                                        <value name="B">
-                                          <block type="math_number" id="7TM+6m$q3Xe+UzW}enFH">
-                                            <field name="NUM">1</field>
-                                          </block>
-                                        </value>
-                                      </block>
-                                    </value>
-                                    <statement name="DO0">
-                                      <block type="controls_flow_statements" id="JH]y#U*O;?Qm5E*b]1:A">
-                                        <field name="FLOW">BREAK</field>
-                                      </block>
-                                    </statement>
-                                    <next>
-                                      <block type="output_auto" id="J|(Vti/wV)ef?GCEgJkI">
-                                        <field name="TEXT">もう一度聞きます。</field>
-                                      </block>
-                                    </next>
+                                <value name="B">
+                                  <block type="math_number" id="dJ;)[=-^9?x)#oBgp~?">
+                                    <field name="NUM">1</field>
                                   </block>
-                                </next>
+                                </value>
                               </block>
-                            </next>
+                            </value>
                           </block>
                         </next>
-                      </block>
-                    </statement>
-                    <next>
-                      <block type="output_auto" id=",kEn*e}H(Yj3M4?vXqSF">
-                        <field name="TEXT">そうです。間に合わせるのです。</field>
                       </block>
                     </next>
                   </block>
                 </next>
               </block>
-            </next>
+            </statement>
           </block>
         </next>
       </block>
     </statement>
+    <value name="RETURN">
+      <block type="math_number" id="e#S.d*--DLP?.5]RMeRB">
+        <field name="NUM">0</field>
+      </block>
+    </value>
   </block>
 </xml>`;
 // ソケット付きの入力フォームの保存

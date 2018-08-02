@@ -771,7 +771,7 @@ Blockly.Blocks['field_dropdown'] = {
   init: function() {
     this.appendDummyInput()
         .appendField(Blockly.Msg.RE_any_one_left);
-    this.optionList_ = ['range', 'range'];
+    this.optionList_ = ['char'];
     this.updateShape_();
     this.setOutput(true);
     this.setInputsInline(true);
@@ -781,6 +781,8 @@ Blockly.Blocks['field_dropdown'] = {
     this.setColour(0);
     this.setTooltip("中の文字中の任意の文字を表します。");
     this.setHelpUrl();
+    this.sequenceCount_ = 0;
+    this.old_sequenceCount_ = 0;
   },
   mutationToDom: function(workspace) {
     // Create XML to represent menu options.
@@ -799,6 +801,7 @@ Blockly.Blocks['field_dropdown'] = {
     } else {
       this.optionList_ = value;
     }
+    this.sequenceCount_ = parseInt(container.getAttribute('sequence'), 10) || 0;
     this.updateShape_();
   },
   decompose: function(workspace) {
@@ -821,6 +824,7 @@ Blockly.Blocks['field_dropdown'] = {
     var optionBlock = containerBlock.getInputTargetBlock('STACK');
     var type_blocks = [];
     var num = 0;
+    this.sequenceCount_ = 0;
     // Count number of inputs.
     this.optionList_.length = 0;
     var data = [];
@@ -834,6 +838,7 @@ Blockly.Blocks['field_dropdown'] = {
       } else if (optionBlock.type == 'field_dropdown_option_sequence') {
         this.optionList_.push('sequence');
         type_blocks[num] = 'sequence';
+        this.sequenceCount_++;
       }
       num++;
       data.push([optionBlock.userData_, optionBlock.cpuData_]);
@@ -846,8 +851,195 @@ Blockly.Blocks['field_dropdown'] = {
       var userData = data[i][0];
       if (userData !== undefined) {
         if (type_blocks[i] == 'range') {
-          this.setFieldValue(userData  , 'USER' + i);
-          this.setFieldValue(data[i][1] , 'CPU' + i);
+          this.setFieldValue(userData  , 'BEGIN' + i);
+          this.setFieldValue(data[i][1] , 'END' + i);
+        } else if (type_blocks[i] == 'char') {
+          this.setFieldValue(userData, 'CHAR' + i);
+        } else if (type_blocks[i] == 'sequence') {
+          //this.setFieldValue(userData, 'SEQ' + i);
+        }
+      }
+    }
+  },
+
+  saveConnections: function(containerBlock) {
+    // Store all data for each option.
+    var optionBlock = containerBlock.getInputTargetBlock('STACK');
+    var i = 0;
+    while (optionBlock) {
+      optionBlock.userData_ = this.getUserData(i);
+      optionBlock.cpuData_ = this.getFieldValue('END' + i);
+      i++;
+      optionBlock = optionBlock.nextConnection &&
+          optionBlock.nextConnection.targetBlock();
+    }
+  },
+  updateShape_: function() {
+    // Delete everything.
+    var i = 0;
+    var no = 0; // 順番
+    while (this.getInput('OPTION' + i)) {
+      this.removeInput('OPTION' + i);
+      i++;
+    }
+
+    // Rebuild block.
+    var OPERATORS =
+        [[Blockly.Msg.RE_new_line, 'n'],
+         [Blockly.Msg.RE_tab, 't'],
+         [Blockly.Msg.RE_single_quote, '\''],
+         [Blockly.Msg.RE_double_quote, '\"'],
+         [Blockly.Msg.RE_backslash, '\\']];
+
+    for (var i = 0; i <= this.optionList_.length; i++) {
+      var type = this.optionList_[i];
+      if (type == 'range') {
+        this.removeInput('END');  // Remove deleted inputs.
+        this.appendDummyInput('OPTION' + i)
+            .appendField('')
+            .appendField(new Blockly.FieldTextInput(''), 'BEGIN' + i)
+            .appendField('-')
+            .appendField(new Blockly.FieldTextInput(''), 'END' + i)
+            .appendField(' ');
+        //no++;
+      } else if (type == 'char') {
+        this.removeInput('END');  // Remove deleted inputs.
+        this.appendDummyInput('OPTION' + i)
+            .appendField('')
+            .appendField(new Blockly.FieldTextInput(''), 'CHAR' + i)
+            .appendField(' ');
+        //no++;
+      } else if (type == 'sequence') {
+        this.removeInput('END');  // Remove deleted inputs.
+        this.appendDummyInput('OPTION' + i)
+            .appendField(Blockly.Msg.RE_sequence)
+            .appendField(new Blockly.FieldDropdown(OPERATORS), 'SEQ' + i)
+            .appendField(" ");
+      } /*else if ( this.sequenceCount_-1 == this.old_sequenceCount_) {
+      this.removeInput('END');  // Remove deleted inputs.
+      this.appendDummyInput('OPTION' + i)
+          .appendField(Blockly.Msg.RE_sequence)
+          .appendField(new Blockly.FieldDropdown(OPERATORS), 'SEQ' + i);
+      this.appendDummyInput('END')
+          .appendField(Blockly.Msg.RE_any_one_right);
+     }*/
+      if ( i == this.optionList_.length ) {
+        this.appendDummyInput('END')
+            .appendField(Blockly.Msg.RE_any_one_right);
+      }
+    }
+    
+    this.old_sequenceCount_ = this.sequenceCount_;
+  },
+  onchange: function() {
+    if (this.workspace && this.optionList_.length < 1) {
+      this.setWarningText('歯車マークを押したときに表示される\n子ブロックを必ず一つ以上接続してください');
+    } else {
+      //fieldNameCheck(this);
+    }
+  },
+  getUserData: function(n) {
+    if (this.optionList_[n] == 'range') {
+      return this.getFieldValue('BEGIN' + n);
+    }
+    if (this.optionList_[n] == 'char') {
+      return this.getFieldValue('CHAR' + n);
+    }
+    if (this.optionList_[n] == 'sequence') {
+      return this.getFieldValue('SEQ' + n);
+    }
+    throw 'Unknown dropdown type';
+  }
+};
+
+// 18/07/19 追加
+Blockly.Blocks['field_dropdown_not'] = {
+  // Dropdown menu.
+  init: function() {
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.RE_not_any_one_left);
+    this.optionList_ = ['char'];
+    this.updateShape_();
+    this.setOutput(true);
+    this.setInputsInline(true);
+    this.setMutator(new Blockly.Mutator(['field_dropdown_option_range',
+                                         'field_dropdown_option_char',
+                                         'field_dropdown_option_sequence']));
+    this.setColour(0);
+    this.setTooltip("中の文字列に含まれない任意の文字列を表します。");
+    this.setHelpUrl();
+    this.sequenceCount_ = 0;
+    this.old_sequenceCount_ = 0;
+  },
+  mutationToDom: function(workspace) {
+    // Create XML to represent menu options.
+    var container = document.createElement('mutation');
+    container.setAttribute('options', JSON.stringify(this.optionList_));
+    return container;
+  },
+  domToMutation: function(container) {
+    // Parse XML to restore the menu options.
+    var value = JSON.parse(container.getAttribute('options'));
+    if (typeof value == 'number') {
+      this.optionList_ = [];
+      for (var i = 0; i < value; i++) {
+        this.optionList_.push('range');
+      }
+    } else {
+      this.optionList_ = value;
+    }
+    this.sequenceCount_ = parseInt(container.getAttribute('sequence'), 10) || 0;
+    this.updateShape_();
+  },
+  decompose: function(workspace) {
+    // Populate the mutator's dialog with this block's components.
+    var containerBlock = workspace.newBlock('field_dropdown_container');
+    containerBlock.initSvg();
+    var connection = containerBlock.getInput('STACK').connection;
+    for (var i = 0; i < this.optionList_.length; i++) {
+      var optionBlock = workspace.newBlock(
+          'field_dropdown_option_' + this.optionList_[i]);
+      optionBlock.initSvg();
+      connection.connect(optionBlock.previousConnection);
+      connection = optionBlock.nextConnection;
+    }
+    return containerBlock;
+  },
+  
+  compose: function(containerBlock) {
+    // Reconfigure this block based on the mutator dialog's components.
+    var optionBlock = containerBlock.getInputTargetBlock('STACK');
+    var type_blocks = [];
+    var num = 0;
+    this.sequenceCount_ = 0;
+    // Count number of inputs.
+    this.optionList_.length = 0;
+    var data = [];
+    while (optionBlock) {
+      if (optionBlock.type == 'field_dropdown_option_range') {
+        this.optionList_.push('range');
+        type_blocks[num] = 'range';
+      } else if (optionBlock.type == 'field_dropdown_option_char') {
+        this.optionList_.push('char');
+        type_blocks[num] = 'char';
+      } else if (optionBlock.type == 'field_dropdown_option_sequence') {
+        this.optionList_.push('sequence');
+        type_blocks[num] = 'sequence';
+        this.sequenceCount_++;
+      }
+      num++;
+      data.push([optionBlock.userData_, optionBlock.cpuData_]);
+      optionBlock = optionBlock.nextConnection &&
+          optionBlock.nextConnection.targetBlock();
+    }
+    this.updateShape_();
+
+    for (var i = 0; i < this.optionList_.length; i++) {
+      var userData = data[i][0];
+      if (userData !== undefined) {
+        if (type_blocks[i] == 'range') {
+          this.setFieldValue(userData  , 'BEGIN' + i);
+          this.setFieldValue(data[i][1] , 'END' + i);
         } else if (type_blocks[i] == 'char') {
           this.setFieldValue(userData, 'CHAR' + i);
         } else if (type_blocks[i] == 'sequence') {
@@ -863,7 +1055,7 @@ Blockly.Blocks['field_dropdown'] = {
     var i = 0;
     while (optionBlock) {
       optionBlock.userData_ = this.getUserData(i);
-      optionBlock.cpuData_ = this.getFieldValue('CPU' + i);
+      optionBlock.cpuData_ = this.getFieldValue('END' + i);
       i++;
       optionBlock = optionBlock.nextConnection &&
           optionBlock.nextConnection.targetBlock();
@@ -872,10 +1064,12 @@ Blockly.Blocks['field_dropdown'] = {
   updateShape_: function() {
     // Delete everything.
     var i = 0;
+    var no = 0; // 順番
     while (this.getInput('OPTION' + i)) {
       this.removeInput('OPTION' + i);
       i++;
     }
+
     // Rebuild block.
     var OPERATORS =
         [[Blockly.Msg.RE_new_line, 'n'],
@@ -890,25 +1084,39 @@ Blockly.Blocks['field_dropdown'] = {
         this.removeInput('END');  // Remove deleted inputs.
         this.appendDummyInput('OPTION' + i)
             .appendField('')
-            .appendField(new Blockly.FieldTextInput(''), 'USER' + i)
+            .appendField(new Blockly.FieldTextInput(''), 'BEGIN' + i)
             .appendField('-')
-            .appendField(new Blockly.FieldTextInput(''), 'CPU' + i)
+            .appendField(new Blockly.FieldTextInput(''), 'END' + i)
             .appendField(' ');
+        //no++;
       } else if (type == 'char') {
+        this.removeInput('END');  // Remove deleted inputs.
         this.appendDummyInput('OPTION' + i)
             .appendField('')
             .appendField(new Blockly.FieldTextInput(''), 'CHAR' + i)
             .appendField(' ');
+        //no++;
       } else if (type == 'sequence') {
+        this.removeInput('END');  // Remove deleted inputs.
         this.appendDummyInput('OPTION' + i)
             .appendField(Blockly.Msg.RE_sequence)
-            .appendField(new Blockly.FieldDropdown(OPERATORS), 'SEQ' + i);
-      }
+            .appendField(new Blockly.FieldDropdown(OPERATORS), 'SEQ' + i)
+            .appendField(' ');
+      } /*else if ( this.sequenceCount_-1 == this.old_sequenceCount_) {
+      this.removeInput('END');  // Remove deleted inputs.
+      this.appendDummyInput('OPTION' + i)
+          .appendField(Blockly.Msg.RE_sequence)
+          .appendField(new Blockly.FieldDropdown(OPERATORS), 'SEQ' + i);
+      this.appendDummyInput('END')
+          .appendField(Blockly.Msg.RE_any_one_right);
+     }*/
       if ( i == this.optionList_.length ) {
         this.appendDummyInput('END')
-            .appendField(Blockly.Msg.RE_any_one_right);
+            .appendField(Blockly.Msg.RE_not_any_one_right);
       }
     }
+    
+    this.old_sequenceCount_ = this.sequenceCount_;
   },
   onchange: function() {
     if (this.workspace && this.optionList_.length < 1) {
@@ -919,7 +1127,7 @@ Blockly.Blocks['field_dropdown'] = {
   },
   getUserData: function(n) {
     if (this.optionList_[n] == 'range') {
-      return this.getFieldValue('USER' + n);
+      return this.getFieldValue('BEGIN' + n);
     }
     if (this.optionList_[n] == 'char') {
       return this.getFieldValue('CHAR' + n);
@@ -984,4 +1192,80 @@ Blockly.Blocks['field_dropdown_option_sequence'] = {
     this.setHelpUrl();
     this.contextMenu = false;
   }
+};
+
+// 18/07/31 追加  ////////////////////////////////////////////
+Blockly.Blocks['select'] = {
+    init: function () {
+        this.join_ = 0;
+        this.updateShape_();
+        this.setMutator(new Blockly.Mutator(['join']));
+    }
+    ,
+    mutationToDom: function () {
+        var container = document.createElement('mutation');
+        container.setAttribute('join', this.join_);
+        return container;
+    }
+    , 
+    domToMutation: function (xmlElement) {
+        this.join_ = parseInt(xmlElement.getAttribute('join'), 10);
+        this.updateShape_();
+    }
+    , 
+    decompose: function (workspace) {
+        var topBlock = workspace.newBlock('container');
+        topBlock.initSvg();
+        var connection = topBlock.getInput('JOIN').connection;
+        if (this.join_ == 1) {
+            var itemBlock = workspace.newBlock('join');
+            itemBlock.initSvg();
+            connection.connect(itemBlock.outputConnection);
+        }
+
+        return topBlock;
+    }
+    ,
+    compose: function (topBlock) {
+        var itemBlock = topBlock.getInputTargetBlock('JOIN');
+        if (itemBlock == "JOIN") {
+            this.join_ = 1;
+        } else {
+            this.join_ = 0;
+        }
+
+        this.updateShape_();
+    }
+    , 
+    updateShape_: function () {
+        if (this.join_ == 1 && !this.getInput('JOIN')) {
+            var input = this.appendValueInput("JOIN").setCheck("table").appendField(new Blockly.FieldDropdown([["INNER JOIN", "INNER JOIN"], ["LEFT JOIN", "LEFT JOIN"], ["RIGHT JOIN", "RIGHT JOIN"], ["FULL OUTER JOIN", "FULL OUTER JOIN"]]), "JOINS");
+        } else if (this.join_ == 0 && this.getInput('JOIN')) {
+            this.removeInput('JOIN');
+        }
+
+   
+    }
+};
+
+Blockly.Blocks['container'] = {
+    init: function () {
+        this.setColour(60);
+        this.appendValueInput("JOIN")
+            .setCheck("join")
+            .appendField("CONTAINER");
+        this.setTooltip("");
+        this.contextMenu = !1
+    }
+};
+
+Blockly.Blocks['join'] = {
+    init: function () {
+        this.setColour(60);
+        this.appendDummyInput()
+            .appendField("JOIN");
+        this.setOutput(true, "join");
+        this.setTooltip("");
+        this.contextMenu = !1
+    }
 };

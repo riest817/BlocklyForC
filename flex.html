@@ -12,6 +12,7 @@
 <div id="title" title="Flex"></div>  <!-- (18/06/12 追加)-->
 <link rel="shortcut icon" href="favicon.png" type="image/png"/>
 <!--  解凍ファイルを追加  18/04/05 -->
+<script src="Library/blockly/00_uncompressed/blockly_uncompressed2.js"></script>
 <script src="Library/blockly/00_uncompressed/blockly_uncompressed.js"></script>
 <script src="Library/blockly/00_uncompressed/blocks_uncompressed.js"></script>
 <!--  圧縮ファイルをコメントアウト  18/04/05 -->
@@ -146,11 +147,12 @@
   <category name="正規表現" colour="0">
     <block type="RE_text0"></block>
     <block type="RE_text"></block>
-    <block type="RE_any_one"></block>
-    <block type="RE_any_one_mutator"></block>	<!-- 180621 作成-->
+    <!--block type="RE_any_one"></block-->
+    <!--block type="RE_any_one_mutator"></block-->	<!-- 180621 作成-->
     <block type="field_dropdown"></block> <!-- 180718 作成-->
-    <block type="RE_not_any_one"></block>
-    <block type="RE_not_any_one_mutator"></block>	<!-- 180621 作成-->
+    <block type="field_dropdown_not"></block> <!-- 180719 作成-->
+    <!--block type="RE_not_any_one"></block-->
+    <!--block type="RE_not_any_one_mutator"></block-->	<!-- 180621 作成-->
     <block type="RE_from_to"></block>
     <block type="RE_from_to_0"></block>
     <!--block type="RE_from_to_auto"></block-->   <!-- エラーブロック -->
@@ -186,6 +188,7 @@
   <sep></sep>
   <sep></sep>
   <category name="自作" colour="500">
+    <block type="select"></block>
     <!--block type="RE_from_to2"></block-->
     <!--block type="RE_from_to3"></block-->
   </category>
@@ -213,8 +216,8 @@
                   <td data-step="4" data-intro="このボタンをクリックして、サンプルブロックを組み立てます。"><input type="button" value="サンプル1" class = "sample" id = "sample1" style="font-size: 0.8em;" onclick="sample(1);"/></td>
                   <td><input type="button" value="サンプル2" class = "sample" id = "sample2" style="font-size: 0.8em;" onclick="sample(2);"/></td>
                   <td><input type="button" value="サンプル3" class = "sample" id = "sample3" style="font-size: 0.8em;" onclick="sample(3);"/></td>
-                  <td><input type="button" value="サンプル4" class = "sample" id = "sample3" style="font-size: 0.8em;" onclick="sample(4);"/></td>
-                  <td><input type="button" value="サンプル5" class = "sample" id = "sample3" style="font-size: 0.8em;" onclick="sample(5);"/></td>
+                  <td><input type="button" value="サンプル4" class = "sample" id = "sample4" style="font-size: 0.8em;" onclick="sample(4);"/></td>
+                  
               </form>
             <td class="tabmin">&nbsp;</td>
             <td class="farSide">
