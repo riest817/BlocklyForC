@@ -163,7 +163,7 @@ Blockly.Flex.init = function(workspace) {
   }
 
   var defvars = [];
-  var variables = Blockly.Variables.allVariables(workspace);
+  var variables = Blockly.Variables.allUsedVarModels(workspace);
   if (variables.length) {
     for (var i = 0; i < variables.length; i++) {
       defvars[i] = Blockly.Flex.variableDB_.getName(variables[i],

@@ -28,7 +28,7 @@ Blockly.Blocks['regular_expression_connection'] = {
     this.setTooltip(function() {
       var parent = thisBlock.getParent();
       return (parent && parent.getInputsInline() && parent.tooltip) ||
-          "。";      // ポインタを合わせたときの説明文
+          "正規表現とその動作を定義します。";      // ポインタを合わせたときの説明文
     });
   }
 };

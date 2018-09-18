@@ -10,65 +10,7 @@ function sample(select) {
   if (select == 1 ) {
     var defaultXml =
     `<xml xmlns="http://www.w3.org/1999/xhtml">
-  <block type="first_flex" id="SG:Mn|5h/A?r2e!lv3j" x="44" y="54">
-    <statement name="DO1">
-      <block type="regular_expression_connection" id="OsV-gp/_bOkJIa:E@[Dh">
-        <value name="IF">
-          <block type="RE_text0" id="jx)$qm*Z)E^pXab}vk!i">
-            <field name="TEXT">hello</field>
-          </block>
-        </value>
-        <statement name="DO">
-          <block type="printf" id="8ioOXm1$*Xq;NGAx]Y^T">
-            <field name="TEXT">sveiki</field>
-          </block>
-        </statement>
-        <next>
-          <block type="regular_expression_connection" id=".7khUv=vh2Q377vY!#C=">
-            <value name="IF">
-              <block type="RE_text0" id="=Ufo0LaNNH9h1g0o_%b{">
-                <field name="TEXT">Hello</field>
-              </block>
-            </value>
-            <statement name="DO">
-              <block type="printf" id="3/%Rr?QCw4WGDj[0VD)*">
-                <field name="TEXT">Sveiki</field>
-              </block>
-            </statement>
-            <next>
-              <block type="regular_expression_connection" id="xm7x8_F!]s@tNm.uOeF">
-                <value name="IF">
-                  <block type="RE_connection_or" id="p.8UyD96qw|8:0yiQz4!">
-                    <value name="A">
-                      <block type="RE_anything" id="F,!4M~Mcj_5T.jV,#4Zf"></block>
-                    </value>
-                    <value name="B">
-                      <block type="RE_sequence" id="SfGbj||D=3_EP%zIftwO">
-                        <field name="MODE">n</field>
-                      </block>
-                    </value>
-                  </block>
-                </value>
-                <statement name="DO">
-                  <block type="echo" id="HR|Tj2UtQRn;]3/T2AJ4"></block>
-                </statement>
-              </block>
-            </next>
-          </block>
-        </next>
-      </block>
-    </statement>
-    <statement name="DO2">
-      <block type="yylex" id="UpHGLmuvDxh64unoq"></block>
-    </statement>
-  </block>
-</xml>`;
-  loadBlocks(defaultXml);
-  }
-
-      if (select == 2 ) {
-    var defaultXml =
-    `<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables></variables>
   <block type="first_flex" id="gmZv+)E_uN3;~J7v{ps." x="91" y="19">
     <statement name="DO1">
       <block type="regular_expression_connection" id="V~$q#AR9j_?bj;h2!3eL">
@@ -85,10 +27,106 @@ function sample(select) {
                 <field name="MODE">*</field>
                 <value name="A">
                   <block type="field_dropdown_not" id="c|j^}+]#r*{m,LyW%NA.">
-                    <mutation options="[&quot;char&quot;,&quot;char&quot;,&quot;char&quot;]"></mutation>
+                    <mutation options="[&quot;char&quot;,&quot;sequence&quot;,&quot;sequence&quot;]"></mutation>
                     <field name="CHAR0">"</field>
-                    <field name="CHAR1">\\</field>
-                    <field name="CHAR2">\n</field>
+                    <field name="SEQ1">\</field>
+                    <field name="SEQ2">n</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="ADD2">
+              <block type="RE_sequence" id="C~l*3=W|GMjmFbY(%:ib">
+                <field name="MODE">"</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO">
+          <block type="putchar" id="#-cb:i(wly6Fl:ceX{%L">
+            <field name="TEXT">&lt;b&gt;</field>
+            <next>
+              <block type="echo" id="8E(BRfY_u4mQsPW=S3Yc">
+                <next>
+                  <block type="putchar" id="XS/=Xc2A;m(T+9YsBt:0">
+                    <field name="TEXT">&lt;/b&gt;</field>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="regular_expression_connection" id="NGiDSMrri4-VeldClE:n">
+            <value name="IF">
+              <block type="RE_text" id="q:;-k9S^SaRpH_.ymU6:">
+                <field name="TEXT">.</field>
+              </block>
+            </value>
+            <statement name="DO">
+              <block type="echo" id="X4o~1vzFCU=8oLOa@]4p">
+                <next>
+                  <block type="exit" id="L?P@*cMDFv+EC}W?A~m1">
+                    <field name="MODE">1</field>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="regular_expression_connection" id="3D+7aa6kusI8/u/pQ~XW">
+                <value name="IF">
+                  <block type="RE_connection_or" id="];|g8rP#Q)K3MUBB4j]?">
+                    <value name="A">
+                      <block type="RE_anything" id=")SZn)JM6flNx:s7RPk9n"></block>
+                    </value>
+                    <value name="B">
+                      <block type="RE_sequence" id="6d{MMv2CNsKDIO-_3FM">
+                        <field name="MODE">n</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <statement name="DO">
+                  <block type="echo" id="WccvD%CdLuu%_A|Yn{a"></block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="DO2">
+      <block type="yylex" id="nUBsOLjn_Q:lg/y9tHY"></block>
+    </statement>
+  </block>
+</xml>`;
+  loadBlocks(defaultXml);
+  }
+
+      if (select == 2 ) {
+    var defaultXml =
+    `<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables></variables>
+  <block type="first_flex" id="gmZv+)E_uN3;~J7v{ps." x="91" y="19">
+    <statement name="DO1">
+      <block type="regular_expression_connection" id="V~$q#AR9j_?bj;h2!3eL">
+        <value name="IF">
+          <block type="RE_connection_mutator" id="Ao7XWc($;n+ng;.JcS?i">
+            <mutation items="3"></mutation>
+            <value name="ADD0">
+              <block type="RE_sequence" id="BzEBrgG|7k(IDYyAl,Py">
+                <field name="MODE">"</field>
+              </block>
+            </value>
+            <value name="ADD1">
+              <block type="RE_repetition" id="4}tJl!^#^2,JQLO90)4U">
+                <field name="MODE">*</field>
+                <value name="A">
+                  <block type="field_dropdown_not" id="c|j^}+]#r*{m,LyW%NA.">
+                    <mutation options="[&quot;char&quot;,&quot;sequence&quot;,&quot;sequence&quot;]"></mutation>
+                    <field name="CHAR0">"</field>
+                    <field name="SEQ1">\\</field>
+                    <field name="SEQ2">n</field>
                   </block>
                 </value>
               </block>
@@ -165,6 +203,7 @@ function sample(select) {
   if (select == 3 ) {
     var defaultXml =
     `<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables></variables>
   <block type="first_flex" id="gmZv+)E_uN3;~J7v{ps." x="91" y="19">
     <statement name="DO1">
       <block type="regular_expression_connection" id="V~$q#AR9j_?bj;h2!3eL">
@@ -190,14 +229,14 @@ function sample(select) {
                       <block type="RE_connection" id=",XUA%dnhI*5,xKi7JBGz">
                         <value name="A">
                           <block type="RE_sequence" id="%lZ(ELO^uLrh6}LdMbp]">
-                            <field name="MODE">\</field>
+                            <field name="MODE">\\</field>
                           </block>
                         </value>
                         <value name="B">
                           <block type="field_dropdown" id="UI?5N@VfoYvpf3n#J+JO">
-                            <mutation options="[&quot;char&quot;,&quot;char&quot;,&quot;char&quot;]"></mutation>
+                            <mutation options="[&quot;char&quot;,&quot;sequence&quot;,&quot;char&quot;]"></mutation>
                             <field name="CHAR0">"</field>
-                            <field name="CHAR1">\\</field>
+                            <field name="SEQ1">\\</field>
                             <field name="CHAR2">w</field>
                           </block>
                         </value>
@@ -279,6 +318,7 @@ function sample(select) {
   if (select == 4 ) {
     var defaultXml =
     `<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables></variables>
   <block type="first_flex" id="gmZv+)E_uN3;~J7v{ps." x="91" y="19">
     <statement name="DO1">
       <block type="regular_expression_connection" id="V~$q#AR9j_?bj;h2!3eL">
@@ -297,17 +337,17 @@ function sample(select) {
                   <block type="RE_connection_or" id="-)VrWTwAx4i=9,a)viWk">
                     <value name="A">
                       <block type="field_dropdown_not" id="c|j^}+]#r*{m,LyW%NA.">
-                        <mutation options="[&quot;char&quot;,&quot;char&quot;,&quot;char&quot;]"></mutation>
+                        <mutation options="[&quot;char&quot;,&quot;sequence&quot;,&quot;sequence&quot;]"></mutation>
                         <field name="CHAR0">"</field>
-                        <field name="CHAR1">\\</field>
-                        <field name="CHAR2">\n</field>
+                        <field name="SEQ1">\\</field>
+                        <field name="SEQ2">n</field>
                       </block>
                     </value>
                     <value name="B">
                       <block type="RE_connection" id="aOz+6hWE^p|K!-1Mu.s=">
                         <value name="A">
                           <block type="RE_sequence" id="lFcFC.FMGAtgtoHEcckt">
-                            <field name="MODE">\</field>
+                            <field name="MODE">\\</field>
                           </block>
                         </value>
                         <value name="B">

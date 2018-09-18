@@ -233,3 +233,18 @@ Blockly.Flex['field_dropdown_not'] = function(block) {
   code += "]";
   return code;
 };
+
+//  18/09/12  作成
+Blockly.Flex['select'] = function(block) {
+  // Create a string made up of any number of elements of any type.
+  var OPERATORS = {
+    "INNER JOIN": "INNER JOIN",
+    "LEFT JOIN": "LEFT JOIN",
+    "RIGHT JOIN": "RIGHT JOIN",
+    "FULL OUTER JOIN": "FULL OUTER JOIN",
+  };
+  
+  var code = "";
+  
+  return code;
+};
