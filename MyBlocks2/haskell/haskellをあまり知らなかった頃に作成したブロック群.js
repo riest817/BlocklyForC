@@ -55,30 +55,6 @@ Blockly.Haskell['do_haskell'] = function(block) {
   return code + '\n';
 };
 
-Blockly.Blocks['where_haskell'] = {
-
-  init: function() {
-    this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
-    this.setColour(Blockly.Blocks.logic.HUE);	// Blockly.Blocks.logic.HUE = 210
-    //this.appendField("do");
-    this.appendStatementInput('DO0')
-        .appendField("where");		
-    this.setPreviousStatement(true);
-    //this.setNextStatement(true);
-    // Assign 'this' to a variable for use in the tooltip closure below.
-    var thisBlock = this;
-    this.setTooltip("後置型の構文で、ある式だけに有効な定義を導入します。特定の関数内だけで定義したいときなどに使います。");     // ポインタを合わせたときの説明文
-  }
-};
-
-Blockly.Haskell['where_haskell'] = function(block) {
-  var n = 0;
-
-  var branch = Blockly.Haskell.statementToCode(block, 'DO' + n);
-  var code = 'where\n' + branch + '\n';
-
-  return code + '\n';
-};
 
 Blockly.Blocks['let_haskell'] = {
 

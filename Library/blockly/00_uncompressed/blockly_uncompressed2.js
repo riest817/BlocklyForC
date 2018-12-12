@@ -16230,11 +16230,19 @@ Blockly.Xml.domToPrettyText = function(a) {
 Blockly.Xml.textToDomDocument_ = function(a) {
     return (new DOMParser).parseFromString(a, "text/xml")
 };
+///////  (18/10/25)  ////    flexのデモページでワークスペースが表示されないエラーの解消のため
+/*
 Blockly.Xml.textToDom = function(a) {
     a = Blockly.Xml.textToDomDocument_(a);
     if (!a || !a.documentElement || "xml" != a.documentElement.nodeName.toLowerCase()) throw Error("Blockly.Xml.textToDom expected an <xml> document.");
     return a.documentElement
+};*/
+Blockly.Xml.textToDom = function(a) {
+    a = Blockly.Xml.textToDomDocument_(a);
+    if (!a ) throw Error("Blockly.Xml.textToDom expected an <xml> document.");
+    return a.documentElement
 };
+////////////////////////////////////////////////////
 Blockly.Xml.clearWorkspaceAndLoadFromXml = function(a, b) {
     b.setResizesEnabled(!1);
     b.clear();

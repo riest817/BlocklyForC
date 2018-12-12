@@ -26,7 +26,7 @@ Blockly.Haskell['variables_set'] = function(block) {
       Blockly.Haskell.ORDER_ASSIGNMENT) || '0';
   var varName = Blockly.Haskell.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-  return varName + ' = ' + argument0 + ';\n';
+  return varName + ' = ' + argument0 + '\n';
 };
 
 Blockly.Haskell['variables_equal'] = function(block) {
@@ -42,7 +42,7 @@ Blockly.Haskell['variables_equal'] = function(block) {
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   var argument0 = Blockly.Haskell.valueToCode(block, 'VALUE',
       Blockly.Haskell.ORDER_ASSIGNMENT) || '0';
-  return type + ' ' + varName + ' = ' + argument0 + ';\n';
+  return type + ' ' + varName + ' = ' + argument0 + '\n';
 };
 
 Blockly.Haskell['variables_dec'] = function(block) {
@@ -56,6 +56,6 @@ Blockly.Haskell['variables_dec'] = function(block) {
   var type = TYPES[block.getFieldValue('TYPE')];
   var varName = Blockly.Haskell.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-  return type + ' ' + varName + ';\n';
+  return type + ' ' + varName + '\n';
 };
 

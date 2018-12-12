@@ -42,8 +42,8 @@ Blockly.Blocks['procedures_defreturn'] = {
       this.setCommentText(Blockly.Msg.PROCEDURES_DEFRETURN_COMMENT);
     }
     this.setColour(Blockly.Blocks.procedures.HUE);
-    this.setTooltip(Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP);
-    this.setHelpUrl("関数によるパターンマッチングを行います。");
+    this.setTooltip("関数によるパターンマッチングを行います。");
+    this.setHelpUrl();
     this.arguments_ = [];
     this.quarkConnections_ = {};
     this.quarkIds_ = null;
@@ -54,8 +54,9 @@ Blockly.Blocks['procedures_defreturn'] = {
   setStatements_: Blockly.Blocks['procedures_defnoreturn'].setStatements_,
   //updateParams_: Blockly.Blocks['procedures_defnoreturn'].updateParams_,
   updateParams_    : function () {
-    for (var i = 0; i < this.arguments_.length-1; i++) {  // 17/12/05 this.arguments_.lengthに-1
+    for (var i = 0; i < this.arguments_.length; i++) {
       var field = this.getField('ARGNAME' + i);
+      this.arguments_[i] = '引数' + (i+1);  // 18/11/29 追加
       if (field) {
         // Ensure argument name is up to date.
         // The argument name field is deterministic based on the mutation,
@@ -83,7 +84,7 @@ Blockly.Blocks['procedures_defreturn'] = {
     // Add 'with:' if there are parameters, remove otherwise.
     var topRow = this.getInput('TOPROW');
     if (topRow) {
-      if (this.arguments_.length-1) { // 17/12/05 this.arguments_.lengthに-1
+      if (this.arguments_.length) {
         if (!this.getField('WITH')) {
           topRow.appendField("対象：", 'WITH');
           topRow.init();
@@ -236,16 +237,14 @@ Blockly.Blocks['procedures_mutatorcontainer'] = {
    */
   init: function() {
     this.appendDummyInput()
-        .appendField("引数");
+        .appendField("結合");
     this.appendStatementInput('STACK');
-    this.appendDummyInput()
-        .appendField("↑一番下返却値")
     //this.appendStatementInput('RETURN');
     this.appendDummyInput('STATEMENT_INPUT')
         .appendField("")
         .appendField(new Blockly.FieldCheckbox('TRUE'), 'STATEMENTS');
     this.setColour(Blockly.Blocks.procedures.HUE);
-    this.setTooltip(Blockly.Msg.PROCEDURES_MUTATORCONTAINER_TOOLTIP);
+    this.setTooltip("この関数への引数の追加、削除、順番の変更");
     this.contextMenu = false;
   }
 };
@@ -257,12 +256,12 @@ Blockly.Blocks['procedures_mutatorarg'] = {
    */
   init: function() {
     this.appendDummyInput()
-        .appendField("型")
-        .appendField(new Blockly.FieldTextInput('x', this.validator_), 'NAME');
+        //.appendField("引数")
+        .appendField('引数', 'NAME');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(Blockly.Blocks.procedures.HUE);
-    this.setTooltip(Blockly.Msg.PROCEDURES_MUTATORARG_TOOLTIP);
+    this.setTooltip("関数への引数の追加");
     this.contextMenu = false;
   },
   /**
@@ -303,7 +302,7 @@ Blockly.Blocks['procedures_callreturn'] = {
       Blockly.Blocks['procedures_callnoreturn'].setProcedureParameters_,
   //updateShape_: Blockly.Blocks['procedures_callnoreturn'].updateShape_,
   updateParams_    : function () {
-    for (var i = 0; i < this.arguments_.length-1; i++) {  // 17/12/05 this.arguments_.lengthに-1
+    for (var i = 0; i < this.arguments_.length; i++) {  
       var field = this.getField('ARGNAME' + i);
       if (field) {
         // Ensure argument name is up to date.
@@ -332,7 +331,7 @@ Blockly.Blocks['procedures_callreturn'] = {
     // Add 'with:' if there are parameters, remove otherwise.
     var topRow = this.getInput('TOPROW');
     if (topRow) {
-      if (this.arguments_.length-1) { // 17/12/05 this.arguments_.lengthに-1
+      if (this.arguments_.length) { 
         if (!this.getField('WITH')) {
           topRow.appendField("対象：", 'WITH');
           topRow.init();
@@ -517,7 +516,7 @@ Blockly.Blocks['procedures_call'] = {
    * @this Blockly.Block
    */
   updateShape_: function() {
-    for (var i = 0; i < this.arguments_.length-1; i++) {
+    for (var i = 0; i < this.arguments_.length; i++) {
       var field = this.getField('ARGNAME' + i);
       if (field) {
         // Ensure argument name is up to date.
@@ -546,7 +545,7 @@ Blockly.Blocks['procedures_call'] = {
     // Add 'with:' if there are parameters, remove otherwise.
     var topRow = this.getInput('TOPROW');
     if (topRow) {
-      if (this.arguments_.length-1) {
+      if (this.arguments_.length) {
         if (!this.getField('WITH')) {
           topRow.appendField("", 'WITH');
           topRow.init();
@@ -731,7 +730,7 @@ Blockly.Haskell['procedures_defreturn'] = function(block) {
       block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
   var args = [];
   
-  for (var i = 0; i < block.arguments_.length-1; i++) { // 17/12/05 this.arguments_.lengthに-1
+  for (var i = 0; i < block.arguments_.length; i++) { 
     args[i] = Blockly.Haskell.valueToCode(block, 'ARG' + i,
         Blockly.Haskell.ORDER_COMMA) || '_';
   }
@@ -751,6 +750,7 @@ Blockly.Blocks['procedures_call2'] = {
    */
   init: function() {
     this.appendDummyInput('TOPROW')
+        .appendField("関数")
         .appendField('', 'NAME');
     this.setOutput(true);
     this.setInputsInline(true);
@@ -764,7 +764,7 @@ Blockly.Blocks['procedures_call2'] = {
   },
 
   updateShape_: function() {
-    for (var i = 0; i < this.arguments_.length-1; i++) {
+    for (var i = 0; i < this.arguments_.length; i++) {
       var field = this.getField('ARGNAME' + i);
       if (field) {
         // Ensure argument name is up to date.
@@ -795,7 +795,7 @@ Blockly.Blocks['procedures_call2'] = {
     if (topRow) {
       if (this.arguments_.length-1) {
         if (!this.getField('WITH')) {
-          topRow.appendField(Blockly.Msg.PROCEDURES_CALL_BEFORE_PARAMS, 'WITH');
+          topRow.appendField(""/*Blockly.Msg.PROCEDURES_CALL_BEFORE_PARAMS*/, 'WITH');
           topRow.init();
         }
       } else {

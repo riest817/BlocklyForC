@@ -14,6 +14,7 @@
 <!--  解凍ファイルを追加  17/12/05 -->
 <script src="Library/blockly/00_uncompressed/blockly_uncompressed.js"></script>
 <script src="Library/blockly/00_uncompressed/blocks_uncompressed.js"></script>
+<!--script src="Library/blockly/00_uncompressed/blockly_uncompressed2.js"></script--><!-- 18/11/22-->
 <!--  圧縮ファイルをコメントアウト  17/12/05 -->
 <!--script src="Library/blockly/blockly_compressed.js"></script>
 <script src="Library/blockly/blocks_compressed.js"></script--> 
@@ -146,6 +147,10 @@
     <block type="do_haskell"></block>
     <block type="let_haskell"></block>
     <!-->↑ 18/02/01 追加ここまで ↑<-->
+    <block type="let_in_haskell"></block> <!--> 18/11/28 追加 <-->
+    <block type="where_haskell"></block> <!--> 18/12/05 追加 <-->
+    <block type="case_haskell"></block> <!--> 18/12/12 追加 <-->
+    <block type="single_pattern"></block> <!--> 18/12/12 追加 <-->
     <!--block type="controls_if"></block-->     <!-->17/12/12 コメントアウト<-->
     <block type="controls_if_haskell"></block>
     <block type="logic_compare"></block>
@@ -155,7 +160,8 @@
     <block type="logic_null"></block>
     <block type="logic_ternary"></block>
   </category>
-  <category name="繰り返し" colour="120">
+  <!-->↓ 18/09/20 繰り返しカテゴリ コメントアウト ↓<-->
+  <!--category name="繰り返し" colour="120">
     <block type="controls_repeat_ext">
       <value name="TIMES">
         <shadow type="math_number">
@@ -183,7 +189,7 @@
     </block>
     <block type="controls_forEach"></block>
     <block type="controls_flow_statements"></block>
-  </category>
+  </category-->
   <category name="数" colour="230">
     <block type="math_number"></block>
     <block type="var_arithmetic"></block>   <!-->自作ブロック<-->
@@ -238,7 +244,8 @@
       </value>
     </block>
   </category>
-  <category name="文字列" colour="160">
+  <!-->↓ 18/09/20 文字列カテゴリ コメントアウト ↓<-->
+  <!--category name="文字列" colour="160">
     <block type="text"></block>
     <block type="text_join"></block>
     <block type="text_append">
@@ -314,7 +321,7 @@
         </shadow>
       </value>
     </block>
-  </category>
+  </category-->
   <category name="リスト" colour="260">
     <block type="lists_container"></block>
     <block type="lists_create_with">
@@ -404,7 +411,7 @@
   <sep></sep>
   <category name="変数" colour="330" custom="VARIABLE"></category>
   <category name="関数" colour="290">
-    <block type="pattern_match"></block>
+    <!--block type="pattern_match"></block-->
     <block type="procedures_defreturn"></block>
     <!--block type="procedures_call"></block-->
   </category>
@@ -415,6 +422,7 @@
   <category name="出力" colour="0">
       <block type="output_text"></block>
       <block type="output_var"></block>
+      <block type="string"></block> <!--> 18/12/12 追加 <-->
       <block type="emer_block"></block>   <!--> 18/01/16 追加<-->
   </category>
 </xml>
