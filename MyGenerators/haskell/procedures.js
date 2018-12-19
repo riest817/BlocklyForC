@@ -2,6 +2,7 @@
 2017/07/13  Haskellにコード最適化
 2017/12/05  Blockly.Haskell['procedures_defreturn'] Blockly.Haskell['procedures_callreturn'] 改良
 17/12/12    ['procedures_call'] 作成
+18/12/19  ['procedures_defreturn_statement'] 作成
  */
 'use strict';
 
@@ -105,11 +106,54 @@ Blockly.Haskell['procedures_call2'] = function(block) {
   var funcName = Blockly.Haskell.variableDB_.getName(
       block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
   var args = [];
-  for (var i = 0; i < block.arguments_.length-1; i++) {
+  for (var i = 0; i < block.arguments_.length; i++) {
     args[i] = Blockly.Haskell.valueToCode(block, 'ARG' + i,
         Blockly.Haskell.ORDER_COMMA) || '_';
   }
 
   var code = funcName + ' ' + args.join(' ');
   return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
+  //return code + '\n';
 };
+
+Blockly.Haskell['procedures_defreturn'] = function(block) {
+  // Call a procedure with a return value.
+  
+  var funcName = Blockly.Haskell.variableDB_.getName(
+      block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
+  var args = [];
+  
+  for (var i = 0; i < block.arguments_.length; i++) { 
+    args[i] = Blockly.Haskell.valueToCode(block, 'ARG' + i,
+        Blockly.Haskell.ORDER_COMMA) || '_';
+  }
+  var code = funcName + ' ' + args.join(' ') + ' = ';
+  code += Blockly.Haskell.valueToCode(block, 'DELTA',
+        Blockly.Haskell.ORDER_COMMA) || 'null';
+  
+  //return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
+  return code + '\n';
+  
+};
+
+// 18/12/19 
+Blockly.Haskell['procedures_defreturn_statement'] = function(block) {
+  // Call a procedure with a return value.
+  
+  var funcName = Blockly.Haskell.variableDB_.getName(
+      block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
+  var args = [];
+  
+  for (var i = 0; i < block.arguments_.length; i++) { 
+    args[i] = Blockly.Haskell.valueToCode(block, 'ARG' + i,
+        Blockly.Haskell.ORDER_COMMA) || '_';
+  }
+  var code = funcName + ' ' + args.join(' ') + '\n';
+  code += Blockly.Haskell.statementToCode(block, 'DELTA',
+        Blockly.Haskell.ORDER_COMMA) || 'null';
+  
+  //return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
+  return code + '\n';
+  
+};
+// 18/12/19 ここまで

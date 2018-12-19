@@ -13,10 +13,7 @@
 */
 // 18/12/12 変更
 Blockly.Blocks['controls_if_haskell'] = {
-  /**
-   * Block for if/elseif/else condition.
-   * @this Blockly.Block
-   */
+
   init: function() {
     this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
     this.setColour(Blockly.Blocks.logic.HUE);
@@ -25,9 +22,9 @@ Blockly.Blocks['controls_if_haskell'] = {
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
     this.appendValueInput('DO0')
         .appendField("実行");
-    this.setPreviousStatement(false);
+    this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setOutput(true);
+    this.setOutput(false);
     this.setMutator(new Blockly.Mutator(['controls_if_elseif',
                                          'controls_if_else']));
     // Assign 'this' to a variable for use in the tooltip closure below.
@@ -250,7 +247,7 @@ Blockly.Haskell['controls_if_haskell'] = function(block) {
   var argument = Blockly.Haskell.valueToCode(block, 'IF' + n,
       Blockly.Haskell.ORDER_NONE) || 'false';
   var branch = Blockly.Haskell.valueToCode(block, 'DO' + n);
-  var code = '\n  | ' + argument + ' = ' + branch + '\n';
+  var code = '  | ' + argument + ' = ' + branch + '\n';
   
   for (n = 1; n <= block.elseifCount_; n++) {
     argument = Blockly.Haskell.valueToCode(block, 'IF' + n,
@@ -262,8 +259,8 @@ Blockly.Haskell['controls_if_haskell'] = function(block) {
     branch = Blockly.Haskell.valueToCode(block, 'ELSE');
     code += '  | otherwise = ' + branch + '\n';
   }
-  //return code + '\n';
-  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
+  return code;
+  //return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
 };
 // 18/12/12 ここまで
 
@@ -330,7 +327,7 @@ Blockly.Blocks['let_haskell'] = {
         .appendField("let");    
     this.setPreviousStatement(true);  // 上部との接続を可能にする 
     this.setNextStatement(true);      // 下部との接続を可能にする
-    this.setOutput(true);   // 左部との接続を可能にする
+    //this.setOutput(true);   // 左部との接続を可能にする
     //this.setNextStatement(true);
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
@@ -357,7 +354,7 @@ Blockly.Blocks['let_in_haskell'] = {
     this.appendValueInput('VALUE')
         .appendField("        in");
     this.setPreviousStatement(true);  // 上部との接続を可能にする 
-    this.setNextStatement(true);      // 下部との接続を可能にする
+    //this.setNextStatement(true);      // 下部との接続を可能にする
     this.setOutput(true);   // 左部との接続を可能にする
     //this.setNextStatement(true);
     // Assign 'this' to a variable for use in the tooltip closure below.
