@@ -23430,11 +23430,9 @@ goog.dom.TagIterator.prototype.next = function () {
                 b = c;
                 console.warn(
                     //"Deprecated call to Blockly.Xml.domToWorkspace, swap the arguments."
-                    "Blockly.Xml.domToWorkspaceへの非推奨呼び出しは、引数を入れ替えます。" // 18/11/21 
+                    "Blockly.Xml.domToWorkspaceへの非推奨呼び出しは、引数を入れ替えてリロードします。" // 18/11/21 
                 )
-                // 18/11/22 サンプルボタンの不具合解消のため追加
-                c = Blockly.Xml.domToWorkspace(a, b);
-                return c;
+                window.location.reload(true);   // 19/01/09 リロード追加
             }
             var d;
             b.RTL && (d = b.getWidth());

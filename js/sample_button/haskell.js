@@ -24,115 +24,12 @@ function sample(select) {
 
   if (select == 2 ) {
     var defaultXml =
-    `<xml xmlns="http://www.w3.org/1999/xhtml">
-  <block type="procedures_defreturn" id="x/0Ec8ZKq^9g/Fgc-$|Q" x="54" y="51">
-    <mutation statements="false">
-      <arg name="x"></arg>
-      <arg name="[Integer]"></arg>
-      <arg name="[Integer]"></arg>
-    </mutation>
-    <field name="NAME">deleteOne</field>
-    <comment pinned="false" h="80" w="160">この関数の説明…</comment>
-    <value name="ARG1">
-      <block type="lists_create_with" id="Ngey7eBf,^FGBlKUd.]Y">
-        <mutation items="0"></mutation>
-      </block>
-    </value>
-    <value name="DELTA">
-      <block type="lists_create_with" id="]6:)]KX*T;)^bP4n|%jD">
-        <mutation items="0"></mutation>
-      </block>
-    </value>
-    <next>
-      <block type="procedures_defreturn" id="6Zy-FSJ%.U?KJ,;QH25">
-        <mutation statements="false">
-          <arg name="x"></arg>
-          <arg name="[Integer]"></arg>
-          <arg name="[Integer]"></arg>
-        </mutation>
-        <field name="NAME">deleteOne</field>
-        <comment pinned="false" h="80" w="160">この関数の説明…</comment>
-        <value name="ARG0">
-          <block type="variables_get" id=";|Gl8;IV4AjDMjvO#=sX">
-            <field name="VAR">n</field>
-          </block>
-        </value>
-        <value name="ARG1">
-          <block type="lists_container" id="2a4=i*)HI=:#wBlAQXpO">
-            <mutation items="2"></mutation>
-            <value name="ADD0">
-              <block type="variables_get" id="?;L/hD;;cDx#X2EBOcxB">
-                <field name="VAR">x</field>
-              </block>
-            </value>
-            <value name="ADD1">
-              <block type="variables_get" id="YZqQFZ!fg^z)+*psm7@9">
-                <field name="VAR">xs</field>
-              </block>
-            </value>
-          </block>
-        </value>
-        <value name="DELTA">
-          <block type="controls_if_haskell" id="?j%,H;P?T3;Dv]Xz]cn~">
-            <value name="IF">
-              <block type="logic_compare" id="~?{)eZH9PW8D@d!5dUrk">
-                <field name="OP">EQ</field>
-                <value name="A">
-                  <block type="variables_get" id="uElcQ=a{9w5nT~)e4qq+">
-                    <field name="VAR">n</field>
-                  </block>
-                </value>
-                <value name="B">
-                  <block type="variables_get" id="4]!csc=$.a.$l.r_/@V4">
-                    <field name="VAR">x</field>
-                  </block>
-                </value>
-              </block>
-            </value>
-            <value name="DO">
-              <block type="variables_get" id="Eu+#d-umigJVj@GOq:7d">
-                <field name="VAR">xs</field>
-              </block>
-            </value>
-            <value name="ELSE">
-              <block type="lists_container" id="SP:ETWv%Jn9PhPgJz7F%">
-                <mutation items="2"></mutation>
-                <value name="ADD0">
-                  <block type="variables_get" id="mWD#aP2O3L?$6AN1t7+P">
-                    <field name="VAR">x</field>
-                  </block>
-                </value>
-                <value name="ADD1">
-                  <block type="procedures_call2" id="r%QYuIT6-kQH:#g58{hO">
-                    <mutation name="deleteOne">
-                      <arg name="x"></arg>
-                      <arg name="[Integer]"></arg>
-                      <arg name="[Integer]"></arg>
-                    </mutation>
-                    <value name="ARG0">
-                      <block type="variables_get" id="Gy6N1-!lvO.gAm@mP1TC">
-                        <field name="VAR">n</field>
-                      </block>
-                    </value>
-                    <value name="ARG1">
-                      <block type="variables_get" id="wa5;{C*n:_:;,qT}msC(">
-                        <field name="VAR">xs</field>
-                      </block>
-                    </value>
-                  </block>
-                </value>
-              </block>
-            </value>
-          </block>
-        </value>
-      </block>
-    </next>
-  </block>
-</xml>`;
+    `
+    `;
     loadBlocks(defaultXml);
   }
   
-    if (select == 3 ) {
+  if (select == 3 ) {
     var defaultXml =
     `<xml xmlns="http://www.w3.org/1999/xhtml">
   <block type="procedures_defreturn" id="7%,)j)zv-gOerwzT8p*k" x="161" y="61">
@@ -208,7 +105,168 @@ function sample(select) {
   </block>
 </xml>`;
     loadBlocks(defaultXml);
-  }     
+  }   
+
+  if (select == 4 ) {
+    var defaultXml =
+    `<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="procedures_defreturn_statement_where" id="w@DU[ASOQ]ddVO6zd/$W" x="131" y="92">
+    <mutation statements="false">
+      <arg name="引数1"></arg>
+    </mutation>
+    <field name="NAME">foo</field>
+    <comment pinned="false" h="80" w="160">この関数の説明…</comment>
+    <statement name="DELTA">
+      <block type="controls_if_haskell" id="]{(#f|MdJL(iYJb8_47a">
+        <mutation elseif="2"></mutation>
+        <value name="IF0">
+          <block type="logic_compare" id="@vb$16Odq)ZBc,sXjN3~">
+            <field name="OP">GT</field>
+            <value name="A">
+              <block type="variables_get" id="T)K27!#)dU@(!JR$n$M">
+                <field name="VAR">i</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="math_number" id="q@eVtwDjqKH(hIM:[JQb">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="DO0">
+          <block type="procedures_call2" id="#k_axJXvI7sj;D2a3g}*">
+            <mutation name="square">
+              <arg name="引数1"></arg>
+            </mutation>
+            <value name="ARG0">
+              <block type="var_arithmetic" id="92eBI;llfhGTcly9zgd?">
+                <field name="OP">ADD</field>
+                <value name="A">
+                  <block type="variables_get" id=".pMg4216BsM-DtoU195U">
+                    <field name="VAR">i</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="math_number" id="CF,}E,Xh*)%+R]c^!0UU">
+                    <field name="NUM">1</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="IF1">
+          <block type="logic_compare" id="9DW@}JC](}1Q+hI8}/o%">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="variables_get" id="]JmX{yPZl#t+9x,L_et">
+                <field name="VAR">i</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="math_number" id="N^Re7tOS,Y)UY{$R0jmF">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="DO1">
+          <block type="procedures_call2" id="UgOcMWcuhJLoS=BOquH1">
+            <mutation name="square">
+              <arg name="引数1"></arg>
+            </mutation>
+            <value name="ARG0">
+              <block type="math_number" id="g#A(!hu7/LaFA#Pq^3=s">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="IF2">
+          <block type="logic_compare" id="|oodv9}5L_XiN)V9Zgdo">
+            <field name="OP">LT</field>
+            <value name="A">
+              <block type="variables_get" id=",-(oi}VQ06Om|+;P1-D">
+                <field name="VAR">i</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="math_number" id="9:nSM0R-tSZ=onEZE72">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="DO2">
+          <block type="procedures_call2" id="~|{#mdBc0%5}-PPxTZm">
+            <mutation name="square">
+              <arg name="引数1"></arg>
+            </mutation>
+            <value name="ARG0">
+              <block type="var_arithmetic" id="Td*AZ0H.?5y*0xV^%#T!">
+                <field name="OP">MINUS</field>
+                <value name="A">
+                  <block type="variables_get" id="7G8*#yaO!lNOx^N2F19}">
+                    <field name="VAR">i</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="math_number" id="-b|IT)9#Pjc(n]6$ptXm">
+                    <field name="NUM">1</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </statement>
+    <statement name="WHERE">
+      <block type="procedures_defreturn" id="|-mfHqn1!l|(hhU2EeH0">
+        <mutation statements="false">
+          <arg name="引数1"></arg>
+        </mutation>
+        <field name="NAME">square</field>
+        <comment pinned="false" h="80" w="160">この関数の説明…</comment>
+        <value name="DELTA">
+          <block type="var_arithmetic" id="Gk#!pZSwU:(WGf%(nc{3">
+            <field name="OP">MULTIPLY</field>
+            <value name="A">
+              <block type="variables_get" id="8Ual}Po.f-,NMF#Tdef!">
+                <field name="VAR">n</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="variables_get" id="Xy^wj]6=jADa6jCHJ{S{">
+                <field name="VAR">n</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="ARG0">
+          <block type="variables_get" id="_P^Q?dH;-eA^e[]1oa;2">
+            <field name="VAR">n</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+    <value name="ARG0">
+      <block type="variables_get" id="@q:t+/B]kwK.+%,n?Z.j">
+        <field name="VAR">i</field>
+      </block>
+    </value>
+  </block>
+  <block type="procedures_defreturn" id="(~.8+YAP=y]t74V35*/M" x="732" y="428">
+    <mutation>
+      <arg name="引数1"></arg>
+    </mutation>
+    <field name="NAME">square</field>
+    <comment pinned="false" h="80" w="160">この関数の説明…</comment>
+  </block>
+</xml>`;
+    loadBlocks(defaultXml);
+  }       
 }
 
 function loadBlocks(defaultXml) {

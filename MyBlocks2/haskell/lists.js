@@ -2,6 +2,7 @@
 17/12/13 新規作成
 18/01/10 内包表記ブロック ['inner_table'] 作成    192行目~
 18/01/10 ['lists_group'] ['lists_range'] 作成
+18/12/20 ['lists_connection'] 作成
  */
 
 /**
@@ -145,6 +146,133 @@ Blockly.Blocks['lists_container'] = {
   newQuote_: Blockly.Blocks['text'].newQuote_
 };
 
+// 18/12/20
+Blockly.Blocks['lists_connection'] = {
+  /**
+   * Block for creating a string made up of any number of elements of any type.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
+    this.setColour(Blockly.Blocks.lists.HUE);
+    this.itemCount_ = 2;
+    this.updateShape_();
+    this.setOutput(true);
+    this.setInputsInline(true);
+    this.setMutator(new Blockly.Mutator(['lists_create_join_item']));
+    this.setTooltip("リスト同士を結合できます。");
+  },
+  /**
+   * Create XML to represent number of text inputs.
+   * @return {!Element} XML storage element.
+   * @this Blockly.Block
+   */
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    container.setAttribute('items', this.itemCount_);
+    return container;
+  },
+  /**
+   * Parse XML to restore the text inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+  domToMutation: function(xmlElement) {
+    this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+    this.updateShape_();
+  },
+  /**
+   * Populate the mutator's dialog with this block's components.
+   * @param {!Blockly.Workspace} workspace Mutator's workspace.
+   * @return {!Blockly.Block} Root block in mutator.
+   * @this Blockly.Block
+   */
+  decompose: function(workspace) {
+    var containerBlock = workspace.newBlock('lists_create_join_container');
+    containerBlock.initSvg();
+    var connection = containerBlock.getInput('STACK').connection;
+    for (var i = 0; i < this.itemCount_; i++) {
+      var itemBlock = workspace.newBlock('lists_create_join_item');
+      itemBlock.initSvg();
+      connection.connect(itemBlock.previousConnection);
+      connection = itemBlock.nextConnection;
+    }
+    return containerBlock;
+  },
+  /**
+   * Reconfigure this block based on the mutator dialog's components.
+   * @param {!Blockly.Block} containerBlock Root block in mutator.
+   * @this Blockly.Block
+   */
+  compose: function(containerBlock) {
+    var itemBlock = containerBlock.getInputTargetBlock('STACK');
+    // Count number of inputs.
+    var connections = [];
+    while (itemBlock) {
+      connections.push(itemBlock.valueConnection_);
+      itemBlock = itemBlock.nextConnection &&
+          itemBlock.nextConnection.targetBlock();
+    }
+    // Disconnect any children that don't belong.
+    for (var i = 0; i < this.itemCount_; i++) {
+      var connection = this.getInput('ADD' + i).connection.targetConnection;
+      if (connection && connections.indexOf(connection) == -1) {
+        connection.disconnect();
+      }
+    }
+    this.itemCount_ = connections.length;
+    this.updateShape_();
+    // Reconnect any child blocks.
+    for (var i = 0; i < this.itemCount_; i++) {
+      Blockly.Mutator.reconnect(connections[i], this, 'ADD' + i);
+    }
+  },
+  /**
+   * Store pointers to any connected child blocks.
+   * @param {!Blockly.Block} containerBlock Root block in mutator.
+   * @this Blockly.Block
+   */
+  saveConnections: function(containerBlock) {
+    var itemBlock = containerBlock.getInputTargetBlock('STACK');
+    var i = 0;
+    while (itemBlock) {
+      var input = this.getInput('ADD' + i);
+      itemBlock.valueConnection_ = input && input.connection.targetConnection;
+      i++;
+      itemBlock = itemBlock.nextConnection &&
+          itemBlock.nextConnection.targetBlock();
+    }
+  },
+  /**
+   * Modify this block to have the correct number of inputs.
+   * @private
+   * @this Blockly.Block
+   */
+  updateShape_: function() {
+    if (this.itemCount_ && this.getInput('EMPTY')) {
+      this.removeInput('EMPTY');
+    } else if (!this.itemCount_ && !this.getInput('EMPTY')) {
+      this.appendDummyInput('EMPTY');
+    }
+    // Add new inputs.
+    for (var i = 0; i < this.itemCount_; i++) {
+      if (!this.getInput('ADD' + i)) {
+        var input = this.appendValueInput('ADD' + i);
+        if ( i > 0 ) {
+          input.appendField("++");
+        }
+      }
+    }
+    // Remove deleted inputs.
+    while (this.getInput('ADD' + i)) {
+      this.removeInput('ADD' + i);
+      i++;
+    }
+  },
+  newQuote_: Blockly.Blocks['text'].newQuote_
+};
+// 18/12/20 ここまで
+
 Blockly.Blocks['lists_create_join_container'] = {
   /**
    * Mutator block for container.
@@ -189,6 +317,22 @@ Blockly.Haskell['lists_container'] = function(block) {
   return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
   //return code + '\n';
 };
+
+// 18/12/20 
+Blockly.Haskell['lists_connection'] = function(block) {
+    // Call a procedure with a return value.
+  var args = [];
+  
+  for (var i = 0; i < block.itemCount_; i++) {
+    args[i] = Blockly.Haskell.valueToCode(block, 'ADD' + i,
+        Blockly.Haskell.ORDER_COMMA) || '_';
+  }
+  var code = '' + args.join(' ++ ') + ' ';
+  
+  //return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
+  return code + '\n';
+};
+// 18/12/20 ここまで
 
 // ↓ 内包表記ブロック //////////////////////////////////////////
 
@@ -408,3 +552,32 @@ Blockly.Haskell['lists_range'] = function(block) {
   return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
   //return code + '\n';
 };
+
+// 19/01/09
+Blockly.Blocks['lists_element'] = {
+
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
+    this.setColour(Blockly.Blocks.lists.HUE);
+    this.appendValueInput('VALUE');
+    this.appendDummyInput()
+        .appendField(" !! ");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldNumber('0'), 'NUM');
+    this.setOutput(true);
+    this.setInputsInline(true);
+    this.setTooltip("リストから指定されたN番目の要素を取り出します。");
+  }
+};
+
+Blockly.Haskell['lists_element'] = function(block) {
+  // String or array length.
+  var val = Blockly.Haskell.valueToCode(block, 'VALUE',
+        Blockly.Haskell.ORDER_COMMA) || '_';
+  var num = parseFloat(block.getFieldValue('NUM'));
+  var code = val + ' !! ' + num;
+  
+  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
+  //return code + '\n';
+};
+// 19/01/09 ここまで

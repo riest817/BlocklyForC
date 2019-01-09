@@ -3,6 +3,7 @@
 2017/12/05  Blockly.Haskell['procedures_defreturn'] Blockly.Haskell['procedures_callreturn'] 改良
 17/12/12    ['procedures_call'] 作成
 18/12/19  ['procedures_defreturn_statement'] 作成
+19/01/09  ['procedures_defreturn_where'] ['procedures_defreturn_statement_where'] 作成
  */
 'use strict';
 
@@ -154,6 +155,50 @@ Blockly.Haskell['procedures_defreturn_statement'] = function(block) {
   
   //return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
   return code + '\n';
-  
 };
 // 18/12/19 ここまで
+
+// 19/01/09 
+Blockly.Haskell['procedures_defreturn_where'] = function(block) {
+  // Call a procedure with a return value.
+  
+  var funcName = Blockly.Haskell.variableDB_.getName(
+      block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
+  var args = [];
+  
+  for (var i = 0; i < block.arguments_.length; i++) { 
+    args[i] = Blockly.Haskell.valueToCode(block, 'ARG' + i,
+        Blockly.Haskell.ORDER_COMMA) || '_';
+  }
+  var code = funcName + ' ' + args.join(' ') + ' = ';
+  code += Blockly.Haskell.valueToCode(block, 'DELTA',
+        Blockly.Haskell.ORDER_COMMA) || 'null';
+  var branch = Blockly.Haskell.statementToCode(block, 'WHERE');
+  code += '  where\n' + branch;
+  
+  //return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
+  return code + '\n';
+  
+};
+
+Blockly.Haskell['procedures_defreturn_statement_where'] = function(block) {
+  // Call a procedure with a return value.
+  
+  var funcName = Blockly.Haskell.variableDB_.getName(
+      block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
+  var args = [];
+  
+  for (var i = 0; i < block.arguments_.length; i++) { 
+    args[i] = Blockly.Haskell.valueToCode(block, 'ARG' + i,
+        Blockly.Haskell.ORDER_COMMA) || '_';
+  }
+  var code = funcName + ' ' + args.join(' ') + '\n';
+  code += Blockly.Haskell.statementToCode(block, 'DELTA',
+        Blockly.Haskell.ORDER_COMMA) || 'null';
+  var branch = Blockly.Haskell.statementToCode(block, 'WHERE');
+  code += '  where\n' + branch;
+  
+  //return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
+  return code + '\n';
+};
+// 19/01/09 ここまで

@@ -425,3 +425,5 @@ Blockly.Msg.TEXTS_HUE = "160";
 Blockly.Msg.PROCEDURES_HUE = "290";
 Blockly.Msg.COLOUR_HUE = "20";
 Blockly.Msg.HEADER = "60";
+
+Blockly.Msg.LISTS_element_TITLE_haskell = "!!";	// 19/01/09
