@@ -14,8 +14,8 @@ var Code = {};
 
 /** ↓　言語切り替えを↓*/
 Code.LANGUAGE_NAME = {
-  'concept': ' 日本語表記',
-  'grammar': 'Flex表記'
+  'grammar': 'Flex表記',
+  'concept': ' 日本語表記'
 };
 
 var MSG = {
@@ -74,7 +74,7 @@ Code.getLang = function() {
   var lang = Code.getStringParamFromUrl('lang', '');
   if (Code.LANGUAGE_NAME[lang] === undefined) {
     // Default to English.
-    lang = 'concept';
+    lang = 'grammar';
   }
   return lang;
 };
@@ -487,6 +487,6 @@ function languageMenu() {
 // Load the Code demo's language strings.
 //document.write('<script src="msg/' + Code.LANG + '.js"></script>\n');
 // Load Blockly's language strings.
-document.write('<script src="js/msg/' + Code.LANG + '.js"></script>\n');
+document.write('<script src="js/msg/flex/' + Code.LANG + '.js"></script>\n');
 
 window.addEventListener('load', Code.init);

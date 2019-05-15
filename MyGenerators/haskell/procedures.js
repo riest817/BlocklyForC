@@ -4,6 +4,7 @@
 17/12/12    ['procedures_call'] 作成
 18/12/19  ['procedures_defreturn_statement'] 作成
 19/01/09  ['procedures_defreturn_where'] ['procedures_defreturn_statement_where'] 作成
+19/01/15 ['procedures_single'] 作成
  */
 'use strict';
 
@@ -182,7 +183,6 @@ Blockly.Haskell['procedures_defreturn_where'] = function(block) {
 };
 
 Blockly.Haskell['procedures_defreturn_statement_where'] = function(block) {
-  // Call a procedure with a return value.
   
   var funcName = Blockly.Haskell.variableDB_.getName(
       block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
@@ -202,3 +202,21 @@ Blockly.Haskell['procedures_defreturn_statement_where'] = function(block) {
   return code + '\n';
 };
 // 19/01/09 ここまで
+
+// 19/01/15
+Blockly.Haskell['procedures_single'] = function(block) {
+
+  var funcName = Blockly.Haskell.variableDB_.getName(
+      block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
+  var args = [];
+  
+  for (var i = 0; i < block.arguments_.length; i++) { 
+    args[i] = Blockly.Haskell.valueToCode(block, 'ARG' + i,
+        Blockly.Haskell.ORDER_COMMA) || '_';
+  }
+  var code = funcName + ' ' + args.join(' ');
+  
+  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
+  //return code + '\n';
+};
+// 19/01/15 ここまで

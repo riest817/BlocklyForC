@@ -38,7 +38,7 @@ Blockly.Haskell['logic_compare'] = function(block) {
   // Comparison operator.
   var OPERATORS = {
     'EQ': '==',
-    'NEQ': '!=',
+    'NEQ': '/=',
     'LT': '<',
     'LTE': '<=',
     'GT': '>',
@@ -86,13 +86,15 @@ Blockly.Haskell['logic_negate'] = function(block) {
   var code = 'not ' + argument0;
   return [code, order];
 };
-/*
-Blockly.Haskell['logic_boolean'] = function(block) {
+
+// 19/02/13 
+Blockly.Haskell['logic_boolean_haskell'] = function(block) {
   // Boolean values true and false.
   var code = (block.getFieldValue('BOOL') == 'TRUE') ? 'true' : 'false';
   return [code, Blockly.Haskell.ORDER_ATOMIC];
 };
-*/
+// 19/02/13 ここまで
+
 Blockly.Haskell['logic_null'] = function(block) {
   // Null data type.
   return ['null', Blockly.Haskell.ORDER_ATOMIC];

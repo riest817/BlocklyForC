@@ -11,6 +11,65 @@ function sample(select) {
     var defaultXml =
     `<xml xmlns="http://www.w3.org/1999/xhtml">
   <variables></variables>
+  <block type="first_flex" id="G;(/oT-3~o!Jk|2}7Zfd" x="54" y="46">
+    <statement name="DO1">
+      <block type="regular_expression_connection" id="m*=n8S-hiWOb}*3y*]FD">
+        <value name="IF">
+          <block type="RE_connection_mutator" id="cVvbFEhyoQG.]7h5;t#z">
+            <mutation items="2"></mutation>
+            <value name="ADD0">
+              <block type="field_dropdown" id="x*.u4I;y^sGF96b[[e/">
+                <mutation options="[&quot;char&quot;]"></mutation>
+                <field name="CHAR0">hH</field>
+              </block>
+            </value>
+            <value name="ADD1">
+              <block type="RE_text0" id="fPR[x%#)AAl9=##%UHs">
+                <field name="TEXT">ello</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO">
+          <block type="printf" id="9pm47.Yj3E[DbO/|DtG8">
+            <field name="TEXT">Bonjour</field>
+          </block>
+        </statement>
+        <next>
+          <block type="regular_expression_connection" id="rkrLz,.p)E35UO]^+P:K">
+            <value name="IF">
+              <block type="RE_connection_or" id="$)L?qS0ZZ8]8$2}qU~~">
+                <value name="A">
+                  <block type="RE_text0" id="mwM:NCfgQa{4EjvHNhz">
+                    <field name="TEXT">.</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="RE_sequence" id="XY)Irm]V:a!:7pc*L:vy">
+                    <field name="MODE">n</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO">
+              <block type="echo" id="{oo,QMZ+YAAY!y}tG}zZ"></block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="DO2">
+      <block type="yylex" id="[N{M$!SQN/1bBEf/m8*N"></block>
+    </statement>
+  </block>
+</xml>`;
+    loadBlocks(defaultXml);
+  }    
+
+  if (select == 2 ) {
+    var defaultXml =
+    `<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables></variables>
   <block type="first_flex" id="gmZv+)E_uN3;~J7v{ps." x="91" y="19">
     <statement name="DO1">
       <block type="regular_expression_connection" id="V~$q#AR9j_?bj;h2!3eL">
@@ -103,7 +162,7 @@ function sample(select) {
   loadBlocks(defaultXml);
   }
 
-      if (select == 2 ) {
+      if (select == 0 ) {
     var defaultXml =
     `<xml xmlns="http://www.w3.org/1999/xhtml">
   <variables></variables>
@@ -315,7 +374,7 @@ function sample(select) {
   }
   
 
-  if (select == 4 ) {
+  if (select == 5 ) {
     var defaultXml =
     `<xml xmlns="http://www.w3.org/1999/xhtml">
   <variables></variables>
@@ -426,12 +485,7 @@ function sample(select) {
 </xml>`;
     loadBlocks(defaultXml);
   }  
-
-  if (select == 5 ) {
-    var defaultXml =
-    ``;
-    loadBlocks(defaultXml);
-  }      
+  
 }
 
 function loadBlocks(defaultXml) {

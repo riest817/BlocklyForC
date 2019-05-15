@@ -12,7 +12,7 @@ Blockly.Blocks['output_text'] = {
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("出力")
+        .appendField(Blockly.Msg.output_text)
         .appendField(this.newQuote_(true))
         .appendField(new Blockly.FieldTextInput(''), 'TEXT')
         .appendField(this.newQuote_(false));
@@ -57,7 +57,7 @@ Blockly.Haskell['output_text'] = function(block) {
 Blockly.Blocks['output_var'] = {
   init: function() {
     this.setColour(0);
-    this.jsonInit({ "message0": "出力" });
+    this.jsonInit({ "message0": Blockly.Msg.output_var });
     this.appendValueInput('B');
     this.setInputsInline(true);
     this.setPreviousStatement(true);  // 上部との接続を可能にする
@@ -77,6 +77,32 @@ Blockly.Haskell['output_var'] = function(block) {
   return code;
 };
 
+// 19/01/15
+Blockly.Blocks['output_var2'] = {
+  init: function() {
+    this.setColour(0);
+    this.jsonInit({ "message0": Blockly.Msg.output_var2 });
+    this.appendValueInput('B');
+    this.setInputsInline(true);
+    this.setPreviousStatement(false);  // 上部との接続を可能にする
+    this.setNextStatement(false);      // 下部との接続を可能にする
+    this.setOutput(true);
+    this.setTooltip("変数の出力");
+  }
+};
+
+Blockly.Haskell['output_var2'] = function(block) {
+  var dropdown_type = block.getFieldValue('TYPE');
+  var value_b = Blockly.Haskell.valueToCode(block, 'B', Blockly.Haskell.ORDER_ATOMIC);
+  //var varName = Blockly.C.variableDB_.getName(
+  //              block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  var code = 'print ';
+  
+  code += value_b + '\n';
+  return code;
+};
+// 19/01/15 ここまで
+
 // 18/12/12 追加
 Blockly.Blocks['string'] = {
   /**
@@ -87,7 +113,7 @@ Blockly.Blocks['string'] = {
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
     this.setColour(0);
     this.appendDummyInput()
-        //.appendField("文字列")
+        .appendField(Blockly.Msg.output_string)
         .appendField(this.newQuote_(true))
         .appendField(new Blockly.FieldTextInput(''), 'TEXT')
         .appendField(this.newQuote_(false));

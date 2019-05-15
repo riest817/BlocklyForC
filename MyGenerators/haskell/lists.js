@@ -18,7 +18,7 @@ Blockly.Haskell['lists_create_empty'] = function(block) {
   return ['[]', Blockly.Haskell.ORDER_ATOMIC];
 };
 
-Blockly.Haskell['lists_create_with'] = function(block) {
+Blockly.Haskell['lists_create_with_haskell'] = function(block) {  // 19/01/30 名称変更
   // Create a list with any number of elements of any type.
   var elements = new Array(block.itemCount_);
   for (var i = 0; i < block.itemCount_; i++) {
@@ -49,14 +49,14 @@ Blockly.Haskell['lists_repeat'] = function(block) {
   return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
 };
 
-Blockly.Haskell['lists_length'] = function(block) {
+Blockly.Haskell['lists_length_haskell'] = function(block) {
   // String or array length.
   var list = Blockly.Haskell.valueToCode(block, 'VALUE',
       Blockly.Haskell.ORDER_MEMBER) || '[]';
   return ['length ' + list , Blockly.Haskell.ORDER_MEMBER];
 };
 
-Blockly.Haskell['lists_isEmpty'] = function(block) {
+Blockly.Haskell['lists_isEmpty_haskell'] = function(block) {
   // Is the string null or array empty?
   var list = Blockly.Haskell.valueToCode(block, 'VALUE',
       Blockly.Haskell.ORDER_MEMBER) || '[]';

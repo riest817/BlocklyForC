@@ -159,9 +159,9 @@
     <!--block type="RE_new_line"></block-->	<!-- 180621 コメントアウト-->
     <!--block type="RE_tab"></block-->	<!-- 180621 コメントアウト-->
     <block type="RE_sequence"></block>	<!-- 180621 作成-->
-    <block type="RE_connection"></block>
+    <!--block type="RE_connection"--></block>  <!-- 190514 コメントアウト-->
     <block type="RE_connection_mutator"></block>  <!-- 180607 エラー解決? -->
-    <block type="RE_connection_or"></block>
+    <!--block type="RE_connection_or"--></block>  <!-- 190514 コメントアウト-->
     <block type="RE_connection_or_mutator"></block>  <!-- 181011 新規 -->
     <block type="RE_repetition"></block>
     <!--block type="RE_minimum_match"></block-->
@@ -214,13 +214,15 @@
                   <td data-step="4" data-intro="このボタンをクリックして、サンプルブロックを組み立てます。"><input type="button" value="サンプル1" class = "sample" id = "sample1" style="font-size: 0.8em;" onclick="sample(1);"/></td>
                   <td><input type="button" value="サンプル2" class = "sample" id = "sample2" style="font-size: 0.8em;" onclick="sample(2);"/></td>
                   <td><input type="button" value="サンプル3" class = "sample" id = "sample3" style="font-size: 0.8em;" onclick="sample(3);"/></td>
-                  <td><input type="button" value="サンプル4" class = "sample" id = "sample4" style="font-size: 0.8em;" onclick="sample(4);"/></td>
-                  
               </form>
             <td class="tabmin">&nbsp;</td>
             <td class="farSide">
               <select id="languageMenu" onclick="languageMenu()"></select>
             </td>  
+            <td class="tabmin">&nbsp;</td>
+            <td id="farSide" class="taboff" style="white-space:nowrap;" data-step="8" data-intro="このシステムの使い方を知りたい場合はこちらをクリックします。">
+              <a href="html/tutorial/tutorial.html" target="_blank">このシステムの使い方について</a> <!-- 19/05/13 追加 -->
+            </td>
             <!-- 18/04/17 追加ここまで -->
             
             <td class="tabmax">

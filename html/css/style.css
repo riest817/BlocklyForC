@@ -844,3 +844,8 @@ img.fr,img.fl {float: none;margin: 0;width: 100%;}
 .fl-half{float:none;width:100%;margin-left:0;}
 
 }
+
+/*画像配置 19/05/14 追加*/
+.pleft  {margin-left: 10px; width:300px; height:330px;  border: 1px #ffa500 solid;}
+.pleft4  {margin-left: 10px; width:300px; height:240px;  border: 1px #ffa500 solid;}
+.pleft0  {border: 1px #ffa500 solid;}

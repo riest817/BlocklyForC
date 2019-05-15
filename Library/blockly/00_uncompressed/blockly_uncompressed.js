@@ -26937,7 +26937,7 @@ goog.dom.TagIterator.prototype.next = function () {
                             Blockly.duplicate_(b)
                         },
                         enabled : !0,
-                        text    : Blockly.Msg.DUPLICATE_BLOCK
+                        text    : Blockly.Msg.DUPLICATE_BLOCK　/*複製*/
                     };
                     this
                         .getDescendants()
@@ -26949,6 +26949,7 @@ goog.dom.TagIterator.prototype.next = function () {
                         d = {
                             enabled: !goog.userAgent.IE
                         },
+                        /*コメント追加*/
                         this.comment
                             ? (d.text = Blockly.Msg.REMOVE_COMMENT, d.callback = function () {
                                 b.setCommentText(null)
@@ -26959,6 +26960,7 @@ goog.dom.TagIterator.prototype.next = function () {
                         c.push(d)
                     );
                     if (!this.collapsed_) 
+                        /*
                         for (d = 1; d < this.inputList.length; d++) 
                             if (this.inputList[d - 1].type != Blockly.NEXT_STATEMENT && this.inputList[d].type != Blockly.NEXT_STATEMENT) {
                                 var d = {
@@ -26966,23 +26968,56 @@ goog.dom.TagIterator.prototype.next = function () {
                                     },
                                     e = this.getInputsInline();
                                 d.text     = e
-                                    ? Blockly.Msg.EXTERNAL_INPUTS
-                                    : Blockly.Msg.INLINE_INPUTS;
+                                    ? Blockly.Msg.EXTERNAL_INPUTS   //外部入力
+                                    : Blockly.Msg.INLINE_INPUTS;    //インライン入力
                                 d.callback = function () {
                                     b.setInputsInline(!e)
                                 };
                                 c.push(d);
                                 break
                             }
+                        */
+                        for (d = 1; d < this.inputList.length; d++) 
+                            if (this.inputList[d - 1].type != Blockly.NEXT_STATEMENT && this.inputList[d].type != Blockly.NEXT_STATEMENT) {
+                                var d = {
+                                        enabled: !0
+                                    },
+                                    // 初期はステイトメントか変数か
+                                    e = true;
+                                    console.log(this.getNextBlock());
+                                d.text     = e
+                                    ? "ステイトメント化"   //
+                                    : "変数化";    //
+                                d.callback = function () {
+                                    if (e) {
+                                        // ステイトメント化
+                                        b.setPreviousStatement(true);
+                                        b.setNextStatement(true);
+                                        b.setOutput(false);
+                                        e = false;
+                                    } else {   
+                                        // 変数化
+                                        b.setOutput(true); 
+                                        b.setPreviousStatement(false);
+                                        b.setNextStatement(false);
+                                        e = true;
+                                    }
+                                };
+                                c.push(d);
+                                break
+                            }
+
                         this.workspace.options.collapse && (
                         this.collapsed_
                             ? (d = {
                                 enabled: !0
+                                /*ブロックを展開する*/
                             }, d.text = Blockly.Msg.EXPAND_BLOCK, d.callback = function () {
                                 b.setCollapsed(!1)
                             })
                             : (d = {
                                 enabled: !0
+                                /*ブロックを折りたたむ*/
                             }, d.text = Blockly.Msg.COLLAPSE_BLOCK, d.callback = function () {
                                 b.setCollapsed(!0)
                             }),
@@ -26994,8 +27029,8 @@ goog.dom.TagIterator.prototype.next = function () {
                         },
                         enabled : !this.getInheritedDisabled(),
                         text    : this.disabled
-                            ? Blockly.Msg.ENABLE_BLOCK
-                            : Blockly.Msg.DISABLE_BLOCK
+                            ? Blockly.Msg.ENABLE_BLOCK  /*ブロックを有効にする*/
+                            : Blockly.Msg.DISABLE_BLOCK /*ブロックを無効にする*/
                     }, c.push(d));
                     var d = this
                             .getDescendants()
@@ -27014,6 +27049,7 @@ goog.dom.TagIterator.prototype.next = function () {
                         },
                         enabled : !0,
                         text    : 1 == d
+                            /*ブロックを削除*/
                             ? Blockly.Msg.DELETE_BLOCK
                             : Blockly
                                 .Msg
@@ -27029,6 +27065,7 @@ goog.dom.TagIterator.prototype.next = function () {
                             : !this.helpUrl
                     )
                 };
+                /*ヘルプ*/
                 d.text     = Blockly.Msg.HELP;
                 d.callback = function () {
                     b.showHelp_()

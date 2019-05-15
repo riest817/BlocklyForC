@@ -487,6 +487,6 @@ function languageMenu() {
 // Load the Code demo's language strings.
 //document.write('<script src="msg/' + Code.LANG + '.js"></script>\n');
 // Load Blockly's language strings.
-document.write('<script src="js/msg/' + Code.LANG + '.js"></script>\n');
+document.write('<script src="js/msg/c/' + Code.LANG + '.js"></script>\n');
 
 window.addEventListener('load', Code.init);
