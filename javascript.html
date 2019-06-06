@@ -4,6 +4,7 @@
 2017/11/14 各言語の html ファイルの共通する関数群を common2.js に移動
 18/01/23  正常に動作するように修復
 18/06/13 概念と文法の切り替えタブ追加
+19/06/06 バージョンアップ
 -->
 
 <!DOCTYPE html>
@@ -44,11 +45,13 @@
 <!-- 追加 -->
 <script src="MyBlocks2/output_auto.js"></script>  <!-- (18/02/05 追加)-->
 
+<script type="text/javascript" src="js/sample_button/javascript.js"></script>  <!-- (2017/10/19 追加)-->
 <script src="MyBlocks2/javascript/math.js"></script> 
 <script src="js/sample_button/javascript.js"></script>  <!-- (2017/10/19 追加)-->
 <script src="js/cookie.js"></script>  <!-- (2017/11/14 追加)-->
 <script src="js/common2.js"></script>  <!-- (2018/06/13 追加)-->
 <script src="js/code/code_javascript.js"></script>  <!-- (18/06/13)-->
+<script src="myflyout.js"></script> <!-- code_javascript.js より後(19/06/06)  -->
 
 <link rel="stylesheet"
       href="Library/introjs.css"/>
@@ -491,6 +494,8 @@
 <pre id="contentJavaScript" class="content"></pre>
 <textarea id="contentXml" class="content" wrap="off"></textarea>
 <script>
+// 19/06/06 コメントアウト
+/*
 var tabs = ["Blocks", "JavaScript", "Xml"];
 var selected = tabs[0];
 var draw;
@@ -531,10 +536,8 @@ function renderContent(clickedName) {
     content.html(code);
   } 
 }
-
+*/
 </script>
-
-<script type="text/javascript" src="js/sample_button/javascript.js"></script>  <!-- (2017/10/19 追加)-->
 
 <!-- Global site tag (gtag.js) - Google Analytics (2017/10/12 追加)-->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107589514-3"></script>

@@ -14,6 +14,8 @@ goog.require('Blockly.Generator');
  */
 Blockly.Haskell = new Blockly.Generator('Haskell');
 
+Blockly.Haskell.INDENT = '';  // 19/06/06
+
 /**
  * List of illegal variable names.
  * This is not intended to be a security feature.  Blockly is 100% client-side,

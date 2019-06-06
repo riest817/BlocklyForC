@@ -45,9 +45,9 @@ Blockly.Blocks['operation'] = {
         .appendField("動作")
         .appendField(new Blockly.FieldTextInput(''), 'TEXT')
         .appendField("");
-    this.setOutput(true, 'String');		// 左部との接続を可能にする
-    //this.setPreviousStatement(true);  // 上部との接続を可能にする
-    //this.setNextStatement(true);      // 下部との接続を可能にする
+//    this.setOutput(true, 'String');		// 左部との接続を可能にする
+    this.setPreviousStatement(true);  // 上部との接続を可能にする
+    this.setNextStatement(true);      // 下部との接続を可能にする
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     // Text block is trivial.  Use tooltip of parent block if it exists.

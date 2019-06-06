@@ -1,30 +1,6 @@
 /**
- * @license
- * Visual Blocks Language
- *
- * Copyright 2012 Google Inc.
- * https://developers.google.com/blockly/
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/**
- * @fileoverview Helper functions for generating Flex for blocks.
- * @author fraser@google.com (Neil Fraser)
- */
- 
-/**
 2017/09/02 flex.js 新規作成
+19/05/29  香川先生修正
  */
 'use strict';
 
@@ -35,9 +11,10 @@ goog.require('Blockly.Generator');
 
 /**
  * Flex code generator.
- * @type {!Blockly.Generator}
- */
+ * @type {!Blockly.Generator} */
 Blockly.Flex = new Blockly.Generator('Flex');
+
+Blockly.Flex.INDENT = '';
 
 /**
  * List of illegal variable names.
@@ -75,36 +52,39 @@ Blockly.Flex.addReservedWords(
  * https://developer.mozilla.org/en/Flex/Reference/Operators/Operator_Precedence
  */
 Blockly.Flex.ORDER_ATOMIC = 0;           // 0 "" ...
-Blockly.Flex.ORDER_NEW = 1.1;            // new
-Blockly.Flex.ORDER_MEMBER = 1.2;         // . []
-Blockly.Flex.ORDER_FUNCTION_CALL = 2;    // ()
-Blockly.Flex.ORDER_INCREMENT = 3;        // ++
-Blockly.Flex.ORDER_DECREMENT = 3;        // --
-Blockly.Flex.ORDER_BITWISE_NOT = 4.1;    // ~
-Blockly.Flex.ORDER_UNARY_PLUS = 4.2;     // +
-Blockly.Flex.ORDER_UNARY_NEGATION = 4.3; // -
-Blockly.Flex.ORDER_LOGICAL_NOT = 4.4;    // !
-Blockly.Flex.ORDER_TYPEOF = 4.5;         // typeof
-Blockly.Flex.ORDER_VOID = 4.6;           // void
-Blockly.Flex.ORDER_DELETE = 4.7;         // delete
-Blockly.Flex.ORDER_DIVISION = 5.1;       // /
-Blockly.Flex.ORDER_MULTIPLICATION = 5.2; // *
-Blockly.Flex.ORDER_MODULUS = 5.3;        // %
-Blockly.Flex.ORDER_SUBTRACTION = 6.1;    // -
-Blockly.Flex.ORDER_ADDITION = 6.2;       // +
-Blockly.Flex.ORDER_BITWISE_SHIFT = 7;    // << >> >>>
-Blockly.Flex.ORDER_RELATIONAL = 8;       // < <= > >=
-Blockly.Flex.ORDER_IN = 8;               // in
-Blockly.Flex.ORDER_INSTANCEOF = 8;       // instanceof
-Blockly.Flex.ORDER_EQUALITY = 9;         // == != === !==
-Blockly.Flex.ORDER_BITWISE_AND = 10;     // &
-Blockly.Flex.ORDER_BITWISE_XOR = 11;     // ^
-Blockly.Flex.ORDER_BITWISE_OR = 12;      // |
-Blockly.Flex.ORDER_LOGICAL_AND = 13;     // &&
-Blockly.Flex.ORDER_LOGICAL_OR = 14;      // ||
-Blockly.Flex.ORDER_CONDITIONAL = 15;     // ?:
-Blockly.Flex.ORDER_ASSIGNMENT = 16;      // = += -= *= /= %= <<= >>= ...
-Blockly.Flex.ORDER_COMMA = 17;           // ,
+//Blockly.Flex.ORDER_NEW = 1.1;            // new
+//Blockly.Flex.ORDER_MEMBER = 1.2;         // . []
+//Blockly.Flex.ORDER_FUNCTION_CALL = 2;    // ()
+//Blockly.Flex.ORDER_INCREMENT = 3;        // ++
+//Blockly.Flex.ORDER_DECREMENT = 3;        // --
+Blockly.Flex.ORDER_REPEAT    = 4;        // * + ?
+//Blockly.Flex.ORDER_BITWISE_NOT = 4.1;    // ~
+//Blockly.Flex.ORDER_UNARY_PLUS = 4.2;     // +
+//Blockly.Flex.ORDER_UNARY_NEGATION = 4.3; // -
+//Blockly.Flex.ORDER_LOGICAL_NOT = 4.4;    // !
+//Blockly.Flex.ORDER_TYPEOF = 4.5;         // typeof
+//Blockly.Flex.ORDER_VOID = 4.6;           // void
+//Blockly.Flex.ORDER_DELETE = 4.7;         // delete
+Blockly.Flex.ORDER_SEQUENCE = 5;          // 
+//Blockly.Flex.ORDER_DIVISION = 5.1;       // /
+//Blockly.Flex.ORDER_MULTIPLICATION = 5.2; // *
+//Blockly.Flex.ORDER_MODULUS = 5.3;        // %
+Blockly.Flex.ORDER_SELECT = 6;             // | 
+//Blockly.Flex.ORDER_SUBTRACTION = 6.1;    // -
+//Blockly.Flex.ORDER_ADDITION = 6.2;       // +
+//Blockly.Flex.ORDER_BITWISE_SHIFT = 7;    // << >> >>>
+//Blockly.Flex.ORDER_RELATIONAL = 8;       // < <= > >=
+//Blockly.Flex.ORDER_IN = 8;               // in
+//Blockly.Flex.ORDER_INSTANCEOF = 8;       // instanceof
+//Blockly.Flex.ORDER_EQUALITY = 9;         // == != === !==
+//Blockly.Flex.ORDER_BITWISE_AND = 10;     // &
+//Blockly.Flex.ORDER_BITWISE_XOR = 11;     // ^
+//Blockly.Flex.ORDER_BITWISE_OR = 12;      // |
+//Blockly.Flex.ORDER_LOGICAL_AND = 13;     // &&
+//Blockly.Flex.ORDER_LOGICAL_OR = 14;      // ||
+//Blockly.Flex.ORDER_CONDITIONAL = 15;     // ?:
+//Blockly.Flex.ORDER_ASSIGNMENT = 16;      // = += -= *= /= %= <<= >>= ...
+//Blockly.Flex.ORDER_COMMA = 17;           // ,
 Blockly.Flex.ORDER_NONE = 99;            // (...)
 
 /**

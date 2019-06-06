@@ -4,15 +4,17 @@
 2017/11/01 sampleボタンの実行
 2017/11/14 各言語の html ファイルの共通する関数群を common2.js に移動
 18/04 概念と文法の切り替えタブ追加
+19/06/06 バージョンアップ
 -->
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Blockly for Flex</title>
-<div id="title" title="Flex"></div>  <!-- (18/06/12 追加)-->
 <link rel="shortcut icon" href="favicon.png" type="image/png"/>
 <!--  解凍ファイルを追加  18/04/05 -->
-<script src="Library/blockly/00_uncompressed/blockly_uncompressed2.js"></script><!-- 18/09/12-->
+<!--<script src="Library/blockly/00_uncompressed/blockly_uncompressed2.js"></script>--><!-- 18/09/12-->
+<script src="Library/blockly/blockly_compressed.js"></script>
+<script src="Library/blockly/blocks_compressed.js"></script>
 <!--script src="Library/blockly/00_uncompressed/blockly_uncompressed.js"></script-->
 <!--script src="Library/blockly/00_uncompressed/blocks_uncompressed.js"></script-->
 <!--  圧縮ファイルをコメントアウト  18/04/05 -->
@@ -28,11 +30,9 @@
 <script src="MyGenerators/flex/function.js"></script>  
 <script src="MyGenerators/flex/output.js"></script> 
 
-<!-- -->
-<script src="Library/blockly/demos/prettify.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 <script src="Library/blockly/msg/js/ja.js"></script>
 <script src="Library/blockly/appengine/storage.js"></script>
-<link rel="stylesheet" type="text/css" href="Library/blockly/demos/prettify.css">
 
 <!--link rel="stylesheet" type="text/css" href="css/style.css"-->
 <!-- <script src="myFlexBlocks.js"></script> -->
@@ -43,16 +43,17 @@
 <script src="MyBlocks2/flex/control.js"></script> 
 <script src="MyBlocks2/flex/regular_expression.js"></script> 
 <script src="MyBlocks2/flex/operation.js"></script> 
-<script src="MyBlocks2/flex/definition.js"></script> 
+<!--<script src="MyBlocks2/flex/definition.js"></script> -->
 <script src="MyBlocks2/flex/function.js"></script> 
 <script src="MyBlocks2/flex/RE_mutator.js"></script> 
 <script src="MyBlocks2/flex/output.js"></script> 
 
 <script type="text/javascript" src="js/sample_button/flex.js"></script>  <!-- (2017/10/19 追加)-->
-<script src="js/cookie.js"></script>  <!-- (2017/11/14 追加)-->
-<script src="js/common2.js"></script>  <!-- (2017/11/14 追加)-->
-<script src="js/code/code_flex.js"></script>  <!-- (18/04/24)-->
+<!-- <script src="js/cookie.js"></script> --> <!-- (2017/11/14 追加)-->
 
+<script src="js/common2.js"></script>   <!-- (2017/11/14 追加)-->
+<script src="js/code/code_flex.js"></script>  <!-- (18/04/24)-->
+<script src="myflyout.js"></script> <!-- code_flex.js より後(19/05/29)  -->
 <link rel="stylesheet" href="Library/introjs.css"/>
 <style>
     html, body {
@@ -136,7 +137,6 @@
       border-color: #aaaacc #444466 #444466 #aaaacc;
     }
 </style>
-
 </head>
 <body>
 <xml id="toolbox" style="display: none">
@@ -153,26 +153,27 @@
     <block type="field_dropdown_not"></block> <!-- 180719 作成-->
     <!--block type="RE_not_any_one"></block-->
     <!--block type="RE_not_any_one_mutator"></block-->	<!-- 180621 作成-->
-    <block type="RE_from_to"></block>
-    <block type="RE_from_to_0"></block>
+<!--    <block type="RE_from_to"></block> -->
+<!--    <block type="RE_from_to_0"></block> -->
     <!--block type="RE_anything"></block-->	<!-- 180918 コメントアウト-->
     <!--block type="RE_new_line"></block-->	<!-- 180621 コメントアウト-->
     <!--block type="RE_tab"></block-->	<!-- 180621 コメントアウト-->
     <block type="RE_sequence"></block>	<!-- 180621 作成-->
-    <!--block type="RE_connection"--></block>  <!-- 190514 コメントアウト-->
+    <!--block type="RE_connection"></block-->  <!-- 190514 コメントアウト-->
     <block type="RE_connection_mutator"></block>  <!-- 180607 エラー解決? -->
-    <!--block type="RE_connection_or"--></block>  <!-- 190514 コメントアウト-->
+    <!--block type="RE_connection_or"></block-->  <!-- 190514 コメントアウト-->
     <block type="RE_connection_or_mutator"></block>  <!-- 181011 新規 -->
     <block type="RE_repetition"></block>
     <!--block type="RE_minimum_match"></block-->
+<!--    <block type="RE_priority"></block>-->    <!-- 190520 新規 -->
   </category>
   <category name="動作" colour="210">
     <block type="regular_expression_connection"></block>
     <block type="operation"></block>
   </category>
-  <category name="定義" colour="65">
-    <block type="declaration"></block>
-    <block type="use"></block>
+  <category name="定義" custom="REGULAR_EXPRESSION_NAME" colour="65">
+<!--    <block type="declaration"></block>
+    <block type="use"></block>-->
   </category>
   <category name="関数" colour="290">
     <block type="yylex"></block>
@@ -184,20 +185,20 @@
     <block type="echo"></block>
   </category>
   <sep></sep>
-  <sep></sep>
-  <category name="自作" colour="500">
-    <block type="select"></block>
+<!--  <sep></sep> -->
+<!--  <category name="自作" colour="500">
+    <block type="select"></block>-->
     <!--block type="RE_from_to2"></block-->
     <!--block type="RE_from_to3"></block-->
-  </category>
+<!--  </category>-->
   
-  <sep></sep>
-  <sep></sep>
+<!--  <sep></sep> -->
+<!--  <sep></sep> -->
 
 </xml>
 
 <xml id="startBlocks" style="display: none;"></xml>
-
+<div id="title" title="Flex" style="display: none;"></div>  <!-- (18/06/12 追加) -->
 <table>
 <tr>
     <td>
@@ -210,11 +211,11 @@
             <td id="tabXml" class="taboff" style="font-family:'Segoe UI Emoji'; white-space:nowrap;" data-step="3" data-intro="このタブをクリックして、XMLコードを表示します。">XML</td>
             <td class="tabmin">&nbsp;</td>
             <!-- 18/04/17 追加 -->
-              <form>
+<!--              <form> -->
                   <td data-step="4" data-intro="このボタンをクリックして、サンプルブロックを組み立てます。"><input type="button" value="サンプル1" class = "sample" id = "sample1" style="font-size: 0.8em;" onclick="sample(1);"/></td>
                   <td><input type="button" value="サンプル2" class = "sample" id = "sample2" style="font-size: 0.8em;" onclick="sample(2);"/></td>
                   <td><input type="button" value="サンプル3" class = "sample" id = "sample3" style="font-size: 0.8em;" onclick="sample(3);"/></td>
-              </form>
+<!--              </form> -->
             <td class="tabmin">&nbsp;</td>
             <td class="farSide">
               <select id="languageMenu" onclick="languageMenu()"></select>
@@ -249,11 +250,12 @@
 <pre id="contentFlex" class="content"></pre>
 <textarea id="contentXml" class="content" wrap="off"></textarea>
 <script>
-var tabs = ["Blocks", "Flex", "Xml"];
-var selected = tabs[0];
-var draw;
-var workspace = null;
+// 19/05/29 香川先生修正
+// var selected = tabs[0];
+// var draw;
+// var workspace = null;
 
+/* 
 function onResize() {
 
     var area = $("#blocklyArea");
@@ -269,9 +271,9 @@ function onResize() {
        div.offset(offset);
     }
 }
-
 $(window).on('load resize', onResize);
-
+*/
+/*
 function renderContent(clickedName) {
 
   var content = $("#content" + clickedName);  // 問題あり(18/05/10)
@@ -285,10 +287,11 @@ function renderContent(clickedName) {
 
     // TODO: CodeMirror
     code = content.html();
-    code = prettyPrintOne(code, 'js');
+    code = PR.prettyPrintOne(code, 'js');
     content.html(code);
   } 
 }
+*/
 
 </script>
 

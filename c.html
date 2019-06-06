@@ -3,6 +3,7 @@
 2017/10/31 function GetCookies() 追加
 2017/11/14 各言語の html ファイルの共通する関数群を common2.js に移動
 18/05/08 概念と文法の切り替えタブ追加
+19/06/06 バージョンアップ
 -->
 
 <!DOCTYPE html>
@@ -50,10 +51,12 @@
 <script src="MyBlocks2/c/header.js"></script> 
 <script src="MyBlocks2/c/loops.js"></script> 
 
+<script type="text/javascript" src="js/sample_button/c.js"></script>  <!-- (2017/10/19 追加)-->
 <script src="js/sample_button/c.js"></script>  <!-- (2017/10/19 追加)-->
 <script src="js/cookie.js"></script>  <!-- (2017/11/14 追加)-->
 <script src="js/common2.js"></script>  <!-- (2017/11/14 追加)-->
 <script src="js/code/code_c.js"></script>  <!-- (18/05/08)-->
+<script src="myflyout.js"></script> <!-- code_c.js より後(19/06/06)  -->
 
 <link rel="stylesheet"
       href="Library/introjs.css"/>
@@ -465,6 +468,8 @@
 <pre id="contentC" class="content"></pre>
 <textarea id="contentXml" class="content" wrap="off"></textarea>
 <script>
+// 19/06/06 コメントアウト
+/*
 var tabs = ["Blocks", "C", "Xml"];
 var selected = tabs[0];
 var draw;
@@ -503,7 +508,7 @@ function renderContent(clickedName) {
     content.html(code);
   } 
 }
-
+*/
 </script>
 
 <!-- Global site tag (gtag.js) - Google Analytics (2017/10/12 追加)-->

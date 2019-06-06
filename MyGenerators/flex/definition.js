@@ -8,18 +8,15 @@ goog.provide('Blockly.Flex.definition');
 goog.require('Blockly.Flex');
 
 
-Blockly.Flex['declaration'] = function(block) {
-
-  var text = block.getFieldValue('TEXT');
-  var element = Blockly.Flex.statementToCode(block, 'A');
-  return text + element;
-
+Blockly.Flex['re_name_def'] = function(block) {
+  var text = block.getFieldValue('NAME');
+  var element = Blockly.Flex.valueToCode(block, 'A', Blockly.Flex.ORDER_NONE);
+  return text + " " + element;
 };
 
 
-Blockly.Flex['use'] = function(block) {
-  // 未完成 2017/08/29
-  var text = block.getFieldValue('TEXT');
+Blockly.Flex['re_name_use'] = function(block) {
+  var text = block.getFieldValue('NAME');
   var code = '{' + text + '}';
-  return code;
+  return [code, Blockly.Flex.ORDER_ATOMIC];
 };

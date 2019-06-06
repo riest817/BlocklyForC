@@ -3,9 +3,9 @@
 function sample(select) {
   var q = window.confirm("編集したブロックを捨てて、サンプルブロックを表示します。よろしいですか？");
   if (!q) return;
-  workspace.clear();
+//  workspace.clear();
   Code.workspace.clear();   // 18/05/16
-  window.location.reload(true); // 18/05/16
+  //window.location.reload(true); // 18/05/16
 
   if (select == 1 ) {
     var defaultXml =
@@ -38,13 +38,14 @@ function sample(select) {
         <next>
           <block type="regular_expression_connection" id="rkrLz,.p)E35UO]^+P:K">
             <value name="IF">
-              <block type="RE_connection_or" id="$)L?qS0ZZ8]8$2}qU~~">
-                <value name="A">
+              <block type="RE_connection_or_mutator" id="$)L?qS0ZZ8]8$2}qU~~">
+                <mutation items="2"></mutation>
+                <value name="ADD0">
                   <block type="RE_text0" id="mwM:NCfgQa{4EjvHNhz">
                     <field name="TEXT">.</field>
                   </block>
                 </value>
-                <value name="B">
+                <value name="ADD1">
                   <block type="RE_sequence" id="XY)Irm]V:a!:7pc*L:vy">
                     <field name="MODE">n</field>
                   </block>
@@ -134,11 +135,12 @@ function sample(select) {
             <next>
               <block type="regular_expression_connection" id="3D+7aa6kusI8/u/pQ~XW">
                 <value name="IF">
-                  <block type="RE_connection_or" id="];|g8rP#Q)K3MUBB4j]?">
-                    <value name="A">
+                  <block type="RE_connection_or_mutator" id="];|g8rP#Q)K3MUBB4j]?">
+                    <mutation items="2"></mutation>
+                    <value name="ADD0">
                       <block type="RE_anything" id=")SZn)JM6flNx:s7RPk9n"></block>
                     </value>
-                    <value name="B">
+                    <value name="ADD1">
                       <block type="RE_sequence" id="6d{MMv2CNsKDIO-_3FM">
                         <field name="MODE">n</field>
                       </block>
@@ -230,11 +232,12 @@ function sample(select) {
             <next>
               <block type="regular_expression_connection" id="3D+7aa6kusI8/u/pQ~XW">
                 <value name="IF">
-                  <block type="RE_connection_or" id="];|g8rP#Q)K3MUBB4j]?">
-                    <value name="A">
+                  <block type="RE_connection_or_mutator" id="];|g8rP#Q)K3MUBB4j]?">
+                    <mutation items="2"></mutation>
+                    <value name="ADD0">
                       <block type="RE_anything" id=")SZn)JM6flNx:s7RPk9n"></block>
                     </value>
-                    <value name="B">
+                    <value name="ADD1">
                       <block type="RE_sequence" id="6d{MMv2CNsKDIO-_3FM">
                         <field name="MODE">n</field>
                       </block>
@@ -278,20 +281,22 @@ function sample(select) {
               <block type="RE_repetition" id="4}tJl!^#^2,JQLO90)4U">
                 <field name="MODE">*</field>
                 <value name="A">
-                  <block type="RE_connection_or" id="1*~!}munvs.O~*!O?t]Q">
-                    <value name="A">
+                  <block type="RE_connection_or_mutator" id="1*~!}munvs.O~*!O?t]Q">
+                    <mutation items="2"></mutation>
+                    <value name="ADD0">
                       <block type="RE_text0" id="+,@dP!_X==nV~pJ06m9*">
                         <field name="TEXT">w</field>
                       </block>
                     </value>
-                    <value name="B">
-                      <block type="RE_connection" id=",XUA%dnhI*5,xKi7JBGz">
-                        <value name="A">
+                    <value name="ADD1">
+                      <block type="RE_connection_mutator" id=",XUA%dnhI*5,xKi7JBGz">
+                        <mutation items="2"></mutation>
+                        <value name="ADD0">
                           <block type="RE_sequence" id="%lZ(ELO^uLrh6}LdMbp]">
                             <field name="MODE">\\</field>
                           </block>
                         </value>
-                        <value name="B">
+                        <value name="ADD1">
                           <block type="field_dropdown" id="UI?5N@VfoYvpf3n#J+JO">
                             <mutation options="[&quot;char&quot;,&quot;sequence&quot;,&quot;char&quot;]"></mutation>
                             <field name="CHAR0">"</field>
@@ -345,11 +350,12 @@ function sample(select) {
             <next>
               <block type="regular_expression_connection" id="3D+7aa6kusI8/u/pQ~XW">
                 <value name="IF">
-                  <block type="RE_connection_or" id="];|g8rP#Q)K3MUBB4j]?">
-                    <value name="A">
+                  <block type="RE_connection_or_mutator" id="];|g8rP#Q)K3MUBB4j]?">
+                    <mutation items="2"></mutation>
+                    <value name="ADD0">
                       <block type="RE_anything" id=")SZn)JM6flNx:s7RPk9n"></block>
                     </value>
-                    <value name="B">
+                    <value name="ADD1">
                       <block type="RE_sequence" id="6d{MMv2CNsKDIO-_3FM">
                         <field name="MODE">n</field>
                       </block>
@@ -393,8 +399,9 @@ function sample(select) {
               <block type="RE_repetition" id="4}tJl!^#^2,JQLO90)4U">
                 <field name="MODE">*</field>
                 <value name="A">
-                  <block type="RE_connection_or" id="-)VrWTwAx4i=9,a)viWk">
-                    <value name="A">
+                  <block type="RE_connection_or_mutator" id="-)VrWTwAx4i=9,a)viWk">
+                    <mutation items="2"></mutation>
+                    <value name="ADD0">
                       <block type="field_dropdown_not" id="c|j^}+]#r*{m,LyW%NA.">
                         <mutation options="[&quot;char&quot;,&quot;sequence&quot;,&quot;sequence&quot;]"></mutation>
                         <field name="CHAR0">"</field>
@@ -402,14 +409,15 @@ function sample(select) {
                         <field name="SEQ2">n</field>
                       </block>
                     </value>
-                    <value name="B">
-                      <block type="RE_connection" id="aOz+6hWE^p|K!-1Mu.s=">
-                        <value name="A">
+                    <value name="ADD1">
+                      <block type="RE_connection_mutotor" id="aOz+6hWE^p|K!-1Mu.s=">
+                        <mutation items="2"></mutation>
+                        <value name="ADD0">
                           <block type="RE_sequence" id="lFcFC.FMGAtgtoHEcckt">
                             <field name="MODE">\\</field>
                           </block>
                         </value>
-                        <value name="B">
+                        <value name="Add1">
                           <block type="RE_anything" id="hj([%oDDC]U+m}t33BZ$"></block>
                         </value>
                       </block>
@@ -458,11 +466,12 @@ function sample(select) {
             <next>
               <block type="regular_expression_connection" id="3D+7aa6kusI8/u/pQ~XW">
                 <value name="IF">
-                  <block type="RE_connection_or" id="];|g8rP#Q)K3MUBB4j]?">
-                    <value name="A">
+                  <block type="RE_connection_or_mutator" id="];|g8rP#Q)K3MUBB4j]?">
+                    <mutation items="2"></mutation>
+                    <value name="ADD0">
                       <block type="RE_anything" id=")SZn)JM6flNx:s7RPk9n"></block>
                     </value>
-                    <value name="B">
+                    <value name="ADD1">
                       <block type="RE_sequence" id="6d{MMv2CNsKDIO-_3FM">
                         <field name="MODE">n</field>
                       </block>

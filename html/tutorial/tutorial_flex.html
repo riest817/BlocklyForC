@@ -1,0 +1,184 @@
+<!--
+19/05/13 新規作成
+-->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Blocklyの使い方</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Blocklyのデモを行います。">
+<meta name="keywords" content="Blockly Demo">
+<link rel="stylesheet" href="../css/style.css">
+<script type="text/javascript" src="../js/openclose.js"></script>
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+
+<header>
+<div class="inner">
+<h1 id="logo"><a href="../../index.html"><img src="../images/logo4.PNG" alt="Blockly Demo"></a></h1>
+<div id="contact">
+<p class="tel"><a href="http://ymir.eng.kagawa-u.ac.jp/">香川研究室</a><span>佐野</span></p>
+</div>
+</div>
+</header>
+
+<!--PC用（801px以上端末）メニュー-->
+<nav id="menubar">
+<ul class="inner">
+<li><a href="../../index.html">Home</a></li>
+<li  class="current"><a href="tutorial.html">Tutorial</a></li>
+<li><a href="../link.html">Link</a></li>
+<li><a href="../form.html">Contact</a></li>
+</ul>
+</nav>
+<!--小さな端末用（800px以下端末）メニュー-->
+<nav id="menubar-s">
+<ul>
+<li><a href="../../index.html">Home</a></li>
+<li class="current"><a href="../tutorial.html">Tutorial</a></li>
+<li><a href="../link.html">Link</a></li>
+<li><a href="../form.html">Contact</a></li>
+</ul>
+</nav>
+
+
+<div class="contents">
+<div class="inner">
+
+<section>
+
+<div class="main">
+<section>
+
+<h2>ブロックの組み立て方(Flex編)</h2>
+<p>下図は、Blockly for Flex のワークスペースにブロックが何も組み立てられていない初期状態です。</p>
+<img src="images/flex/flex_first.PNG" alt="" class="img">
+<p></p>
+<p>以下のFlexコードをBlocklyで組み立てます。</p>
+<img src="images/flex/flex_code_index.PNG" alt="" class="img">
+<p></p>
+
+<h2>FlexコードをBlocklyで組み立てる手順</h2>
+
+<p><strong class="color1">①制御ブロックの設置</strong></br>
+ブロックメニュー部の制御カテゴリをクリックして、その一番上のブロックをワークスペース部にドラッグします(左図)。
+このブロックは、右図のコードの緑字に該当します。</p>
+<img src="images/flex/1step.PNG" alt="">
+<p></p>
+
+<p><strong class="color1">②動作ブロックの接続</strong></br>
+ブロックメニュー部の動作カテゴリをクリックして、その一番上のブロックを2個ワークスペース部にドラッグします(左図)。
+それらのブロックをさきほど手順①でワークスペース部に配置した制御ブロックの動作の部分に接続します(右図)。</p>
+<img src="images/flex/2step.PNG" alt="">
+<p></p>
+
+<p><strong class="color1">③正規表現ブロックの用意</strong></br>
+ブロックメニュー部の正規表現カテゴリをクリックして、それらから左図(＊矢印は後付け)のような6種類のブロックを選択してワークスペース部にドラッグします。そして矢印に従ってソケット(穴)に接続します。
+接続したブロックは、右図のコードのオレンジ字で強調している部分に該当します。</p>
+<img src="images/flex/3step.PNG" alt="">
+<p></p>
+
+<p><strong class="color1">④正規表現ブロックの接続</strong></br>
+さきほどのソースコードから、正規表現ブロックの3か所の入力フォームに左図のように入力します。
+接続された2つの正規表現ブロックを右図のように動作ブロック(青色)に接続します。</p>
+<img src="images/flex/4step.PNG" alt="">
+<p></p>
+
+<p><strong class="color1">⑤出力ブロックの接続</strong></br>
+ブロックメニュー部の出力カテゴリから、左図の2つのブロックを選択して入力フォームに"Bonjour"と入力します。
+それら2つの出力ブロックを右図のように動作ブロック(青色)に接続します。</p>
+<img src="images/flex/5step.PNG" alt="">
+<p></p>
+
+<p><strong class="color1">⑥関数ブロックの接続</strong></br>
+ブロックメニュー部の関数カテゴリから、左図のブロックを選択します。
+その選択した関数ブロックを右図のように制御ブロック(緑色)に接続します。</p>
+<img src="images/flex/6step.PNG" alt="">
+<p></p>
+
+<h2>ブロックの完成図</h2>
+<p>下図は、前項の手順で組み立てたワークスペース部の完成図です。</p>
+<img src="images/flex\finish_workspace.PNG" alt="" class="img">
+<p></p>
+
+<h3 class="color1">
+<strong>
+NEXT ⇒ <a href="tab.html">3.タブの構成</a>
+</strong>
+</h3>
+
+</section>
+</div>
+<!--/main-->
+
+<div class="sub">
+
+<nav class="box1">
+<h2>Menu</h2>
+<ul class="submenu">
+<li><a href="tutorial.html">1.システムの概要図と構成</a></li>
+
+<li><a href="tutorial_flex.html">2-4.Flexの組み立て方</a></li>
+<li><a href="tab.html">3.タブの構成</a></li>
+<li><a href="sample_button.html">4.サンプルボタン</a></li>
+<li><a href="languageMenu.html">5.表記切り替え機能</a></li>
+<li><a href="contextMenu.html">6.コンテクストメニュー</a></li>
+<li><a href="option.html">7.その他のオプション機能</a></li>
+</ul>
+</nav>
+</div>
+<!--/sub-->
+
+</div>
+<!--/inner-->
+</div>
+<!--/contents-->
+
+
+
+<!--p id="pagetop" class="inner"><a href="#">↑</a></p-->
+
+<footer>
+
+<div id="copyright">
+<small>Copyright&copy; @2018 <a href="http://ymir.eng.kagawa-u.ac.jp/">Kagawa Lab.</a> and Yuya SANO. All Rights Reserved.</small>
+</div>
+
+</footer>
+
+
+<!--スマホ用更新情報　800px以下-->
+<script type="text/javascript">
+if (OCwindowWidth() <= 800) {
+	open_close("newinfo_hdr", "newinfo");
+}
+</script>
+
+<!--メニューの３本バー-->
+<div id="menubar_hdr" class="close"><span></span><span></span><span></span></div>
+<!--メニューの開閉処理条件設定　800px以下-->
+<script type="text/javascript">
+if (OCwindowWidth() <= 800) {
+	open_close("menubar_hdr", "menubar-s");
+}
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics (19/05/17 追加)-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-107589514-8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-107589514-8');
+</script>
+
+</body>
+</html>

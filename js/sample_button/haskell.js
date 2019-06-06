@@ -3,7 +3,8 @@
 function sample(select) {
   var q = window.confirm("編集したブロックを捨てて、サンプルブロックを表示します。よろしいですか？");
   if (!q) return;
-  workspace.clear();
+  Code.workspace.clear(); // 19/06/06
+  //window.location.reload(true); // 19/06/06
   if (select == 1 ) {
     var defaultXml =
     `<xml xmlns="http://www.w3.org/1999/xhtml">

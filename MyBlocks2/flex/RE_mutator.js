@@ -287,10 +287,10 @@ Blockly.Blocks['RE_connection_join_item'] = {
   init: function() {
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("ソケット");
+        .appendField("正規表現");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip("ソケット（穴）を追加します。");
+    this.setTooltip("正規表現を追加します。");
     this.contextMenu = false;
 
   }
@@ -449,39 +449,45 @@ Blockly.Blocks['field_dropdown'] = {
       this.removeInput('OPTION' + i);
       i++;
     }
+    if (this.getInput('END')) {
+      this.removeInput('END');  // Remove deleted inputs.
+    }
 
     // Rebuild block.
     var OPERATORS =
         [[Blockly.Msg.RE_new_line, 'n'],
          [Blockly.Msg.RE_tab, 't'],
-         [Blockly.Msg.RE_single_quote, '\''],
-         [Blockly.Msg.RE_double_quote, '\"'],
+//         [Blockly.Msg.RE_single_quote, '\''],
+//         [Blockly.Msg.RE_double_quote, '\"'],
+         [']', ']'],
+         ['-', '-'],
+         ['^', '^'],
          [Blockly.Msg.RE_backslash, '\\']];
 
-    for (var i = 0; i <= this.optionList_.length; i++) {
+    for (var i = 0; i < this.optionList_.length; i++) {
       var type = this.optionList_[i];
       if (type == 'range') {
-        this.removeInput('END');  // Remove deleted inputs.
+//        this.removeInput('END');  // Remove deleted inputs.
         this.appendDummyInput('OPTION' + i)
             .appendField('')
             .appendField(new Blockly.FieldTextInput(''), 'BEGIN' + i)
             .appendField('-')
             .appendField(new Blockly.FieldTextInput(''), 'END' + i)
-            .appendField(' ');
+            /* .appendField(' ') */;
         //no++;
       } else if (type == 'char') {
-        this.removeInput('END');  // Remove deleted inputs.
+//        this.removeInput('END');  // Remove deleted inputs.
         this.appendDummyInput('OPTION' + i)
             .appendField('')
             .appendField(new Blockly.FieldTextInput(''), 'CHAR' + i)
-            .appendField(' ');
+            /*.appendField(' ')*/;
         //no++;
       } else if (type == 'sequence') {
-        this.removeInput('END');  // Remove deleted inputs.
+//        this.removeInput('END');  // Remove deleted inputs.
         this.appendDummyInput('OPTION' + i)
             .appendField(Blockly.Msg.RE_sequence)
             .appendField(new Blockly.FieldDropdown(OPERATORS), 'SEQ' + i)
-            .appendField(" ");
+            /*.appendField(' ')*/;
       } /*else if ( this.sequenceCount_-1 == this.old_sequenceCount_) {
       this.removeInput('END');  // Remove deleted inputs.
       this.appendDummyInput('OPTION' + i)
@@ -490,11 +496,9 @@ Blockly.Blocks['field_dropdown'] = {
       this.appendDummyInput('END')
           .appendField(Blockly.Msg.RE_any_one_right);
      }*/
-      if ( i == this.optionList_.length ) {
-        this.appendDummyInput('END')
-            .appendField(Blockly.Msg.RE_any_one_right);
-      }
     }
+    this.appendDummyInput('END')
+        .appendField(Blockly.Msg.RE_any_one_right);
     
     this.old_sequenceCount_ = this.sequenceCount_;
   },
@@ -503,6 +507,7 @@ Blockly.Blocks['field_dropdown'] = {
       this.setWarningText('歯車マークを押したときに表示される\n子ブロックを必ず一つ以上接続してください');
     } else {
       //fieldNameCheck(this);
+      this.setWarningText(null);
     }
   },
   getUserData: function(n) {
@@ -636,39 +641,45 @@ Blockly.Blocks['field_dropdown_not'] = {
       this.removeInput('OPTION' + i);
       i++;
     }
+    if (this.getInput('END')) {
+      this.removeInput('END');
+    } 
 
     // Rebuild block.
     var OPERATORS =
         [[Blockly.Msg.RE_new_line, 'n'],
          [Blockly.Msg.RE_tab, 't'],
-         [Blockly.Msg.RE_single_quote, '\''],
-         [Blockly.Msg.RE_double_quote, '\"'],
+//         [Blockly.Msg.RE_single_quote, '\''],
+//         [Blockly.Msg.RE_double_quote, '\"'],
+         [']', ']'],
+         ['-', '-'],
+         ['^', '^'],
          [Blockly.Msg.RE_backslash, '\\']];
 
-    for (var i = 0; i <= this.optionList_.length; i++) {
+    for (var i = 0; i < this.optionList_.length; i++) {
       var type = this.optionList_[i];
       if (type == 'range') {
-        this.removeInput('END');  // Remove deleted inputs.
+//        this.removeInput('END');  // Remove deleted inputs.
         this.appendDummyInput('OPTION' + i)
             .appendField('')
             .appendField(new Blockly.FieldTextInput(''), 'BEGIN' + i)
             .appendField('-')
             .appendField(new Blockly.FieldTextInput(''), 'END' + i)
-            .appendField(' ');
+            /*.appendField(' ')*/;
         //no++;
       } else if (type == 'char') {
-        this.removeInput('END');  // Remove deleted inputs.
+//        this.removeInput('END');  // Remove deleted inputs.
         this.appendDummyInput('OPTION' + i)
             .appendField('')
             .appendField(new Blockly.FieldTextInput(''), 'CHAR' + i)
-            .appendField(' ');
+            /*.appendField(' ')*/;
         //no++;
       } else if (type == 'sequence') {
-        this.removeInput('END');  // Remove deleted inputs.
+//        this.removeInput('END');  // Remove deleted inputs.
         this.appendDummyInput('OPTION' + i)
             .appendField(Blockly.Msg.RE_sequence)
             .appendField(new Blockly.FieldDropdown(OPERATORS), 'SEQ' + i)
-            .appendField(' ');
+            /*.appendField(' ')*/;
       } /*else if ( this.sequenceCount_-1 == this.old_sequenceCount_) {
       this.removeInput('END');  // Remove deleted inputs.
       this.appendDummyInput('OPTION' + i)
@@ -677,12 +688,10 @@ Blockly.Blocks['field_dropdown_not'] = {
       this.appendDummyInput('END')
           .appendField(Blockly.Msg.RE_any_one_right);
      }*/
-      if ( i == this.optionList_.length ) {
-        this.appendDummyInput('END')
-            .appendField(Blockly.Msg.RE_not_any_one_right);
-      }
+
     }
-    
+    this.appendDummyInput('END')
+        .appendField(Blockly.Msg.RE_not_any_one_right);
     this.old_sequenceCount_ = this.sequenceCount_;
   },
   onchange: function() {
@@ -690,6 +699,7 @@ Blockly.Blocks['field_dropdown_not'] = {
       this.setWarningText('歯車マークを押したときに表示される\n子ブロックを必ず一つ以上接続してください');
     } else {
       //fieldNameCheck(this);
+      this.setWarningText(null);
     }
   },
   getUserData: function(n) {

@@ -20199,13 +20199,13 @@ Blockly.Generator.prototype.statementToCode = function(a, b) {
     return d
 };
 // 2018/12/05 追加 /////////////////////////////////////////////////////////////////////////////
-Blockly.Generator.prototype.statementToCode_0indent = function(a, b) {
-    var c = a.getInputTargetBlock(b),
-        d = this.blockToCode(c);
-    goog.asserts.assertString(d, 'Expecting code from statement block "%s".', c && c.type);
-    d && (d = this.prefixLines(d, ""));
-    return d
-};
+// Blockly.Generator.prototype.statementToCode_0indent = function(a, b) {
+//     var c = a.getInputTargetBlock(b),
+//         d = this.blockToCode(c);
+//     goog.asserts.assertString(d, 'Expecting code from statement block "%s".', c && c.type);
+//     d && (d = this.prefixLines(d, ""));
+//     return d
+// };
 // 2017/12/05 追加 /////////////////////////////////////////////////////////////////////////////
 Blockly.Generator.prototype.addLoopTrap = function(a, b) {
     b = b.replace(/\$/g, "$$$$");

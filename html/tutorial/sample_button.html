@@ -1,0 +1,132 @@
+<!--
+19/05/14 新規作成
+-->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Blocklyの使い方</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Blocklyのデモを行います。">
+<meta name="keywords" content="Blockly Demo">
+<link rel="stylesheet" href="../css/style.css">
+<script type="text/javascript" src="../js/openclose.js"></script>
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+
+<header>
+<div class="inner">
+<h1 id="logo"><a href="../../index.html"><img src="../images/logo4.PNG" alt="Blockly Demo"></a></h1>
+<div id="contact">
+<p class="tel"><a href="http://ymir.eng.kagawa-u.ac.jp/">香川研究室</a><span>佐野</span></p>
+</div>
+</div>
+</header>
+
+<!--PC用（801px以上端末）メニュー-->
+<nav id="menubar">
+<ul class="inner">
+<li><a href="../../index.html">Home</a></li>
+<li class="current"><a href="tutorial.html">Tutorial</a></li>
+<li><a href="../link.html">Link</a></li>
+<li><a href="../form.html">Contact</a></li>
+</ul>
+</nav>
+<!--小さな端末用（800px以下端末）メニュー-->
+<nav id="menubar-s">
+<ul>
+<li><a href="../../index.html">Home</a></li>
+<li class="current"><a href="../tutorial.html">Tutorial</a></li>
+<li><a href="../link.html">Link</a></li>
+<li><a href="../form.html">Contact</a></li>
+</ul>
+</nav>
+
+
+<div class="contents">
+<div class="inner">
+
+<section>
+
+<div class="main">
+<section>
+
+<h2>サンプルボタンの概要</h2>
+<p>Blocklyには複数のサンプルボタンが用意されています。サンプルボタンを押すことによって、システム開発者側が用意したブロックを一瞬でワークスペース部に表示します。システム初心者は、その完成されたブロックのプログラムをアレンジしながらシステムを理解することができます。</p>
+<img src="images/sample_button_index.PNG" alt="" class="img">
+<p></p>
+
+<h2></h2>
+
+
+
+
+<h3 class="color1">
+<strong>
+NEXT ⇒ <a href="languageMenu.html">5.表記切り替え機能</a>
+</strong>
+</h3>
+
+</section>
+</div>
+<!--/main-->
+
+<div class="sub">
+
+<nav class="box1">
+<h2>Menu</h2>
+<ul class="submenu">
+<li><a href="tutorial.html">1.システムの概要図と構成</a></li>
+
+<li><a href="tutorial_flex.html">2-4.Flexの組み立て方</a></li>
+<li><a href="tab.html">3.タブの構成</a></li>
+<li><a href="sample_button.html">4.サンプルボタン</a></li>
+<li><a href="languageMenu.html">5.表記切り替え機能</a></li>
+<li><a href="contextMenu.html">6.コンテクストメニュー</a></li>
+<li><a href="option.html">7.その他のオプション機能</a></li>
+</ul>
+</nav>
+</div>
+<!--/sub-->
+
+</div>
+<!--/inner-->
+</div>
+<!--/contents-->
+
+
+
+<!--p id="pagetop" class="inner"><a href="#">↑</a></p-->
+
+<footer>
+
+<div id="copyright">
+<small>Copyright&copy; @2018 <a href="http://ymir.eng.kagawa-u.ac.jp/">Kagawa Lab.</a> and Yuya SANO. All Rights Reserved.</small>
+</div>
+
+</footer>
+
+
+<!--スマホ用更新情報　800px以下-->
+<script type="text/javascript">
+if (OCwindowWidth() <= 800) {
+	open_close("newinfo_hdr", "newinfo");
+}
+</script>
+
+<!--メニューの３本バー-->
+<div id="menubar_hdr" class="close"><span></span><span></span><span></span></div>
+<!--メニューの開閉処理条件設定　800px以下-->
+<script type="text/javascript">
+if (OCwindowWidth() <= 800) {
+	open_close("menubar_hdr", "menubar-s");
+}
+</script>
+</body>
+</html>

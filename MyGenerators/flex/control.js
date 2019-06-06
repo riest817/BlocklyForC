@@ -11,9 +11,9 @@ goog.require('Blockly.Flex');
 
 Blockly.Flex['first_flex'] = function(block) {
 
-  var branch0 = Blockly.Flex.statementToCode_0indent(block, 'DO0');
-  var branch1 = Blockly.Flex.statementToCode_0indent(block, 'DO1');
-  var branch2 = Blockly.Flex.statementToCode_0indent(block, 'DO2');
+  var branch0 = Blockly.Flex.statementToCode(block, 'DO0');
+  var branch1 = Blockly.Flex.statementToCode(block, 'DO1');
+  var branch2 = Blockly.Flex.statementToCode(block, 'DO2');
   var code = '';
 
   code += '%{\n';

@@ -3,6 +3,7 @@
 2017/11/01 sampleボタンの実行
 2017/11/14 各言語の html ファイルの共通する関数群を common2.js に移動
 18/06/13 概念と文法の切り替えタブ追加
+19/06/06 バージョンアップ
 -->
 
 <!DOCTYPE html>
@@ -49,10 +50,12 @@
 <script src="MyBlocks2/haskell/original.js"></script> <!-- (2017/12/07 追加)-->
 <script src="MyBlocks2/haskell/standard_library.js"></script> <!-- (19/02/26 追加)-->
 
+<script type="text/javascript" src="js/sample_button/haskell.js"></script>  <!-- (2017/10/19 追加)-->
 <script src="js/sample_button/haskell.js"></script>  <!-- (2017/10/19 追加)-->
 <script src="js/cookie.js"></script>  <!-- (2017/11/14 追加)-->
 <script src="js/common2.js"></script>  <!-- (2017/11/14 追加)-->
 <script src="js/code/code_haskell.js"></script>  <!-- (18/06/13)-->
+<script src="myflyout.js"></script> <!-- code_haskell.js より後(19/06/06)  -->
 
 <link rel="stylesheet"
       href="Library/introjs.css"/>
@@ -471,7 +474,7 @@
                   <td><input type="button" value="サンプル4" class = "sample" id = "sample4" style="font-size: 0.8em;" onclick="sample(4);"/></td>
                   <td><input type="button" value="有若君" class = "sample" id = "sample5" style="font-size: 0.8em;" onclick="sample(5);"/></td>
                   <td><input type="button" value="西村君" class = "sample" id = "sample6" style="font-size: 0.8em;" onclick="sample(6);"/></td>
-                  <td><input type="button" value="西村君(不具合)" class = "sample" id = "sample7" style="font-size: 0.8em;" onclick="sample(7);"/></td>
+                  <td><input type="button" value="不具合" class = "sample" id = "sample7" style="font-size: 0.8em;" onclick="sample(7);"/></td>
               </form>
             <td class="tabmin">&nbsp;</td>
             <td class="farSide">
@@ -507,6 +510,8 @@
 <pre id="contentHaskell" class="content"></pre>
 <textarea id="contentXml" class="content" wrap="off"></textarea>
 <script>
+// 19/06/06 コメントアウト
+/*
 var tabs = ["Blocks", "Haskell", "Xml"];
 var selected = tabs[0];
 var draw;
@@ -547,10 +552,8 @@ function renderContent(clickedName) {
     content.html(code);
   } 
 }
-
+*/
 </script>
-
-<script type="text/javascript" src="js/sample_button/haskell.js"></script>  <!-- (2017/10/19 追加)-->
 
 <!-- Global site tag (gtag.js) - Google Analytics (2017/10/12 追加)-->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107589514-4"></script>

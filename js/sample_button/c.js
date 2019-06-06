@@ -3,9 +3,9 @@
 function sample(select) {
   var q = window.confirm("編集したブロックを捨てて、サンプルブロックを表示します。よろしいですか？");
   if (!q) return;
-  workspace.clear();
+  //workspace.clear();
   Code.workspace.clear();   // 18/05/16
-  window.location.reload(true); // 18/05/16
+  //window.location.reload(true); // 18/05/16
 
   if (select == 1 ) {
     var defaultXml =
