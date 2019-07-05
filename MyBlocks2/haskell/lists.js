@@ -20,7 +20,7 @@ goog.require('Blockly.Blocks');
 /**
  * Common HSV hue for all blocks in this category.
  */
-Blockly.Blocks.lists.HUE = 260;
+Blockly.Msg["LISTS_HUE"] = 260;
 
 Blockly.Blocks['lists_container'] = {
   /**
@@ -29,7 +29,7 @@ Blockly.Blocks['lists_container'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
-    this.setColour(Blockly.Blocks.lists.HUE);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
     this.appendDummyInput('HEAD')
         .appendField(Blockly.Msg.lists_container_head);
     this.itemCount_ = 2;
@@ -131,13 +131,13 @@ Blockly.Blocks['lists_container'] = {
       this.appendDummyInput('HEAD')
           .appendField(Blockly.Msg.lists_container_head);
       this.setOutput(true);
-      this.setColour(Blockly.Blocks.lists.HUE);
+      this.setColour(Blockly.Msg["LISTS_HUE"]);
     } else if (!this.itemCount_ && !this.getInput('EMPTY')) {
       this.appendDummyInput('EMPTY')
           .appendField("項目数0では使用できません");
       this.removeInput('HEAD');
       this.setOutput(false);
-      this.setColour(500);
+      //this.setColour(500);
     }
     // Add new inputs.
     for (var i = 0; i < this.itemCount_; i++) {
@@ -165,7 +165,7 @@ Blockly.Blocks['lists_connection'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
-    this.setColour(Blockly.Blocks.lists.HUE);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
     this.appendDummyInput()
         .appendField(Blockly.Msg.lists_connection_head);
     this.itemCount_ = 2;
@@ -292,7 +292,7 @@ Blockly.Blocks['lists_create_join_container'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(Blockly.Blocks.lists.HUE);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
     this.appendDummyInput()
         .appendField("結合");
     this.appendStatementInput('STACK');
@@ -307,7 +307,7 @@ Blockly.Blocks['lists_create_join_item'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(Blockly.Blocks.lists.HUE);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
     this.appendDummyInput()
         .appendField("項目");
     this.setPreviousStatement(true);
@@ -355,7 +355,7 @@ Blockly.Blocks['lists_create_with_haskell'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.LISTS_CREATE_WITH_HELPURL);
-    this.setColour(Blockly.Blocks.lists.HUE);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
     this.itemCount_ = 3;
     this.updateShape_();
     this.setOutput(true, 'Array');
@@ -460,7 +460,7 @@ Blockly.Blocks['lists_create_with_haskell'] = {
     // Add new inputs.
     for (var i = 0; i < this.itemCount_ ; i++) {
       if (!this.getInput('ADD' + i)) {
-        this.removeInput('END');  // Remove deleted inputs.
+        if ( this.getInput('END') ) { this.removeInput('END'); }
         var input = this.appendValueInput('ADD' + i);
         if (i == 0) {
           input.appendField(Blockly.Msg.lists_create_with_head);
@@ -488,7 +488,7 @@ Blockly.Blocks['lists_create_with_container'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(Blockly.Blocks.lists.HUE);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
     this.appendDummyInput()
         .appendField(Blockly.Msg.LISTS_CREATE_WITH_CONTAINER_TITLE_ADD);
     this.appendStatementInput('STACK');
@@ -503,7 +503,7 @@ Blockly.Blocks['lists_create_with_item'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(Blockly.Blocks.lists.HUE);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
     this.appendDummyInput()
         .appendField(Blockly.Msg.LISTS_CREATE_WITH_ITEM_TITLE);
     this.setPreviousStatement(true);
@@ -523,7 +523,7 @@ Blockly.Blocks['inner_table'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
-    this.setColour(Blockly.Blocks.lists.HUE);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
     this.appendDummyInput()
         .appendField("内包表記");
     this.appendValueInput('ADD0');
@@ -559,7 +559,7 @@ Blockly.Blocks['lists_group'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
-    this.setColour(Blockly.Blocks.lists.HUE);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
     this.appendDummyInput()
         .appendField(Blockly.Msg.lists_group_head);
     this.itemCount_ = 2;
@@ -664,7 +664,7 @@ Blockly.Blocks['lists_group'] = {
     // Add new inputs.
     for (var i = 0; i < this.itemCount_; i++) {
       if (!this.getInput('ADD' + i)) {
-        this.removeInput('END');  // Remove deleted inputs.
+        if ( this.getInput('END') ) { this.removeInput('END'); }
         var input = this.appendValueInput('ADD' + i);
         if ( i > 0 ) {
           input.appendField(Blockly.Msg.lists_group_middle);
@@ -705,7 +705,7 @@ Blockly.Blocks['lists_range'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
-    this.setColour(Blockly.Blocks.lists.HUE);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
     this.appendDummyInput()
         .appendField(Blockly.Msg.lists_range_head);
     this.appendValueInput('ADD1');
@@ -738,7 +738,7 @@ Blockly.Blocks['lists_element'] = {
 
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
-    this.setColour(Blockly.Blocks.lists.HUE);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
     this.appendDummyInput()
         .appendField(Blockly.Msg.lists_element_head);
     this.appendValueInput('VALUE');
@@ -779,7 +779,7 @@ Blockly.Blocks['lists_length_haskell'] = {
         }
       ],
       "output": 'Number',
-      "colour": Blockly.Blocks.lists.HUE,
+      "colour": Blockly.Msg["LISTS_HUE"],
       "tooltip": Blockly.Msg.LISTS_LENGTH_TOOLTIP,
       "helpUrl": Blockly.Msg.LISTS_LENGTH_HELPURL
     });
@@ -799,7 +799,7 @@ Blockly.Blocks['lists_isEmpty_haskell'] = {
         }
       ],
       "output": 'Boolean',
-      "colour": Blockly.Blocks.lists.HUE,
+      "colour": Blockly.Msg["LISTS_HUE"],
       "tooltip": Blockly.Msg.LISTS_ISEMPTY_TOOLTIP,
       "helpUrl": Blockly.Msg.LISTS_ISEMPTY_HELPURL
     });

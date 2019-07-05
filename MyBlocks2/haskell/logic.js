@@ -11,12 +11,14 @@
 18/11/05  ['where_haskell'] 作成
 18/12/12  ['case_haskell'] 作成 / ['controls_if_haskell'] 改良
 */
+
+Blockly.Msg["LOGIC_HUE"] = 210;
 // 18/12/12 変更
 Blockly.Blocks['controls_if_haskell'] = {
 
   init: function() {
     this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
-    this.setColour(Blockly.Blocks.logic.HUE);
+    this.setColour(Blockly.Msg["LOGIC_HUE"]);
     this.appendValueInput('IF0')
         .setCheck('Boolean')
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
@@ -201,7 +203,7 @@ Blockly.Blocks['controls_if_if'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(Blockly.Blocks.logic.HUE);
+    this.setColour(Blockly.Msg["LOGIC_HUE"]);
     this.appendDummyInput()
         .appendField(Blockly.Msg.CONTROLS_IF_IF_TITLE_IF);
     this.setNextStatement(true);
@@ -216,7 +218,7 @@ Blockly.Blocks['controls_if_elseif'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(Blockly.Blocks.logic.HUE);
+    this.setColour(Blockly.Msg["LOGIC_HUE"]);
     this.appendDummyInput()
         .appendField("もしも");
     this.setPreviousStatement(true);
@@ -232,7 +234,7 @@ Blockly.Blocks['controls_if_else'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(Blockly.Blocks.logic.HUE);
+    this.setColour(Blockly.Msg["LOGIC_HUE"]);
     this.appendDummyInput()
         .appendField("その他");
     this.setPreviousStatement(true);
@@ -271,7 +273,7 @@ Blockly.Blocks['main_haskell'] = {
    */
   init: function() {
     this.setHelpUrl("http://qiita.com/7shi/items/145f1234f8ec2af923ef#%E3%83%8F%E3%83%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%AB%E3%83%89");
-    this.setColour(Blockly.Blocks.logic.HUE); // Blockly.Blocks.logic.HUE = 210
+    this.setColour(Blockly.Msg["LOGIC_HUE"]); // Blockly.Msg["LOGIC_HUE"] = 210
     this.appendValueInput('DO0')
         .appendField("main");
     // Assign 'this' to a variable for use in the tooltip closure below.
@@ -294,7 +296,7 @@ Blockly.Blocks['do_haskell'] = {
 
   init: function() {
     this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
-    this.setColour(Blockly.Blocks.logic.HUE); // Blockly.Blocks.logic.HUE = 210
+    this.setColour(Blockly.Msg["LOGIC_HUE"]); // Blockly.Msg["LOGIC_HUE"] = 210
     //this.appendField("do");
     this.appendStatementInput('DO0')
         .appendField("do");   
@@ -321,7 +323,7 @@ Blockly.Blocks['let_haskell'] = {
 
   init: function() {
     this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
-    this.setColour(Blockly.Blocks.logic.HUE); // Blockly.Blocks.logic.HUE = 210
+    this.setColour(Blockly.Msg["LOGIC_HUE"]); // Blockly.Msg["LOGIC_HUE"] = 210
     //this.appendField("do");
     this.appendStatementInput('DO')
         .appendField("let");    
@@ -347,7 +349,7 @@ Blockly.Blocks['let_in_haskell'] = {
 
   init: function() {
     this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
-    this.setColour(Blockly.Blocks.logic.HUE); // Blockly.Blocks.logic.HUE = 210
+    this.setColour(Blockly.Msg["LOGIC_HUE"]); // Blockly.Msg["LOGIC_HUE"] = 210
     //this.appendField("do");
     this.appendStatementInput('DO')
         .appendField("let");    
@@ -377,7 +379,7 @@ Blockly.Blocks['where_haskell'] = {
 
   init: function() {
     this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
-    this.setColour(Blockly.Blocks.logic.HUE); // Blockly.Blocks.logic.HUE = 210
+    this.setColour(Blockly.Msg["LOGIC_HUE"]); // Blockly.Msg["LOGIC_HUE"] = 210
     //this.appendField("do");
     this.appendStatementInput('DO0')
         .appendField("where");    
@@ -406,7 +408,7 @@ Blockly.Blocks['case_haskell'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
-    this.setColour(Blockly.Blocks.logic.HUE);
+    this.setColour(Blockly.Msg["LOGIC_HUE"]);
     this.appendDummyInput()
         .appendField("case");
     this.appendValueInput('VAR');
@@ -440,7 +442,7 @@ Blockly.Blocks['single_pattern'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
-    this.setColour(Blockly.Blocks.logic.HUE);
+    this.setColour(Blockly.Msg["LOGIC_HUE"]);
     this.appendValueInput('PATTERN');
     this.appendDummyInput()
         .appendField("->");
@@ -486,7 +488,7 @@ Blockly.Blocks['logic_boolean_haskell'] = {
         }
       ],
       "output": "Boolean",
-      "colour": Blockly.Blocks.logic.HUE,
+      "colour": Blockly.Msg["LOGIC_HUE"],
       "tooltip": Blockly.Msg.LOGIC_BOOLEAN_TOOLTIP,
       "helpUrl": Blockly.Msg.LOGIC_BOOLEAN_HELPURL
     });

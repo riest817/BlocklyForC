@@ -13,7 +13,7 @@ goog.require('Blockly.Blocks');
 /**
  * Common HSV hue for all blocks in this category.
  */
-Blockly.Blocks.procedures.HUE = 290;
+Blockly.Msg["PROCEDURES_HUE"] = 290;
 
 Blockly.Blocks['procedures_defreturn'] = {
   /**
@@ -36,7 +36,7 @@ Blockly.Blocks['procedures_defreturn'] = {
     if (Blockly.Msg.PROCEDURES_DEFRETURN_COMMENT) {
       this.setCommentText(Blockly.Msg.PROCEDURES_DEFRETURN_COMMENT);
     }
-    this.setColour(Blockly.Blocks.procedures.HUE);
+    this.setColour(Blockly.Msg["PROCEDURES_HUE"]);
     this.setTooltip("関数によるパターンマッチングを行います。");
     this.setHelpUrl();
     this.arguments_ = [];
@@ -227,7 +227,7 @@ Blockly.Blocks['procedures_defreturn_statement'] = {
     if (Blockly.Msg.PROCEDURES_DEFRETURN_COMMENT) {
       this.setCommentText(Blockly.Msg.PROCEDURES_DEFRETURN_COMMENT);
     }
-    this.setColour(Blockly.Blocks.procedures.HUE);
+    this.setColour(Blockly.Msg["PROCEDURES_HUE"]);
     this.setTooltip("関数によるパターンマッチングを行います。");
     this.setHelpUrl();
     this.arguments_ = [];
@@ -423,7 +423,7 @@ Blockly.Blocks['procedures_defreturn_where'] = {
     if (Blockly.Msg.PROCEDURES_DEFRETURN_COMMENT) {
       this.setCommentText(Blockly.Msg.PROCEDURES_DEFRETURN_COMMENT);
     }
-    this.setColour(Blockly.Blocks.procedures.HUE);
+    this.setColour(Blockly.Msg["PROCEDURES_HUE"]);
     this.setTooltip("関数によるパターンマッチングを行います。");
     this.setHelpUrl();
     this.arguments_ = [];
@@ -615,7 +615,7 @@ Blockly.Blocks['procedures_defreturn_statement_where'] = {
     if (Blockly.Msg.PROCEDURES_DEFRETURN_COMMENT) {
       this.setCommentText(Blockly.Msg.PROCEDURES_DEFRETURN_COMMENT);
     }
-    this.setColour(Blockly.Blocks.procedures.HUE);
+    this.setColour(Blockly.Msg["PROCEDURES_HUE"]);
     this.setTooltip("関数によるパターンマッチングを行います。");
     this.setHelpUrl();
     this.arguments_ = [];
@@ -800,7 +800,7 @@ Blockly.Blocks['procedures_mutatorcontainer'] = {
     this.appendDummyInput('STATEMENT_INPUT')
         .appendField("")
         .appendField(new Blockly.FieldCheckbox('TRUE'), 'STATEMENTS');
-    this.setColour(Blockly.Blocks.procedures.HUE);
+    this.setColour(Blockly.Msg["PROCEDURES_HUE"]);
     this.setTooltip("この関数への引数の追加、削除、順番の変更");
     this.contextMenu = false;
   }
@@ -817,7 +817,7 @@ Blockly.Blocks['procedures_mutatorarg'] = {
         .appendField('引数', 'NAME');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setColour(Blockly.Blocks.procedures.HUE);
+    this.setColour(Blockly.Msg["PROCEDURES_HUE"]);
     this.setTooltip("関数への引数の追加");
     this.contextMenu = false;
   },
@@ -845,7 +845,7 @@ Blockly.Blocks['procedures_callreturn'] = {
     this.appendDummyInput('TOPROW')
         .appendField(new Blockly.FieldTextInput(''), 'NAME');
     this.setOutput(true);
-    this.setColour(Blockly.Blocks.procedures.HUE);
+    this.setColour(Blockly.Msg["PROCEDURES_HUE"]);
     // Tooltip is set in domToMutation.
     this.setHelpUrl(Blockly.Msg.PROCEDURES_CALLRETURN_HELPURL);
     this.arguments_ = [];
@@ -944,7 +944,7 @@ Blockly.Blocks['procedures_call'] = {
     this.setNextStatement(false);
     this.setInputsInline(true);
     this.setOutput(true);
-    this.setColour(Blockly.Blocks.procedures.HUE);
+    this.setColour(Blockly.Msg["PROCEDURES_HUE"]);
     // Tooltip is set in renameProcedure.
     this.setHelpUrl(Blockly.Msg.PROCEDURES_CALLNORETURN_HELPURL);
     this.arguments_ = [];
@@ -1253,7 +1253,7 @@ Blockly.Blocks['procedures_create_join_container'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(Blockly.Blocks.procedures.HUE);
+    this.setColour(Blockly.Msg["PROCEDURES_HUE"]);
     this.appendDummyInput()
         .appendField("結合");
     this.appendStatementInput('STACK');
@@ -1268,7 +1268,7 @@ Blockly.Blocks['procedures_create_join_item'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(Blockly.Blocks.procedures.HUE);
+    this.setColour(Blockly.Msg["PROCEDURES_HUE"]);
     this.appendDummyInput()
         .appendField("引数");
     this.setPreviousStatement(true);
@@ -1291,7 +1291,7 @@ Blockly.Blocks['procedures_call2'] = {
         .appendField('', 'NAME');
     this.setOutput(true);
     this.setInputsInline(true);
-    this.setColour(Blockly.Blocks.procedures.HUE);
+    this.setColour(Blockly.Msg["PROCEDURES_HUE"]);
     //this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
     // Tooltip is set in domToMutation.
     this.setHelpUrl(Blockly.Msg.PROCEDURES_CALLRETURN_HELPURL);
@@ -1378,7 +1378,7 @@ Blockly.Blocks['procedures_single'] = {
     if (Blockly.Msg.PROCEDURES_DEFRETURN_COMMENT) {
       this.setCommentText(Blockly.Msg.PROCEDURES_DEFRETURN_COMMENT);
     }
-    this.setColour(Blockly.Blocks.procedures.HUE);
+    this.setColour(Blockly.Msg["PROCEDURES_HUE"]);
     this.setTooltip("関数によるパターンマッチングを行います。");
     this.setHelpUrl();
     this.arguments_ = [];

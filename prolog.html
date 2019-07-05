@@ -1,63 +1,47 @@
 <!--
-2017/08/02 flex.html を新規作成
-2017/10/31 function GetCookies() 追加
-2017/11/01 sampleボタンの実行
-2017/11/14 各言語の html ファイルの共通する関数群を common2.js に移動
-18/04 概念と文法の切り替えタブ追加
-19/06/06 バージョンアップ
+19/06/11 flex.htmlを参考に新規作成
 -->
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Blockly for Flex</title>
+<title>Blockly for Prolog</title>
 <link rel="shortcut icon" href="favicon.png" type="image/png"/>
 <!--  解凍ファイルを追加  18/04/05 -->
 <!--<script src="Library/blockly/00_uncompressed/blockly_uncompressed2.js"></script>--><!-- 18/09/12-->
-
-<!-- 19/06/06 バージョン管理-->
-<script src="Library/blockly/blockly_compressed.js"></script> <!--新-->
-<script src="Library/blockly/blocks_compressed.js"></script> <!--新-->
-<!--script src="Library/blockly/00_uncompressed/blockly_uncompressed.js"></script--> <!--旧-->
-<!--script src="Library/blockly/00_uncompressed/blocks_uncompressed.js"></script--> <!--旧-->
-<!-- 19/06/06 ここまで-->
-
+<script src="Library/blockly/blockly_compressed.js"></script>
+<script src="Library/blockly/blocks_compressed.js"></script>
+<!--script src="Library/blockly/00_uncompressed/blockly_uncompressed.js"></script-->
+<!--script src="Library/blockly/00_uncompressed/blocks_uncompressed.js"></script-->
 <!--  圧縮ファイルをコメントアウト  18/04/05 -->
 <!--script src="Library/blockly/blockly_compressed.js"></script>
 <script src="Library/blockly/blocks_compressed.js"></script--> 
-<!--<script src="Library/blockly/flex_compressed.js"></script>-->
+<!--<script src="Library/blockly/prolog_compressed.js"></script>-->
 <!-- -->
-<script src="MyGenerators/flex.js"></script>
-<script src="MyGenerators/flex/control.js"></script> 
-<script src="MyGenerators/flex/regular_expression.js"></script> 
-<script src="MyGenerators/flex/operation.js"></script> 
-<script src="MyGenerators/flex/definition.js"></script> 
-<script src="MyGenerators/flex/function.js"></script>  
-<script src="MyGenerators/flex/output.js"></script> 
+<script src="MyGenerators/prolog.js"></script>
+<script src="MyGenerators/prolog/facts.js"></script>
+<script src="MyGenerators/prolog/rule.js"></script>
+<script src="MyGenerators/prolog/term.js"></script>
 
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 <script src="Library/blockly/msg/js/ja.js"></script>
 <script src="Library/blockly/appengine/storage.js"></script>
 
 <!--link rel="stylesheet" type="text/css" href="css/style.css"-->
-<!-- <script src="myFlexBlocks.js"></script> -->
+<!-- <script src="myPrologBlocks.js"></script> -->
 <script src="Library/jquery-2.2.4.min.js"></script>
 <script src="Library/jquery.query.js"></script>
 <script src="Library/intro.js"></script>
 <!-- 追加 -->
-<script src="MyBlocks2/flex/control.js"></script> 
-<script src="MyBlocks2/flex/regular_expression.js"></script> 
-<script src="MyBlocks2/flex/operation.js"></script> 
-<!--<script src="MyBlocks2/flex/definition.js"></script> -->
-<script src="MyBlocks2/flex/function.js"></script> 
-<script src="MyBlocks2/flex/RE_mutator.js"></script> 
-<script src="MyBlocks2/flex/output.js"></script> 
+<script src="MyBlocks2/prolog/facts.js"></script>
+<script src="MyBlocks2/prolog/rule.js"></script>  
+<script src="MyBlocks2/prolog/term.js"></script>  
 
-<script type="text/javascript" src="js/sample_button/flex.js"></script>  <!-- (2017/10/19 追加)-->
+<script type="text/javascript" src="js/sample_button/prolog.js"></script>  <!-- (2017/10/19 追加)-->
 <!-- <script src="js/cookie.js"></script> --> <!-- (2017/11/14 追加)-->
 
 <script src="js/common2.js"></script>   <!-- (2017/11/14 追加)-->
-<script src="js/code/code_flex.js"></script>  <!-- (18/04/24)-->
-<script src="myflyout.js"></script> <!-- code_flex.js より後(19/05/29)  -->
+<script src="js/code/code_prolog.js"></script>  <!-- (18/04/24)-->
+<script src="myflyout.js"></script> <!-- code_prolog.js より後(19/05/29)  -->
 <link rel="stylesheet" href="Library/introjs.css"/>
 <style>
     html, body {
@@ -144,65 +128,33 @@
 </head>
 <body>
 <xml id="toolbox" style="display: none">
-  <category name="制御" colour="170">
-    <block type="first_flex"></block>
-    <block type="exit"></block>
+  <category name="述語" colour="170"> <!-- 事実 -->
+    <block type="fact_definition0"></block>
+    <block type="fact_definition"></block>
   </category>
-  <category name="正規表現" colour="0">
-    <block type="RE_text0"></block>
-    <block type="RE_text"></block>
-    <!--block type="RE_any_one"></block-->
-    <!--block type="RE_any_one_mutator"></block-->	<!-- 180621 作成-->
-    <block type="field_dropdown"></block> <!-- 180718 作成-->
-    <block type="field_dropdown_not"></block> <!-- 180719 作成-->
-    <!--block type="RE_not_any_one"></block-->
-    <!--block type="RE_not_any_one_mutator"></block-->	<!-- 180621 作成-->
-<!--    <block type="RE_from_to"></block> -->
-<!--    <block type="RE_from_to_0"></block> -->
-    <!--block type="RE_anything"></block-->	<!-- 180918 コメントアウト-->
-    <!--block type="RE_new_line"></block-->	<!-- 180621 コメントアウト-->
-    <!--block type="RE_tab"></block-->	<!-- 180621 コメントアウト-->
-    <block type="RE_sequence"></block>	<!-- 180621 作成-->
-    <!--block type="RE_connection"></block-->  <!-- 190514 コメントアウト-->
-    <block type="RE_connection_mutator"></block>  <!-- 180607 エラー解決? -->
-    <!--block type="RE_connection_or"></block-->  <!-- 190514 コメントアウト-->
-    <block type="RE_connection_or_mutator"></block>  <!-- 181011 新規 -->
-    <block type="RE_repetition"></block>
-    <!--block type="RE_minimum_match"></block-->
-<!--    <block type="RE_priority"></block>-->    <!-- 190520 新規 -->
+  <category name="規則" colour="210">
+    <block type="rule_single"></block>
+    <block type="rule_connection"></block>
+
   </category>
-  <category name="動作" colour="210">
-    <block type="regular_expression_connection"></block>
-    <block type="operation"></block>
+  <!--category name="質問" colour="65">
+
+  </category-->
+    <sep></sep>
+    <sep></sep>
+  <category name="項" colour="270">
+    <block type="term_name"></block>
+
   </category>
-  <category name="定義" custom="REGULAR_EXPRESSION_NAME" colour="65">
-<!--    <block type="declaration"></block>
-    <block type="use"></block>-->
-  </category>
-  <category name="関数" colour="290">
-    <block type="yylex"></block>
-  </category>
-  <category name="出力" colour="100">
-    <block type="printf"></block>
-    <block type="putchar"></block>
-    <!--block type="output_dropdown"></block-->
-    <block type="echo"></block>
+  <category name="変数" colour="330" custom="VARIABLE">
+
   </category>
   <sep></sep>
-<!--  <sep></sep> -->
-<!--  <category name="自作" colour="500">
-    <block type="select"></block>-->
-    <!--block type="RE_from_to2"></block-->
-    <!--block type="RE_from_to3"></block-->
-<!--  </category>-->
-  
-<!--  <sep></sep> -->
-<!--  <sep></sep> -->
 
 </xml>
 
 <xml id="startBlocks" style="display: none;"></xml>
-<div id="title" title="Flex" style="display: none;"></div>  <!-- (18/06/12 追加) -->
+<div id="title" title="Prolog" style="display: none;"></div>  <!-- (18/06/12 追加) -->
 <table>
 <tr>
     <td>
@@ -210,7 +162,7 @@
           <tr id="tabRow" height="1em">
             <td id="tabBlocks" class="tabon" style="white-space:nowrap;" data-step="1" data-intro="このタブをクリックして、編集をはじめます。">ブロック</td>
             <td class="tabmin">&nbsp;</td>
-            <td id="tabFlex" class="taboff" style="white-space:nowrap;" data-step="2" data-intro="このタブをクリックして、ソースコードを表示します。">Flex</td>
+            <td id="tabProlog" class="taboff" style="white-space:nowrap;" data-step="2" data-intro="このタブをクリックして、ソースコードを表示します。">Prolog</td>
             <td class="tabmin">&nbsp;</td>
             <td id="tabXml" class="taboff" style="font-family:'Segoe UI Emoji'; white-space:nowrap;" data-step="3" data-intro="このタブをクリックして、XMLコードを表示します。">XML</td>
             <td class="tabmin">&nbsp;</td>
@@ -251,53 +203,8 @@
 </tr>
 </table>
 <div id="contentBlocks" style="position: absolute;"></div>
-<pre id="contentFlex" class="content"></pre>
+<pre id="contentProlog" class="content"></pre>
 <textarea id="contentXml" class="content" wrap="off"></textarea>
-<script>
-// 19/05/29 香川先生修正
-// var selected = tabs[0];
-// var draw;
-// var workspace = null;
-
-/* 
-function onResize() {
-
-    var area = $("#blocklyArea");
-    var divs = [ $("#contentBlocks"), $("#contentFlex"), $("#contentXml") ];
-
-    var width = area.width();
-    var height = area.height();
-    var offset = area.offset();
-    for (var i = 0; i < divs.length ; i++) {
-       var div = divs[i];
-       div.height(height);
-       div.width(width);
-       div.offset(offset);
-    }
-}
-$(window).on('load resize', onResize);
-*/
-/*
-function renderContent(clickedName) {
-
-  var content = $("#content" + clickedName);  // 問題あり(18/05/10)
-  if (clickedName == "Xml") {
-    var xmlDom  = Blockly.Xml.workspaceToDom(workspace);
-    var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
-    content.val(xmlText);
-  } else if (clickedName == "Flex") {
-    //console.log("Flex", workspace.getTopBlocks(!0)[0]);
-    var code = Blockly.Flex.workspaceToCode(workspace);
-
-    // TODO: CodeMirror
-    code = content.html();
-    code = PR.prettyPrintOne(code, 'js');
-    content.html(code);
-  } 
-}
-*/
-
-</script>
 
 <!-- Global site tag (gtag.js) - Google Analytics (2017/10/12 追加)-->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107589514-5"></script>

@@ -193,7 +193,7 @@ Blockly.Blocks['list_library'] = {
     // Assign 'this' to a variable for use in the closures below.
     var thisBlock = this;
     this.setHelpUrl(Blockly.Msg.LISTS_LENGTH_HELPURL);
-    this.setColour(Blockly.Blocks.lists.HUE);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
     this.setOutput(true, 'Number');
     this.setInputsInline(true);
     var dropdown = new Blockly.FieldDropdown(OPERATORS, function(newOp) {

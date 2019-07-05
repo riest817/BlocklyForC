@@ -1,20 +1,19 @@
 /**
-2017/12/05 コメントアウトのコード 変更
+19/06/11  flex.js を参考に新規作成
  */
 'use strict';
 
-goog.provide('Blockly.Haskell');
+goog.provide('Blockly.Prolog');
 
 goog.require('Blockly.Generator');
 
 
 /**
- * Haskell code generator.
- * @type {!Blockly.Generator};
- */
-Blockly.Haskell = new Blockly.Generator('Haskell');
+ * Prolog code generator.
+ * @type {!Blockly.Generator} */
+Blockly.Prolog = new Blockly.Generator('Prolog');
 
-Blockly.Haskell.INDENT = '';  // 19/06/06
+Blockly.Prolog.INDENT = '';
 
 /**
  * List of illegal variable names.
@@ -23,13 +22,13 @@ Blockly.Haskell.INDENT = '';  // 19/06/06
  * accidentally clobbering a built-in object or function.
  * @private
  */
-Blockly.Haskell.addReservedWords(
+Blockly.Prolog.addReservedWords(
     'Blockly,' +  // In case JS is evaled in the current window.
-    // https://developer.mozilla.org/en/Haskell/Reference/Reserved_Words
+    // https://developer.mozilla.org/en/Prolog/Reference/Reserved_Words
     'break,case,catch,continue,debugger,default,delete,do,else,finally,for,function,if,in,instanceof,new,return,switch,this,throw,try,typeof,var,void,while,with,' +
     'class,enum,export,extends,import,super,implements,interface,let,package,private,protected,public,static,yield,' +
     'const,null,true,false,' +
-    // https://developer.mozilla.org/en/Haskell/Reference/Global_Objects
+    // https://developer.mozilla.org/en/Prolog/Reference/Global_Objects
     'Array,ArrayBuffer,Boolean,Date,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,Error,eval,EvalError,Float32Array,Float64Array,Function,Infinity,Int16Array,Int32Array,Int8Array,isFinite,isNaN,Iterator,JSON,Math,NaN,Number,Object,parseFloat,parseInt,RangeError,ReferenceError,RegExp,StopIteration,String,SyntaxError,TypeError,Uint16Array,Uint32Array,Uint8Array,Uint8ClampedArray,undefined,uneval,URIError,' +
     // https://developer.mozilla.org/en/DOM/window
     'applicationCache,closed,Components,content,_content,controllers,crypto,defaultStatus,dialogArguments,directories,document,frameElement,frames,fullScreen,globalStorage,history,innerHeight,innerWidth,length,location,locationbar,localStorage,menubar,messageManager,mozAnimationStartTime,mozInnerScreenX,mozInnerScreenY,mozPaintCount,name,navigator,opener,outerHeight,outerWidth,pageXOffset,pageYOffset,parent,performance,personalbar,pkcs11,returnValue,screen,screenX,screenY,scrollbars,scrollMaxX,scrollMaxY,scrollX,scrollY,self,sessionStorage,sidebar,status,statusbar,toolbar,top,URL,window,' +
@@ -49,107 +48,107 @@ Blockly.Haskell.addReservedWords(
 
 /**
  * Order of operation ENUMs.
- * https://developer.mozilla.org/en/Haskell/Reference/Operators/Operator_Precedence
+ * https://developer.mozilla.org/en/Prolog/Reference/Operators/Operator_Precedence
  */
-Blockly.Haskell.ORDER_ATOMIC = 0;           // 0 "" ...
-Blockly.Haskell.ORDER_NEW = 1.1;            // new
-Blockly.Haskell.ORDER_MEMBER = 1.2;         // . []
-Blockly.Haskell.ORDER_FUNCTION_CALL = 2;    // ()
-Blockly.Haskell.ORDER_INCREMENT = 3;        // ++
-Blockly.Haskell.ORDER_DECREMENT = 3;        // --
-Blockly.Haskell.ORDER_BITWISE_NOT = 4.1;    // ~
-Blockly.Haskell.ORDER_UNARY_PLUS = 4.2;     // +
-Blockly.Haskell.ORDER_UNARY_NEGATION = 4.3; // -
-Blockly.Haskell.ORDER_LOGICAL_NOT = 4.4;    // !
-Blockly.Haskell.ORDER_TYPEOF = 4.5;         // typeof
-Blockly.Haskell.ORDER_VOID = 4.6;           // void
-Blockly.Haskell.ORDER_DELETE = 4.7;         // delete
-Blockly.Haskell.ORDER_DIVISION = 5.1;       // /
-Blockly.Haskell.ORDER_MULTIPLICATION = 5.2; // *
-Blockly.Haskell.ORDER_MODULUS = 5.3;        // %
-Blockly.Haskell.ORDER_SUBTRACTION = 6.1;    // -
-Blockly.Haskell.ORDER_ADDITION = 6.2;       // +
-Blockly.Haskell.ORDER_BITWISE_SHIFT = 7;    // << >> >>>
-Blockly.Haskell.ORDER_RELATIONAL = 8;       // < <= > >=
-Blockly.Haskell.ORDER_IN = 8;               // in
-Blockly.Haskell.ORDER_INSTANCEOF = 8;       // instanceof
-Blockly.Haskell.ORDER_EQUALITY = 9;         // == != === !==
-Blockly.Haskell.ORDER_BITWISE_AND = 10;     // &
-Blockly.Haskell.ORDER_BITWISE_XOR = 11;     // ^
-Blockly.Haskell.ORDER_BITWISE_OR = 12;      // |
-Blockly.Haskell.ORDER_LOGICAL_AND = 13;     // &&
-Blockly.Haskell.ORDER_LOGICAL_OR = 14;      // ||
-Blockly.Haskell.ORDER_CONDITIONAL = 15;     // ?:
-Blockly.Haskell.ORDER_ASSIGNMENT = 16;      // = += -= *= /= %= <<= >>= ...
-Blockly.Haskell.ORDER_COMMA = 17;           // ,
-Blockly.Haskell.ORDER_NONE = 99;            // (...)
+Blockly.Prolog.ORDER_ATOMIC = 0;           // 0 "" ...
+//Blockly.Prolog.ORDER_NEW = 1.1;            // new
+//Blockly.Prolog.ORDER_MEMBER = 1.2;         // . []
+Blockly.Prolog.ORDER_FUNCTION_CALL = 2;    // ()
+//Blockly.Prolog.ORDER_INCREMENT = 3;        // ++
+//Blockly.Prolog.ORDER_DECREMENT = 3;        // --
+//Blockly.Prolog.ORDER_REPEAT    = 4;        // * + ?
+//Blockly.Prolog.ORDER_BITWISE_NOT = 4.1;    // ~
+//Blockly.Prolog.ORDER_UNARY_PLUS = 4.2;     // +
+//Blockly.Prolog.ORDER_UNARY_NEGATION = 4.3; // -
+//Blockly.Prolog.ORDER_LOGICAL_NOT = 4.4;    // !
+//Blockly.Prolog.ORDER_TYPEOF = 4.5;         // typeof
+//Blockly.Prolog.ORDER_VOID = 4.6;           // void
+//Blockly.Prolog.ORDER_DELETE = 4.7;         // delete
+//Blockly.Prolog.ORDER_SEQUENCE = 5;          // 
+//Blockly.Prolog.ORDER_DIVISION = 5.1;       // /
+//Blockly.Prolog.ORDER_MULTIPLICATION = 5.2; // *
+//Blockly.Prolog.ORDER_MODULUS = 5.3;        // %
+//Blockly.Prolog.ORDER_SELECT = 6;             // | 
+//Blockly.Prolog.ORDER_SUBTRACTION = 6.1;    // -
+//Blockly.Prolog.ORDER_ADDITION = 6.2;       // +
+//Blockly.Prolog.ORDER_BITWISE_SHIFT = 7;    // << >> >>>
+//Blockly.Prolog.ORDER_RELATIONAL = 8;       // < <= > >=
+//Blockly.Prolog.ORDER_IN = 8;               // in
+//Blockly.Prolog.ORDER_INSTANCEOF = 8;       // instanceof
+Blockly.Prolog.ORDER_EQUALITY = 9;         // == != === !==
+//Blockly.Prolog.ORDER_BITWISE_AND = 10;     // &
+//Blockly.Prolog.ORDER_BITWISE_XOR = 11;     // ^
+//Blockly.Prolog.ORDER_BITWISE_OR = 12;      // |
+//Blockly.Prolog.ORDER_LOGICAL_AND = 13;     // &&
+//Blockly.Prolog.ORDER_LOGICAL_OR = 14;      // ||
+//Blockly.Prolog.ORDER_CONDITIONAL = 15;     // ?:
+//Blockly.Prolog.ORDER_ASSIGNMENT = 16;      // = += -= *= /= %= <<= >>= ...
+Blockly.Prolog.ORDER_COMMA = 17;           // ,
+Blockly.Prolog.ORDER_NONE = 99;            // (...)
 
 /**
  * List of outer-inner pairings that do NOT require parentheses.
  * @type {!Array.<!Array.<number>>}
  */
-Blockly.Haskell.ORDER_OVERRIDES = [
+Blockly.Prolog.ORDER_OVERRIDES = [
   // (foo()).bar -> foo().bar
   // (foo())[0] -> foo()[0]
-  [Blockly.Haskell.ORDER_FUNCTION_CALL, Blockly.Haskell.ORDER_MEMBER],
+  [Blockly.Prolog.ORDER_FUNCTION_CALL, Blockly.Prolog.ORDER_MEMBER],
   // (foo())() -> foo()()
-  [Blockly.Haskell.ORDER_FUNCTION_CALL, Blockly.Haskell.ORDER_FUNCTION_CALL],
+  [Blockly.Prolog.ORDER_FUNCTION_CALL, Blockly.Prolog.ORDER_FUNCTION_CALL],
   // (foo.bar).baz -> foo.bar.baz
   // (foo.bar)[0] -> foo.bar[0]
   // (foo[0]).bar -> foo[0].bar
   // (foo[0])[1] -> foo[0][1]
-  [Blockly.Haskell.ORDER_MEMBER, Blockly.Haskell.ORDER_MEMBER],
+  [Blockly.Prolog.ORDER_MEMBER, Blockly.Prolog.ORDER_MEMBER],
   // (foo.bar)() -> foo.bar()
   // (foo[0])() -> foo[0]()
-  [Blockly.Haskell.ORDER_MEMBER, Blockly.Haskell.ORDER_FUNCTION_CALL],
+  [Blockly.Prolog.ORDER_MEMBER, Blockly.Prolog.ORDER_FUNCTION_CALL],
 
   // !(!foo) -> !!foo
-  [Blockly.Haskell.ORDER_LOGICAL_NOT, Blockly.Haskell.ORDER_LOGICAL_NOT],
+  [Blockly.Prolog.ORDER_LOGICAL_NOT, Blockly.Prolog.ORDER_LOGICAL_NOT],
   // a * (b * c) -> a * b * c
-  [Blockly.Haskell.ORDER_MULTIPLICATION, Blockly.Haskell.ORDER_MULTIPLICATION],
+  [Blockly.Prolog.ORDER_MULTIPLICATION, Blockly.Prolog.ORDER_MULTIPLICATION],
   // a + (b + c) -> a + b + c
-  [Blockly.Haskell.ORDER_ADDITION, Blockly.Haskell.ORDER_ADDITION],
+  [Blockly.Prolog.ORDER_ADDITION, Blockly.Prolog.ORDER_ADDITION],
   // a && (b && c) -> a && b && c
-  [Blockly.Haskell.ORDER_LOGICAL_AND, Blockly.Haskell.ORDER_LOGICAL_AND],
+  [Blockly.Prolog.ORDER_LOGICAL_AND, Blockly.Prolog.ORDER_LOGICAL_AND],
   // a || (b || c) -> a || b || c
-  [Blockly.Haskell.ORDER_LOGICAL_OR, Blockly.Haskell.ORDER_LOGICAL_OR]
+  [Blockly.Prolog.ORDER_LOGICAL_OR, Blockly.Prolog.ORDER_LOGICAL_OR]
 ];
 
 /**
  * Allow for switching between one and zero based indexing for lists and text,
  * one based by default.
- リストとテキストの1と0の間のインデックス付けを切り替えることができます。
- デフォルトでは1つです。
  */
-Blockly.Haskell.ONE_BASED_INDEXING = true;
+Blockly.Prolog.ONE_BASED_INDEXING = true;
 
 /**
  * Initialise the database of variable names.
  * @param {!Blockly.Workspace} workspace Workspace to generate code from.
  */
-Blockly.Haskell.init = function(workspace) {
+Blockly.Prolog.init = function(workspace) {
   // Create a dictionary of definitions to be printed before the code.
-  Blockly.Haskell.definitions_ = Object.create(null);
+  Blockly.Prolog.definitions_ = Object.create(null);
   // Create a dictionary mapping desired function names in definitions_
   // to actual function names (to avoid collisions with user functions).
-  Blockly.Haskell.functionNames_ = Object.create(null);
+  Blockly.Prolog.functionNames_ = Object.create(null);
 
-  if (!Blockly.Haskell.variableDB_) {
-    Blockly.Haskell.variableDB_ =
-        new Blockly.Names(Blockly.Haskell.RESERVED_WORDS_);
+  if (!Blockly.Prolog.variableDB_) {
+    Blockly.Prolog.variableDB_ =
+        new Blockly.Names(Blockly.Prolog.RESERVED_WORDS_);
   } else {
-    Blockly.Haskell.variableDB_.reset();
+    Blockly.Prolog.variableDB_.reset();
   }
 
   var defvars = [];
-  //var variables = Blockly.Variables.allVariables(workspace);
   var variables = Blockly.Variables.allUsedVarModels(workspace);
   if (variables.length) {
     for (var i = 0; i < variables.length; i++) {
-      defvars[i] = Blockly.Haskell.variableDB_.getName(variables[i],
+      defvars[i] = Blockly.Prolog.variableDB_.getName(variables[i],
           Blockly.Variables.NAME_TYPE);
     }
-    Blockly.Haskell.definitions_['variables'] =
+    Blockly.Prolog.definitions_['variables'] =
         //'var ' + defvars.join(', ') + ';';  //  2017/07/11 コメントアウト
         ''; // 2017/07/11 追加
   }
@@ -160,16 +159,16 @@ Blockly.Haskell.init = function(workspace) {
  * @param {string} code Generated code.
  * @return {string} Completed code.
  */
-Blockly.Haskell.finish = function(code) {
+Blockly.Prolog.finish = function(code) {
   // Convert the definitions dictionary into a list.
   var definitions = [];
-  for (var name in Blockly.Haskell.definitions_) {
-    definitions.push(Blockly.Haskell.definitions_[name]);
+  for (var name in Blockly.Prolog.definitions_) {
+    definitions.push(Blockly.Prolog.definitions_[name]);
   }
   // Clean up temporary data.
-  delete Blockly.Haskell.definitions_;
-  delete Blockly.Haskell.functionNames_;
-  Blockly.Haskell.variableDB_.reset();
+  delete Blockly.Prolog.definitions_;
+  delete Blockly.Prolog.functionNames_;
+  Blockly.Prolog.variableDB_.reset();
   // ↓  ブロックが離れているとき、どれだけ改行するか
   return definitions.join('\n\n') + '\n' + code;    // 2017/07/13 \nを2個消去 
 };
@@ -181,18 +180,18 @@ Blockly.Haskell.finish = function(code) {
  * @return {string} Legal line of code.
  行の終わりを示す
  */
-Blockly.Haskell.scrubNakedValue = function(line) {
+Blockly.Prolog.scrubNakedValue = function(line) {
   return line + '\n';     // 2017/07/13 セミコロン(;)を消去
 };
 
 /**
- * Encode a string as a properly escaped Haskell string, complete with
+ * Encode a string as a properly escaped Prolog string, complete with
  * quotes.
  * @param {string} string Text to encode.
- * @return {string} Haskell string.
+ * @return {string} Prolog string.
  * @private
  */
-Blockly.Haskell.quote_ = function(string) {
+Blockly.Prolog.quote_ = function(string) {
   // Can't use goog.string.quote since Google's style guide recommends
   // JS string literals use single quotes.
   string = string.replace(/\\/g, '\\\\')
@@ -202,30 +201,29 @@ Blockly.Haskell.quote_ = function(string) {
 };
 
 /**
- * Common tasks for generating Haskell from blocks.
+ * Common tasks for generating Prolog from blocks.
  * Handles comments for the specified block and any connected value blocks.
  * Calls any statements following this block.
  * @param {!Blockly.Block} block The current block.
- * @param {string} code The Haskell code created for this block.
- * @return {string} Haskell code with comments and subsequent blocks added.
+ * @param {string} code The Prolog code created for this block.
+ * @return {string} Prolog code with comments and subsequent blocks added.
  * @private
  */
-Blockly.Haskell.scrub_ = function(block, code) {
+Blockly.Prolog.scrub_ = function(block, code) {
   var commentCode = '';
   // Only collect comments for blocks that aren't inline.
   if (!block.outputConnection || !block.outputConnection.targetConnection) {
     // Collect comment for this block.
     var comment = block.getCommentText();
-    comment = Blockly.utils.wrap(comment, Blockly.Haskell.COMMENT_WRAP - 3);
+    comment = Blockly.utils.wrap(comment, Blockly.Prolog.COMMENT_WRAP - 3);
     if (comment) {
       if (block.getProcedureDef) {
         // Use a comment block for function comments.
-        /* 18/01/17 ['procedures_defreturn']のパターンマッチングで邪魔なため
-        commentCode += '{-\n' +
-                       Blockly.Haskell.prefixLines(comment + '\n', ' ') +
-                       ' -}\n';*/                                 // 17/12/05 コメントアウトのコードをhaskell用に変更
+        commentCode += '/**\n' +
+                       Blockly.Prolog.prefixLines(comment + '\n', ' * ') +
+                       ' */\n';
       } else {
-        commentCode += Blockly.Haskell.prefixLines(comment + '\n', '-- ');  // 17/12/05 ↑と同様
+        commentCode += Blockly.Prolog.prefixLines(comment + '\n', '// ');
       }
     }
     // Collect comments for all value arguments.
@@ -234,16 +232,16 @@ Blockly.Haskell.scrub_ = function(block, code) {
       if (block.inputList[i].type == Blockly.INPUT_VALUE) {
         var childBlock = block.inputList[i].connection.targetBlock();
         if (childBlock) {
-          var comment = Blockly.Haskell.allNestedComments(childBlock);
+          var comment = Blockly.Prolog.allNestedComments(childBlock);
           if (comment) {
-            commentCode += Blockly.Haskell.prefixLines(comment, '-- '); // 17/12/05 ↑と同様
+            commentCode += Blockly.Prolog.prefixLines(comment, '// ');
           }
         }
       }
     }
   }
   var nextBlock = block.nextConnection && block.nextConnection.targetBlock();
-  var nextCode = Blockly.Haskell.blockToCode(nextBlock);
+  var nextCode = Blockly.Prolog.blockToCode(nextBlock);
   return commentCode + code + nextCode;
 };
 
@@ -256,25 +254,25 @@ Blockly.Haskell.scrub_ = function(block, code) {
  * @param {number=} opt_order The highest order acting on this value.
  * @return {string|number}
  */
-Blockly.Haskell.getAdjusted = function(block, atId, opt_delta, opt_negate,
+Blockly.Prolog.getAdjusted = function(block, atId, opt_delta, opt_negate,
     opt_order) {
   var delta = opt_delta || 0;
-  var order = opt_order || Blockly.Haskell.ORDER_NONE;
-  if (Blockly.Haskell.ONE_BASED_INDEXING) {
+  var order = opt_order || Blockly.Prolog.ORDER_NONE;
+  if (Blockly.Prolog.ONE_BASED_INDEXING) {
     delta--;
   }
-  var defaultAtIndex = Blockly.Haskell.ONE_BASED_INDEXING ? '1' : '0';
+  var defaultAtIndex = Blockly.Prolog.ONE_BASED_INDEXING ? '1' : '0';
   if (delta > 0) {
-    var at = Blockly.Haskell.valueToCode(block, atId,
-        Blockly.Haskell.ORDER_ADDITION) || defaultAtIndex;
+    var at = Blockly.Prolog.valueToCode(block, atId,
+        Blockly.Prolog.ORDER_ADDITION) || defaultAtIndex;
   } else if (delta < 0) {
-    var at = Blockly.Haskell.valueToCode(block, atId,
-        Blockly.Haskell.ORDER_SUBTRACTION) || defaultAtIndex;
+    var at = Blockly.Prolog.valueToCode(block, atId,
+        Blockly.Prolog.ORDER_SUBTRACTION) || defaultAtIndex;
   } else if (opt_negate) {
-    var at = Blockly.Haskell.valueToCode(block, atId,
-        Blockly.Haskell.ORDER_UNARY_NEGATION) || defaultAtIndex;
+    var at = Blockly.Prolog.valueToCode(block, atId,
+        Blockly.Prolog.ORDER_UNARY_NEGATION) || defaultAtIndex;
   } else {
-    var at = Blockly.Haskell.valueToCode(block, atId, order) ||
+    var at = Blockly.Prolog.valueToCode(block, atId, order) ||
         defaultAtIndex;
   }
 
@@ -288,10 +286,10 @@ Blockly.Haskell.getAdjusted = function(block, atId, opt_delta, opt_negate,
     // If the index is dynamic, adjust it in code.
     if (delta > 0) {
       at = at + ' + ' + delta;
-      var innerOrder = Blockly.Haskell.ORDER_ADDITION;
+      var innerOrder = Blockly.Prolog.ORDER_ADDITION;
     } else if (delta < 0) {
       at = at + ' - ' + -delta;
-      var innerOrder = Blockly.Haskell.ORDER_SUBTRACTION;
+      var innerOrder = Blockly.Prolog.ORDER_SUBTRACTION;
     }
     if (opt_negate) {
       if (delta) {
@@ -299,7 +297,7 @@ Blockly.Haskell.getAdjusted = function(block, atId, opt_delta, opt_negate,
       } else {
         at = '-' + at;
       }
-      var innerOrder = Blockly.Haskell.ORDER_UNARY_NEGATION;
+      var innerOrder = Blockly.Prolog.ORDER_UNARY_NEGATION;
     }
     innerOrder = Math.floor(innerOrder);
     order = Math.floor(order);

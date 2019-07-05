@@ -4,6 +4,9 @@
 18/01/10   ['bondage'] 作成
 */
 
+Blockly.Msg["MATH_HUE"] = 230;
+Blockly.Msg["VARIABLE_HUE"] = 330;
+
 Blockly.Blocks['var_arithmetic'] = {
   /**
    * Block for basic arithmetic operator.
@@ -37,7 +40,7 @@ Blockly.Blocks['var_arithmetic'] = {
       ],
       "inputsInline": true,
       "output": "Number",
-      "colour": Blockly.Blocks.math.HUE,
+      "colour": Blockly.Msg["MATH_HUE"],
       "helpUrl": Blockly.Msg.MATH_ARITHMETIC_HELPURL
     });
     // Assign 'this' to a variable for use in the tooltip closure below.
@@ -83,7 +86,7 @@ Blockly.Blocks['bondage'] = {
   init: function() {
 
     this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
-    this.setColour(Blockly.Blocks.variables.HUE);
+    this.setColour(Blockly.Msg["VARIABLE_HUE"]);
     this.appendValueInput('VALUE')
         .appendField("束縛")
         .appendField(new Blockly.FieldVariable("項目"), 'VAR');

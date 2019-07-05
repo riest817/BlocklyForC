@@ -2,6 +2,7 @@
 2017/07/11 haskell\output.js 新規作成
 18/02/01 ['procedures_call2'] 作成
 */
+Blockly.Msg["OUTPUT_HUE"] = 0;
 
 Blockly.Blocks['output_text'] = {
   /**
@@ -10,7 +11,7 @@ Blockly.Blocks['output_text'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
-    this.setColour(0);
+    this.setColour(Blockly.Msg["OUTPUT_HUE"]);
     this.appendDummyInput()
         .appendField(Blockly.Msg.output_text)
         .appendField(this.newQuote_(true))
@@ -56,7 +57,7 @@ Blockly.Haskell['output_text'] = function(block) {
 
 Blockly.Blocks['output_var'] = {
   init: function() {
-    this.setColour(0);
+    this.setColour(Blockly.Msg["OUTPUT_HUE"]);
     this.jsonInit({ "message0": Blockly.Msg.output_var });
     this.appendValueInput('B');
     this.setInputsInline(true);
@@ -80,7 +81,7 @@ Blockly.Haskell['output_var'] = function(block) {
 // 19/01/15
 Blockly.Blocks['output_var2'] = {
   init: function() {
-    this.setColour(0);
+    this.setColour(Blockly.Msg["OUTPUT_HUE"]);
     this.jsonInit({ "message0": Blockly.Msg.output_var2 });
     this.appendValueInput('B');
     this.setInputsInline(true);
@@ -102,16 +103,12 @@ Blockly.Haskell['output_var2'] = function(block) {
   return code;
 };
 // 19/01/15 ここまで
-
 // 18/12/12 追加
 Blockly.Blocks['string'] = {
-  /**
-   * Block for text value.
-   * @this Blockly.Block
-   */
+
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
-    this.setColour(0);
+    this.setColour(Blockly.Msg["OUTPUT_HUE"]);
     this.appendDummyInput()
         .appendField(Blockly.Msg.output_string)
         .appendField(this.newQuote_(true))
@@ -129,13 +126,7 @@ Blockly.Blocks['string'] = {
           "行単位のテキスト出力。";
     });
   },
-  /**
-   * Create an image of an open or closed quote.
-   * @param {boolean} open True if open quote, false if closed.
-   * @return {!Blockly.FieldImage} The field image of the quote.
-   * @this Blockly.Block
-   * @private
-   */
+
   newQuote_: function(open) {
     if (open == this.RTL) {
       var file = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAKCAQAAAAqJXdxAAAAqUlEQVQI1z3KvUpCcRiA8ef9E4JNHhI0aFEacm1o0BsI0Slx8wa8gLauoDnoBhq7DcfWhggONDmJJgqCPA7neJ7p934EOOKOnM8Q7PDElo/4x4lFb2DmuUjcUzS3URnGib9qaPNbuXvBO3sGPHJDRG6fGVdMSeWDP2q99FQdFrz26Gu5Tq7dFMzUvbXy8KXeAj57cOklgA+u1B5AoslLtGIHQMaCVnwDnADZIFIrXsoXrgAAAABJRU5ErkJggg==';
@@ -152,6 +143,6 @@ Blockly.Haskell['string'] = function(block) {
   var code = ' "';
   code += block.getFieldValue('TEXT');
   code += '" ';
-  return [code, Blockly.Haskell.ORDER_ATOMIC];
+  //return [code, Blockly.Haskell.ORDER_ATOMIC];
   return code;
 };
