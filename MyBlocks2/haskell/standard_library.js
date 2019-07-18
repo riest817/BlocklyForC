@@ -91,8 +91,8 @@ Blockly.Blocks['output_library'] = {
   },
 
   updateType_: function(newOp) {
-    this.removeInput('TEXT');
-    this.removeInput('B');
+    if (this.getInput('TEXT')) this.removeInput('TEXT');
+    if (this.getInput('B')) this.removeInput('B');
     switch (newOp) {
       case 'putstr':
         this.appendValueInput('B');
@@ -222,9 +222,9 @@ Blockly.Blocks['list_library'] = {
   },
 
   updateType_: function(newOp) {
-    this.removeInput('LIST');
-    this.removeInput('VALUE');
-    this.removeInput('TEXT');
+    if (this.getInput('LIST')) this.removeInput('LIST');
+    if (this.getInput('VALUE')) this.removeInput('VALUE');
+    if (this.getInput('TEXT')) this.removeInput('TEXT');
     switch (newOp) {
       case 'length':
         this.appendValueInput('LIST')
@@ -379,10 +379,10 @@ Blockly.Blocks['Higher_Order_func_library'] = {
   },
 
   updateType_: function(newOp) {
-    this.removeInput('FUNC');
-    this.removeInput('LIST');
-    this.removeInput('VALUE');
-    this.removeInput('TEXT');
+    if (this.getInput('FUNC')) this.removeInput('FUNC');
+    if (this.getInput('LIST')) this.removeInput('LIST');
+    if (this.getInput('VALUE')) this.removeInput('VALUE');
+    if (this.getInput('TEXT')) this.removeInput('TEXT');
     switch (newOp) {
       case 'map':
         this.appendValueInput('FUNC');

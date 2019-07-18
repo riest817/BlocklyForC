@@ -221,7 +221,7 @@ Blockly.Blocks['procedures_defreturn_statement'] = {
         .appendField("文");  
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setInputsInline(false);
+//    this.setInputsInline(false);
     this.setStatements_(false);
     this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
     if (Blockly.Msg.PROCEDURES_DEFRETURN_COMMENT) {
