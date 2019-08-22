@@ -39,7 +39,7 @@ Blockly.Prolog['rule_connection'] = function(block) {
   }
   var code = head + ':-' + args.join(', ') + '.';
   
-  return [code, Blockly.Prolog.ORDER_FUNCTION_CALL];
-  //return code + '\n';
+  //return [code, Blockly.Prolog.ORDER_FUNCTION_CALL];
+  return code + '\n';
 };
 

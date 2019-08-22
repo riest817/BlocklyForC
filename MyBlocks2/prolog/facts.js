@@ -152,6 +152,141 @@ Blockly.Blocks['fact_definition0'] = {
   newQuote_: Blockly.Blocks['text'].newQuote_
 };
 
+Blockly.Blocks['fact_definition2'] = {
+  /**
+   * Block for creating a string made up of any number of elements of any type.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
+    this.setColour(Blockly.Msg["FACT_HUE"]);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.lists_group_head1)
+        .appendField(new Blockly.FieldTextInput(''), 'TEXT')
+        .appendField(Blockly.Msg.lists_group_head2);
+    this.itemCount_ = 2;
+    this.updateShape_();
+    this.setPreviousStatement(true);  // 上部との接続を可能にする
+    this.setNextStatement(true);      // 下部との接続を可能にする
+    this.setOutput(false);
+    this.setInputsInline(true);
+    this.setMutator(new Blockly.Mutator(['lists_create_join_item']));
+    this.setTooltip("事実を定義します。");
+  },
+  /**
+   * Create XML to represent number of text inputs.
+   * @return {!Element} XML storage element.
+   * @this Blockly.Block
+   */
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    container.setAttribute('items', this.itemCount_);
+    return container;
+  },
+  /**
+   * Parse XML to restore the text inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+  domToMutation: function(xmlElement) {
+    this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+    this.updateShape_();
+  },
+  /**
+   * Populate the mutator's dialog with this block's components.
+   * @param {!Blockly.Workspace} workspace Mutator's workspace.
+   * @return {!Blockly.Block} Root block in mutator.
+   * @this Blockly.Block
+   */
+  decompose: function(workspace) {
+    var containerBlock = workspace.newBlock('lists_create_join_container');
+    containerBlock.initSvg();
+    var connection = containerBlock.getInput('STACK').connection;
+    for (var i = 0; i < this.itemCount_; i++) {
+      var itemBlock = workspace.newBlock('lists_create_join_item');
+      itemBlock.initSvg();
+      connection.connect(itemBlock.previousConnection);
+      connection = itemBlock.nextConnection;
+    }
+    return containerBlock;
+  },
+  /**
+   * Reconfigure this block based on the mutator dialog's components.
+   * @param {!Blockly.Block} containerBlock Root block in mutator.
+   * @this Blockly.Block
+   */
+  compose: function(containerBlock) {
+    var itemBlock = containerBlock.getInputTargetBlock('STACK');
+    // Count number of inputs.
+    var connections = [];
+    while (itemBlock) {
+      connections.push(itemBlock.valueConnection_);
+      itemBlock = itemBlock.nextConnection &&
+          itemBlock.nextConnection.targetBlock();
+    }
+    // Disconnect any children that don't belong.
+    for (var i = 0; i < this.itemCount_; i++) {
+      var connection = this.getInput('ADD' + i).connection.targetConnection;
+      if (connection && connections.indexOf(connection) == -1) {
+        connection.disconnect();
+      }
+    }
+    this.itemCount_ = connections.length;
+    this.updateShape_();
+    // Reconnect any child blocks.
+    for (var i = 0; i < this.itemCount_; i++) {
+      Blockly.Mutator.reconnect(connections[i], this, 'ADD' + i);
+    }
+  },
+  /**
+   * Store pointers to any connected child blocks.
+   * @param {!Blockly.Block} containerBlock Root block in mutator.
+   * @this Blockly.Block
+   */
+  saveConnections: function(containerBlock) {
+    var itemBlock = containerBlock.getInputTargetBlock('STACK');
+    var i = 0;
+    while (itemBlock) {
+      var input = this.getInput('ADD' + i);
+      itemBlock.valueConnection_ = input && input.connection.targetConnection;
+      i++;
+      itemBlock = itemBlock.nextConnection &&
+          itemBlock.nextConnection.targetBlock();
+    }
+  },
+  /**
+   * Modify this block to have the correct number of inputs.
+   * @private
+   * @this Blockly.Block
+   */
+  updateShape_: function() {
+    if (this.itemCount_ && this.getInput('EMPTY')) {
+      this.removeInput('EMPTY');
+    } else if (!this.itemCount_ && !this.getInput('EMPTY')) {
+      this.appendDummyInput('EMPTY');
+    }
+    // Add new inputs.
+    for (var i = 0; i < this.itemCount_; i++) {
+      if (!this.getInput('ADD' + i)) {
+        if ( this.getInput('END') ) { this.removeInput('END'); }
+        var input = this.appendValueInput('ADD' + i);
+        if ( i > 0 ) {
+          input.appendField(Blockly.Msg.lists_group_middle);
+        }
+        if ( i == this.itemCount_-1 ) {
+          this.appendDummyInput('END')
+              .appendField(Blockly.Msg.lists_group_end);
+        }
+      }
+    }
+    // Remove deleted inputs.
+    while (this.getInput('ADD' + i)) {
+      this.removeInput('ADD' + i);
+      i++;
+    }
+  },
+  newQuote_: Blockly.Blocks['text'].newQuote_
+};
 
 Blockly.Blocks['lists_create_join_container'] = {
   /**
@@ -343,3 +478,21 @@ Blockly.Blocks['fact_definition'] = {
   callType_: 'procedures_call2'
 };
 // 19/06/26 ここまで
+
+Blockly.Blocks['is_block'] = {
+  /**
+   * Block for creating a string made up of any number of elements of any type.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
+    this.setColour(Blockly.Msg["FACT_HUE"]);
+    this.appendValueInput('ADD1');
+    this.appendDummyInput()
+        .appendField("is");
+    this.appendValueInput('ADD2');
+    this.setOutput(true);
+    this.setInputsInline(true);
+    this.setTooltip("");
+  }
+};

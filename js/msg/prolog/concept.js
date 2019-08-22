@@ -52,8 +52,11 @@ Blockly.Msg.rule_connection_middle1 = "であれば";
 Blockly.Msg.rule_connection_middle2 = "と";
 Blockly.Msg.rule_connection_end = "である。";
 
-// 質問
-
+// リスト
+Blockly.Msg.lists_range_head = "リスト [";
+Blockly.Msg.lists_range_middle = "|";
+Blockly.Msg.lists_range_end = "]";
+Blockly.Msg.lists_range_empty = "空リスト";
 
 // 項
 Blockly.Msg.term_name_head = "項名";

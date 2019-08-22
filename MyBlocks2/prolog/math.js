@@ -60,21 +60,21 @@ Blockly.Blocks['var_arithmetic'] = {
   }
 };
 
-Blockly.Haskell['var_arithmetic'] = function(block) {
+Blockly.Prolog['var_arithmetic'] = function(block) {
   // Basic arithmetic operators, and power.
   var OPERATORS = {
-    'ADD': [' + ', Blockly.Haskell.ORDER_ADDITION],
-    'MINUS': [' - ', Blockly.Haskell.ORDER_SUBTRACTION],
-    'MULTIPLY': [' * ', Blockly.Haskell.ORDER_MULTIPLICATION],
-    'DIVIDE': [' / ', Blockly.Haskell.ORDER_DIVISION],
+    'ADD': [' + ', Blockly.Prolog.ORDER_ADDITION],
+    'MINUS': [' - ', Blockly.Prolog.ORDER_SUBTRACTION],
+    'MULTIPLY': [' * ', Blockly.Prolog.ORDER_MULTIPLICATION],
+    'DIVIDE': [' / ', Blockly.Prolog.ORDER_DIVISION],
     //'REMAINDER': [' % ', 5.4],  // 2017/10/18 追加
-    'POWER': [' ^ ', Blockly.Haskell.ORDER_COMMA]  // Handle power separately.
+    'POWER': [' ^ ', Blockly.Prolog.ORDER_COMMA]  // Handle power separately.
   };
   var tuple = OPERATORS[block.getFieldValue('OP')];
   var operator = tuple[0];
   var order = tuple[1];
-  var argument0 = Blockly.Haskell.valueToCode(block, 'A', order) || '0';
-  var argument1 = Blockly.Haskell.valueToCode(block, 'B', order) || '0';
+  var argument0 = Blockly.Prolog.valueToCode(block, 'A', order) || '0';
+  var argument1 = Blockly.Prolog.valueToCode(block, 'B', order) || '0';
   var code;
   
   code = argument0 + operator + argument1;
@@ -112,10 +112,10 @@ Blockly.Blocks['bondage'] = {
   }
 };
 
-Blockly.Haskell['bondage'] = function(block) {
+Blockly.Prolog['bondage'] = function(block) {
   // Variable setter.
-  var argument0 = Blockly.Haskell.valueToCode(block, 'VALUE') || '0';
-  var varName = Blockly.Haskell.variableDB_.getName(
+  var argument0 = Blockly.Prolog.valueToCode(block, 'VALUE') || '0';
+  var varName = Blockly.Prolog.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   var code = varName + ' <- ' + argument0 + ', ';
   

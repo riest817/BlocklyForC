@@ -47,6 +47,7 @@ Blockly.Blocks['procedures_defreturn'] = {
   //updateParams_: Blockly.Blocks['procedures_defnoreturn'].updateParams_,
   updateParams_    : function () {
     for (var i = 0; i < this.arguments_.length; i++) {
+      if ( this.getInput('DELTA') ) { this.removeInput('DELTA'); }  // 追加 19/07/17
       var field = this.getField('ARGNAME' + i);
       this.arguments_[i] = '引数' + (i+1);  // 18/11/29 追加
       if (field) {
@@ -67,6 +68,8 @@ Blockly.Blocks['procedures_defreturn'] = {
             .appendField(field, 'ARGNAME' + i);
         input.init();
       }
+      this.appendValueInput('DELTA')
+          .appendField("式 ===> ");
     }
     // Remove deleted inputs.
     while (this.getInput('ARG' + i)) {

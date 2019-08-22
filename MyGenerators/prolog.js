@@ -65,19 +65,19 @@ Blockly.Prolog.ORDER_FUNCTION_CALL = 2;    // ()
 //Blockly.Prolog.ORDER_VOID = 4.6;           // void
 //Blockly.Prolog.ORDER_DELETE = 4.7;         // delete
 //Blockly.Prolog.ORDER_SEQUENCE = 5;          // 
-//Blockly.Prolog.ORDER_DIVISION = 5.1;       // /
-//Blockly.Prolog.ORDER_MULTIPLICATION = 5.2; // *
+Blockly.Prolog.ORDER_DIVISION = 5.1;       // /
+Blockly.Prolog.ORDER_MULTIPLICATION = 5.2; // *
 //Blockly.Prolog.ORDER_MODULUS = 5.3;        // %
 //Blockly.Prolog.ORDER_SELECT = 6;             // | 
-//Blockly.Prolog.ORDER_SUBTRACTION = 6.1;    // -
-//Blockly.Prolog.ORDER_ADDITION = 6.2;       // +
+Blockly.Prolog.ORDER_SUBTRACTION = 6.1;    // -
+Blockly.Prolog.ORDER_ADDITION = 6.2;       // +
 //Blockly.Prolog.ORDER_BITWISE_SHIFT = 7;    // << >> >>>
 //Blockly.Prolog.ORDER_RELATIONAL = 8;       // < <= > >=
 //Blockly.Prolog.ORDER_IN = 8;               // in
 //Blockly.Prolog.ORDER_INSTANCEOF = 8;       // instanceof
 Blockly.Prolog.ORDER_EQUALITY = 9;         // == != === !==
 //Blockly.Prolog.ORDER_BITWISE_AND = 10;     // &
-//Blockly.Prolog.ORDER_BITWISE_XOR = 11;     // ^
+Blockly.Prolog.ORDER_BITWISE_XOR = 11;     // ^
 //Blockly.Prolog.ORDER_BITWISE_OR = 12;      // |
 //Blockly.Prolog.ORDER_LOGICAL_AND = 13;     // &&
 //Blockly.Prolog.ORDER_LOGICAL_OR = 14;      // ||
