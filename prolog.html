@@ -1,6 +1,3 @@
-<!--
-19/06/11 flex.htmlを参考に新規作成
--->
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -18,9 +15,10 @@
 <!--<script src="Library/blockly/prolog_compressed.js"></script>-->
 <!-- -->
 <script src="MyGenerators/prolog.js"></script>
-<script src="MyGenerators/prolog/facts.js"></script>
-<script src="MyGenerators/prolog/rule.js"></script>
-<script src="MyGenerators/prolog/term.js"></script>
+<script src="MyGenerators/prolog/functors.js"></script>
+<script src="MyGenerators/prolog/procedures.js"></script>
+<!-- <script src="MyGenerators/prolog/rule.js"></script> -->
+<!-- <script src="MyGenerators/prolog/term.js"></script> -->
 
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 <script src="Library/blockly/msg/js/ja.js"></script>
@@ -32,16 +30,24 @@
 <script src="Library/jquery.query.js"></script>
 <script src="Library/intro.js"></script>
 <!-- 追加 -->
-<script src="MyBlocks2/prolog/facts.js"></script>
-<script src="MyBlocks2/prolog/rule.js"></script>  
-<script src="MyBlocks2/prolog/term.js"></script>  
+<script src="MyBlocks2/prolog/lists.js"></script>
+<script src="MyBlocks2/prolog/functors.js"></script>
+<script src="MyBlocks2/prolog/procedures.js"></script>  
+<!-- <script src="MyBlocks2/prolog/rule.js"></script>  
+<script src="MyBlocks2/prolog/term.js"></script> -->
+
 
 <script type="text/javascript" src="js/sample_button/prolog.js"></script>  <!-- (2017/10/19 追加)-->
 <!-- <script src="js/cookie.js"></script> --> <!-- (2017/11/14 追加)-->
 
 <script src="js/common2.js"></script>   <!-- (2017/11/14 追加)-->
 <script src="js/code/code_prolog.js"></script>  <!-- (18/04/24)-->
-<script src="myflyout.js"></script> <!-- code_prolog.js より後(19/05/29)  -->
+<script src="MyCore/prolog_predicates.js"></script> <!-- code_prolog.js より後(19/05/29)  -->
+<script src="MyCore/prolog_functors.js"></script> 
+<script>
+  // dirty hack to prevent unnecessary items
+  delete Blockly.Blocks['math_change'];
+</script>
 <link rel="stylesheet" href="Library/introjs.css"/>
 <style>
     html, body {
@@ -128,29 +134,26 @@
 </head>
 <body>
 <xml id="toolbox" style="display: none">
-  <category name="述語" colour="170"> <!-- 事実 -->
-    <block type="fact_definition0"></block>
-    <block type="fact_definition"></block>
+
+<!-- <category name="規則" colour="210"> -->
+<!--    <block type="rule_single"></block> -->
+<!--    <block type="rule_connection"></block> -->
+<!--  </category> -->
+  <category name="リスト" colour="260">
+    <block type="lists_container"></block>
+    <block type="lists_create_with"><mutation items="0" /></block>
+    <block type="lists_create_with"><mutation items="3" /></block>
   </category>
-  <category name="規則" colour="210">
-    <block type="rule_single"></block>
-    <block type="rule_connection"></block>
-
+  <category name="文字列" colour="160">
+    <block type="text"></block>
   </category>
-  <!--category name="質問" colour="65">
-
-  </category-->
     <sep></sep>
-    <sep></sep>
-  <category name="項" colour="270">
-    <block type="term_name"></block>
-
+  <category name="ファンクター" colour="270" custom="PROLOG_FUNCTOR"> 
+  </category>
+  <category name="述語" colour="170" custom="PROLOG_PREDICATE"> <!-- 事実 -->
   </category>
   <category name="変数" colour="330" custom="VARIABLE">
-
   </category>
-  <sep></sep>
-
 </xml>
 
 <xml id="startBlocks" style="display: none;"></xml>

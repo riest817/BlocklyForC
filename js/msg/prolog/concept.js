@@ -60,7 +60,16 @@ Blockly.Msg.term_name_head = "項名";
 
 // 変数
 
-
+// リスト
+Blockly.Msg.lists_container_head = ""[;
+Blockly.Msg.lists_container_middle = "|";
+Blockly.Msg.lists_container_end = "]";
+// Blockly.Msg.lists_connection_head = "";
+// Blockly.Msg.lists_connection_middle = "++";
+Blockly.Msg.lists_create_with_head = "[";
+Blockly.Msg.lists_create_with_empty = "[ ]";
+Blockly.Msg.lists_create_with_middle = ",";
+Blockly.Msg.lists_create_with_end = "]";
 
 
 /** @export */ Blockly.Msg.MATH_HUE = "230";

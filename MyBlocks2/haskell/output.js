@@ -46,15 +46,6 @@ Blockly.Blocks['output_text'] = {
   }
 };
 
-
-Blockly.Haskell['output_text'] = function(block) {
-  // Text value.
-  var code = 'print "';
-  code += block.getFieldValue('TEXT');
-  code += '"\n';
-  return code;
-};
-
 Blockly.Blocks['output_var'] = {
   init: function() {
     this.setColour(Blockly.Msg["OUTPUT_HUE"]);
@@ -65,17 +56,6 @@ Blockly.Blocks['output_var'] = {
     this.setNextStatement(true);      // 下部との接続を可能にする
     this.setTooltip("変数の出力");
   }
-};
-
-Blockly.Haskell['output_var'] = function(block) {
-  var dropdown_type = block.getFieldValue('TYPE');
-  var value_b = Blockly.Haskell.valueToCode(block, 'B', Blockly.Haskell.ORDER_ATOMIC);
-  //var varName = Blockly.C.variableDB_.getName(
-  //              block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-  var code = 'print ';
-  
-  code += value_b + '\n';
-  return code;
 };
 
 // 19/01/15
@@ -92,17 +72,6 @@ Blockly.Blocks['output_var2'] = {
   }
 };
 
-Blockly.Haskell['output_var2'] = function(block) {
-  var dropdown_type = block.getFieldValue('TYPE');
-  var value_b = Blockly.Haskell.valueToCode(block, 'B', Blockly.Haskell.ORDER_ATOMIC);
-  //var varName = Blockly.C.variableDB_.getName(
-  //              block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-  var code = 'print ';
-  
-  code += value_b + '\n';
-  return code;
-};
-// 19/01/15 ここまで
 // 18/12/12 追加
 Blockly.Blocks['string'] = {
 
@@ -135,14 +104,4 @@ Blockly.Blocks['string'] = {
     }
     return new Blockly.FieldImage(file, 12, 12, '"');
   }
-};
-
-
-Blockly.Haskell['string'] = function(block) {
-  // Text value.
-  var code = ' "';
-  code += block.getFieldValue('TEXT');
-  code += '" ';
-  //return [code, Blockly.Haskell.ORDER_ATOMIC];
-  return code;
 };

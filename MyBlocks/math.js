@@ -363,12 +363,12 @@ Blockly.Blocks['math_on_list'] = {
     var OPERATORS =
         [[Blockly.Msg.MATH_ONLIST_OPERATOR_SUM, 'SUM'],
          [Blockly.Msg.MATH_ONLIST_OPERATOR_MIN, 'MIN'],
-         [Blockly.Msg.MATH_ONLIST_OPERATOR_MAX, 'MAX'],
+         [Blockly.Msg.MATH_ONLIST_OPERATOR_MAX, 'MAX']/*,
          [Blockly.Msg.MATH_ONLIST_OPERATOR_AVERAGE, 'AVERAGE'],
          [Blockly.Msg.MATH_ONLIST_OPERATOR_MEDIAN, 'MEDIAN'],
          [Blockly.Msg.MATH_ONLIST_OPERATOR_MODE, 'MODE'],
          [Blockly.Msg.MATH_ONLIST_OPERATOR_STD_DEV, 'STD_DEV'],
-         [Blockly.Msg.MATH_ONLIST_OPERATOR_RANDOM, 'RANDOM']];
+         [Blockly.Msg.MATH_ONLIST_OPERATOR_RANDOM, 'RANDOM'] */];
     // Assign 'this' to a variable for use in the closures below.
     var thisBlock = this;
     this.setHelpUrl(Blockly.Msg.MATH_ONLIST_HELPURL);
@@ -385,12 +385,12 @@ Blockly.Blocks['math_on_list'] = {
       var TOOLTIPS = {
         'SUM': Blockly.Msg.MATH_ONLIST_TOOLTIP_SUM,
         'MIN': Blockly.Msg.MATH_ONLIST_TOOLTIP_MIN,
-        'MAX': Blockly.Msg.MATH_ONLIST_TOOLTIP_MAX,
+        'MAX': Blockly.Msg.MATH_ONLIST_TOOLTIP_MAX/*,
         'AVERAGE': Blockly.Msg.MATH_ONLIST_TOOLTIP_AVERAGE,
         'MEDIAN': Blockly.Msg.MATH_ONLIST_TOOLTIP_MEDIAN,
         'MODE': Blockly.Msg.MATH_ONLIST_TOOLTIP_MODE,
         'STD_DEV': Blockly.Msg.MATH_ONLIST_TOOLTIP_STD_DEV,
-        'RANDOM': Blockly.Msg.MATH_ONLIST_TOOLTIP_RANDOM
+        'RANDOM': Blockly.Msg.MATH_ONLIST_TOOLTIP_RANDOM*/
       };
       return TOOLTIPS[mode];
     });

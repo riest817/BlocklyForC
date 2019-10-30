@@ -16,17 +16,6 @@ Blockly.Blocks['putStr_hs'] = {
   }
 };
 
-Blockly.Haskell['putStr_hs'] = function(block) {
-  var dropdown_type = block.getFieldValue('TYPE');
-  var value_b = Blockly.Haskell.valueToCode(block, 'B', Blockly.Haskell.ORDER_ATOMIC);
-  //var varName = Blockly.C.variableDB_.getName(
-  //              block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-  var code = 'putStr ';
-  
-  code += value_b + '\n';
-  return code;
-};
-
 Blockly.Blocks['putStrLn_hs'] = {
   init: function() {
     this.setColour(0);
@@ -39,15 +28,6 @@ Blockly.Blocks['putStrLn_hs'] = {
   }
 };
 
-Blockly.Haskell['putStrLn_hs'] = function(block) {
-  var dropdown_type = block.getFieldValue('TYPE');
-  var value_b = Blockly.Haskell.valueToCode(block, 'B', Blockly.Haskell.ORDER_ATOMIC);
-  var code = 'putStrLn ';
-  
-  code += value_b + '\n';
-  return code;
-};
-
 // 19/04/03 追加
 Blockly.Blocks['output_library'] = {
   /**
@@ -56,12 +36,11 @@ Blockly.Blocks['output_library'] = {
    * @this Blockly.Block
    */
   init: function() {
-
     var OPERATORS =
-        [[Blockly.Msg.putStr_hs, 'putstr'],
+        [[Blockly.Msg.putStr_hs, 'putStr'],
          //[Blockly.Msg.output_text, 'text'],
-         [Blockly.Msg.output_var, 'var'],
-         [Blockly.Msg.output_var2, 'var2']
+         [Blockly.Msg.output_var, 'print'],
+//         [Blockly.Msg.output_var2, 'var2']
          ];
     // Assign 'this' to a variable for use in the closures below.
     var thisBlock = this;
@@ -78,26 +57,28 @@ Blockly.Blocks['output_library'] = {
         .appendField(dropdown, 'OP');*/
     this.appendDummyInput()
         .appendField(dropdown, 'OP');
+    thisBlock.updateType_('putStr');
     this.setTooltip(function() {
       var mode = thisBlock.getFieldValue('OP');
       var TOOLTIPS = {
-        'putstr': "文字列を標準出力にそのまま出力するアクションを返します。",
-        'text': "行単位のテキスト出力。",
+        'putStr': "文字列を標準出力にそのまま出力するアクションを返します。",
+        'print': "式を標準出力にそのまま出力するアクションを返します。" /*,
         'var': "変数の出力。",
-        'var2': "変数の出力。",
+        'var2': "変数の出力。",*/
       };
       return TOOLTIPS[mode];
     });
   },
 
   updateType_: function(newOp) {
-    if (this.getInput('TEXT')) this.removeInput('TEXT');
+//    if (this.getInput('TEXT')) this.removeInput('TEXT');
     if (this.getInput('B')) this.removeInput('B');
     switch (newOp) {
-      case 'putstr':
+      case 'putStr':
         this.appendValueInput('B');
-        this.setOutput(false);
+        this.setOutput(true);
         break;
+/*
       case 'text':
         this.appendDummyInput('TEXT')
             .appendField(this.newQuote_(true))
@@ -105,16 +86,19 @@ Blockly.Blocks['output_library'] = {
             .appendField(this.newQuote_(false));
         this.setOutput(false);
         break;
-      case 'var':
+*/
+      case 'print':
         this.appendValueInput('B');
             //.setCheck('String', 'Array');
-        this.setOutput(false);
+        this.setOutput(true);
         break;
+/*
       case 'var2':
         this.appendValueInput('B');
             //.setCheck('Number');
         this.setOutput(true);
         break;
+*/
       default:
         throw 'updateType_ Error'
     }/*
@@ -124,7 +108,7 @@ Blockly.Blocks['output_library'] = {
       this.outputConnection.setCheck('Number');
     }*/
   },
-
+/*
   mutationToDom: function() {
     var container = document.createElement('mutation');
     container.setAttribute('op', this.getFieldValue('OP'));
@@ -134,36 +118,10 @@ Blockly.Blocks['output_library'] = {
   domToMutation: function(xmlElement) {
     this.updateType_(xmlElement.getAttribute('op'));
   }
+*/
 };
 
-Blockly.Haskell['output_library'] = function(block) {
-  // Math functions for lists.
-  var func = block.getFieldValue('OP');
-  var list, value, text, code;
-  switch (func) {
-    case 'putstr':
-      value = Blockly.Haskell.valueToCode(block, 'B', Blockly.Haskell.ORDER_ATOMIC);
-      code = 'putStr ' + value + '\n';
-      break;
-    /*
-    case 'text':
-      list = Blockly.Haskell.valueToCode(block, 'VALUE',
-      Blockly.Haskell.ORDER_MEMBER) || '""';
-      code = 'lines ' + list + '';
-      break;*/
-    case 'var':
-      value = Blockly.Haskell.valueToCode(block, 'B', Blockly.Haskell.ORDER_ATOMIC);
-      code = 'print ' + value + '\n';
-      break;
-    case 'var2':
-      value = Blockly.Haskell.valueToCode(block, 'B', Blockly.Haskell.ORDER_ATOMIC);
-      code = 'print ' + value + '\n';
-      break;
-    default:
-      throw 'Unknown operator: ' + func;
-  }
-  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-};
+
 // 19/04/03 ここまで
 
 /////////////////////////////////////////////
@@ -282,61 +240,7 @@ Blockly.Blocks['list_library'] = {
   }
 };
 
-Blockly.Haskell['list_library'] = function(block) {
-  // Math functions for lists.
-  var func = block.getFieldValue('OP');
-  var list, value, text, code;
-  switch (func) {
-    case 'length':
-      list = Blockly.Haskell.valueToCode(block, 'LIST',
-      Blockly.Haskell.ORDER_MEMBER) || '[]';
-      code = 'length ' + list;
-      break;
-    case 'lines':
-      list = Blockly.Haskell.valueToCode(block, 'VALUE',
-      Blockly.Haskell.ORDER_MEMBER) || '""';
-      code = 'lines ' + list + '';
-      break;
-    case 'unlines':
-      list = list = Blockly.Haskell.valueToCode(block, 'LIST',
-      Blockly.Haskell.ORDER_MEMBER) || '[]';
-      code = 'unlines ' + list + '';
-      break;
-    case 'take':
-      value = Blockly.Haskell.valueToCode(block, 'VALUE',
-      Blockly.Haskell.ORDER_MEMBER) || '0';
-      list = Blockly.Haskell.valueToCode(block, 'LIST',
-      Blockly.Haskell.ORDER_MEMBER) || '[]';
-      code = 'take ' + value + ' ' + list;
-      break;
-    case 'reverse':
-      list = Blockly.Haskell.valueToCode(block, 'LIST',
-      Blockly.Haskell.ORDER_MEMBER) || '[]';
-      code = 'reverse ' + list;
-      break;
-    case 'words':
-      text = Blockly.Haskell.valueToCode(block, 'TEXT',
-      Blockly.Haskell.ORDER_MEMBER) || '""';
-      code = 'words ' + text;
-      break;
-    case 'concat':
-      list = Blockly.Haskell.valueToCode(block, 'LIST',
-      Blockly.Haskell.ORDER_MEMBER) || '[]';
-      code = 'concat ' + list;
-      break;
-    case 'replicate':
-      value = Blockly.Haskell.valueToCode(block, 'VALUE',
-      Blockly.Haskell.ORDER_MEMBER) || '0';
-      text = Blockly.Haskell.valueToCode(block, 'TEXT',
-      Blockly.Haskell.ORDER_MEMBER) || '""';
-      code = 'replicate ' + value + text;
-      break;
-    default:
-      throw 'Unknown operator: ' + func;
-  }
-  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-};
-// 19/03/17 ここまで
+
 
 /////////////////////////////////////////////
 //    高階関数
@@ -415,28 +319,4 @@ Blockly.Blocks['Higher_Order_func_library'] = {
   }
 };
 
-Blockly.Haskell['list_library'] = function(block) {
-  // Math functions for lists.
-  var func = block.getFieldValue('OP');
-  var list, value, text, code, func;
-  switch (func) {
-    case 'map':
-      func = Blockly.Haskell.valueToCode(block, 'FUNC',
-      Blockly.Haskell.ORDER_MEMBER) || '';
-      list = Blockly.Haskell.valueToCode(block, 'LIST',
-      Blockly.Haskell.ORDER_MEMBER) || '[]';
-      code = 'map ' + func + list;
-      break;
-    case 'concatMap':
-      func = Blockly.Haskell.valueToCode(block, 'FUNC',
-      Blockly.Haskell.ORDER_MEMBER) || '';
-      list = Blockly.Haskell.valueToCode(block, 'LIST',
-      Blockly.Haskell.ORDER_MEMBER) || '[]';
-      code = 'concatMap ' + func + list;
-      break;
-    default:
-      throw 'Unknown operator: ' + func;
-  }
-  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-};
-// 19/04/03 ここまで
+

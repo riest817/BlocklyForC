@@ -24,95 +24,57 @@ Blockly.Haskell.INDENT = '';  // 19/06/06
  * @private
  */
 Blockly.Haskell.addReservedWords(
-    'Blockly,' +  // In case JS is evaled in the current window.
-    // https://developer.mozilla.org/en/Haskell/Reference/Reserved_Words
-    'break,case,catch,continue,debugger,default,delete,do,else,finally,for,function,if,in,instanceof,new,return,switch,this,throw,try,typeof,var,void,while,with,' +
-    'class,enum,export,extends,import,super,implements,interface,let,package,private,protected,public,static,yield,' +
-    'const,null,true,false,' +
-    // https://developer.mozilla.org/en/Haskell/Reference/Global_Objects
-    'Array,ArrayBuffer,Boolean,Date,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,Error,eval,EvalError,Float32Array,Float64Array,Function,Infinity,Int16Array,Int32Array,Int8Array,isFinite,isNaN,Iterator,JSON,Math,NaN,Number,Object,parseFloat,parseInt,RangeError,ReferenceError,RegExp,StopIteration,String,SyntaxError,TypeError,Uint16Array,Uint32Array,Uint8Array,Uint8ClampedArray,undefined,uneval,URIError,' +
-    // https://developer.mozilla.org/en/DOM/window
-    'applicationCache,closed,Components,content,_content,controllers,crypto,defaultStatus,dialogArguments,directories,document,frameElement,frames,fullScreen,globalStorage,history,innerHeight,innerWidth,length,location,locationbar,localStorage,menubar,messageManager,mozAnimationStartTime,mozInnerScreenX,mozInnerScreenY,mozPaintCount,name,navigator,opener,outerHeight,outerWidth,pageXOffset,pageYOffset,parent,performance,personalbar,pkcs11,returnValue,screen,screenX,screenY,scrollbars,scrollMaxX,scrollMaxY,scrollX,scrollY,self,sessionStorage,sidebar,status,statusbar,toolbar,top,URL,window,' +
-    'addEventListener,alert,atob,back,blur,btoa,captureEvents,clearImmediate,clearInterval,clearTimeout,close,confirm,disableExternalCapture,dispatchEvent,dump,enableExternalCapture,escape,find,focus,forward,GeckoActiveXObject,getAttention,getAttentionWithCycleCount,getComputedStyle,getSelection,home,matchMedia,maximize,minimize,moveBy,moveTo,mozRequestAnimationFrame,open,openDialog,postMessage,print,prompt,QueryInterface,releaseEvents,removeEventListener,resizeBy,resizeTo,restore,routeEvent,scroll,scrollBy,scrollByLines,scrollByPages,scrollTo,setCursor,setImmediate,setInterval,setResizable,setTimeout,showModalDialog,sizeToContent,stop,unescape,updateCommands,XPCNativeWrapper,XPCSafeJSObjectWrapper,' +
-    'onabort,onbeforeunload,onblur,onchange,onclick,onclose,oncontextmenu,ondevicemotion,ondeviceorientation,ondragdrop,onerror,onfocus,onhashchange,onkeydown,onkeypress,onkeyup,onload,onmousedown,onmousemove,onmouseout,onmouseover,onmouseup,onmozbeforepaint,onpaint,onpopstate,onreset,onresize,onscroll,onselect,onsubmit,onunload,onpageshow,onpagehide,' +
-    'Image,Option,Worker,' +
-    // https://developer.mozilla.org/en/Gecko_DOM_Reference
-    'Event,Range,File,FileReader,Blob,BlobBuilder,' +
-    'Attr,CDATASection,CharacterData,Comment,console,DocumentFragment,DocumentType,DomConfiguration,DOMError,DOMErrorHandler,DOMException,DOMImplementation,DOMImplementationList,DOMImplementationRegistry,DOMImplementationSource,DOMLocator,DOMObject,DOMString,DOMStringList,DOMTimeStamp,DOMUserData,Entity,EntityReference,MediaQueryList,MediaQueryListListener,NameList,NamedNodeMap,Node,NodeFilter,NodeIterator,NodeList,Notation,Plugin,PluginArray,ProcessingInstruction,SharedWorker,Text,TimeRanges,Treewalker,TypeInfo,UserDataHandler,Worker,WorkerGlobalScope,' +
-    'HTMLDocument,HTMLElement,HTMLAnchorElement,HTMLAppletElement,HTMLAudioElement,HTMLAreaElement,HTMLBaseElement,HTMLBaseFontElement,HTMLBodyElement,HTMLBRElement,HTMLButtonElement,HTMLCanvasElement,HTMLDirectoryElement,HTMLDivElement,HTMLDListElement,HTMLEmbedElement,HTMLFieldSetElement,HTMLFontElement,HTMLFormElement,HTMLFrameElement,HTMLFrameSetElement,HTMLHeadElement,HTMLHeadingElement,HTMLHtmlElement,HTMLHRElement,HTMLIFrameElement,HTMLImageElement,HTMLInputElement,HTMLKeygenElement,HTMLLabelElement,HTMLLIElement,HTMLLinkElement,HTMLMapElement,HTMLMenuElement,HTMLMetaElement,HTMLModElement,HTMLObjectElement,HTMLOListElement,HTMLOptGroupElement,HTMLOptionElement,HTMLOutputElement,HTMLParagraphElement,HTMLParamElement,HTMLPreElement,HTMLQuoteElement,HTMLScriptElement,HTMLSelectElement,HTMLSourceElement,HTMLSpanElement,HTMLStyleElement,HTMLTableElement,HTMLTableCaptionElement,HTMLTableCellElement,HTMLTableDataCellElement,HTMLTableHeaderCellElement,HTMLTableColElement,HTMLTableRowElement,HTMLTableSectionElement,HTMLTextAreaElement,HTMLTimeElement,HTMLTitleElement,HTMLTrackElement,HTMLUListElement,HTMLUnknownElement,HTMLVideoElement,' +
-    'HTMLCanvasElement,CanvasRenderingContext2D,CanvasGradient,CanvasPattern,TextMetrics,ImageData,CanvasPixelArray,HTMLAudioElement,HTMLVideoElement,NotifyAudioAvailableEvent,HTMLCollection,HTMLAllCollection,HTMLFormControlsCollection,HTMLOptionsCollection,HTMLPropertiesCollection,DOMTokenList,DOMSettableTokenList,DOMStringMap,RadioNodeList,' +
-    'SVGDocument,SVGElement,SVGAElement,SVGAltGlyphElement,SVGAltGlyphDefElement,SVGAltGlyphItemElement,SVGAnimationElement,SVGAnimateElement,SVGAnimateColorElement,SVGAnimateMotionElement,SVGAnimateTransformElement,SVGSetElement,SVGCircleElement,SVGClipPathElement,SVGColorProfileElement,SVGCursorElement,SVGDefsElement,SVGDescElement,SVGEllipseElement,SVGFilterElement,SVGFilterPrimitiveStandardAttributes,SVGFEBlendElement,SVGFEColorMatrixElement,SVGFEComponentTransferElement,SVGFECompositeElement,SVGFEConvolveMatrixElement,SVGFEDiffuseLightingElement,SVGFEDisplacementMapElement,SVGFEDistantLightElement,SVGFEFloodElement,SVGFEGaussianBlurElement,SVGFEImageElement,SVGFEMergeElement,SVGFEMergeNodeElement,SVGFEMorphologyElement,SVGFEOffsetElement,SVGFEPointLightElement,SVGFESpecularLightingElement,SVGFESpotLightElement,SVGFETileElement,SVGFETurbulenceElement,SVGComponentTransferFunctionElement,SVGFEFuncRElement,SVGFEFuncGElement,SVGFEFuncBElement,SVGFEFuncAElement,SVGFontElement,SVGFontFaceElement,SVGFontFaceFormatElement,SVGFontFaceNameElement,SVGFontFaceSrcElement,SVGFontFaceUriElement,SVGForeignObjectElement,SVGGElement,SVGGlyphElement,SVGGlyphRefElement,SVGGradientElement,SVGLinearGradientElement,SVGRadialGradientElement,SVGHKernElement,SVGImageElement,SVGLineElement,SVGMarkerElement,SVGMaskElement,SVGMetadataElement,SVGMissingGlyphElement,SVGMPathElement,SVGPathElement,SVGPatternElement,SVGPolylineElement,SVGPolygonElement,SVGRectElement,SVGScriptElement,SVGStopElement,SVGStyleElement,SVGSVGElement,SVGSwitchElement,SVGSymbolElement,SVGTextElement,SVGTextPathElement,SVGTitleElement,SVGTRefElement,SVGTSpanElement,SVGUseElement,SVGViewElement,SVGVKernElement,' +
-    'SVGAngle,SVGColor,SVGICCColor,SVGElementInstance,SVGElementInstanceList,SVGLength,SVGLengthList,SVGMatrix,SVGNumber,SVGNumberList,SVGPaint,SVGPoint,SVGPointList,SVGPreserveAspectRatio,SVGRect,SVGStringList,SVGTransform,SVGTransformList,' +
-    'SVGAnimatedAngle,SVGAnimatedBoolean,SVGAnimatedEnumeration,SVGAnimatedInteger,SVGAnimatedLength,SVGAnimatedLengthList,SVGAnimatedNumber,SVGAnimatedNumberList,SVGAnimatedPreserveAspectRatio,SVGAnimatedRect,SVGAnimatedString,SVGAnimatedTransformList,' +
-    'SVGPathSegList,SVGPathSeg,SVGPathSegArcAbs,SVGPathSegArcRel,SVGPathSegClosePath,SVGPathSegCurvetoCubicAbs,SVGPathSegCurvetoCubicRel,SVGPathSegCurvetoCubicSmoothAbs,SVGPathSegCurvetoCubicSmoothRel,SVGPathSegCurvetoQuadraticAbs,SVGPathSegCurvetoQuadraticRel,SVGPathSegCurvetoQuadraticSmoothAbs,SVGPathSegCurvetoQuadraticSmoothRel,SVGPathSegLinetoAbs,SVGPathSegLinetoHorizontalAbs,SVGPathSegLinetoHorizontalRel,SVGPathSegLinetoRel,SVGPathSegLinetoVerticalAbs,SVGPathSegLinetoVerticalRel,SVGPathSegMovetoAbs,SVGPathSegMovetoRel,ElementTimeControl,TimeEvent,SVGAnimatedPathData,' +
-    'SVGAnimatedPoints,SVGColorProfileRule,SVGCSSRule,SVGExternalResourcesRequired,SVGFitToViewBox,SVGLangSpace,SVGLocatable,SVGRenderingIntent,SVGStylable,SVGTests,SVGTextContentElement,SVGTextPositioningElement,SVGTransformable,SVGUnitTypes,SVGURIReference,SVGViewSpec,SVGZoomAndPan');
-
+    'Blockly,' +  
+    // https://wiki.haskell.org/Keywords
+    'case,class,data,default,deriving,do,else,forall,foreign,if,import,in,infix,infixl,infixr,instance,let,module,newtpe,of,then,type,where,_' +
+    'True,False,Just,Nothing,');
 /**
  * Order of operation ENUMs.
  * https://developer.mozilla.org/en/Haskell/Reference/Operators/Operator_Precedence
  */
 Blockly.Haskell.ORDER_ATOMIC = 0;           // 0 "" ...
-Blockly.Haskell.ORDER_NEW = 1.1;            // new
-Blockly.Haskell.ORDER_MEMBER = 1.2;         // . []
-Blockly.Haskell.ORDER_FUNCTION_CALL = 2;    // ()
-Blockly.Haskell.ORDER_INCREMENT = 3;        // ++
-Blockly.Haskell.ORDER_DECREMENT = 3;        // --
-Blockly.Haskell.ORDER_BITWISE_NOT = 4.1;    // ~
-Blockly.Haskell.ORDER_UNARY_PLUS = 4.2;     // +
-Blockly.Haskell.ORDER_UNARY_NEGATION = 4.3; // -
-Blockly.Haskell.ORDER_LOGICAL_NOT = 4.4;    // !
-Blockly.Haskell.ORDER_TYPEOF = 4.5;         // typeof
-Blockly.Haskell.ORDER_VOID = 4.6;           // void
-Blockly.Haskell.ORDER_DELETE = 4.7;         // delete
-Blockly.Haskell.ORDER_DIVISION = 5.1;       // /
-Blockly.Haskell.ORDER_MULTIPLICATION = 5.2; // *
-Blockly.Haskell.ORDER_MODULUS = 5.3;        // %
-Blockly.Haskell.ORDER_SUBTRACTION = 6.1;    // -
-Blockly.Haskell.ORDER_ADDITION = 6.2;       // +
-Blockly.Haskell.ORDER_BITWISE_SHIFT = 7;    // << >> >>>
-Blockly.Haskell.ORDER_RELATIONAL = 8;       // < <= > >=
-Blockly.Haskell.ORDER_IN = 8;               // in
-Blockly.Haskell.ORDER_INSTANCEOF = 8;       // instanceof
-Blockly.Haskell.ORDER_EQUALITY = 9;         // == != === !==
-Blockly.Haskell.ORDER_BITWISE_AND = 10;     // &
-Blockly.Haskell.ORDER_BITWISE_XOR = 11;     // ^
-Blockly.Haskell.ORDER_BITWISE_OR = 12;      // |
-Blockly.Haskell.ORDER_LOGICAL_AND = 13;     // &&
-Blockly.Haskell.ORDER_LOGICAL_OR = 14;      // ||
-Blockly.Haskell.ORDER_CONDITIONAL = 15;     // ?:
-Blockly.Haskell.ORDER_ASSIGNMENT = 16;      // = += -= *= /= %= <<= >>= ...
-Blockly.Haskell.ORDER_COMMA = 17;           // ,
+Blockly.Haskell.ORDER_FUNCTION_CALL = 1;    //
+Blockly.Haskell.ORDER_DOT = 2;              // .
+Blockly.Haskell.ORDER_POWER = 3;            // ^ 
+Blockly.Haskell.ORDER_MULTIPLICATION = 4;   // *
+Blockly.Haskell.ORDER_ADDITION = 5;         // +, -
+Blockly.Haskell.ORDER_CONS = 6;             // : 
+Blockly.Haskell.ORDER_EQUALITY = 7;         // == != > >= < <=
+Blockly.Haskell.ORDER_LOGICAL_AND = 8;      // &&
+Blockly.Haskell.ORDER_LOGICAL_OR = 9;       // ||
+Blockly.Haskell.ORDER_BIND = 10;            // >>, >>=
+Blockly.Haskell.ORDER_DNIB = 11;            // =<<
+Blockly.Haskell.ORDER_SEQ  = 12;            // $, $!, `seq`
+// ``ambiguities that are to be resolved by making grammatical phrases as long as possible''
+Blockly.Haskell.ORDER_IF   = 50;            // if then else , case of, let in, \ ->,  
 Blockly.Haskell.ORDER_NONE = 99;            // (...)
-
 /**
  * List of outer-inner pairings that do NOT require parentheses.
  * @type {!Array.<!Array.<number>>}
  */
 Blockly.Haskell.ORDER_OVERRIDES = [
-  // (foo()).bar -> foo().bar
-  // (foo())[0] -> foo()[0]
-  [Blockly.Haskell.ORDER_FUNCTION_CALL, Blockly.Haskell.ORDER_MEMBER],
-  // (foo())() -> foo()()
-  [Blockly.Haskell.ORDER_FUNCTION_CALL, Blockly.Haskell.ORDER_FUNCTION_CALL],
-  // (foo.bar).baz -> foo.bar.baz
-  // (foo.bar)[0] -> foo.bar[0]
-  // (foo[0]).bar -> foo[0].bar
-  // (foo[0])[1] -> foo[0][1]
-  [Blockly.Haskell.ORDER_MEMBER, Blockly.Haskell.ORDER_MEMBER],
-  // (foo.bar)() -> foo.bar()
-  // (foo[0])() -> foo[0]()
-  [Blockly.Haskell.ORDER_MEMBER, Blockly.Haskell.ORDER_FUNCTION_CALL],
-
-  // !(!foo) -> !!foo
-  [Blockly.Haskell.ORDER_LOGICAL_NOT, Blockly.Haskell.ORDER_LOGICAL_NOT],
-  // a * (b * c) -> a * b * c
+  // (foo bar) baz -> foo bar baz
+  //  [Blockly.Haskell.ORDER_FUNCTION_CALL, Blockly.Haskell.ORDER_FUNCTION_CALL],
+  // foo. (bar . baz) -> foo . bar . baz
+  [Blockly.Haskell.ORDER_DOT, Blockly.Haskell.ORDER_DOT],
+  // a ^ (b ^ c) -> a ^ b ^ c
+  [Blockly.Haskell.ORDER_POWER, Blockly.Haskell.ORDER_POWER],
+  // (a * b) * c -> a * b * c
   [Blockly.Haskell.ORDER_MULTIPLICATION, Blockly.Haskell.ORDER_MULTIPLICATION],
-  // a + (b + c) -> a + b + c
+  // (a + b) + c -> a + b + c
   [Blockly.Haskell.ORDER_ADDITION, Blockly.Haskell.ORDER_ADDITION],
+  // a : (b : c) -> a : b : c
+  [Blockly.Haskell.ORDER_CONS, Blockly.Haskell.ORDER_CONS],
   // a && (b && c) -> a && b && c
   [Blockly.Haskell.ORDER_LOGICAL_AND, Blockly.Haskell.ORDER_LOGICAL_AND],
   // a || (b || c) -> a || b || c
-  [Blockly.Haskell.ORDER_LOGICAL_OR, Blockly.Haskell.ORDER_LOGICAL_OR]
+  [Blockly.Haskell.ORDER_LOGICAL_OR, Blockly.Haskell.ORDER_LOGICAL_OR],
+  // (a >> b) >> c -> a >> b >> c
+  [Blockly.Haskell.ORDER_BIND, Blockly.Haskell.ORDER_BIND],
+  // a =<< (b =<< c) -> a =<< b =<< c
+  [Blockly.Haskell.ORDER_DNIB, Blockly.Haskell.ORDER_DNIB],
+  // a $ (b $ c) -> a $ b $ c
+  [Blockly.Haskell.ORDER_SEQ, Blockly.Haskell.ORDER_SEQ],
 ];
 
 /**
@@ -140,18 +102,25 @@ Blockly.Haskell.init = function(workspace) {
   } else {
     Blockly.Haskell.variableDB_.reset();
   }
-
+  Blockly.Haskell.variableDB_.setVariableMap(workspace.getVariableMap());
   var defvars = [];
-  //var variables = Blockly.Variables.allVariables(workspace);
+  // Add developer variables (not created or named by the user).
+  var devVarList = Blockly.Variables.allDeveloperVariables(workspace);
+  for (var i = 0; i < devVarList.length; i++) {
+    defvars.push(Blockly.JavaScript.variableDB_.getName(devVarList[i],
+        Blockly.Names.DEVELOPER_VARIABLE_TYPE));
+  }
+
+  // Add user variables, but only ones that are being used.
   var variables = Blockly.Variables.allUsedVarModels(workspace);
-  if (variables.length) {
-    for (var i = 0; i < variables.length; i++) {
-      defvars[i] = Blockly.Haskell.variableDB_.getName(variables[i],
-          Blockly.Variables.NAME_TYPE);
-    }
-    Blockly.Haskell.definitions_['variables'] =
-        //'var ' + defvars.join(', ') + ';';  //  2017/07/11 コメントアウト
-        ''; // 2017/07/11 追加
+  for (var i = 0; i < variables.length; i++) {
+    defvars.push(Blockly.Haskell.variableDB_.getName(variables[i].getId(),
+        Blockly.Variables.NAME_TYPE));
+  }
+
+  // Declare all of the variables.
+  if (defvars.length) {
+    Blockly.Haskell.definitions_['variables'] = '';
   }
 };
 
@@ -309,3 +278,119 @@ Blockly.Haskell.getAdjusted = function(block, atId, opt_delta, opt_negate,
   }
   return at;
 };
+
+/**
+ * Generate code representing the statement with separator
+ * @param {!Blockly.Block} block The block containing the input.
+ * @param {string} name The name of the input.
+ * @param {string} sep The separator.
+ * @return {string} Generated code or '' if no blocks are connected.
+ */
+Blockly.Haskell.statementToCodeWithSeparator = function(block, name, sep) {
+  var targetBlock = block.getInputTargetBlock(name);
+  var code = this.blockToCodeWithSeparator(targetBlock, sep);
+  // Value blocks must return code and order of operations info.
+  // Statement blocks must only return code.
+  if (typeof code != 'string') {
+    throw TypeError('Expecting code from statement block: ' +
+        (targetBlock && targetBlock.type));
+  }
+//   if (code) {
+//     code = this.prefixLines(/** @type {string} */ (code), this.INDENT);
+//   }
+  return code;
+};
+
+/**
+ * Generate code for the specified block (and attached blocks).
+ * @param {Blockly.Block} block The block to generate code for.
+ * @param {string} separator The separator.
+ * @return {string} For statement blocks, the generated code.
+ */
+Blockly.Haskell.blockToCodeWithSeparator = function(block, separator) {
+  if (!block) {
+    return '';
+  }
+  if (block.disabled) {
+    // Skip past this block if it is disabled.
+    return this.blockToCodeWithSeparator(block.getNextBlock(), separator);
+  }
+
+  var func = this[block.type];
+  if (typeof func != 'function') {
+    throw Error('Language "' + this.name_ + '" does not know how to generate ' +
+        ' code for block type "' + block.type + '".');
+  }
+  // First argument to func.call is the value of 'this' in the generator.
+  // Prior to 24 September 2013 'this' was the only way to access the block.
+  // The current prefered method of accessing the block is through the second
+  // argument to func.call, which becomes the first parameter to the generator.
+  var code = func.call(block, block);
+  if (Array.isArray(code)) {
+    // Value blocks return tuples of code and operator order.
+//    if (!block.outputConnection) {
+      throw TypeError('Expecting string from statement block: ' + block.type);
+//    }
+//    return [this.scrub_(block, code[0], opt_thisOnly), code[1]];
+  } else if (typeof code == 'string') {
+    var id = block.id.replace(/\$/g, '$$$$');  // Issue 251.
+    if (this.STATEMENT_PREFIX) {
+      code = this.STATEMENT_PREFIX.replace(/%1/g, '\'' + id + '\'') + code;
+    }
+    return this.scrubWithSeparator(block, code, separator);
+  } else if (code === null) {
+    // Block has handled code generation itself.
+    return '';
+  } else {
+    throw SyntaxError('Invalid code generated: ' + code);
+  }
+};
+
+
+/**
+ * Common tasks for generating Haskell from blocks.
+ * Handles comments for the specified block and any connected value blocks.
+ * Calls any statements following this block.
+ * @param {!Blockly.Block} block The current block.
+ * @param {string} code The Haskell code created for this block.
+ * @param {string} separator The separator.
+ * @return {string} Haskell code with comments and subsequent blocks added.
+ * @private
+ */
+Blockly.Haskell.scrubWithSeparator = function(block, code, separator) {
+  var commentCode = '';
+  // Only collect comments for blocks that aren't inline.
+  if (!block.outputConnection || !block.outputConnection.targetConnection) {
+    // Collect comment for this block.
+    var comment = block.getCommentText();
+    comment = Blockly.utils.wrap(comment, Blockly.Haskell.COMMENT_WRAP - 3);
+    if (comment) {
+      if (block.getProcedureDef) {
+        // Use a comment block for function comments.
+        /* 18/01/17 ['procedures_defreturn']のパターンマッチングで邪魔なため
+        commentCode += '{-\n' +
+                       Blockly.Haskell.prefixLines(comment + '\n', ' ') +
+                       ' -}\n';*/                                 // 17/12/05 コメントアウトのコードをHaskell用に変更
+      } else {
+        commentCode += Blockly.Haskell.prefixLines(comment + '\n', '-- ');  // 17/12/05 ↑と同様
+      }
+    }
+    // Collect comments for all value arguments.
+    // Don't collect comments for nested statements.
+    for (var i = 0; i < block.inputList.length; i++) {
+      if (block.inputList[i].type == Blockly.INPUT_VALUE) {
+        var childBlock = block.inputList[i].connection.targetBlock();
+        if (childBlock) {
+          var comment = Blockly.Haskell.allNestedComments(childBlock);
+          if (comment) {
+            commentCode += Blockly.Haskell.prefixLines(comment, '-- '); // 17/12/05 ↑と同様
+          }
+        }
+      }
+    }
+  }
+  var nextBlock = block.nextConnection && block.nextConnection.targetBlock();
+  var nextCode = Blockly.Haskell.blockToCodeWithSeparator(nextBlock, separator);
+  return commentCode + code + (nextBlock ? (separator + nextCode) : "");
+};
+

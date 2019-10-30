@@ -243,29 +243,6 @@ Blockly.Blocks['controls_if_else'] = {
   }
 };
 
-Blockly.Haskell['controls_if_haskell'] = function(block) {
-  // If/elseif/else condition.
-  var n = 0;
-  var argument = Blockly.Haskell.valueToCode(block, 'IF' + n,
-      Blockly.Haskell.ORDER_NONE) || 'false';
-  var branch = Blockly.Haskell.valueToCode(block, 'DO' + n);
-  var code = '  | ' + argument + ' = ' + branch + '\n';
-  
-  for (n = 1; n <= block.elseifCount_; n++) {
-    argument = Blockly.Haskell.valueToCode(block, 'IF' + n,
-        Blockly.Haskell.ORDER_NONE) || 'false';
-    branch = Blockly.Haskell.valueToCode(block, 'DO' + n);
-    code += '  | ' + argument + ' = ' + branch + '\n';
-  }
-  if (block.elseCount_) {
-    branch = Blockly.Haskell.valueToCode(block, 'ELSE');
-    code += '  | otherwise = ' + branch + '\n';
-  }
-  return code;
-  //return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-};
-// 18/12/12 ここまで
-
 Blockly.Blocks['main_haskell'] = {
   /**
    * Block for text value.
@@ -274,8 +251,9 @@ Blockly.Blocks['main_haskell'] = {
   init: function() {
     this.setHelpUrl("http://qiita.com/7shi/items/145f1234f8ec2af923ef#%E3%83%8F%E3%83%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%AB%E3%83%89");
     this.setColour(Blockly.Msg["LOGIC_HUE"]); // Blockly.Msg["LOGIC_HUE"] = 210
-    this.appendValueInput('DO0')
-        .appendField("main");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.appendValueInput('DO').appendField("main = ");
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     // Text block is trivial.  Use tooltip of parent block if it exists.
@@ -283,22 +261,13 @@ Blockly.Blocks['main_haskell'] = {
   }
 };
 
-Blockly.Haskell['main_haskell'] = function(block) {
-  var n = 0;
-  // Text value.
-  var branch = Blockly.Haskell.statementToCode(block, 'DO' + n);
-  var code = 'main =' + branch;
-  return code;
-};
-
-
 Blockly.Blocks['do_haskell'] = {
 
   init: function() {
     this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
     this.setColour(Blockly.Msg["LOGIC_HUE"]); // Blockly.Msg["LOGIC_HUE"] = 210
     //this.appendField("do");
-    this.appendStatementInput('DO0')
+    this.appendStatementInput('DO')
         .appendField("do");   
     this.setOutput(true);   // 左部との接続を可能にする
     //this.setNextStatement(true);      // 下部との接続を可能にする
@@ -307,16 +276,6 @@ Blockly.Blocks['do_haskell'] = {
     var thisBlock = this;
     this.setTooltip("do式でまとめられたアクションが上から下へ実行されるようになります。");     // ポインタを合わせたときの説明文
   }
-};
-
-Blockly.Haskell['do_haskell'] = function(block) {
-  var n = 0;
-  var argument = Blockly.Haskell.valueToCode(block, 'IF' + n,
-      Blockly.Haskell.ORDER_NONE) || 'false';
-  var branch = Blockly.Haskell.statementToCode(block, 'DO' + n);
-  var code = 'do\n' + branch + '\n';
-
-  return code;
 };
 
 Blockly.Blocks['let_haskell'] = {
@@ -337,13 +296,6 @@ Blockly.Blocks['let_haskell'] = {
   }
 };
 
-Blockly.Haskell['let_haskell'] = function(block) {
-  var branch = Blockly.Haskell.statementToCode(block, 'DO');
-  var code = 'let\n' + branch ;
-
-  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-};
-
 // 18/11/28
 Blockly.Blocks['let_in_haskell'] = {
 
@@ -355,7 +307,7 @@ Blockly.Blocks['let_in_haskell'] = {
         .appendField("let");    
     this.appendValueInput('VALUE')
         .appendField("        in");
-    this.setPreviousStatement(true);  // 上部との接続を可能にする 
+//    this.setPreviousStatement(true);  // 上部との接続を可能にする 
     //this.setNextStatement(true);      // 下部との接続を可能にする
     this.setOutput(true);   // 左部との接続を可能にする
     //this.setNextStatement(true);
@@ -365,15 +317,6 @@ Blockly.Blocks['let_in_haskell'] = {
   }
 };
 
-// 18/11/29  インデントがおかしい
-Blockly.Haskell['let_in_haskell'] = function(block) {
-  var branch = Blockly.Haskell.statementToCode(block, 'DO');
-  var value = Blockly.Haskell.valueToCode(block, 'VALUE');
-  var code = 'let\n' + branch + '    in ' + value;
-
-  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-};
-
 // 18/12/05 追加
 Blockly.Blocks['where_haskell'] = {
 
@@ -381,7 +324,7 @@ Blockly.Blocks['where_haskell'] = {
     this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
     this.setColour(Blockly.Msg["LOGIC_HUE"]); // Blockly.Msg["LOGIC_HUE"] = 210
     //this.appendField("do");
-    this.appendStatementInput('DO0')
+    this.appendStatementInput('DO')
         .appendField("where");    
     this.setPreviousStatement(true);
     //this.setNextStatement(true);
@@ -389,15 +332,6 @@ Blockly.Blocks['where_haskell'] = {
     var thisBlock = this;
     this.setTooltip("後置型の構文で、ある式だけに有効な定義を導入します。特定の関数内だけで定義したいときなどに使います。");     // ポインタを合わせたときの説明文
   }
-};
-
-Blockly.Haskell['where_haskell'] = function(block) {
-  var n = 0;
-
-  var branch = Blockly.Haskell.statementToCode(block, 'DO' + n);
-  var code = 'where\n' + branch + '\n';
-
-  return code + '\n';
 };
 
 // 18/12/12 追加
@@ -421,20 +355,6 @@ Blockly.Blocks['case_haskell'] = {
   }
 };
 
-Blockly.Haskell['case_haskell'] = function(block) {
-  // Call a procedure with a return value.
-  var code = 'case ';
-  code += Blockly.Haskell.valueToCode(block, 'VAR',
-        Blockly.Haskell.ORDER_COMMA) || '_';
-  code += ' of\n';
-
-  code += Blockly.Haskell.statementToCode(block, 'ADD');
-  //code += Blockly.Haskell.statementToCode(block, 'ADD');
-  
-  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-  //return code + '\n';
-};
-
 Blockly.Blocks['single_pattern'] = {
   /**
    * Block for creating a string made up of any number of elements of any type.
@@ -453,19 +373,6 @@ Blockly.Blocks['single_pattern'] = {
     this.setInputsInline(true);
     this.setTooltip("1つのパターンマッチを表します。");
   }
-};
-
-Blockly.Haskell['single_pattern'] = function(block) {
-    // Call a procedure with a return value.
-  
-  var arg1 = Blockly.Haskell.valueToCode(block, 'PATTERN',
-        Blockly.Haskell.ORDER_COMMA) || '_';
-  var arg2 = Blockly.Haskell.valueToCode(block, 'RESULT',
-        Blockly.Haskell.ORDER_COMMA) || '_';
-  var code =　arg1 + ' -> ' + arg2 ;
-  
-  //return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-  return code + '\n';
 };
 
 // 19/02/13 
@@ -495,3 +402,23 @@ Blockly.Blocks['logic_boolean_haskell'] = {
   }
 };
 // 19/02/13 ここまで
+
+Blockly.Blocks['haskell_decl'] = {
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
+    this.setColour(Blockly.Msg["LOGIC_HUE"]);
+    this.appendValueInput('PAT');
+    this.appendValueInput('VALUE')
+        .appendField("=");
+    this.setOutput(false);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip("パターンを束縛します。");
+    this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+  }
+};
+
+Blockly.Msg["LOGIC_TERNARY_CONDITION"] = "if";
+Blockly.Msg["LOGIC_TERNARY_IF_TRUE"]   = "then";
+Blockly.Msg["LOGIC_TERNARY_IF_FALSE"]  = "else";

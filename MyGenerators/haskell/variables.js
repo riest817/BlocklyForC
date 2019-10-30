@@ -23,7 +23,7 @@ Blockly.Haskell['variables_get'] = function(block) {
 Blockly.Haskell['variables_set'] = function(block) {
   // Variable setter.
   var argument0 = Blockly.Haskell.valueToCode(block, 'VALUE',
-      Blockly.Haskell.ORDER_ASSIGNMENT) || '0';
+      Blockly.Haskell.ORDER_NONE) || '0';
   var varName = Blockly.Haskell.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   return varName + ' = ' + argument0 + '\n';

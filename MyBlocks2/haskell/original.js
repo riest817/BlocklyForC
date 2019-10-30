@@ -99,51 +99,21 @@ Blockly.Blocks['pattern_match'] = {
   defType_: 'procedures_defreturn'
 };
 
-
-Blockly.Haskell['pattern_match'] = function(block) {
-  // Call a procedure with a return value.
-  
-  var funcName = Blockly.Haskell.variableDB_.getName(
-      block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
-  var args = [];
-  
-  for (var i = 0; i < block.arguments_.length-1; i++) { // 17/12/05 this.arguments_.lengthに-1
-    args[i] = Blockly.Haskell.valueToCode(block, 'ARG' + i,
-        Blockly.Haskell.ORDER_COMMA) || '_';
-  }
-  var code = funcName + ' ' + args.join(' ') + ' = ';
-  code += Blockly.Haskell.valueToCode(block, 'DELTA',
-        Blockly.Haskell.ORDER_COMMA) || 'null';
-  
-  //return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-  return code + '\n';
-  
-};
-
 Blockly.Blocks['emer_block'] = {
   /**
    * Block for variable setter.
    * @this Blockly.Block
    */
   init: function() {
-
     this.setHelpUrl();
-    this.setColour(500);
+    this.setColour(Blockly.Msg["LOGIC_HUE"]);
     this.appendValueInput('VALUE');
     this.setOutput(false);
-    this.setInputsInline(false);
+    this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip("ブロックの形状で接続できないとき使う(開発用)");
+    this.setTooltip("ブロックの形状で接続できないとき使う");
   }
 };
 
-Blockly.Haskell['emer_block'] = function(block) {
-  // Variable setter.
-  var argument0 = Blockly.Haskell.valueToCode(block, 'VALUE',
-      Blockly.Haskell.ORDER_ASSIGNMENT);
-  var code = argument0;
-  //return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-  //return ["", code];
-  return code;
-};
+

@@ -47,24 +47,50 @@ Blockly.Haskell['math_arithmetic'] = function(block) {
   // Basic arithmetic operators, and power.
   var OPERATORS = {
     'ADD': [' + ', Blockly.Haskell.ORDER_ADDITION],
-    'MINUS': [' - ', Blockly.Haskell.ORDER_SUBTRACTION],
+    'MINUS': [' - ', Blockly.Haskell.ORDER_ADDITION],
     'MULTIPLY': [' * ', Blockly.Haskell.ORDER_MULTIPLICATION],
-    'DIVIDE': [' / ', Blockly.Haskell.ORDER_DIVISION],
-    'POWER': [' ^ ', Blockly.Haskell.ORDER_COMMA]  // Handle power separately.
+    'DIVIDE': [' / ', Blockly.Haskell.ORDER_MULTIPLICATION],
+    'POWER': [' ^ ', Blockly.Haskell.ORDER_POWER]  // Handle power separately.
   };
   var tuple = OPERATORS[block.getFieldValue('OP')];
   var operator = tuple[0];
   var order = tuple[1];
-  var argument0 = Blockly.Haskell.valueToCode(block, 'A', order) || '0';
-  var argument1 = Blockly.Haskell.valueToCode(block, 'B', order) || '0';
-  var code;
-  // Power in Haskell requires a special case since it has no operator.
-  if (!operator) {
-    code = 'Math.pow(' + argument0 + ', ' + argument1 + ')';
-    return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
+  if (operator == ' ^ ') { // because ^ is right assosiative.
+    var argument0 = Blockly.Haskell.valueToCode(block, 'A', order - 0.05) || '0';
+    var argument1 = Blockly.Haskell.valueToCode(block, 'B', order) || '0';
+    var code = argument0 + operator + argument1;
+    return [code, order];
+  } else {  // others are left assosiative.
+    var argument0 = Blockly.Haskell.valueToCode(block, 'A', order) || '0';
+    var argument1 = Blockly.Haskell.valueToCode(block, 'B', order - 0.05) || '0';
+    var code = argument0 + operator + argument1;
+    return [code, order];
   }
-  code = argument0 + operator + argument1;
-  return [code, order];
+};
+
+Blockly.Haskell['var_arithmetic'] = function(block) {
+  // Basic arithmetic operators, and power.
+  var OPERATORS = {
+    'ADD': [' + ', Blockly.Haskell.ORDER_ADDITION],
+    'MINUS': [' - ', Blockly.Haskell.ORDER_ADDITION],
+    'MULTIPLY': [' * ', Blockly.Haskell.ORDER_MULTIPLICATION],
+    'DIVIDE': [' / ', Blockly.Haskell.ORDER_MULTIPLICATION],
+    'POWER': [' ^ ', Blockly.Haskell.ORDER_POWER]  // Handle power separately.
+  };
+  var tuple = OPERATORS[block.getFieldValue('OP')];
+  var operator = tuple[0];
+  var order = tuple[1];
+  if (operator == ' ^ ') { // because ^ is right assosiative.
+    var argument0 = Blockly.Haskell.valueToCode(block, 'A', order - 0.05) || '0';
+    var argument1 = Blockly.Haskell.valueToCode(block, 'B', order) || '0';
+    var code = argument0 + operator + argument1;
+    return [code, order];
+  } else {  // others are left assosiative.
+    var argument0 = Blockly.Haskell.valueToCode(block, 'A', order) || '0';
+    var argument1 = Blockly.Haskell.valueToCode(block, 'B', order - 0.05) || '0';
+    var code = argument0 + operator + argument1;
+    return [code, order];
+  }
 };
 
 Blockly.Haskell['math_single'] = function(block) {
@@ -75,20 +101,20 @@ Blockly.Haskell['math_single'] = function(block) {
   if (operator == 'NEG') {
     // Negation is a special case given its different operator precedence.
     arg = Blockly.Haskell.valueToCode(block, 'NUM',
-        Blockly.Haskell.ORDER_UNARY_NEGATION) || '0';
+        Blockly.Haskell.ORDER_ADDITION) || '0';
     if (arg[0] == '-') {
-      // --3 is not legal in JS.
-      arg = ' ' + arg;
+      // --3 is not legal
+      arg = '(' + arg + ')';
     }
     code = '(-' + arg + ')';
-    return [code, Blockly.Haskell.ORDER_UNARY_NEGATION];
+    return [code, Blockly.Haskell.ORDER_ADDITION];
   }
   if (operator == 'SIN' || operator == 'COS' || operator == 'TAN') {
     arg = Blockly.Haskell.valueToCode(block, 'NUM',
-        Blockly.Haskell.ORDER_DIVISION) || '0';
+        Blockly.Haskell.ORDER_MULTIPLICATION) || '0';
   } else {
     arg = Blockly.Haskell.valueToCode(block, 'NUM',
-        Blockly.Haskell.ORDER_NONE) || '0';
+        Blockly.Haskell.ORDER_FUNCTION_CALL) || '0';
   }
   // First, handle cases which generate values that don't need parentheses
   // wrapping the code.
@@ -148,19 +174,19 @@ Blockly.Haskell['math_single'] = function(block) {
     default:
       throw 'Unknown math operator: ' + operator;
   }
-  return [code, Blockly.Haskell.ORDER_DIVISION];
+  return [code, Blockly.Haskell.ORDER_MULTIPLICATION];
 };
 
 Blockly.Haskell['math_constant'] = function(block) {
   // Constants: PI, E, the Golden Ratio, sqrt(2), 1/sqrt(2), INFINITY.
   var CONSTANTS = {
-    'PI': ['pi', Blockly.Haskell.ORDER_MEMBER],
-    'E': ['exp 1', Blockly.Haskell.ORDER_MEMBER],
+    'PI': ['pi', Blockly.Haskell.ORDER_ATOMIC],
+    'E': ['exp 1', Blockly.Haskell.ORDER_ATOMIC],
     'GOLDEN_RATIO':
-        ['(1 + sqrt (5)) / 2', Blockly.Haskell.ORDER_DIVISION],
-    'SQRT2': ['sqrt 2', Blockly.Haskell.ORDER_MEMBER],
-    'SQRT1_2': ['sqrt 0.5', Blockly.Haskell.ORDER_MEMBER],
-    'INFINITY': ['Infinity', Blockly.Haskell.ORDER_ATOMIC]
+        ['(1 + sqrt (5)) / 2', Blockly.Haskell.ORDER_MULTIPLICATION],
+    'SQRT2': ['sqrt 2', Blockly.Haskell.ORDER_FUNCTION_CALL],
+    'SQRT1_2': ['sqrt 0.5', Blockly.Haskell.ORDER_FUNCTION_CALL],
+    'INFINITY': ['read "Infinity"', Blockly.Haskell.ORDER_FUNCTION_CALL]
   };
   return CONSTANTS[block.getFieldValue('CONSTANT')];
 };
@@ -170,9 +196,10 @@ Blockly.Haskell['math_number_property'] = function(block) {
   // or if it is divisible by certain number. Returns true or false.
   
   var number_to_check = Blockly.Haskell.valueToCode(block, 'NUMBER_TO_CHECK',
-      Blockly.Haskell.ORDER_MODULUS) || '0';
+      Blockly.Haskell.ORDER_MULTIPLICATION) || '0';
   var dropdown_property = block.getFieldValue('PROPERTY');
   var code;
+/*
   if (dropdown_property == 'PRIME') {
     // Prime is a special case as it is not a one-liner test.
     /*
@@ -197,12 +224,12 @@ Blockly.Haskell['math_number_property'] = function(block) {
          '  }',
          '  return true;',
          '}']);
-         */
     code = functionName + '(' + number_to_check + ')';
 
     return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
     
   }
+*/
   switch (dropdown_property) {
     case 'EVEN':
       code = number_to_check + ' `div` 2 == 0';
@@ -221,13 +248,14 @@ Blockly.Haskell['math_number_property'] = function(block) {
       break;
     case 'DIVISIBLE_BY':
       var divisor = Blockly.Haskell.valueToCode(block, 'DIVISOR',
-          Blockly.Haskell.ORDER_MODULUS) || '0';
+          Blockly.Haskell.ORDER_MULTIPLICATION) || '0';
       code = number_to_check + ' `div` ' + divisor + ' == 0';
       break;
   }
   return [code, Blockly.Haskell.ORDER_EQUALITY];
 };
 
+/*
 Blockly.Haskell['math_change'] = function(block) {
   // Add to a variable in place.
   var argument0 = Blockly.Haskell.valueToCode(block, 'DELTA',
@@ -237,6 +265,7 @@ Blockly.Haskell['math_change'] = function(block) {
   return varName + ' = (typeof ' + varName + ' == \'number\' ? ' + varName +
       ' : 0) + ' + argument0 + ';\n';
 };
+*/
 
 // Rounding functions have a single operand.
 Blockly.Haskell['math_round'] = Blockly.Haskell['math_single'];
@@ -250,21 +279,21 @@ Blockly.Haskell['math_on_list'] = function(block) {
   switch (func) {
     case 'SUM':
       list = Blockly.Haskell.valueToCode(block, 'LIST',
-          Blockly.Haskell.ORDER_MEMBER) || '[]';
+          Blockly.Haskell.ORDER_FUNCTION_CALL) || '[]';
       code = 'sum ' + list;
       break;
     case 'MIN':
       list = Blockly.Haskell.valueToCode(block, 'LIST',
-          Blockly.Haskell.ORDER_COMMA) || '[]';
+          Blockly.Haskell.ORDER_FUNCTION_CALL) || '[]';
       code = 'minimum ' + list + '';
       break;
     case 'MAX':
       list = Blockly.Haskell.valueToCode(block, 'LIST',
-          Blockly.Haskell.ORDER_COMMA) || '[]';
+          Blockly.Haskell.ORDER_FUNCTION_CALL) || '[]';
       code = 'maximum ' + list + '';
       break;
-    case 'AVERAGE':
       /*
+    case 'AVERAGE':
       // mathMean([null,null,1,3]) == 2.0.
       var functionName = Blockly.Haskell.provideFunction_(
           'mathMean',
@@ -276,10 +305,10 @@ Blockly.Haskell['math_on_list'] = function(block) {
       list = Blockly.Haskell.valueToCode(block, 'LIST',
           Blockly.Haskell.ORDER_NONE) || '[]';
       code = functionName + '(' + list + ')';
-      */
       break;
-    case 'MEDIAN':
+      */
       /*
+    case 'MEDIAN':
       // mathMedian([null,null,1,3]) == 2.0.
       var functionName = Blockly.Haskell.provideFunction_(
           'mathMedian',
@@ -299,13 +328,13 @@ Blockly.Haskell['math_on_list'] = function(block) {
       list = Blockly.Haskell.valueToCode(block, 'LIST',
           Blockly.Haskell.ORDER_NONE) || '[]';
       code = functionName + '(' + list + ')';
-      */
       break;
+      */
+      /*
     case 'MODE':
       // As a list of numbers can contain more than one mode,
       // the returned result is provided as an array.
       // Mode of [3, 'x', 'x', 1, 1, 2, '3'] -> ['x', 1].
-      /*
       var functionName = Blockly.Haskell.provideFunction_(
           'mathModes',
           ['function ' + Blockly.Haskell.FUNCTION_NAME_PLACEHOLDER_ +
@@ -340,10 +369,10 @@ Blockly.Haskell['math_on_list'] = function(block) {
       list = Blockly.Haskell.valueToCode(block, 'LIST',
           Blockly.Haskell.ORDER_NONE) || '[]';
       code = functionName + '(' + list + ')';
-      */
       break;
-    case 'STD_DEV':
+      */
       /*
+    case 'STD_DEV':
       var functionName = Blockly.Haskell.provideFunction_(
           'mathStandardDeviation',
           ['function ' + Blockly.Haskell.FUNCTION_NAME_PLACEHOLDER_ +
@@ -361,10 +390,10 @@ Blockly.Haskell['math_on_list'] = function(block) {
       list = Blockly.Haskell.valueToCode(block, 'LIST',
           Blockly.Haskell.ORDER_NONE) || '[]';
       code = functionName + '(' + list + ')';
-      */
       break;
-    case 'RANDOM':
+      */
       /*
+    case 'RANDOM':
       var functionName = Blockly.Haskell.provideFunction_(
           'mathRandomList',
           ['function ' + Blockly.Haskell.FUNCTION_NAME_PLACEHOLDER_ +
@@ -375,8 +404,8 @@ Blockly.Haskell['math_on_list'] = function(block) {
       list = Blockly.Haskell.valueToCode(block, 'LIST',
           Blockly.Haskell.ORDER_NONE) || '[]';
       code = functionName + '(' + list + ')';
-      */
       break;
+      */
     default:
       throw 'Unknown operator: ' + func;
   }
@@ -386,31 +415,30 @@ Blockly.Haskell['math_on_list'] = function(block) {
 Blockly.Haskell['math_modulo'] = function(block) {
   // Remainder computation.
   var argument0 = Blockly.Haskell.valueToCode(block, 'DIVIDEND',
-      Blockly.Haskell.ORDER_MODULUS) || '0';
+      Blockly.Haskell.ORDER_MULTIPLICATION) || '0';
   var argument1 = Blockly.Haskell.valueToCode(block, 'DIVISOR',
-      Blockly.Haskell.ORDER_MODULUS) || '0';
+      Blockly.Haskell.ORDER_MULTIPLICATION) || '0';
   var code = argument0 + ' `div` ' + argument1;
-  return [code, Blockly.Haskell.ORDER_MODULUS];
+  return [code, Blockly.Haskell.ORDER_MULTIPLICATION];
 };
+
 
 Blockly.Haskell['math_constrain'] = function(block) {
   // Constrain a number between two limits.
-  /*
   var argument0 = Blockly.Haskell.valueToCode(block, 'VALUE',
-      Blockly.Haskell.ORDER_COMMA) || '0';
+      Blockly.Haskell.ORDER_FUNCTION_CALL) || '0';
   var argument1 = Blockly.Haskell.valueToCode(block, 'LOW',
-      Blockly.Haskell.ORDER_COMMA) || '0';
+      Blockly.Haskell.ORDER_FUNCTION_CALL) || '0';
   var argument2 = Blockly.Haskell.valueToCode(block, 'HIGH',
-      Blockly.Haskell.ORDER_COMMA) || 'Infinity';
-  var code = 'Math.min(Math.max(' + argument0 + ', ' + argument1 + '), ' +
-      argument2 + ')';
+      Blockly.Haskell.ORDER_FUNCTION_CALL) || '(1 / 0)';
+  var code = 'min (max ' + argument0 + ' ' + argument1 + ')  ' +
+      argument2 + '';
   return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-  */
 };
 
+/*
 Blockly.Haskell['math_random_int'] = function(block) {
   // Random integer between [X] and [Y].
-  /*
   var argument0 = Blockly.Haskell.valueToCode(block, 'FROM',
       Blockly.Haskell.ORDER_COMMA) || '0';
   var argument1 = Blockly.Haskell.valueToCode(block, 'TO',
@@ -429,10 +457,12 @@ Blockly.Haskell['math_random_int'] = function(block) {
        '}']);
   var code = functionName + '(' + argument0 + ', ' + argument1 + ')';
   return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-  */
 };
+*/
 
+/*
 Blockly.Haskell['math_random_float'] = function(block) {
   // Random fraction between 0 and 1.
-  // return ['Math.random()', Blockly.Haskell.ORDER_FUNCTION_CALL];
+  return ['Math.random()', Blockly.Haskell.ORDER_FUNCTION_CALL];
 };
+*/

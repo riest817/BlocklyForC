@@ -32,16 +32,16 @@
 <script src="MyGenerators/haskell/logic.js"></script>
 <script src="MyGenerators/haskell/loops.js"></script>
 <script src="MyGenerators/haskell/math.js"></script>
+<script src="MyGenerators/haskell/output.js"></script>
 <script src="MyGenerators/haskell/procedures.js"></script>
+<script src="MyGenerators/haskell/standard_library.js"></script>
 <script src="MyGenerators/haskell/start.js"></script>
 <script src="MyGenerators/haskell/text.js"></script>
 <script src="MyGenerators/haskell/variables.js"></script>
 <!-- -->
-<script src="Library/blockly/demos/prettify.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 <script src="Library/blockly/msg/js/ja.js"></script>
 <script src="Library/blockly/appengine/storage.js"></script>
-<link rel="stylesheet" type="text/css"
-      href="Library/blockly/demos/prettify.css">
 <!-- <script src="myJavaScriptBlocks.js"></script> -->
 <script src="Library/jquery-2.2.4.min.js"></script>
 <script src="Library/jquery.query.js"></script>
@@ -55,12 +55,11 @@
 <script src="MyBlocks2/haskell/original.js"></script> <!-- (2017/12/07 追加)-->
 <script src="MyBlocks2/haskell/standard_library.js"></script> <!-- (19/02/26 追加)-->
 
-<script type="text/javascript" src="js/sample_button/haskell.js"></script>  <!-- (2017/10/19 追加)-->
 <script src="js/sample_button/haskell.js"></script>  <!-- (2017/10/19 追加)-->
 <script src="js/cookie.js"></script>  <!-- (2017/11/14 追加)-->
 <script src="js/common2.js"></script>  <!-- (2017/11/14 追加)-->
 <script src="js/code/code_haskell.js"></script>  <!-- (18/06/13)-->
-<script src="myflyout.js"></script> <!-- code_haskell.js より後(19/06/06)  -->
+<script src="MyCore/haskell_functions.js"></script> <!-- code_haskell.js より後(19/06/06)  -->
 
 <link rel="stylesheet"
       href="Library/introjs.css"/>
@@ -153,13 +152,16 @@
   <category name="制御" colour="210">
     <block type="main_haskell"></block>
     <block type="do_haskell"></block>
+    <block type="haskell_generator"></block>
+    <block type="emer_block"></block>
     <block type="let_haskell"></block>
-    <!--block type="let_in_haskell"></block--> <!--> 19/06/18 バージョンによりエラー <-->
-    <block type="where_haskell"></block> <!--> 18/12/05 追加 <-->
+    <block type="haskell_decl"></block>
+    <block type="let_in_haskell"></block> <!--> 19/06/18 バージョンによりエラー <-->
+<!--    <block type="where_haskell"></block> --><!--> 18/12/05 追加 <-->
     <block type="case_haskell"></block> <!--> 18/12/12 追加 <-->
     <block type="single_pattern"></block> <!--> 18/12/12 追加 <-->
     <!--block type="controls_if"></block-->     <!-->17/12/12 コメントアウト<-->
-    <block type="controls_if_haskell"></block>
+    <!--block type="controls_if_haskell"></block-->>
     <block type="logic_compare"></block>
     <block type="logic_operation"></block>
     <block type="logic_negate"></block>
@@ -200,7 +202,6 @@
   <category name="数" colour="230">
     <block type="math_number"></block>
     <block type="var_arithmetic"></block>   <!-->自作ブロック<-->
-    <block type="bondage"></block>          <!-->18/01/10 作成<-->
     <block type="math_single">
       <value name="NUM">
         <shadow type="math_number">
@@ -220,13 +221,6 @@
       <value name="NUMBER_TO_CHECK">
         <shadow type="math_number">
           <field name="NUM">0</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="math_change">
-      <value name="DELTA">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
         </shadow>
       </value>
     </block>
@@ -331,12 +325,15 @@
   </category-->
   <category name="リスト" colour="260">
     <block type="lists_container"></block>
+<!--    <block type="bondage"></block>  -->     <!-->18/01/10 作成<-->
     <block type="lists_connection"></block>
     <block type="lists_create_with_haskell">
       <mutation items="0"></mutation>
     </block>
     <block type="lists_create_with_haskell"></block>
     <block type="inner_table"></block>      <!--> 18/01/10 追加<-->
+    <block type="haskell_generator"></block>
+    <block type="emer_block"></block>
     <block type="lists_group"></block>      <!--> 18/01/10 追加<-->
     <block type="lists_range"></block>      <!--> 18/01/10 追加<-->
     <block type="lists_element"></block>      <!--> 19/01/09 追加<-->
@@ -419,20 +416,13 @@
   </category>
   <sep></sep>
   <category name="変数" colour="330" custom="VARIABLE"></category>
-  <category name="関数" colour="290">
-    <!--block type="pattern_match"></block-->
-    <block type="procedures_defreturn"></block>
-    <block type="procedures_defreturn_statement"></block> <!--> 18/12/19 追加 <-->
-    <block type="procedures_defreturn_where"></block> <!--> 19/01/09 追加 <-->
-    <block type="procedures_defreturn_statement_where"></block> <!--> 19/01/09 追加 <-->
-    <block type="procedures_single"></block> <!--> 19/01/15 追加 <-->
-    <!--block type="procedures_call"></block-->
-  </category>
+  <category name="関数" custom="HASKELL_FUNCTION" colour="290">
+  </category> 
   <sep></sep>
   <category name="標準関数" colour="60"> <!--> 19/02/26 追加 <-->
     <!--category name="入出力処理" colour="0"-->
       <block type="output_text"></block>
-      <block type="output_library"></block> 
+      <block type="output_library"><field name="OP">putStr</field></block> 
     <!--/category-->
     <!--category name="リスト処理" colour="260"-->
       <block type="list_library"></block>
@@ -445,13 +435,11 @@
   </category>
   <!--category name="ヘッダ" colour="60"></category-->
   <sep></sep>
-  <sep></sep>
   <category name="出力" colour="0">
       <block type="output_text"></block>
       <block type="output_var"></block>
       <block type="output_var2"></block> <!--> 19/01/15 追加 <-->
       <block type="string"></block> <!--> 18/12/12 追加 <-->
-      <!--block type="emer_block"></block-->   <!--> 19/06/18 アウト<-->
   </category>
 </xml>
 
@@ -567,7 +555,6 @@ function renderContent(clickedName) {
 
   gtag('config', 'UA-107589514-4');
 </script>
-
 </body>
 </html>
 
