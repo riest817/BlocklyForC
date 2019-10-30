@@ -1649,3 +1649,166 @@ Blockly.Blocks['procedures_callreturn'] = {
   },
 };
 // 19/01/15 ここまで
+
+
+Blockly.Blocks['procedures_application'] = {
+  /**
+   * Block for creating a function application
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl();
+    this.setColour(Blockly.Msg["PROCEDURES_HUE"]);
+    this.appendDummyInput('HEAD')
+        .appendField(Blockly.Msg.lists_container_head);
+    this.itemCount_ = 2;
+    this.updateShape_();
+    this.setOutput(true);
+    this.setInputsInline(true);
+    this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
+    this.setTooltip("関数適用を表します。");
+  },
+  /**
+   * Create XML to represent number of text inputs.
+   * @return {!Element} XML storage element.
+   * @this Blockly.Block
+   */
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    container.setAttribute('items', this.itemCount_);
+    return container;
+  },
+  /**
+   * Parse XML to restore the text inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+  domToMutation: function(xmlElement) {
+    this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+    this.updateShape_();
+  },
+  /**
+   * Populate the mutator's dialog with this block's components.
+   * @param {!Blockly.Workspace} workspace Mutator's workspace.
+   * @return {!Blockly.Block} Root block in mutator.
+   * @this Blockly.Block
+   */
+  decompose: function(workspace) {
+    var containerBlock = workspace.newBlock('procedures_mutatorcontainer');
+    containerBlock.initSvg();
+    var connection = containerBlock.getInput('STACK').connection;
+    for (var i = 0; i < this.itemCount_; i++) {
+      var itemBlock = workspace.newBlock('procedures_mutatorarg');
+      itemBlock.initSvg();
+      connection.connect(itemBlock.previousConnection);
+      connection = itemBlock.nextConnection;
+    }
+    return containerBlock;
+  },
+  /**
+   * Reconfigure this block based on the mutator dialog's components.
+   * @param {!Blockly.Block} containerBlock Root block in mutator.
+   * @this Blockly.Block
+   */
+  compose: function(containerBlock) {
+    var itemBlock = containerBlock.getInputTargetBlock('STACK');
+    // Count number of inputs.
+    var connections = [];
+    while (itemBlock) {
+      connections.push(itemBlock.valueConnection_);
+      itemBlock = itemBlock.nextConnection &&
+          itemBlock.nextConnection.targetBlock();
+    }
+    // Disconnect any children that don't belong.
+    for (var i = 0; i < this.itemCount_; i++) {
+      var connection = this.getInput('ARG' + i).connection.targetConnection;
+      if (connection && connections.indexOf(connection) == -1) {
+        connection.disconnect();
+      }
+    }
+    this.itemCount_ = connections.length;
+    this.updateShape_();
+    // Reconnect any child blocks.
+    for (var i = 0; i < this.itemCount_; i++) {
+      Blockly.Mutator.reconnect(connections[i], this, 'ARG' + i);
+    }
+  },
+  /**
+   * Store pointers to any connected child blocks.
+   * @param {!Blockly.Block} containerBlock Root block in mutator.
+   * @this Blockly.Block
+   */
+  saveConnections: function(containerBlock) {
+    var itemBlock = containerBlock.getInputTargetBlock('STACK');
+    var i = 0;
+    while (itemBlock) {
+      var input = this.getInput('ADD' + i);
+      itemBlock.valueConnection_ = input && input.connection.targetConnection;
+      i++;
+      itemBlock = itemBlock.nextConnection &&
+          itemBlock.nextConnection.targetBlock();
+    }
+  },
+  /**
+   * Modify this block to have the correct number of inputs.
+   * @private
+   * @this Blockly.Block
+   */
+  updateShape_: function () {
+    // Add new inputs.
+    for (var i = 0; i < this.itemCount_; i++) {
+      if (!this.getInput('ARG' + i)) {
+        var input = this.appendValueInput('ARG' + i);
+      }
+    }
+    // Remove deleted inputs.
+    while (this.getInput('ARG' + i)) {
+      this.removeInput('ARG' + i);
+      i++;
+    }
+
+/*
+    for (var i = 0; i < this.arguments_.length; i++) {
+      var field = this.getField('ARGNAME' + i);
+      this.arguments_[i] = '引数' + (i + 1);  // 18/11/29 追加
+      if (field) {
+        // Ensure argument name is up to date.
+        // The argument name field is deterministic based on the mutation,
+        // no need to fire a change event.
+        Blockly.Events.disable();
+        try {
+          field.setValue(this.arguments_[i]);
+        } finally {
+          Blockly.Events.enable();
+        }
+      } else {
+        // Add new input.
+        field = new Blockly.FieldLabel(this.arguments_[i]);
+        var input = this.appendValueInput('ARG' + i)
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField(field, 'ARGNAME' + i);
+        input.init();
+      }
+    }
+    // Remove deleted inputs.
+    while (this.getInput('ARG' + i)) {
+      this.removeInput('ARG' + i);
+      i++;
+    }
+    // Add 'with:' if there are parameters, remove otherwise.
+    var topRow = this.getInput('TOPROW');
+    if (topRow) {
+      if (this.arguments_.length) {
+        if (!this.getField('WITH')) {
+          topRow.appendField("対象：", 'WITH');
+          topRow.init();
+        }
+      } else {
+        if (this.getField('WITH')) {
+          topRow.removeField('WITH');
+        }
+      }
+    }
+*/
+  }
+};
