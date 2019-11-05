@@ -240,8 +240,9 @@ Blockly.Blocks['RE_sequence'] = {
     var OPERATORS =
         [[Blockly.Msg.RE_new_line, 'n'],
          [Blockly.Msg.RE_tab, 't'],
-         [Blockly.Msg.RE_single_quote, '\''],
-         [Blockly.Msg.RE_double_quote, '\"'],
+         [']', ']'],
+         ['-', '-'],
+         ['^', '^'],
          [Blockly.Msg.RE_backslash, '\\']];
     this.setHelpUrl("http://okumocchi.jp/php/re.php");
     this.setColour(0);
@@ -262,8 +263,9 @@ Blockly.Blocks['RE_sequence'] = {
       var TOOLTIPS = {
         'n': "特殊文字の改行を表します。",
         't': "特殊文字のタブを表します。",
-        '\'': "特殊文字のシングルクォートを表します。",
-        '\"': "特殊文字のダブルクォートを表します。",
+        ']': "特殊文字の角括弧閉じを表します。",
+        '-': "特殊文字のハイフンを表します。",
+        '^': "特殊文字のハットを表します。",
         '\\': "特殊文字のヌル文字を表します。"
       };
       return TOOLTIPS[op];

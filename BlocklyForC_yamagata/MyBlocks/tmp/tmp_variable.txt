@@ -1,0 +1,93 @@
+
+Blockly.Blocks['quiz_declaration1'] = {
+  init: function() {
+    this.setColour(330);
+    this.appendDummyInput()
+        .appendField("int  ")
+        .appendField(new Blockly.FieldDropdown([["i", "i"], ["n", "n"], ["num", "num"], ["sum", "sum"], ["tmp", "tmp"]]), "option")
+        .appendField(";");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+Blockly.Blocks['quiz_declaration1_def'] = {
+  init: function() {
+    this.setColour(330);
+    this.appendDummyInput()
+        .appendField("int i, n;");
+    this.appendDummyInput()
+        .appendField("int arr[5] = {0};");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+Blockly.Blocks['quiz_declaration2_def'] = {
+  init: function() {
+    this.setColour(330);
+    this.appendDummyInput()
+        .appendField("int i, n;");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+Blockly.Blocks['quiz_variable'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown([["int", "int"], ["double", "double"], ["float", "float"]]), "TYPE")
+        .appendField(new Blockly.FieldTextInput("variable"), "VARIABLE")
+        .appendField(";");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(330);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.Blocks['quiz_variable2'] = {
+  /**
+   * Block for variable getter.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setColour(Blockly.Blocks.variables.HUE);
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown([["int", "int"], ["double", "double"], ["float", "float"]]), "TYPE")
+        .appendField(" ");
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldVariable(
+        Blockly.Msg.VARIABLES_DEFAULT_NAME), 'VAR')
+        .appendField(" = ");
+    this.appendValueInput('B');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip("変数の宣言");
+  },
+  /**
+   * Return all variables referenced by this block.
+   * @return {!Array.<string>} List of variable names.
+   * @this Blockly.Block
+   */
+  getVars: function() {
+    return [this.getFieldValue('VAR')];
+  },
+  /**
+   * Notification that a variable is renaming.
+   * If the name matches one of this block's variables, rename it.
+   * @param {string} oldName Previous name of variable.
+   * @param {string} newName Renamed variable.
+   * @this Blockly.Block
+   */
+  renameVar: function(oldName, newName) {
+    if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+      this.setFieldValue(newName, 'VAR');
+    }
+  }
+};

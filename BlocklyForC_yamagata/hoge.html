@@ -1,0 +1,36 @@
+
+<html>
+  <head>
+
+    <title>a</title>
+    <link rel="stylesheet" href="iziModal.min.css">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+            <script src="jquery.js"></script>
+    <script src="iziModal.min.js"></script>
+    <link rel="stylesheet" href="codeMirror/codemirror.css">
+    <script src="codeMirror/codemirror.js"></script>
+    <script src="codeMirror/clike.js"></script>
+  </head>
+  <body>
+    <div>aa</div>
+    <div class="p-izimodal-gallery__item">
+      <h2>デフォルト</h2>
+      <span class="trigger-default">Modal Trigger</span>
+      <div id="modal">
+        <div>
+          <h2>これがタイトル</h2>
+          <p>これが本文ですこれが本文ですこれが本文ですこれが本文ですこれが本文ですこれが本文ですこれが本文です</p>
+        </div>
+      </div>
+    </div>
+    <div><textarea id="contentC" class="content"></textarea></div>
+  </body>
+</html>
+
+<script>
+var cEditor = CodeMirror.fromTextArea(document.getElementById("contentC"), {
+  lineNumbers: true,
+  matchBrackets: true,
+  mode: "text/x-csrc"
+});
+</script>
