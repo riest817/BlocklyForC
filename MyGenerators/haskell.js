@@ -34,11 +34,11 @@ Blockly.Haskell.addReservedWords(
  */
 Blockly.Haskell.ORDER_ATOMIC = 0;           // 0 "" ...
 Blockly.Haskell.ORDER_FUNCTION_CALL = 1;    //
-Blockly.Haskell.ORDER_DOT = 2;              // .
-Blockly.Haskell.ORDER_POWER = 3;            // ^ 
-Blockly.Haskell.ORDER_MULTIPLICATION = 4;   // *
+Blockly.Haskell.ORDER_DOT = 2;              // . (right), !! (left)
+Blockly.Haskell.ORDER_POWER = 3;            // ^, ^^, **
+Blockly.Haskell.ORDER_MULTIPLICATION = 4;   // *, /, `quot`, `rem`, `div`, `mod`, %, :%
 Blockly.Haskell.ORDER_ADDITION = 5;         // +, -
-Blockly.Haskell.ORDER_CONS = 6;             // : 
+Blockly.Haskell.ORDER_CONS = 6;             // :, ++
 Blockly.Haskell.ORDER_EQUALITY = 7;         // == != > >= < <=
 Blockly.Haskell.ORDER_LOGICAL_AND = 8;      // &&
 Blockly.Haskell.ORDER_LOGICAL_OR = 9;       // ||

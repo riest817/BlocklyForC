@@ -227,3 +227,33 @@ Blockly.Haskell['procedures_single'] = function(block) {
 };
 // 19/01/15 ここまで
 */
+
+Blockly.Haskell['procedures_callsimple'] = function(block) {
+  var funcName = Blockly.Haskell.variableDB_.getName(
+      block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
+  return [funcName, Blockly.Haskell.ORDER_ATOMIC];
+};
+
+Blockly.Haskell['procedures_application'] = function(block) {
+  var f = Blockly.Haskell.valueToCode(block, 'F', Blockly.Haskell.ORDER_FUNCTION_CALL) || '()'
+  var args = [];
+  for (var i = 0; i < block.itemCount_; i++) {
+    args[i] = Blockly.Haskell.valueToCode(block, 'ARG' + i,
+        Blockly.Haskell.ORDER_FUNCTION_CALL) || '()';
+  }
+  var code = f + ' ' + args.join(' ') ;
+  var order = block.itemCount_ == 0 ? Blockly.Haskell.ORDER_ATOMIC : Blockly.Haskell.ORDER_FUNCTION_CALL;
+  return [code, order];
+};
+
+Blockly.Haskell['procedures_lambda'] = function(block) {
+  var ret = Blockly.Haskell.valueToCode(block, 'RETURN', Blockly.Haskell.ORDER_IF) || '()';
+  if (block.itemCount_ < 1) return [ret, Blockly.Haskell.ORDER_IF]
+  var args = [];
+  for (var i = 0; i < block.itemCount_; i++) { // 17/12/05 this.arguments_.lengthに-1
+    args[i] = Blockly.Haskell.valueToCode(block, 'ARG' + i,
+        Blockly.Haskell.ORDER_FUNCTION_CALL) || '_';
+  }
+  var code = '\\ ' + args.join(' ') + ' -> ' + ret;
+  return [code, Blockly.Haskell.ORDER_IF];
+};

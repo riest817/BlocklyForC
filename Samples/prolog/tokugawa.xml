@@ -1,0 +1,222 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">X</variable>
+    <variable type="">Z</variable>
+    <variable type="">Y</variable>
+  </variables>
+  <block type="procedures_defnoreturn" x="163" y="38">
+    <mutation items="2" statements="false"></mutation>
+    <field name="NAME">child</field>
+
+    <value name="ARG0">
+      <block type="functor_definition">
+        <mutation items="0"></mutation>
+        <field name="NAME">hideyasu</field>
+      </block>
+    </value>
+    <value name="ARG1">
+      <block type="functor_definition">
+        <mutation items="0"></mutation>
+        <field name="NAME">ieyasu</field>
+      </block>
+    </value>
+  </block>
+  <block type="procedures_defnoreturn" x="163" y="87">
+    <mutation items="2" statements="false"></mutation>
+    <field name="NAME">child</field>
+
+    <value name="ARG0">
+      <block type="functor_definition">
+        <mutation items="0"></mutation>
+        <field name="NAME">hidetada</field>
+      </block>
+    </value>
+    <value name="ARG1">
+      <block type="functor_definition">
+        <mutation items="0"></mutation>
+        <field name="NAME">ieyasu</field>
+      </block>
+    </value>
+  </block>
+  <block type="procedures_defnoreturn" x="162" y="138">
+    <mutation items="2" statements="false"></mutation>
+    <field name="NAME">child</field>
+
+    <value name="ARG0">
+      <block type="functor_definition">
+        <mutation items="0"></mutation>
+        <field name="NAME">yoshinao</field>
+      </block>
+    </value>
+    <value name="ARG1">
+      <block type="functor_definition">
+        <mutation items="0"></mutation>
+        <field name="NAME">ieyasu</field>
+      </block>
+    </value>
+  </block>
+  <block type="procedures_defnoreturn" x="162" y="187">
+    <mutation items="2" statements="false"></mutation>
+    <field name="NAME">child</field>
+
+    <value name="ARG0">
+      <block type="functor_definition">
+        <mutation items="0"></mutation>
+        <field name="NAME">yoshinobu</field>
+      </block>
+    </value>
+    <value name="ARG1">
+      <block type="functor_definition">
+        <mutation items="0"></mutation>
+        <field name="NAME">ieyasu</field>
+      </block>
+    </value>
+  </block>
+  <block type="procedures_defnoreturn" x="163" y="238">
+    <mutation items="2" statements="false"></mutation>
+    <field name="NAME">child</field>
+
+    <value name="ARG0">
+      <block type="functor_definition">
+        <mutation items="0"></mutation>
+        <field name="NAME">yorifusa</field>
+      </block>
+    </value>
+    <value name="ARG1">
+      <block type="functor_definition">
+        <mutation items="0"></mutation>
+        <field name="NAME">ieyasu</field>
+      </block>
+    </value>
+  </block>
+  <block type="procedures_defnoreturn" x="162" y="288">
+    <mutation items="2" statements="false"></mutation>
+    <field name="NAME">child</field>
+
+    <value name="ARG0">
+      <block type="functor_definition">
+        <mutation items="0"></mutation>
+        <field name="NAME">iemitsu</field>
+      </block>
+    </value>
+    <value name="ARG1">
+      <block type="functor_definition">
+        <mutation items="0"></mutation>
+        <field name="NAME">hidetada</field>
+      </block>
+    </value>
+  </block>
+  <block type="procedures_defnoreturn" x="162" y="338">
+    <mutation items="2" statements="false"></mutation>
+    <field name="NAME">child</field>
+
+    <value name="ARG0">
+      <block type="functor_definition">
+        <mutation items="0"></mutation>
+        <field name="NAME">tadanaga</field>
+      </block>
+    </value>
+    <value name="ARG1">
+      <block type="functor_definition">
+        <mutation items="0"></mutation>
+        <field name="NAME">hidetada</field>
+      </block>
+    </value>
+  </block>
+  <block type="procedures_defnoreturn" x="162" y="387">
+    <mutation items="2" statements="false"></mutation>
+    <field name="NAME">child</field>
+
+    <value name="ARG0">
+      <block type="functor_definition">
+        <mutation items="0"></mutation>
+        <field name="NAME">masayuki</field>
+      </block>
+    </value>
+    <value name="ARG1">
+      <block type="functor_definition">
+        <mutation items="0"></mutation>
+        <field name="NAME">hidetada</field>
+      </block>
+    </value>
+  </block>
+  <block type="procedures_defnoreturn" x="162" y="438">
+    <mutation items="2" statements="false"></mutation>
+    <field name="NAME">child</field>
+
+    <value name="ARG0">
+      <block type="functor_definition">
+        <mutation items="0"></mutation>
+        <field name="NAME">ietsuna</field>
+      </block>
+    </value>
+    <value name="ARG1">
+      <block type="functor_definition">
+        <mutation items="0"></mutation>
+        <field name="NAME">iemitsu</field>
+      </block>
+    </value>
+  </block>
+  <block type="procedures_defnoreturn" x="163" y="487">
+    <mutation items="2" statements="false"></mutation>
+    <field name="NAME">child</field>
+
+    <value name="ARG0">
+      <block type="functor_definition">
+        <mutation items="0"></mutation>
+        <field name="NAME">tsunayoshi</field>
+      </block>
+    </value>
+    <value name="ARG1">
+      <block type="functor_definition">
+        <mutation items="0"></mutation>
+        <field name="NAME">iemitsu</field>
+      </block>
+    </value>
+  </block>
+  <block type="procedures_defnoreturn" x="163" y="537">
+    <mutation items="2"></mutation>
+    <field name="NAME">grand_child</field>
+
+    <value name="ARG0">
+      <block type="variables_get">
+        <field name="VAR" variabletype="">X</field>
+      </block>
+    </value>
+    <value name="ARG1">
+      <block type="variables_get">
+        <field name="VAR" variabletype="">Z</field>
+      </block>
+    </value>
+    <statement name="STACK">
+      <block type="procedures_callnoreturn">
+        <mutation name="child" items="2"></mutation>
+        <value name="ARG0">
+          <block type="variables_get">
+            <field name="VAR" variabletype="">X</field>
+          </block>
+        </value>
+        <value name="ARG1">
+          <block type="variables_get">
+            <field name="VAR" variabletype="">Y</field>
+          </block>
+        </value>
+        <next>
+          <block type="procedures_callnoreturn">
+            <mutation name="child" items="2"></mutation>
+            <value name="ARG0">
+              <block type="variables_get">
+                <field name="VAR" variabletype="">Y</field>
+              </block>
+            </value>
+            <value name="ARG1">
+              <block type="variables_get">
+                <field name="VAR" variabletype="">Z</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

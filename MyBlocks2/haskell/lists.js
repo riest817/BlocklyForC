@@ -720,6 +720,72 @@ Blockly.Blocks['lists_range'] = {
   }
 };
 
+Blockly.Blocks['lists_from'] = {
+  /**
+   * Block for creating a string made up of any number of elements of any type.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.lists_range_head);
+    this.appendValueInput('ADD1');
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.lists_range_middle);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.lists_range_end);
+    this.setOutput(true);
+    this.setInputsInline(true);
+    this.setTooltip("リストを表します。");
+  }
+};
+
+Blockly.Blocks['lists_from_then'] = {
+  /**
+   * Block for creating a string made up of any number of elements of any type.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.lists_range_head);
+    this.appendValueInput('ADD1');
+    this.appendValueInput('ADD2').appendField(',');
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.lists_range_middle);
+    this.appendValueInput('ADD3');
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.lists_range_end);
+    this.setOutput(true);
+    this.setInputsInline(true);
+    this.setTooltip("リストを表します。");
+  }
+};
+
+Blockly.Blocks['lists_from_then_to'] = {
+  /**
+   * Block for creating a string made up of any number of elements of any type.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.lists_range_head);
+    this.appendValueInput('ADD1');
+    this.appendValueInput('ADD2').appendField(',');
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.lists_range_middle);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.lists_range_end);
+    this.setOutput(true);
+    this.setInputsInline(true);
+    this.setTooltip("リストを表します。");
+  }
+};
+
 // 19/01/09
 Blockly.Blocks['lists_element'] = {
 

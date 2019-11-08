@@ -49,19 +49,19 @@ Blockly.Haskell['lists_repeat'] = function(block) {
   return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
 };
 
-Blockly.Haskell['lists_length_haskell'] = function(block) {
-  // String or array length.
-  var list = Blockly.Haskell.valueToCode(block, 'VALUE',
-      Blockly.Haskell.ORDER_MEMBER) || '[]';
-  return ['length ' + list , Blockly.Haskell.ORDER_MEMBER];
-};
+// Blockly.Haskell['lists_length_haskell'] = function(block) {
+//   // String or array length.
+//   var list = Blockly.Haskell.valueToCode(block, 'VALUE',
+//       Blockly.Haskell.ORDER_MEMBER) || '[]';
+//   return ['length ' + list , Blockly.Haskell.ORDER_MEMBER];
+// };
 
-Blockly.Haskell['lists_isEmpty_haskell'] = function(block) {
-  // Is the string null or array empty?
-  var list = Blockly.Haskell.valueToCode(block, 'VALUE',
-      Blockly.Haskell.ORDER_MEMBER) || '[]';
-  return ['null ' + list , Blockly.Haskell.ORDER_LOGICAL_NOT];
-};
+// Blockly.Haskell['lists_isEmpty_haskell'] = function(block) {
+//   // Is the string null or array empty?
+//   var list = Blockly.Haskell.valueToCode(block, 'VALUE',
+//       Blockly.Haskell.ORDER_MEMBER) || '[]';
+//   return ['null ' + list , Blockly.Haskell.ORDER_LOGICAL_NOT];
+// };
 
 Blockly.Haskell['lists_indexOf'] = function(block) {
   // Find an item in the list.
@@ -441,26 +441,65 @@ Blockly.Haskell['lists_group'] = function(block) {
 };
 
 Blockly.Haskell['lists_range'] = function(block) {
-    // Call a procedure with a return value.
-  
   var arg1 = Blockly.Haskell.valueToCode(block, 'ADD1',
-        Blockly.Haskell.ORDER_COMMA) || '_';
+        Blockly.Haskell.ORDER_ATOMIC) || '_';
   var arg2 = Blockly.Haskell.valueToCode(block, 'ADD2',
-        Blockly.Haskell.ORDER_COMMA) || '_';
-  var code = '[' + arg1 + '..' + arg2 + ']';
-  
-  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-  //return code + '\n';
+        Blockly.Haskell.ORDER_ATOMIC);
+  var code = arg2 ? ('[' + arg1 + '..' + arg2 + ']') 
+                  : ('[' + arg1 + '..' + ']' ) ;
+  return [code, Blockly.Haskell.ORDER_ATOMIC];
+};
+
+Blockly.Haskell['lists_from'] = function (block) {
+  var arg1 = Blockly.Haskell.valueToCode(block, 'ADD1',
+    Blockly.Haskell.ORDER_ATOMIC) || '_';
+  var code = '[' + arg1 + '..' + ']';
+  return [code, Blockly.Haskell.ORDER_ATOMIC];
+};
+
+Blockly.Haskell['lists_from_then'] = function (block) {
+  var arg1 = Blockly.Haskell.valueToCode(block, 'ADD1',
+    Blockly.Haskell.ORDER_ATOMIC) || '_';
+  var arg2 = Blockly.Haskell.valueToCode(block, 'ADD2',
+    Blockly.Haskell.ORDER_ATOMIC);
+  var code = arg2 ? ('[' + arg1 + ',' + arg2 + '..' + ']')
+                  : ('[' + arg1 + '..' + ']');
+  return [code, Blockly.Haskell.ORDER_ATOMIC];
+};
+
+Blockly.Haskell['lists_from_then_to'] = function (block) {
+  var arg1 = Blockly.Haskell.valueToCode(block, 'ADD1',
+    Blockly.Haskell.ORDER_ATOMIC) || '_';
+  var arg2 = Blockly.Haskell.valueToCode(block, 'ADD2',
+    Blockly.Haskell.ORDER_ATOMIC);
+  var arg3 = Blockly.Haskell.valueToCode(block, 'ADD3',
+    Blockly.Haskell.ORDER_ATOMIC);
+  var code;
+  if (arg2) {
+    if (arg3) {
+      code = '[' + arg1 + ',' + arg2 + '..' + arg3 + ']';
+    } else {
+      code = '[' + arg1 + ',' + arg2 + '..' + ']';
+    }
+  } else {
+    if (arg3) {
+      code = '[' + arg1 + '..' + arg3 + ']';
+    } else {
+      code = '[' + arg1 + '..' + ']';
+    }
+  }
+
+  return [code, Blockly.Haskell.ORDER_ATOMIC];
 };
 
 Blockly.Haskell['lists_element'] = function(block) {
   // String or array length.
   var val = Blockly.Haskell.valueToCode(block, 'VALUE',
-        Blockly.Haskell.ORDER_COMMA) || '_';
+        Blockly.Haskell.ORDER_ATOMIC) || '_';
   var num = parseFloat(block.getFieldValue('NUM'));
   var code = val + ' !! ' + num;
   
-  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
+  return [code, Blockly.Haskell.ORDER_DOT];
   //return code + '\n';
 };
 // 19/01/09 ここまで

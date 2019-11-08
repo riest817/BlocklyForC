@@ -40,7 +40,11 @@ goog.require('Blockly.Haskell');
 Blockly.Haskell['math_number'] = function(block) {
   // Numeric value.
   var code = parseFloat(block.getFieldValue('NUM'));
-  return [code, Blockly.Haskell.ORDER_ATOMIC];
+  if (code >= 0) {
+    return [code, Blockly.Haskell.ORDER_ATOMIC];
+  } else {
+    return [code, Blockly.Haskell.ORDER_ADDITION];
+  }
 };
 
 Blockly.Haskell['math_arithmetic'] = function(block) {

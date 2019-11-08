@@ -78,6 +78,7 @@ Blockly.HaskellFunctions.flyoutCategory = function(workspace) {
     xmlList[xmlList.length - 1].setAttribute('gap', 24);
   }
 
+  /*
   function populateNames(nameList, templateName) {
     for (var i = 0; i < nameList.length; i++) {
       var name = nameList[i][0];
@@ -98,9 +99,41 @@ Blockly.HaskellFunctions.flyoutCategory = function(workspace) {
       xmlList.push(block);
     }
   }
+  */
+
+  function populateNames(nameList) {
+    for (var i = 0; i < nameList.length; i++) {
+      var name = nameList[i][0];
+      var items = nameList[i][1]; 
+      // <block type="?" gap="16">
+      // </block>
+      var block = Blockly.Xml.utils.createElement('block');
+      block.setAttribute('type','procedures_application');
+      block.setAttribute('gap', 16);
+      var mutation = Blockly.Xml.utils.createElement('mutation');
+      mutation.setAttribute('items', parseInt(items));
+      block.appendChild(mutation);
+      var value = Blockly.Xml.utils.createElement('value');
+      value.setAttribute('name', 'F');
+      var block1 = Blockly.Xml.utils.createElement('block');
+      block1.setAttribute('type', 'procedures_callsimple');
+      var mutation1 = Blockly.Xml.utils.createElement('mutation');
+      mutation1.setAttribute('name', name);
+      var nameField = Blockly.Xml.utils.createElement('field');
+      nameField.setAttribute('name', 'NAME');
+      nameField.appendChild(Blockly.Xml.utils.createTextNode(name));
+//      mutation.setAttribute('items', items);
+      block1.appendChild(mutation1);
+      block1.appendChild(nameField);
+      value.appendChild(block1);
+      block.appendChild(value);
+      xmlList.push(block);
+    }
+  }
 
   var tuple = Blockly.HaskellFunctions.allHaskellFunctions(workspace);
-  populateNames(tuple, 'procedures_callreturn');
+  // populateNames(tuple, 'procedures_callreturn');
+  populateNames(tuple);
   return xmlList;
 };
 

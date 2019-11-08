@@ -30,11 +30,11 @@ Code.renderContent = function() {
   } else if (content.id == 'contentHaskell') {
     var code = Blockly.Haskell.workspaceToCode(Code.workspace);
     content.textContent = code;
-    if (typeof PR.prettyPrintOne == 'function') {
-      code = content.textContent;
-      code = PR.prettyPrintOne(code, 'js');
-      content.innerHTML = code;
-    }
+    // if (typeof PR.prettyPrintOne == 'function') {
+    //   code = content.textContent;
+    //   code = PR.prettyPrintOne(code, 'js');
+    //   content.innerHTML = code;
+    // }
   }
 };
 

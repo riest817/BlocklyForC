@@ -1,0 +1,118 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">n</variable>
+    <variable type="">x</variable>
+    <variable type="">y</variable>
+  </variables>
+  <block type="procedures_defreturn" x="10" y="10">
+    <mutation items="1"></mutation>
+    <field name="NAME">foo</field>
+    <value name="ARG0">
+      <block type="variables_get">
+        <field name="VAR" variabletype="">n</field>
+      </block>
+    </value>
+    <value name="RETURN">
+      <block type="inner_table">
+        <value name="ADD0">
+          <block type="lists_group">
+            <mutation items="2"></mutation>
+            <value name="ADD0">
+              <block type="variables_get">
+                <field name="VAR" variabletype="">x</field>
+              </block>
+            </value>
+            <value name="ADD1">
+              <block type="variables_get">
+                <field name="VAR" variabletype="">y</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="ADD">
+          <block type="haskell_generator">
+            <value name="PAT">
+              <block type="variables_get">
+                <field name="VAR" variabletype="">x</field>
+              </block>
+            </value>
+            <value name="VALUE">
+              <block type="lists_range">
+                <value name="ADD1">
+                  <block type="math_number">
+                    <field name="NUM">0</field>
+                  </block>
+                </value>
+                <value name="ADD2">
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">n</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="haskell_generator">
+                <value name="PAT">
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">y</field>
+                  </block>
+                </value>
+                <value name="VALUE">
+                  <block type="lists_range">
+                    <value name="ADD1">
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">x</field>
+                      </block>
+                    </value>
+                    <value name="ADD2">
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">n</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </value>
+    <next>
+      <block type="main_haskell">
+        <value name="DO">
+          <block type="do_haskell">
+            <statement name="DO">
+              <block type="emer_block">
+                <value name="VALUE">
+                  <block type="procedures_application">
+                    <mutation items="1"></mutation>
+                    <value name="F">
+                      <block type="output_library">
+                        <field name="OP">print</field>
+                      </block>
+                    </value>
+                    <value name="ARG0">
+                      <block type="procedures_application">
+                        <mutation items="1"></mutation>
+                        <value name="F">
+                          <block type="procedures_callsimple">
+                            <mutation name="foo"></mutation>
+                          </block>
+                        </value>
+                        <value name="ARG0">
+                          <block type="math_number">
+                            <field name="NUM">6</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </statement>
+          </block>
+        </value>
+      </block>
+    </next>
+  </block>
+</xml>

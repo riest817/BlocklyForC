@@ -89,7 +89,7 @@ Blockly.Haskell['logic_negate'] = function(block) {
 // 19/02/13 
 Blockly.Haskell['logic_boolean_haskell'] = function(block) {
   // Boolean values true and false.
-  var code = (block.getFieldValue('BOOL') == 'TRUE') ? 'True' : 'False';
+  var code = (block.getFieldValue('BOOL') == 'True') ? 'True' : 'False';
   return [code, Blockly.Haskell.ORDER_ATOMIC];
 };
 // 19/02/13 ここまで
@@ -102,11 +102,11 @@ Blockly.Haskell['logic_null'] = function(block) {
 Blockly.Haskell['logic_ternary'] = function(block) {
   // Ternary operator.
   var value_if = Blockly.Haskell.valueToCode(block, 'IF',
-      Blockly.Haskell.ORDER_ATOMIC) || 'False';
+      Blockly.Haskell.ORDER_NONE) || 'False';
   var value_then = Blockly.Haskell.valueToCode(block, 'THEN',
-      Blockly.Haskell.ORDER_ATOMIC) || 'False';
+      Blockly.Haskell.ORDER_NONE) || '1';
   var value_else = Blockly.Haskell.valueToCode(block, 'ELSE',
-      Blockly.Haskell.ORDER_IF) || 'False';
+      Blockly.Haskell.ORDER_IF) || '0';
   var code = 'if ' + value_if + ' then ' + value_then + ' else ' + value_else;
   return [code, Blockly.Haskell.ORDER_IF];
 };

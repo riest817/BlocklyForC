@@ -16,7 +16,9 @@
 <!-- -->
 <script src="MyGenerators/prolog.js"></script>
 <script src="MyGenerators/prolog/functors.js"></script>
+<script src="MyGenerators/prolog/lists.js"></script>
 <script src="MyGenerators/prolog/procedures.js"></script>
+<script src="MyGenerators/prolog/variables.js"></script>
 <!-- <script src="MyGenerators/prolog/rule.js"></script> -->
 <!-- <script src="MyGenerators/prolog/term.js"></script> -->
 
@@ -168,12 +170,13 @@
             <td id="tabProlog" class="taboff" style="white-space:nowrap;" data-step="2" data-intro="このタブをクリックして、ソースコードを表示します。">Prolog</td>
             <td class="tabmin">&nbsp;</td>
             <td id="tabXml" class="taboff" style="font-family:'Segoe UI Emoji'; white-space:nowrap;" data-step="3" data-intro="このタブをクリックして、XMLコードを表示します。">XML</td>
-            <td class="tabmin">&nbsp;</td>
             <!-- 18/04/17 追加 -->
 <!--              <form> -->
+                  <!--
                   <td data-step="4" data-intro="このボタンをクリックして、サンプルブロックを組み立てます。"><input type="button" value="サンプル1" class = "sample" id = "sample1" style="font-size: 0.8em;" onclick="sample(1);"/></td>
                   <td><input type="button" value="サンプル2" class = "sample" id = "sample2" style="font-size: 0.8em;" onclick="sample(2);"/></td>
                   <td><input type="button" value="サンプル3" class = "sample" id = "sample3" style="font-size: 0.8em;" onclick="sample(3);"/></td>
+                  -->
 <!--              </form> -->
             <td class="tabmin">&nbsp;</td>
             <td class="farSide">
@@ -184,8 +187,9 @@
               <a href="html/tutorial/tutorial.html" target="_blank">このシステムの使い方について</a> <!-- 19/05/13 追加 -->
             </td>
             <!-- 18/04/17 追加ここまで -->
-            
+            <td class="tabmin">&nbsp;</td>
             <td class="tabmax">
+            サンプル: <select id="samples"></select>
               <a href="index.html" id="homeButton" title="Homeへ" class="button_like">&#x1f3e0;</a>
               <a href="#" id="intro" title="ヘルプ" class="button_like">&#x2753;</a>
               <a href="#" id="openButton" title="読込み" class="button_like" data-step="5"

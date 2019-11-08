@@ -28,7 +28,10 @@ Blockly.PrologFunctors.allPrologFunctors = function(root) {
   for (var i = 0; i < blocks.length; i++) {
     var block = blocks[i];
     if (block.type === 'functor_definition') {
-      reNames.push([block.getFieldValue('NAME'), block.itemCount_]);
+      let name = block.getFieldValue('NAME');
+      let idx = reNames.findIndex(([n,j]) => n == name);
+      if (idx >= 0) continue;
+      reNames.push([name, block.itemCount_]);
     }
   }
   reNames.sort(Blockly.PrologFunctors.nameComparator_);

@@ -1,77 +1,83 @@
+<!DOCTYPE html>
 <!--
 2017/10/31 function GetCookies() 追加
 2017/11/01 sampleボタンの実行
 2017/11/14 各言語の html ファイルの共通する関数群を common2.js に移動
 18/06/13 概念と文法の切り替えタブ追加
 -->
-
-<!DOCTYPE html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Blockly for Haskell</title>
-<div id="title" title="Haskell"></div>  <!-- (18/06/12 追加)-->
-<link rel="shortcut icon" href="favicon.png" type="image/png"/>
-<!--  解凍ファイルを追加  17/12/05 -->
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Blockly for Haskell</title>
+  <div id="title" title="Haskell"></div> <!-- (18/06/12 追加)-->
+  <link rel="shortcut icon" href="favicon.png" type="image/png" />
+  <!--  解凍ファイルを追加  17/12/05 -->
 
-<!-- 19/06/06 バージョン管理-->
-<script src="Library/blockly/blockly_compressed.js"></script> <!--新-->
-<script src="Library/blockly/blocks_compressed.js"></script> <!--新-->
-<!--script src="Library/blockly/00_uncompressed/blockly_uncompressed.js"></script--> <!--旧-->
-<!--script src="Library/blockly/00_uncompressed/blocks_uncompressed.js"></script--> <!--旧-->
-<!-- 19/06/06 ここまで-->
+  <!-- 19/06/06 バージョン管理-->
+  <script src="Library/blockly/blockly_compressed.js"></script>
+  <!--新-->
+  <script src="Library/blockly/blocks_compressed.js"></script>
+  <!--新-->
+  <!--script src="Library/blockly/00_uncompressed/blockly_uncompressed.js"></script-->
+  <!--旧-->
+  <!--script src="Library/blockly/00_uncompressed/blocks_uncompressed.js"></script-->
+  <!--旧-->
+  <!-- 19/06/06 ここまで-->
 
-<!--script src="Library/blockly/00_uncompressed/blockly_uncompressed2.js"></script--><!-- 18/11/22-->
-<!--  圧縮ファイルをコメントアウト  17/12/05 -->
-<!--script src="Library/blockly/blockly_compressed.js"></script>
-<script src="Library/blockly/blocks_compressed.js"></script--> 
-<!--<script src="Library/blockly/javascript_compressed.js"></script>-->
-<!-- -->
-<script src="MyGenerators/haskell.js"></script>
-<script src="MyGenerators/haskell/colour.js"></script>
-<script src="MyGenerators/haskell/lists.js"></script>
-<script src="MyGenerators/haskell/logic.js"></script>
-<script src="MyGenerators/haskell/loops.js"></script>
-<script src="MyGenerators/haskell/math.js"></script>
-<script src="MyGenerators/haskell/output.js"></script>
-<script src="MyGenerators/haskell/procedures.js"></script>
-<script src="MyGenerators/haskell/standard_library.js"></script>
-<script src="MyGenerators/haskell/start.js"></script>
-<script src="MyGenerators/haskell/text.js"></script>
-<script src="MyGenerators/haskell/variables.js"></script>
-<!-- -->
-<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-<script src="Library/blockly/msg/js/ja.js"></script>
-<script src="Library/blockly/appengine/storage.js"></script>
-<!-- <script src="myJavaScriptBlocks.js"></script> -->
-<script src="Library/jquery-2.2.4.min.js"></script>
-<script src="Library/jquery.query.js"></script>
-<script src="Library/intro.js"></script>
-<!-- 追加 -->
-<script src="MyBlocks2/haskell/output.js"></script> 
-<script src="MyBlocks2/haskell/logic.js"></script> 
-<script src="MyBlocks2/haskell/math.js"></script> 
-<script src="MyBlocks2/haskell/procedures.js"></script> <!-- (2017/12/05 追加)-->
-<script src="MyBlocks2/haskell/lists.js"></script> <!-- (2017/12/13 追加)-->
-<script src="MyBlocks2/haskell/original.js"></script> <!-- (2017/12/07 追加)-->
-<script src="MyBlocks2/haskell/standard_library.js"></script> <!-- (19/02/26 追加)-->
+  <!--script src="Library/blockly/00_uncompressed/blockly_uncompressed2.js"></script-->
+  <!-- 18/11/22-->
+  <!--  圧縮ファイルをコメントアウト  17/12/05 -->
+  <!--script src="Library/blockly/blockly_compressed.js"></script>
+<script src="Library/blockly/blocks_compressed.js"></script-->
+  <!--<script src="Library/blockly/javascript_compressed.js"></script>-->
+  <!-- -->
+  <script src="MyGenerators/haskell.js"></script>
+  <script src="MyGenerators/haskell/colour.js"></script>
+  <script src="MyGenerators/haskell/lists.js"></script>
+  <script src="MyGenerators/haskell/logic.js"></script>
+  <script src="MyGenerators/haskell/loops.js"></script>
+  <script src="MyGenerators/haskell/math.js"></script>
+  <script src="MyGenerators/haskell/output.js"></script>
+  <script src="MyGenerators/haskell/procedures.js"></script>
+  <script src="MyGenerators/haskell/standard_library.js"></script>
+  <script src="MyGenerators/haskell/start.js"></script>
+  <script src="MyGenerators/haskell/text.js"></script>
+  <script src="MyGenerators/haskell/variables.js"></script>
+  <!-- -->
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="Library/blockly/msg/js/ja.js"></script>
+  <script src="Library/blockly/appengine/storage.js"></script>
+  <!-- <script src="myJavaScriptBlocks.js"></script> -->
+  <script src="Library/jquery-2.2.4.min.js"></script>
+  <script src="Library/jquery.query.js"></script>
+  <script src="Library/intro.js"></script>
+  <!-- 追加 -->
+  <script src="MyBlocks2/haskell/output.js"></script>
+  <script src="MyBlocks2/haskell/logic.js"></script>
+  <script src="MyBlocks2/haskell/math.js"></script>
+  <script src="MyBlocks2/haskell/procedures.js"></script> <!-- (2017/12/05 追加)-->
+  <script src="MyBlocks2/haskell/lists.js"></script> <!-- (2017/12/13 追加)-->
+  <script src="MyBlocks2/haskell/original.js"></script> <!-- (2017/12/07 追加)-->
+  <script src="MyBlocks2/haskell/standard_library.js"></script> <!-- (19/02/26 追加)-->
 
-<script src="js/sample_button/haskell.js"></script>  <!-- (2017/10/19 追加)-->
-<script src="js/cookie.js"></script>  <!-- (2017/11/14 追加)-->
-<script src="js/common2.js"></script>  <!-- (2017/11/14 追加)-->
-<script src="js/code/code_haskell.js"></script>  <!-- (18/06/13)-->
-<script src="MyCore/haskell_functions.js"></script> <!-- code_haskell.js より後(19/06/06)  -->
+  <script src="js/sample_button/haskell.js"></script> <!-- (2017/10/19 追加)-->
+  <script src="js/cookie.js"></script> <!-- (2017/11/14 追加)-->
+  <script src="js/common2.js"></script> <!-- (2017/11/14 追加)-->
+  <script src="js/code/code_haskell.js"></script> <!-- (18/06/13)-->
+  <script src="MyCore/haskell_functions.js"></script> <!-- code_haskell.js より後(19/06/06)  -->
 
-<link rel="stylesheet"
-      href="Library/introjs.css"/>
-<style>
-    html, body {
+  <link rel="stylesheet" href="Library/introjs.css" />
+  <style>
+    html,
+    body {
       height: 100%;
       margin: 0;
     }
+
     body {
       font-family: sans-serif;
       overflow: hidden;
     }
+
     table {
       height: 100%;
       width: 100%;
@@ -86,23 +92,28 @@
       border: 1px solid #ccc;
       border-bottom: none;
     }
+
     td.tabon {
       border-bottom-color: #ddd !important;
       background-color: #ddd;
       padding: 5px 19px;
     }
+
     td.taboff {
       cursor: pointer;
       padding: 5px 19px;
     }
+
     td.taboff:hover {
       background-color: #eee;
     }
+
     td.tabmin {
       border-top-style: none !important;
       border-left-style: none !important;
       border-right-style: none !important;
     }
+
     td.tabmax {
       border-top-style: none !important;
       border-left-style: none !important;
@@ -120,10 +131,12 @@
       position: absolute;
       direction: ltr;
     }
+
     pre.content {
       border: 1px solid #ccc;
       overflow: scroll;
     }
+
     div.content {
       border: 1px solid #ccc;
       overflow: scroll;
@@ -140,37 +153,48 @@
       background: #dddddd;
     }
 
-    .button_like:hover{
-      background:#ccddff;
+    .button_like:hover {
+      background: #ccddff;
       border-color: #aaaacc #444466 #444466 #aaaacc;
     }
-</style>
+  </style>
 
 </head>
 <body>
-<xml id="toolbox" style="display: none">
-  <category name="制御" colour="210">
-    <block type="main_haskell"></block>
-    <block type="do_haskell"></block>
-    <block type="haskell_generator"></block>
-    <block type="emer_block"></block>
-    <block type="let_haskell"></block>
-    <block type="haskell_decl"></block>
-    <block type="let_in_haskell"></block> <!--> 19/06/18 バージョンによりエラー <-->
-<!--    <block type="where_haskell"></block> --><!--> 18/12/05 追加 <-->
-    <block type="case_haskell"></block> <!--> 18/12/12 追加 <-->
-    <block type="single_pattern"></block> <!--> 18/12/12 追加 <-->
-    <!--block type="controls_if"></block-->     <!-->17/12/12 コメントアウト<-->
-    <!--block type="controls_if_haskell"></block-->>
-    <block type="logic_compare"></block>
-    <block type="logic_operation"></block>
-    <block type="logic_negate"></block>
-    <block type="logic_boolean_haskell"></block>  <!-->19/02/13 改良<-->
-    <block type="logic_null"></block>
-    <block type="logic_ternary"></block>
-  </category>
-  <!-->↓ 18/09/20 繰り返しカテゴリ コメントアウト ↓<-->
-  <!--category name="繰り返し" colour="120">
+  <xml id="toolbox" style="display: none">
+    <category name="制御" colour="210">
+      <block type="main_haskell"></block>
+      <block type="do_haskell"></block>
+      <block type="haskell_generator"></block>
+      <block type="emer_block"></block>
+      <block type="procedures_lambda"></block>
+      <block type="let_haskell"></block>
+      <block type="haskell_decl"></block>
+      <block type="let_in_haskell"></block> <!--> 19/06/18 バージョンによりエラー <-->
+      <!--    <block type="where_haskell"></block> -->
+      <!--> 18/12/05 追加 <-->
+      <block type="case_haskell"></block> <!--> 18/12/12 追加 <-->
+      <block type="single_pattern"></block> <!--> 18/12/12 追加 <-->
+      <!--block type="controls_if"></block-->
+      <!-->17/12/12 コメントアウト<-->
+      <!--block type="controls_if_haskell"></block-->>
+      <block type="logic_compare"></block>
+      <block type="logic_operation"></block>
+<!--  <block type="logic_negate"></block> -->
+      <block type="procedures_application">
+        <mutation items="1"></mutation>
+        <value name="F">
+          <block type="logic_library">
+            <field name="OP">not</field>
+          </block>
+        </value>
+      </block>
+      <block type="logic_boolean_haskell"></block> <!-->19/02/13 改良<-->
+<!--   <block type="logic_null"></block> -->
+      <block type="logic_ternary"></block>
+    </category>
+    <!-->↓ 18/09/20 繰り返しカテゴリ コメントアウト ↓<-->
+    <!--category name="繰り返し" colour="120">
     <block type="controls_repeat_ext">
       <value name="TIMES">
         <shadow type="math_number">
@@ -199,54 +223,106 @@
     <block type="controls_forEach"></block>
     <block type="controls_flow_statements"></block>
   </category-->
-  <category name="数" colour="230">
-    <block type="math_number"></block>
-    <block type="var_arithmetic"></block>   <!-->自作ブロック<-->
-    <block type="math_single">
-      <value name="NUM">
-        <shadow type="math_number">
-          <field name="NUM">9</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="math_trig">
-      <value name="NUM">
-        <shadow type="math_number">
-          <field name="NUM">45</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="math_constant"></block>
-    <block type="math_number_property">
-      <value name="NUMBER_TO_CHECK">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="math_round">
-      <value name="NUM">
-        <shadow type="math_number">
-          <field name="NUM">3.1</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="math_on_list"></block>
-    <block type="math_modulo">
-      <value name="DIVIDEND">
-        <shadow type="math_number">
-          <field name="NUM">64</field>
-        </shadow>
-      </value>
-      <value name="DIVISOR">
-        <shadow type="math_number">
-          <field name="NUM">10</field>
-        </shadow>
-      </value>
-    </block>
-  </category>
-  <!-->↓ 18/09/20 文字列カテゴリ コメントアウト ↓<-->
-  <!--category name="文字列" colour="160">
+    <category name="数" colour="230">
+      <block type="math_number"></block>
+      <block type="var_arithmetic"></block> <!-->自作ブロック<-->
+ <!--     
+      <block type="math_single">
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">9</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_trig">
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">45</field>
+          </shadow>
+        </value>
+      </block>
+  -->
+      <block type="procedures_application">
+        <mutation items="1"></mutation>
+        <value name="F">
+          <block type="math_library">
+            <field name="OP">abs</field>
+          </block>
+        </value>
+      </block>
+      <block type="procedures_application">
+        <mutation items="1"></mutation>
+        <value name="F">
+          <block type="math_library">
+            <field name="OP">sin</field>
+          </block>
+        </value>
+      </block>
+      <block type="math_constant"></block>
+<!--       
+      <block type="math_number_property">
+        <value name="NUMBER_TO_CHECK">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_round">
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">3.1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_on_list"></block>
+      <block type="math_modulo">
+        <value name="DIVIDEND">
+          <shadow type="math_number">
+            <field name="NUM">64</field>
+          </shadow>
+        </value>
+        <value name="DIVISOR">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+      </block>
+-->
+      <block type="procedures_application">
+        <mutation items="1"></mutation>
+        <value name="F">
+          <block type="math_library">
+            <field name="OP">even</field>
+          </block>
+        </value>
+      </block>
+      <block type="procedures_application">
+        <mutation items="1"></mutation>
+        <value name="F">
+          <block type="math_library">
+            <field name="OP">trucate</field>
+          </block>
+        </value>
+      </block>
+      <block type="procedures_application">
+        <mutation items="1"></mutation>
+        <value name="F">
+          <block type="math_library">
+            <field name="OP">sum</field>
+          </block>
+        </value>
+      </block>
+      <block type="procedures_application">
+        <mutation items="1"></mutation>
+        <value name="F">
+          <block type="math_library">
+            <field name="OP">quot</field>
+          </block>
+        </value>
+      </block>
+    </category>
+    <!-->↓ 18/09/20 文字列カテゴリ コメントアウト ↓<-->
+    <!--category name="文字列" colour="160">
     <block type="text"></block>
     <block type="text_join"></block>
     <block type="text_append">
@@ -323,23 +399,48 @@
       </value>
     </block>
   </category-->
-  <category name="リスト" colour="260">
-    <block type="lists_container"></block>
-<!--    <block type="bondage"></block>  -->     <!-->18/01/10 作成<-->
-    <block type="lists_connection"></block>
-    <block type="lists_create_with_haskell">
-      <mutation items="0"></mutation>
-    </block>
-    <block type="lists_create_with_haskell"></block>
-    <block type="inner_table"></block>      <!--> 18/01/10 追加<-->
-    <block type="haskell_generator"></block>
-    <block type="emer_block"></block>
-    <block type="lists_group"></block>      <!--> 18/01/10 追加<-->
-    <block type="lists_range"></block>      <!--> 18/01/10 追加<-->
-    <block type="lists_element"></block>      <!--> 19/01/09 追加<-->
-    <block type="lists_length_haskell"></block>
-    <block type="lists_isEmpty_haskell"></block>
-    <!--block type="lists_indexOf">
+    <category name="リスト" colour="260">
+      <block type="lists_container"></block>
+      <!--    <block type="bondage"></block>  -->
+      <!-->18/01/10 作成<-->
+      <block type="lists_connection"></block>
+      <block type="lists_create_with_haskell">
+        <mutation items="0"></mutation>
+      </block>
+      <block type="lists_create_with_haskell"></block>
+      <block type="inner_table"></block> <!--> 18/01/10 追加<-->
+      <block type="haskell_generator"></block>
+      <block type="emer_block"></block>
+      <block type="lists_group"></block> <!--> 18/01/10 追加<-->
+      <block type="lists_range"></block> <!--> 18/01/10 追加<-->
+      <block type="lists_from"></block>
+      <block type="lists_from_then"></block>
+      <block type="lists_from_then_to"></block>
+      <block type="lists_element"></block> <!--> 19/01/09 追加<-->
+<!--  <block type="lists_length_haskell"></block>
+      <block type="lists_isEmpty_haskell"></block> -->
+      <block type="procedures_application">
+        <mutation items="1"></mutation>
+        <value name="F">
+          <block type="list_library">
+            <field name="OP">length</field>
+          </block>
+        </value>
+      </block>
+      <block type="procedures_application">
+        <mutation items="2"></mutation>
+        <value name="F">
+          <block type="list_library">
+            <field name="OP">take</field>
+          </block>
+        </value>
+        <value name="ARG0">
+          <shadow type="math_number">
+            <field name="NUM">3</field>
+          </shadow>
+        </value>
+      </block>
+      <!--block type="lists_indexOf">
       <value name="VALUE">
         <block type="variables_get">
           <field name="VAR">{listVariable}</field>
@@ -413,148 +514,239 @@
         </shadow>
       </value>
     </block-->
-  </category>
-  <sep></sep>
-  <category name="変数" colour="330" custom="VARIABLE"></category>
-  <category name="関数" custom="HASKELL_FUNCTION" colour="290">
-  </category> 
-  <sep></sep>
-  <category name="標準関数" colour="60"> <!--> 19/02/26 追加 <-->
-    <!--category name="入出力処理" colour="0"-->
-      <block type="output_text"></block>
-      <block type="output_library"><field name="OP">putStr</field></block> 
-    <!--/category-->
-    <!--category name="リスト処理" colour="260"-->
-      <block type="list_library"></block>
-    <!--/category-->
-    <!--category name="高階関数処理" colour="60"-->
-      <block type="Higher_Order_func_library"></block>
-    <!--/category-->
-    <!--category name="パターンマッチ" colour="290"-->
-    <!--/category-->
-  </category>
-  <!--category name="ヘッダ" colour="60"></category-->
-  <sep></sep>
-  <category name="出力" colour="0">
-      <block type="output_text"></block>
-      <block type="output_var"></block>
-      <block type="output_var2"></block> <!--> 19/01/15 追加 <-->
+    </category>
+    <sep></sep>
+    <category name="変数" colour="330" custom="VARIABLE"></category>
+    <category name="関数" custom="HASKELL_FUNCTION" colour="290">
+    </category>
+    <sep></sep>
+    <category name="標準関数" colour="60">
+      <block type="procedures_application">
+        <mutation items="2"></mutation>
+        <value name="F">
+          <block type="higher_order_func_library">
+            <field name="OP">map</field>
+          </block>
+        </value>
+      </block>
+      <block type="procedures_application">
+        <mutation items="2"></mutation>
+        <value name="F">
+          <block type="higher_order_func_library">
+            <field name="OP">filter</field>
+          </block>
+        </value>
+      </block>
+      <block type="procedures_application">
+        <mutation items="2"></mutation>
+        <value name="F">
+          <block type="higher_order_func_library">
+            <field name="OP">iterate</field>
+          </block>
+        </value>
+      </block>
+      <block type="procedures_application">
+        <mutation items="2"></mutation>
+        <value name="F">
+          <block type="higher_order_func_library">
+            <field name="OP">concatMap</field>
+          </block>
+        </value>
+      </block>
+      <block type="procedures_application">
+        <mutation items="3"></mutation>
+        <value name="F">
+          <block type="higher_order_func_library">
+            <field name="OP">foldr</field>
+          </block>
+        </value>
+      </block>
+      <block type="procedures_application">
+        <mutation items="2"></mutation>
+        <value name="F">
+          <block type="higher_order_func_library">
+            <field name="OP">fold1</field>
+          </block>
+        </value>
+      </block>
+    </category>
+    <!--category name="ヘッダ" colour="60"></category-->
+    <sep></sep>
+    <category name="出力" colour="0">
+      <!--      <block type="output_text"></block> -->
+      <!--      <block type="output_var"></block> -->
+      <!--      <block type="output_var2"></block> -->
+      <!--> 19/01/15 追加 <-->
+      <block type="emer_block">
+        <value name="VALUE">
+          <block type="procedures_application">
+            <mutation items="1"></mutation>
+            <value name="F">
+              <block type="output_library">
+                <field name="OP">putStr</field>
+              </block>
+            </value>
+            <value name="ARG0">
+              <block type="string">
+                <field name="TEXT"></field>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+      <block type="emer_block">
+        <value name="VALUE">
+          <block type="procedures_application">
+            <mutation items="1"></mutation>
+            <value name="F">
+              <block type="output_library">
+                <field name="OP">putStrLn</field>
+              </block>
+            </value>
+            <value name="ARG0">
+              <block type="string">
+                <field name="TEXT"></field>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+      <block type="emer_block">
+        <value name="VALUE">
+          <block type="procedures_application">
+            <mutation items="1"></mutation>
+            <value name="F">
+              <block type="output_library">
+                <field name="OP">print</field>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
       <block type="string"></block> <!--> 18/12/12 追加 <-->
-  </category>
-</xml>
+    </category>
+  </xml>
 
-<xml id="startBlocks" style="display: none;">
-</xml>
+  <xml id="startBlocks" style="display: none;">
+  </xml>
 
-<table>
-<tr>
-    <td>
-       <table width='100%'>
+  <table>
+    <tr>
+      <td>
+        <table width='100%'>
           <tr id="tabRow" height="1em">
-            <td id="tabBlocks" class="tabon" style="white-space:nowrap;" data-step="1" data-intro="このタブをクリックして、編集をはじめます。">ブロック</td>
+            <td id="tabBlocks" class="tabon" style="white-space:nowrap;" data-step="1"
+              data-intro="このタブをクリックして、編集をはじめます。">ブロック</td>
             <td class="tabmin">&nbsp;</td>
-            <td id="tabHaskell" class="taboff" style="white-space:nowrap;" data-step="2" data-intro="このタブをクリックして、ソースコードを表示します。">Haskell</td>
+            <td id="tabHaskell" class="taboff" style="white-space:nowrap;" data-step="2"
+              data-intro="このタブをクリックして、ソースコードを表示します。">Haskell</td>
             <td class="tabmin">&nbsp;</td>
-            <td id="tabXml" class="taboff" style="font-family:'Segoe UI Emoji'; white-space:nowrap;" data-step="3" data-intro="このタブをクリックして、XMLコードを表示します。">XML</td>
-            <td class="tabmin">&nbsp;</td>
-            <!-- 18/06/13 追加 -->
-              <form>
-                  <td data-step="4" data-intro="このボタンをクリックして、サンプルブロックを組み立てます。"><input type="button" value="サンプル1" class = "sample" id = "sample1" style="font-size: 0.8em;" onclick="sample(1);"/></td>
-                  <!--td><input type="button" value="サンプル2" class = "sample" id = "sample2" style="font-size: 0.8em;" onclick="sample(2);"/></td-->
-                  <td><input type="button" value="内包表記" class = "sample" id = "sample3" style="font-size: 0.8em;" onclick="sample(3);"/></td>
-                  <td><input type="button" value="サンプル4" class = "sample" id = "sample4" style="font-size: 0.8em;" onclick="sample(4);"/></td>
-                  <td><input type="button" value="有若君" class = "sample" id = "sample5" style="font-size: 0.8em;" onclick="sample(5);"/></td>
-                  <td><input type="button" value="西村君" class = "sample" id = "sample6" style="font-size: 0.8em;" onclick="sample(6);"/></td>
-                  <td><input type="button" value="不具合" class = "sample" id = "sample7" style="font-size: 0.8em;" onclick="sample(7);"/></td>
-              </form>
+            <td id="tabXml" class="taboff" style="font-family:'Segoe UI Emoji'; white-space:nowrap;" data-step="3"
+              data-intro="このタブをクリックして、XMLコードを表示します。">XML</td>
             <td class="tabmin">&nbsp;</td>
             <td class="farSide">
               <select id="languageMenu" onclick="languageMenu()"></select>
             </td>
             <td class="tabmin">&nbsp;</td>
-            <td id="farSide" class="taboff" style="white-space:nowrap;" data-step="8" data-intro="このシステムの使い方を知りたい場合はこちらをクリックします。">
+            <td id="farSide" class="taboff" style="white-space:nowrap;" data-step="8"
+              data-intro="このシステムの使い方を知りたい場合はこちらをクリックします。">
               <a href="html/tutorial/tutorial.html" target="_blank">このシステムの使い方について</a> <!-- 19/05/13 追加 -->
-            </td>  
+            </td>
             <!-- 18/06/13 追加ここまで -->
-
-            <td class="tabmax">
+            <td>
+              サンプル: <select id="samples"></select>
+              <!-- 18/06/13 追加 -->
+              <!--
+              <form>
+                <td data-step="4" data-intro="このボタンをクリックして、サンプルブロックを組み立てます。"><input type="button" value="サンプル1"
+                    class="sample" id="sample1" style="font-size: 0.8em;" onclick="sample(1);" /></td>
+                <td><input type="button" value="サンプル2" class = "sample" id = "sample2" style="font-size: 0.8em;" onclick="sample(2);"/></td>
+                <td><input type="button" value="内包表記" class="sample" id="sample3" style="font-size: 0.8em;"
+                    onclick="sample(3);" /></td>
+                <td><input type="button" value="サンプル4" class="sample" id="sample4" style="font-size: 0.8em;"
+                    onclick="sample(4);" /></td>
+                <td><input type="button" value="有若君" class="sample" id="sample5" style="font-size: 0.8em;"
+                    onclick="sample(5);" /></td>
+                <td><input type="button" value="西村君" class="sample" id="sample6" style="font-size: 0.8em;"
+                    onclick="sample(6);" /></td>
+                <td><input type="button" value="不具合" class="sample" id="sample7" style="font-size: 0.8em;"
+                    onclick="sample(7);" /></td>
+              </form>
+            -->
               <a href="index.html" id="homeButton" title="Homeへ" class="button_like">&#x1f3e0;</a>
               <a href="#" id="intro" title="ヘルプ" class="button_like">&#x2753;</a>
               <a href="#" id="openButton" title="読込み" class="button_like" data-step="5"
-                          data-intro="保存したプログラムを読み込みます。">&#x1f4c2;</a>
-              <input type="file" id="openButtonAux" name="openButtonAux"  style="display:none;" />
+                data-intro="保存したプログラムを読み込みます。">&#x1f4c2;</a>
+              <input type="file" id="openButtonAux" name="openButtonAux" style="display:none;" />
               <a href="#" id="saveButton" download="blocks.xml" title="保存" class="button_like" data-step="6"
-                          data-intro="プログラムを保存します。">&#x1f4be;</a>
+                data-intro="プログラムを保存します。">&#x1f4be;</a>
               <a href="#" id="resetButton" title="リセット" class="button_like" data-step="7"
-                          data-intro="これまでの変更を捨てて、最初のプログラムに戻します。">&#x21bb;</a>
+                data-intro="これまでの変更を捨てて、最初のプログラムに戻します。">&#x21bb;</a>
             </td>
           </tr>
-       </table>
-    </td>
-</tr>
-<tr>
-  <td id="blocklyArea" style='border: 0pt; height: 99%;'>
-  </td>
-</tr>
-</table>
-<div id="contentBlocks" style="position: absolute;"></div>
-<pre id="contentHaskell" class="content"></pre>
-<textarea id="contentXml" class="content" wrap="off"></textarea>
-<script>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td id="blocklyArea" style='border: 0pt; height: 99%;'></td>
+    </tr>
+  </table>
+  <div id="contentBlocks" style="position: absolute;"></div>
+  <pre id="contentHaskell" class="content"></pre>
+  <textarea id="contentXml" class="content" wrap="off"></textarea>
+  <script>
 // 19/06/06 コメントアウト
-/*
-var tabs = ["Blocks", "Haskell", "Xml"];
-var selected = tabs[0];
-var draw;
-var workspace = null;
-
-function onResize() {
-    var area = $("#blocklyArea");
-    var divs = [ $("#contentBlocks"), $("#contentHaskell"), $("#contentXml") ];
-
-    var width = area.width();
-    var height = area.height();
-    var offset = area.offset();
-    for (var i = 0; i < divs.length ; i++) {
-       var div = divs[i];
-       div.height(height);
-       div.width(width);
-       div.offset(offset);
+    /*
+    var tabs = ["Blocks", "Haskell", "Xml"];
+    var selected = tabs[0];
+    var draw;
+    var workspace = null;
+    
+    function onResize() {
+        var area = $("#blocklyArea");
+        var divs = [ $("#contentBlocks"), $("#contentHaskell"), $("#contentXml") ];
+    
+        var width = area.width();
+        var height = area.height();
+        var offset = area.offset();
+        for (var i = 0; i < divs.length ; i++) {
+           var div = divs[i];
+           div.height(height);
+           div.width(width);
+           div.offset(offset);
+        }
     }
-}
+    
+    $(window).on('load resize', onResize);
+    
+    function renderContent(clickedName) {
+      var content = $("#content" + clickedName);
+      if (clickedName == "Xml") {
+        var xmlDom  = Blockly.Xml.workspaceToDom(workspace);
+        var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+        content.val(xmlText);
+      } else if (clickedName == "Haskell") {
+        console.log("Haskell", workspace.getTopBlocks(!0)[0]);
+        var code = Blockly.Haskell.workspaceToCode(workspace);
+        console.log(code);
+        content.html(code);
+    
+        // TODO: CodeMirror
+        code = content.html();
+        code = prettyPrintOne(code, 'js');
+        content.html(code);
+      }
+    }
+    */
+  </script>
 
-$(window).on('load resize', onResize);
-
-function renderContent(clickedName) {
-  var content = $("#content" + clickedName);
-  if (clickedName == "Xml") {
-    var xmlDom  = Blockly.Xml.workspaceToDom(workspace);
-    var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
-    content.val(xmlText);
-  } else if (clickedName == "Haskell") {
-    console.log("Haskell", workspace.getTopBlocks(!0)[0]);
-    var code = Blockly.Haskell.workspaceToCode(workspace);
-    console.log(code);
-    content.html(code);
-
-    // TODO: CodeMirror
-    code = content.html();
-    code = prettyPrintOne(code, 'js');
-    content.html(code);
-  } 
-}
-*/
-</script>
-
-<!-- Global site tag (gtag.js) - Google Analytics (2017/10/12 追加)-->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-107589514-4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-107589514-4');
-</script>
+  <!-- Global site tag (gtag.js) - Google Analytics (2017/10/12 追加)-->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107589514-4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-107589514-4');
+  </script>
 </body>
 </html>
-

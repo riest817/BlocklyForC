@@ -1,0 +1,210 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">n</variable>
+    <variable type="">i</variable>
+  </variables>
+  <block type="procedures_defreturn" x="10" y="10">
+    <mutation items="1"></mutation>
+    <field name="NAME">square</field>
+    <value name="ARG0">
+      <block type="variables_get">
+        <field name="VAR" variabletype="">n</field>
+      </block>
+    </value>
+    <value name="RETURN">
+      <block type="var_arithmetic">
+        <field name="OP">MULTIPLY</field>
+        <value name="A">
+          <block type="variables_get">
+            <field name="VAR" variabletype="">n</field>
+          </block>
+        </value>
+        <value name="B">
+          <block type="variables_get">
+            <field name="VAR" variabletype="">n</field>
+          </block>
+        </value>
+      </block>
+    </value>
+    <next>
+      <block type="procedures_defreturn">
+        <mutation items="1"></mutation>
+        <field name="NAME">foo</field>
+        <value name="ARG0">
+          <block type="variables_get">
+            <field name="VAR" variabletype="">i</field>
+          </block>
+        </value>
+        <value name="RETURN">
+          <block type="logic_ternary">
+            <value name="IF">
+              <block type="logic_compare">
+                <field name="OP">GT</field>
+                <value name="A">
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">i</field>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="math_number">
+                    <field name="NUM">0</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="THEN">
+              <block type="procedures_application">
+                <mutation items="1"></mutation>
+                <value name="F">
+                  <block type="procedures_callsimple">
+                    <mutation name="square"></mutation>
+                  </block>
+                </value>
+                <value name="ARG0">
+                  <block type="var_arithmetic">
+                    <field name="OP">ADD</field>
+                    <value name="A">
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">i</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_number">
+                        <field name="NUM">1</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="ELSE">
+              <block type="logic_ternary">
+                <value name="IF">
+                  <block type="logic_compare">
+                    <field name="OP">EQ</field>
+                    <value name="A">
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">i</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_number">
+                        <field name="NUM">0</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="THEN">
+                  <block type="procedures_application">
+                    <mutation items="1"></mutation>
+                    <value name="F">
+                      <block type="procedures_callsimple">
+                        <mutation name="square"></mutation>
+                      </block>
+                    </value>
+                    <value name="ARG0">
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">i</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="ELSE">
+                  <block type="procedures_application">
+                    <mutation items="1"></mutation>
+                    <value name="F">
+                      <block type="procedures_callsimple">
+                        <mutation name="square"></mutation>
+                      </block>
+                    </value>
+                    <value name="ARG0">
+                      <block type="var_arithmetic">
+                        <field name="OP">MINUS</field>
+                        <value name="A">
+                          <block type="variables_get">
+                            <field name="VAR" variabletype="">i</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="math_number">
+                            <field name="NUM">1</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="main_haskell">
+            <value name="DO">
+              <block type="do_haskell">
+                <statement name="DO">
+                  <block type="emer_block">
+                    <value name="VALUE">
+                      <block type="procedures_application">
+                        <mutation items="1"></mutation>
+                        <value name="F">
+                          <block type="output_library">
+                            <field name="OP">print</field>
+                          </block>
+                        </value>
+                        <value name="ARG0">
+                          <block type="procedures_application">
+                            <mutation items="1"></mutation>
+                            <value name="F">
+                              <block type="procedures_callsimple">
+                                <mutation name="foo"></mutation>
+                              </block>
+                            </value>
+                            <value name="ARG0">
+                              <block type="math_number">
+                                <field name="NUM">2</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="emer_block">
+                        <value name="VALUE">
+                          <block type="procedures_application">
+                            <mutation items="1"></mutation>
+                            <value name="F">
+                              <block type="output_library">
+                                <field name="OP">print</field>
+                              </block>
+                            </value>
+                            <value name="ARG0">
+                              <block type="procedures_application">
+                                <mutation items="1"></mutation>
+                                <value name="F">
+                                  <block type="procedures_callsimple">
+                                    <mutation name="foo"></mutation>
+                                  </block>
+                                </value>
+                                <value name="ARG0">
+                                  <block type="math_number">
+                                    <field name="NUM">-3</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

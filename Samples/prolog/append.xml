@@ -1,0 +1,84 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">Y</variable>
+    <variable type="">X</variable>
+    <variable type="">Z</variable>
+    <variable type="">H</variable>
+  </variables>
+  <block type="procedures_defnoreturn" x="150" y="50">
+    <mutation items="3" statements="false"></mutation>
+    <field name="NAME">myAppend</field>
+    <value name="ARG0">
+      <block type="lists_create_with">
+        <mutation items="0"></mutation>
+      </block>
+    </value>
+    <value name="ARG1">
+      <block type="variables_get">
+        <field name="VAR" variabletype="">Y</field>
+      </block>
+    </value>
+    <value name="ARG2">
+      <block type="variables_get">
+        <field name="VAR" variabletype="">Y</field>
+      </block>
+    </value>
+  </block>
+  <block type="procedures_defnoreturn" x="150" y="100">
+    <mutation items="3"></mutation>
+    <field name="NAME">myAppend</field>
+    <value name="ARG0">
+      <block type="lists_container">
+        <value name="HEAD">
+          <block type="variables_get">
+            <field name="VAR" variabletype="">H</field>
+          </block>
+        </value>
+        <value name="TAIL">
+          <block type="variables_get">
+            <field name="VAR" variabletype="">X</field>
+          </block>
+        </value>
+      </block>
+    </value>
+    <value name="ARG1">
+      <block type="variables_get">
+        <field name="VAR" variabletype="">Y</field>
+      </block>
+    </value>
+    <value name="ARG2">
+      <block type="lists_container">
+        <value name="HEAD">
+          <block type="variables_get">
+            <field name="VAR" variabletype="">H</field>
+          </block>
+        </value>
+        <value name="TAIL">
+          <block type="variables_get">
+            <field name="VAR" variabletype="">Z</field>
+          </block>
+        </value>
+      </block>
+    </value>
+    <statement name="STACK">
+      <block type="procedures_callnoreturn">
+        <mutation name="myAppend" items="3"></mutation>
+        <value name="ARG0">
+          <block type="variables_get">
+            <field name="VAR" variabletype="">X</field>
+          </block>
+        </value>
+        <value name="ARG1">
+          <block type="variables_get">
+            <field name="VAR" variabletype="">Y</field>
+          </block>
+        </value>
+        <value name="ARG2">
+          <block type="variables_get">
+            <field name="VAR" variabletype="">Z</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+</xml>
