@@ -52,7 +52,7 @@ Blockly.Blocks['output_library'] = {
     // Assign 'this' to a variable for use in the closures below.
     var thisBlock = this;
     this.setHelpUrl(Blockly.Msg.LISTS_LENGTH_HELPURL);
-    this.setColour(0);
+    this.setColour(Blockly.Msg['TEXTS_HUE']);
     this.setOutput(true);
     this.setInputsInline(true);
     var dropdown = new Blockly.FieldDropdown(OPERATORS, function(newOp) {

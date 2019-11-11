@@ -46,6 +46,14 @@ Blockly.HaskellFunctions.allHaskellFunctions = function(root) {
 Blockly.HaskellFunctions.flyoutCategory = function(workspace) {
   var xmlList = [];
 
+  //       <block type="procedures_lambda"></block>
+  if (Blockly.Blocks['procedures_lambda']) {
+    var block = Blockly.Xml.utils.createElement('block');
+    block.setAttribute('type', 'procedures_lambda');
+    block.setAttribute('gap', 16);
+    xmlList.push(block);
+  }
+
   if (Blockly.Blocks['procedures_defreturn']) {
     // <block type="re_name_def" gap="16">
     //     <field name="NAME">do something</field>
@@ -165,7 +173,7 @@ Blockly.Variables.flyoutCategoryBlocks = function(workspace) {
     if (Blockly.Blocks['variables_set']) {
       var gap = Blockly.Blocks['math_change'] ? 8 : 24;
       var blockText = '<xml>' +
-          '<block type="variables_set" gap="' + gap + '">' +
+          '<block type="variables_set" inline="true" gap="' + gap + '">' +
           mostRecentVariableFieldXmlString +
           '</block>' +
           '</xml>';

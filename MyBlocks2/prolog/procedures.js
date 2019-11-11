@@ -16,7 +16,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
         Blockly.Procedures.rename*/);
     nameField.setSpellcheck(false);
     this.appendDummyInput()
-        .appendField("述語定義")
+        .appendField("/* 述語定義 */")
         .appendField(nameField, 'NAME')
 /*        .appendField('', 'PARAMS')
     this.appendValueInput('RETURN')
@@ -283,7 +283,7 @@ Blockly.Blocks['procedures_mutatorcontainer'] = {
         .appendField(Blockly.Msg['PROCEDURES_ALLOW_STATEMENTS'])
         .appendField(new Blockly.FieldCheckbox('TRUE'), 'STATEMENTS');
     this.setColour(Blockly.Msg["PROCEDURES_HUE"]);
-    this.setTooltip("この関数への引数の追加、削除、順番の変更");
+    this.setTooltip("この述語への引数の追加、削除、順番の変更");
     this.contextMenu = false;
   }
 };
@@ -300,7 +300,7 @@ Blockly.Blocks['procedures_mutatorarg'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(Blockly.Msg["PROCEDURES_HUE"]);
-    this.setTooltip("関数への引数の追加");
+    this.setTooltip("述語への引数の追加");
     this.contextMenu = false;
   },
   /**
@@ -474,7 +474,7 @@ Blockly.Blocks['procedures_callnoreturn'] = {
 Blockly.Blocks['prolog_query'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("質問　?-");
+        .appendField("/* 質問 */ ?-");
     this.setColour(Blockly.Msg["PROCEDURES_HUE"]);
     this.setTooltip("質問を定義します。");
     this.setHelpUrl();

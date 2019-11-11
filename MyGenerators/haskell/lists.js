@@ -377,7 +377,7 @@ Blockly.Haskell['lists_split'] = function(block) {
   return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
 };
 
-Blockly.Haskell['inner_table'] = function(block) {
+Blockly.Haskell['lists_comprehension'] = function(block) {
   // Call a procedure with a return value.
   var code = '[ ';
   code += Blockly.Haskell.valueToCode(block, 'ADD0',
@@ -396,7 +396,7 @@ Blockly.Haskell['inner_table'] = function(block) {
   //return code + '\n';
 };
 
-Blockly.Haskell['lists_container'] = function(block) {
+Blockly.Haskell['lists_cons'] = function(block) {
     // Call a procedure with a return value.
   var args = [];
   
@@ -411,7 +411,7 @@ Blockly.Haskell['lists_container'] = function(block) {
 };
 
 // 18/12/20 
-Blockly.Haskell['lists_connection'] = function(block) {
+Blockly.Haskell['lists_append'] = function(block) {
     // Call a procedure with a return value.
   var args = [];
   
@@ -426,8 +426,7 @@ Blockly.Haskell['lists_connection'] = function(block) {
 };
 // 18/12/20 ここまで
 
-Blockly.Haskell['lists_group'] = function(block) {
-    // Call a procedure with a return value.
+Blockly.Haskell['tuple'] = function(block) {
   var args = [];
   
   for (var i = 0; i < block.itemCount_; i++) {
@@ -440,7 +439,7 @@ Blockly.Haskell['lists_group'] = function(block) {
   //return code + '\n';
 };
 
-Blockly.Haskell['lists_range'] = function(block) {
+Blockly.Haskell['lists_from_to'] = function(block) {
   var arg1 = Blockly.Haskell.valueToCode(block, 'ADD1',
         Blockly.Haskell.ORDER_ATOMIC) || '_';
   var arg2 = Blockly.Haskell.valueToCode(block, 'ADD2',
@@ -505,7 +504,7 @@ Blockly.Haskell['lists_element'] = function(block) {
 // 19/01/09 ここまで
 
 
-Blockly.Haskell['bondage'] = function(block) {
+Blockly.Haskell['bind_variable'] = function(block) {
   // Variable setter.
   var argument0 = Blockly.Haskell.valueToCode(block, 'VALUE', Blockly.Haskell.ORDER_NONE) || '0';
   var varName = Blockly.Haskell.variableDB_.getName(

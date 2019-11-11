@@ -1,8 +1,8 @@
 /**
 17/12/13 新規作成
-18/01/10 内包表記ブロック ['inner_table'] 作成    192行目~
-18/01/10 ['lists_group'] ['lists_range'] 作成
-18/12/20 ['lists_connection'] 作成
+18/01/10 内包表記ブロック ['lists_comprehension'] 作成    192行目~
+18/01/10 ['tuple'] ['lists_from_to'] 作成
+18/12/20 ['lists_append'] 作成
 19/01/30 ['lists_create_with_haskell'] 移動, 一部表記切り替え対応
  */
 
@@ -22,7 +22,7 @@ goog.require('Blockly.Blocks');
  */
 Blockly.Msg["LISTS_HUE"] = 260;
 
-Blockly.Blocks['lists_container'] = {
+Blockly.Blocks['lists_cons'] = {
   /**
    * Block for creating a string made up of any number of elements of any type.
    * @this Blockly.Block
@@ -158,7 +158,7 @@ Blockly.Blocks['lists_container'] = {
 };
 
 // 18/12/20
-Blockly.Blocks['lists_connection'] = {
+Blockly.Blocks['lists_append'] = {
   /**
    * Block for creating a string made up of any number of elements of any type.
    * @this Blockly.Block
@@ -488,14 +488,14 @@ Blockly.Blocks['lists_create_with_item'] = {
 
 // ↓ 内包表記ブロック //////////////////////////////////////////
 
-Blockly.Blocks['inner_table'] = {
+Blockly.Blocks['lists_comprehension'] = {
   /**
    * Block for creating a string made up of any number of elements of any type.
    * @this Blockly.Block
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
-    this.setColour(Blockly.Msg["LISTS_HUE"]);
+    this.setColour(Blockly.Msg["LOOPS_HUE"]);
     this.setOutput(true);
     this.setInputsInline(true);
     this.appendValueInput('ADD0').appendField("[");
@@ -506,7 +506,7 @@ Blockly.Blocks['inner_table'] = {
   }
 };
 
-Blockly.Blocks['bondage'] = {
+Blockly.Blocks['bind_variable'] = {
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
     this.setColour(Blockly.Msg["LISTS_HUE"]);
@@ -537,7 +537,7 @@ Blockly.Blocks['bondage'] = {
 Blockly.Blocks['haskell_generator'] = {
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
-    this.setColour(Blockly.Msg["LOGIC_HUE"]);
+    this.setColour(Blockly.Msg["LOOPS_HUE"]);
     this.appendValueInput('PAT');
     this.appendValueInput('VALUE')
         .appendField("<-");
@@ -566,7 +566,7 @@ Blockly.Blocks['haskell_generator'] = {
 
 /////////////////////////////// ↑ 内包表記ここまで
 
-Blockly.Blocks['lists_group'] = {
+Blockly.Blocks['tuple'] = {
   /**
    * Block for creating a string made up of any number of elements of any type.
    * @this Blockly.Block
@@ -698,7 +698,7 @@ Blockly.Blocks['lists_group'] = {
   newQuote_: Blockly.Blocks['text'].newQuote_
 };
 
-Blockly.Blocks['lists_range'] = {
+Blockly.Blocks['lists_from_to'] = {
   /**
    * Block for creating a string made up of any number of elements of any type.
    * @this Blockly.Block

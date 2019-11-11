@@ -245,7 +245,7 @@ Blockly.Haskell['pattern_match'] = function(block) {
   
 };
 
-Blockly.Haskell['emer_block'] = function(block) {
+Blockly.Haskell['lists_comprehension_guard'] = function(block) {
   var argument0 = Blockly.Haskell.valueToCode(block, 'VALUE',
       Blockly.Haskell.ORDER_NONE) || 'True';
   var code = argument0;

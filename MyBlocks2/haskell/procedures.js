@@ -26,7 +26,7 @@ Blockly.Blocks['procedures_defreturn'] = {
         Blockly.Procedures.rename*/);
     nameField.setSpellcheck(false);
     this.appendDummyInput()
-      .appendField("関数定義")
+      .appendField("")
       .appendField(nameField, 'NAME')
 /*        .appendField('', 'PARAMS')*/;
     this.appendValueInput('RETURN')
@@ -1928,7 +1928,7 @@ Blockly.Blocks['procedures_lambda'] = {
    */
   init: function () {
     this.setHelpUrl();
-    this.setColour(Blockly.Msg["LOGIC_HUE"]);
+    this.setColour(Blockly.Msg["PROCEDURES_HUE"]);
     this.appendDummyInput('HEAD')
       .appendField("λ");
     this.itemCount_ = 1;

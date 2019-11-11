@@ -250,7 +250,7 @@ Blockly.Blocks['main_haskell'] = {
    */
   init: function() {
     this.setHelpUrl("http://qiita.com/7shi/items/145f1234f8ec2af923ef#%E3%83%8F%E3%83%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%AB%E3%83%89");
-    this.setColour(Blockly.Msg["LOGIC_HUE"]); // Blockly.Msg["LOGIC_HUE"] = 210
+    this.setColour(Blockly.Msg["LOOPS_HUE"]);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.appendValueInput('DO').appendField("main = ");
@@ -265,7 +265,7 @@ Blockly.Blocks['do_haskell'] = {
 
   init: function() {
     this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
-    this.setColour(Blockly.Msg["LOGIC_HUE"]); // Blockly.Msg["LOGIC_HUE"] = 210
+    this.setColour(Blockly.Msg["LOOPS_HUE"]);
     //this.appendField("do");
     this.appendStatementInput('DO')
         .appendField("do");   
@@ -282,7 +282,7 @@ Blockly.Blocks['let_haskell'] = {
 
   init: function() {
     this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
-    this.setColour(Blockly.Msg["LOGIC_HUE"]); // Blockly.Msg["LOGIC_HUE"] = 210
+    this.setColour(Blockly.Msg["LOOPS_HUE"]); // Blockly.Msg["LOGIC_HUE"] = 210
     //this.appendField("do");
     this.appendStatementInput('DO')
         .appendField("let");    
@@ -301,7 +301,7 @@ Blockly.Blocks['let_in_haskell'] = {
 
   init: function() {
     this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
-    this.setColour(Blockly.Msg["LOGIC_HUE"]); // Blockly.Msg["LOGIC_HUE"] = 210
+    this.setColour(Blockly.Msg["LOOPS_HUE"]); // Blockly.Msg["LOGIC_HUE"] = 210
     //this.appendField("do");
     this.appendStatementInput('DO')
         .appendField("let");    
@@ -322,7 +322,7 @@ Blockly.Blocks['where_haskell'] = {
 
   init: function() {
     this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
-    this.setColour(Blockly.Msg["LOGIC_HUE"]); // Blockly.Msg["LOGIC_HUE"] = 210
+    this.setColour(Blockly.Msg["LOOPS_HUE"]); // Blockly.Msg["LOGIC_HUE"] = 210
     //this.appendField("do");
     this.appendStatementInput('DO')
         .appendField("where");    
@@ -342,7 +342,7 @@ Blockly.Blocks['case_haskell'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
-    this.setColour(Blockly.Msg["LOGIC_HUE"]);
+    this.setColour(Blockly.Msg["LOOPS_HUE"]);
     this.appendDummyInput()
         .appendField("case");
     this.appendValueInput('VAR');
@@ -362,7 +362,7 @@ Blockly.Blocks['single_pattern'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
-    this.setColour(Blockly.Msg["LOGIC_HUE"]);
+    this.setColour(Blockly.Msg["LOOPS_HUE"]);
     this.appendValueInput('PATTERN');
     this.appendDummyInput()
         .appendField("->");
@@ -406,7 +406,7 @@ Blockly.Blocks['logic_boolean_haskell'] = {
 Blockly.Blocks['haskell_decl'] = {
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
-    this.setColour(Blockly.Msg["LOGIC_HUE"]);
+    this.setColour(Blockly.Msg["LOOPS_HUE"]);
     this.appendValueInput('PAT');
     this.appendValueInput('VALUE')
         .appendField("=");
@@ -422,3 +422,6 @@ Blockly.Blocks['haskell_decl'] = {
 Blockly.Msg["LOGIC_TERNARY_CONDITION"] = "if";
 Blockly.Msg["LOGIC_TERNARY_IF_TRUE"]   = "then";
 Blockly.Msg["LOGIC_TERNARY_IF_FALSE"]  = "else";
+
+Blockly.Msg["LOGIC_OPERATION_AND"] = "&&";
+Blockly.Msg["LOGIC_OPERATION_OR"] = "||";

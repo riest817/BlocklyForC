@@ -65,7 +65,25 @@ Blockly.PrologPredicates.flyoutCategory = function(workspace) {
     nameField.setAttribute('name', 'NAME');
     nameField.appendChild(Blockly.Xml.utils.createTextNode("predicate_name"));
     block.appendChild(nameField);
+    var mutation = Blockly.Xml.utils.createElement('mutation');
+    mutation.setAttribute("items", "2");
+    block.appendChild(mutation);
     xmlList.push(block);
+
+    block = Blockly.Xml.utils.createElement('block');
+    block.setAttribute('type', 'procedures_defnoreturn');
+    block.setAttribute('gap', 16);
+    nameField = Blockly.Xml.utils.createElement('field');
+    nameField.setAttribute('name', 'NAME');
+    nameField.appendChild(Blockly.Xml.utils.createTextNode("fact_name"));
+    block.appendChild(nameField);
+    mutation = Blockly.Xml.utils.createElement('mutation');
+    mutation.setAttribute("items", "2");
+    mutation.setAttribute("statements", "false");
+    block.appendChild(mutation);
+    xmlList.push(block);
+
+
   }
 
   if (xmlList.length) {

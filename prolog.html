@@ -34,7 +34,8 @@
 <!-- 追加 -->
 <script src="MyBlocks2/prolog/lists.js"></script>
 <script src="MyBlocks2/prolog/functors.js"></script>
-<script src="MyBlocks2/prolog/procedures.js"></script>  
+<script src="MyBlocks2/prolog/procedures.js"></script>
+<script src="MyBlocks2/prolog/variables.js"></script>
 <!-- <script src="MyBlocks2/prolog/rule.js"></script>  
 <script src="MyBlocks2/prolog/term.js"></script> -->
 
@@ -141,20 +142,20 @@
 <!--    <block type="rule_single"></block> -->
 <!--    <block type="rule_connection"></block> -->
 <!--  </category> -->
-  <category name="リスト" colour="260">
+  <category name="リスト" colour="%{BKY_LISTS_HUE}">
     <block type="lists_container"></block>
     <block type="lists_create_with"><mutation items="0" /></block>
     <block type="lists_create_with"><mutation items="3" /></block>
   </category>
-  <category name="文字列" colour="160">
+  <category name="文字列" colour="%{BKY_TEXTS_HUE}">
     <block type="text"></block>
   </category>
     <sep></sep>
-  <category name="ファンクター" colour="270" custom="PROLOG_FUNCTOR"> 
+  <category name="ファンクター" colour="%{BKY_TEXTS_HUE}" custom="PROLOG_FUNCTOR"> 
   </category>
-  <category name="述語" colour="170" custom="PROLOG_PREDICATE"> <!-- 事実 -->
+  <category name="述語" colour="%{BKY_PROCEDURES_HUE}" custom="PROLOG_PREDICATE"> <!-- 事実 -->
   </category>
-  <category name="変数" colour="330" custom="VARIABLE">
+  <category name="変数" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE">
   </category>
 </xml>
 
@@ -178,8 +179,8 @@
                   <td><input type="button" value="サンプル3" class = "sample" id = "sample3" style="font-size: 0.8em;" onclick="sample(3);"/></td>
                   -->
 <!--              </form> -->
-            <td class="tabmin">&nbsp;</td>
-            <td class="farSide">
+            <td class="tabmin" style="display: none;">&nbsp;</td>
+            <td class="farSide"  style="display: none;">
               <select id="languageMenu" onclick="languageMenu()"></select>
             </td>  
             <td class="tabmin">&nbsp;</td>

@@ -11,7 +11,7 @@ Blockly.Blocks['output_text'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
-    this.setColour(Blockly.Msg["OUTPUT_HUE"]);
+    this.setColour(Blockly.Msg['TEXTS_HUE']);
     this.appendDummyInput()
         .appendField(Blockly.Msg.output_text)
         .appendField(this.newQuote_(true))
@@ -48,7 +48,7 @@ Blockly.Blocks['output_text'] = {
 
 Blockly.Blocks['output_var'] = {
   init: function() {
-    this.setColour(Blockly.Msg["OUTPUT_HUE"]);
+    this.setColour(Blockly.Msg['TEXTS_HUE']);
     this.jsonInit({ "message0": Blockly.Msg.output_var });
     this.appendValueInput('B');
     this.setInputsInline(true);
@@ -61,7 +61,7 @@ Blockly.Blocks['output_var'] = {
 // 19/01/15
 Blockly.Blocks['output_var2'] = {
   init: function() {
-    this.setColour(Blockly.Msg["OUTPUT_HUE"]);
+    this.setColour(Blockly.Msg['TEXTS_HUE']);
     this.jsonInit({ "message0": Blockly.Msg.output_var2 });
     this.appendValueInput('B');
     this.setInputsInline(true);
@@ -77,7 +77,7 @@ Blockly.Blocks['string'] = {
 
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
-    this.setColour(Blockly.Msg["OUTPUT_HUE"]);
+    this.setColour(Blockly.Msg['TEXTS_HUE']);
     this.appendDummyInput()
         .appendField(Blockly.Msg.output_string)
         .appendField(this.newQuote_(true))

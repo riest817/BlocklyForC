@@ -1,6 +1,6 @@
 /*
 2017/12/05 haskell\original.js 新規作成
-18/01/16 ['emer_block'] 作成
+18/01/16 ['lists_comprehension_guard'] 作成
 */
 
 Blockly.Blocks['pattern_match'] = {
@@ -99,14 +99,14 @@ Blockly.Blocks['pattern_match'] = {
   defType_: 'procedures_defreturn'
 };
 
-Blockly.Blocks['emer_block'] = {
+Blockly.Blocks['lists_comprehension_guard'] = {
   /**
    * Block for variable setter.
    * @this Blockly.Block
    */
   init: function() {
     this.setHelpUrl();
-    this.setColour(Blockly.Msg["LOGIC_HUE"]);
+    this.setColour(Blockly.Msg["LOOPS_HUE"]);
     this.appendValueInput('VALUE');
     this.setOutput(false);
     this.setInputsInline(true);
