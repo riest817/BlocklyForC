@@ -143,7 +143,7 @@
             <value name="DO">
               <block type="do_haskell">
                 <statement name="DO">
-                  <block type="emer_block">
+                  <block type="lists_comprehension_guard">
                     <value name="VALUE">
                       <block type="procedures_application">
                         <mutation items="1"></mutation>
@@ -170,7 +170,7 @@
                       </block>
                     </value>
                     <next>
-                      <block type="emer_block">
+                      <block type="lists_comprehension_guard">
                         <value name="VALUE">
                           <block type="procedures_application">
                             <mutation items="1"></mutation>

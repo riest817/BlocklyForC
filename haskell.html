@@ -173,6 +173,18 @@
       <block type="do_haskell"></block>
       <block type="haskell_generator"></block>
       <block type="lists_comprehension_guard"></block>
+      <block type="lists_comprehension_guard">
+        <value name="VALUE">
+          <block type="procedures_application">
+            <mutation items="1"></mutation>
+            <value name="F">
+              <block type="higher_order_func_library">
+                <field name="OP">return</field>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
       <block type="let_haskell"></block>
       <block type="haskell_decl"></block>
       <block type="let_in_haskell"></block> <!--> 19/06/18 バージョンによりエラー <-->
@@ -379,6 +391,13 @@
             </block>
           </value>
         </block>
+        <block type="haskell_generator">
+          <value name="VALUE">
+            <block type="output_library">
+              <field name="OP">getContents</field>
+            </block>
+          </value>
+        </block>
       </category>
     <sep></sep>
     <category name="標準関数" colour="60">
@@ -426,7 +445,7 @@
         <mutation items="2"></mutation>
         <value name="F">
           <block type="higher_order_func_library">
-            <field name="OP">fold1</field>
+            <field name="OP">foldr1</field>
           </block>
         </value>
       </block>

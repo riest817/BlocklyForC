@@ -7,7 +7,6 @@
   <block type="procedures_defnoreturn" x="163" y="38">
     <mutation items="2" statements="false"></mutation>
     <field name="NAME">child</field>
-
     <value name="ARG0">
       <block type="functor_definition">
         <mutation items="0"></mutation>
@@ -216,6 +215,24 @@
             </value>
           </block>
         </next>
+      </block>
+    </statement>
+  </block>
+  <block type="prolog_query" x="163" y="687">
+    <statement name="STACK">
+      <block type="procedures_callnoreturn">
+        <mutation name="grand_child" items="2"></mutation>
+        <value name="ARG0">
+          <block type="variables_get">
+            <field name="VAR" variabletype="">X</field>
+          </block>
+        </value>
+        <value name="ARG1">
+          <block type="functor_definition">
+            <mutation items="0"></mutation>
+            <field name="NAME">ieyasu</field>
+          </block>
+        </value>
       </block>
     </statement>
   </block>

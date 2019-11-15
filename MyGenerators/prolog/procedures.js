@@ -41,3 +41,9 @@ Blockly.Prolog['procedures_defnoreturn'] = function(block) {
     var code = funcName + '(' + args.join(',') + ')';
     return code + '\n';
   };
+
+  Blockly.Prolog['prolog_query'] = function(block) {
+    var code = "?- ";
+    var branch = Blockly.Prolog.statementToCodeWithSeparator(block, 'STACK', ', ');
+    return code + Blockly.Prolog.insertBeforeNewline(branch, '.');
+  };

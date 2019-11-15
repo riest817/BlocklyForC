@@ -5,6 +5,7 @@ goog.require('Blockly');
  * Common HSV hue for all blocks in this category.
  */
 Blockly.Msg["PROCEDURES_HUE"] = 290;
+Blockly.Msg['PROCEDURES_ALLOW_STATEMENTS'] = "ゴールを許す";
 
 Blockly.Blocks['procedures_defnoreturn'] = {
   /**
@@ -475,7 +476,7 @@ Blockly.Blocks['prolog_query'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("/* 質問 */ ?-");
-    this.setColour(Blockly.Msg["PROCEDURES_HUE"]);
+    this.setColour(Blockly.Msg["LOOPS_HUE"]);
     this.setTooltip("質問を定義します。");
     this.setHelpUrl();
     this.appendStatementInput('STACK')

@@ -28,7 +28,7 @@
     <mutation items="3"></mutation>
     <field name="NAME">myAppend</field>
     <value name="ARG0">
-      <block type="lists_container">
+      <block type="lists_cons">
         <value name="HEAD">
           <block type="variables_get">
             <field name="VAR" variabletype="">H</field>
@@ -47,7 +47,7 @@
       </block>
     </value>
     <value name="ARG2">
-      <block type="lists_container">
+      <block type="lists_cons">
         <value name="HEAD">
           <block type="variables_get">
             <field name="VAR" variabletype="">H</field>
@@ -76,6 +76,44 @@
         <value name="ARG2">
           <block type="variables_get">
             <field name="VAR" variabletype="">Z</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+
+<block type="prolog_query" x="150" y="250">
+    <statement name="STACK">
+      <block type="procedures_callnoreturn">
+        <mutation name="myAppend" items="3"></mutation>
+        <value name="ARG0">
+          <block type="variables_get">
+            <field name="VAR" variabletype="">X</field>
+          </block>
+        </value>
+        <value name="ARG1">
+          <block type="variables_get">
+            <field name="VAR" variabletype="">Y</field>
+          </block>
+        </value>
+        <value name="ARG2">
+          <block type="lists_create_with">
+            <mutation items="3"></mutation>
+            <value name="ADD0">
+              <block type="math_number">
+                <field name="NUM">1</field>
+              </block>
+            </value>
+            <value name="ADD1">
+              <block type="math_number">
+                <field name="NUM">2</field>
+              </block>
+            </value>
+            <value name="ADD2">
+              <block type="math_number">
+                <field name="NUM">3</field>
+              </block>
+            </value>
           </block>
         </value>
       </block>

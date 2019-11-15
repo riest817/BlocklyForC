@@ -60,7 +60,7 @@
               </block>
             </value>
             <value name="ARG1">
-              <block type="lists_container">
+              <block type="lists_cons">
                 <mutation items="2"></mutation>
                 <value name="ADD0">
                   <block type="logic_boolean_haskell">
@@ -124,7 +124,7 @@
                   </block>
                 </value>
                 <value name="ARG1">
-                  <block type="lists_container">
+                  <block type="lists_cons">
                     <mutation items="2"></mutation>
                     <value name="ADD0">
                       <block type="logic_boolean_haskell">
@@ -173,7 +173,7 @@
                     <value name="DO">
                       <block type="do_haskell">
                         <statement name="DO">
-                          <block type="emer_block">
+                          <block type="lists_comprehension_guard">
                             <value name="VALUE">
                               <block type="procedures_application">
                                 <mutation items="1"></mutation>

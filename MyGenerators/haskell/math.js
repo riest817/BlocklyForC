@@ -20,7 +20,6 @@
 
 /**
  * @fileoverview Generating Haskell for math blocks.
- * @author q.neutron@gmail.com (Quynh Neutron)
  */
 
 

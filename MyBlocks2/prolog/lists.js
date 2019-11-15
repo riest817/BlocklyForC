@@ -1,7 +1,7 @@
 goog.provide('Blockly.Blocks.lists');
 goog.require('Blockly.Blocks');
 
-Blockly.Blocks['lists_container'] = {
+Blockly.Blocks['lists_cons'] = {
   /**
    * Block for creating a string made up of any number of elements of any type.
    * @this Blockly.Block

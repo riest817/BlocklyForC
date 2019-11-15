@@ -17,6 +17,7 @@
 <script src="MyGenerators/prolog.js"></script>
 <script src="MyGenerators/prolog/functors.js"></script>
 <script src="MyGenerators/prolog/lists.js"></script>
+<script src="MyGenerators/prolog/math.js"></script>
 <script src="MyGenerators/prolog/procedures.js"></script>
 <script src="MyGenerators/prolog/variables.js"></script>
 <!-- <script src="MyGenerators/prolog/rule.js"></script> -->
@@ -47,6 +48,7 @@
 <script src="js/code/code_prolog.js"></script>  <!-- (18/04/24)-->
 <script src="MyCore/prolog_predicates.js"></script> <!-- code_prolog.js より後(19/05/29)  -->
 <script src="MyCore/prolog_functors.js"></script> 
+  <script src="js/code/jsprolog.js"></script>
 <script>
   // dirty hack to prevent unnecessary items
   delete Blockly.Blocks['math_change'];
@@ -142,10 +144,16 @@
 <!--    <block type="rule_single"></block> -->
 <!--    <block type="rule_connection"></block> -->
 <!--  </category> -->
+  <category name="質問" colour="%{BKY_LOOPS_HUE}">
+    <block type="prolog_query"></block>
+  </category>
   <category name="リスト" colour="%{BKY_LISTS_HUE}">
-    <block type="lists_container"></block>
+    <block type="lists_cons"></block>
     <block type="lists_create_with"><mutation items="0" /></block>
     <block type="lists_create_with"><mutation items="3" /></block>
+  </category>
+  <category name="数" colour="%{BKY_MATH_HUE}">
+    <block type="math_number"></block>
   </category>
   <category name="文字列" colour="%{BKY_TEXTS_HUE}">
     <block type="text"></block>
@@ -170,7 +178,10 @@
             <td class="tabmin">&nbsp;</td>
             <td id="tabProlog" class="taboff" style="white-space:nowrap;" data-step="2" data-intro="このタブをクリックして、ソースコードを表示します。">Prolog</td>
             <td class="tabmin">&nbsp;</td>
-            <td id="tabXml" class="taboff" style="font-family:'Segoe UI Emoji'; white-space:nowrap;" data-step="3" data-intro="このタブをクリックして、XMLコードを表示します。">XML</td>
+            <td id="tabResult" class="taboff" style="white-space:nowrap;" data-step="3"
+              data-intro="このタブをクリックして、実行結果を表示します。">実行結果</td>
+            <td class="tabmin">&nbsp;</td>
+            <td id="tabXml" class="taboff" style="font-family:'Segoe UI Emoji'; white-space:nowrap;" data-step="4" data-intro="このタブをクリックして、XMLコードを表示します。">XML</td>
             <!-- 18/04/17 追加 -->
 <!--              <form> -->
                   <!--
@@ -212,6 +223,12 @@
 </table>
 <div id="contentBlocks" style="position: absolute;"></div>
 <pre id="contentProlog" class="content"></pre>
+<div id="contentResult" class="content">
+  <button id="clearButton">Clear</button>
+  <img id="wl_ajax_loader" style="display:none;" src="images/ajax-loader.gif"
+     alt="ajax loader" /><br />
+  <textarea id="result" cols="80" rows="16"></textarea>
+</div>
 <textarea id="contentXml" class="content" wrap="off"></textarea>
 
 <!-- Global site tag (gtag.js) - Google Analytics (2017/10/12 追加)-->

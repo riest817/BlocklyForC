@@ -525,7 +525,7 @@ Blockly.Blocks['create_join_item'] = {
   init: function() {
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("範囲");
+        .appendField(/* "範囲" */ "range");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip("範囲を追加。");

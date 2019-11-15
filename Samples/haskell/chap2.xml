@@ -68,7 +68,7 @@
             <mutation items="1"></mutation>
             <field name="NAME">myLength</field>
               <value name="ARG0">
-              <block type="lists_container">
+              <block type="lists_cons">
                 <mutation items="2"></mutation>
                 <value name="ADD0">
                   <block type="variables_get">
@@ -150,7 +150,7 @@
                           </block>
                         </value>
                         <value name="ARG1">
-                          <block type="lists_container">
+                          <block type="lists_cons">
                             <mutation items="2"></mutation>
                             <value name="ADD0">
                               <block type="variables_get">
@@ -173,7 +173,7 @@
                               </block>
                             </value>
                             <value name="ARG0">
-                              <block type="lists_container">
+                              <block type="lists_cons">
                                 <mutation items="2"></mutation>
                                 <value name="ADD0">
                                   <block type="variables_get">
@@ -285,7 +285,7 @@
                                       </block>
                                     </value>
                                     <value name="RETURN">
-                                      <block type="lists_container">
+                                      <block type="lists_cons">
                                         <mutation items="2"></mutation>
                                         <value name="ADD0">
                                           <block type="variables_get">
@@ -324,7 +324,7 @@
                                         <value name="DO">
                                           <block type="do_haskell">
                                             <statement name="DO">
-                                              <block type="emer_block">
+                                              <block type="lists_comprehension_guard">
                                                 <value name="VALUE">
                                                   <block type="procedures_application">
                                                     <mutation items="1"></mutation>
@@ -351,7 +351,7 @@
                                                   </block>
                                                 </value>
                                                 <next>
-                                                  <block type="emer_block">
+                                                  <block type="lists_comprehension_guard">
                                                     <value name="VALUE">
                                                       <block type="procedures_application">
                                                         <mutation items="1"></mutation>
@@ -368,7 +368,7 @@
                                                       </block>
                                                     </value>
                                                     <next>
-                                                      <block type="emer_block">
+                                                      <block type="lists_comprehension_guard">
                                                         <value name="VALUE">
                                                           <block type="procedures_application">
                                                             <mutation items="1"></mutation>

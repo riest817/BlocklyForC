@@ -272,7 +272,7 @@ Blockly.Blocks['RE_connection_join_container'] = {
   init: function() {
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("結合");
+        .appendField(/* "結合" */ "concatenation");
     this.appendStatementInput('STACK');
     this.setTooltip(Blockly.Msg.TEXT_CREATE_JOIN_TOOLTIP);
     this.contextMenu = false;
@@ -287,7 +287,7 @@ Blockly.Blocks['RE_connection_join_item'] = {
   init: function() {
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("正規表現");
+        .appendField(/* "正規表現" */ "expression");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip("正規表現を追加します。");
@@ -305,7 +305,7 @@ Blockly.Blocks['RE_connection_join_text'] = {
   init: function() {
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("文字");
+        .appendField(/* "文字" */ "character");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip("入力する文字を追加します。");
@@ -323,7 +323,7 @@ Blockly.Blocks['RE_connection_join_sequence'] = {
   init: function() {
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("特殊文字");
+        .appendField(/* "特殊文字" */ "special character");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip("特殊文字を追加します。");
@@ -721,7 +721,7 @@ Blockly.Blocks['field_dropdown_container'] = {
   init: function() {
     this.setColour(0);
     this.appendDummyInput()
-        .appendField('結合');
+        .appendField(/* '結合' */ 'one of');
     this.appendStatementInput('STACK');
     this.setTooltip(Blockly.Msg.TEXT_CREATE_JOIN_TOOLTIP);
     this.setHelpUrl();
@@ -734,7 +734,7 @@ Blockly.Blocks['field_dropdown_option_range'] = {
   init: function() {
     this.setColour(0);
     this.appendDummyInput()
-        .appendField('範囲');
+        .appendField(/* '範囲' */ 'range');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip("範囲を追加します。");
@@ -748,7 +748,7 @@ Blockly.Blocks['field_dropdown_option_char'] = {
   init: function() {
     this.setColour(0);
     this.appendDummyInput()
-        .appendField('文字');
+        .appendField(/* '文字' */ "character");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip("文字を追加します。");
@@ -762,7 +762,7 @@ Blockly.Blocks['field_dropdown_option_sequence'] = {
   init: function() {
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("特殊文字");
+        .appendField(/* "特殊文字" */ "special character");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip("特殊文字を追加します。");

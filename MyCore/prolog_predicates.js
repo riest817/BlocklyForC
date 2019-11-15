@@ -47,12 +47,12 @@ Blockly.PrologPredicates.allPrologPredicates = function(root) {
 Blockly.PrologPredicates.flyoutCategory = function(workspace) {
   var xmlList = [];
 
-  if (Blockly.Blocks['prolog_query']) {
-    var block = Blockly.Xml.utils.createElement('block');
-    block.setAttribute('type', 'prolog_query');
-    block.setAttribute('gap', 16);
-    xmlList.push(block);
-  }
+//   if (Blockly.Blocks['prolog_query']) {
+//     var block = Blockly.Xml.utils.createElement('block');
+//     block.setAttribute('type', 'prolog_query');
+//     block.setAttribute('gap', 16);
+//     xmlList.push(block);
+//   }
 
   if (Blockly.Blocks['procedures_defnoreturn']) {
     // <block type="re_name_def" gap="16">

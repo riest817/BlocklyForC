@@ -37,7 +37,7 @@ Code.renderContent = function() {
     //   code = PR.prettyPrintOne(code, 'js');
     //   content.innerHTML = code;
     // }
-  }　else if (content.id == 'contentResult') {
+  } else if (content.id == 'contentResult') {
     var source = Blockly.Haskell.workspaceToCode(Code.workspace);
     let name   = "Main.hs";
     let file   = new File([source], name);

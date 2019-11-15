@@ -46,7 +46,11 @@ Blockly.Blocks['output_library'] = {
          [Blockly.Msg.output_var, 'print'],
          ['putChar', 'putChar'],
          ['putStr', 'putStr'],
-         ['putStrLn', 'putStrLn']
+         ['putStrLn', 'putStrLn'],
+         ['getContents', 'getContents'],
+         ['getLine', 'getLine'],
+         ['readLn', 'readLn'],
+         ['getChar', 'getChar']
 //         [Blockly.Msg.output_var2, 'var2']
          ];
     // Assign 'this' to a variable for use in the closures below.
@@ -288,7 +292,8 @@ Blockly.Blocks['higher_order_func_library'] = {
          ["foldl1", 'foldl1'],
          ["foldr", 'foldr'],
          ["foldr1", 'foldr1'],
-         ["mapM", 'mapM']
+         ["mapM", 'mapM'],
+         ["return", 'return']
          ];
     // Assign 'this' to a variable for use in the closures below.
     var thisBlock = this;

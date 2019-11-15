@@ -21,13 +21,13 @@ Blockly.Prolog['lists_create_with'] = function(block) {
     elements[i] = Blockly.Prolog.valueToCode(block, 'ADD' + i,
         Blockly.Prolog.ORDER_NONE) || 'null';
   }
-  var code = '[' + elements.join(', ') + ']';
+  var code = '[' + elements.join(',') + ']';
   return [code, Blockly.Prolog.ORDER_ATOMIC];
 };
 
 
 
-Blockly.Prolog['lists_container'] = function(block) {
+Blockly.Prolog['lists_cons'] = function(block) {
   var code = '[';
   code += Blockly.Prolog.valueToCode(block, 'HEAD', Blockly.Prolog.ORDER_NONE);
   code += '|';

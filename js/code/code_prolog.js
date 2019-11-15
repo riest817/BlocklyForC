@@ -11,13 +11,23 @@ Code.LANGUAGE_NAME['grammar'] = 'Prolog表記';
  * List of tab names.
  * @private
  */
-Code.TABS_ = ['Blocks', 'Prolog', 'Xml'];
+Code.TABS_ = ['Blocks', 'Prolog', 'Result', 'Xml'];
 Code.selected = 'Blocks';
 
 /**
  * Populate the currently selected pane with content generated from the blocks.
  */
  
+function cls() {
+  document.getElementById("result").value = "";
+}
+
+function print(str) {
+  document.getElementById("result").value += str;
+}
+
+var pat = /^\s*\?-(.*)\.\s*$/m;
+
 Code.renderContent = function() {
   var content = document.getElementById('content' + Code.selected);
   // Initialize the pane.
@@ -30,13 +40,22 @@ Code.renderContent = function() {
   } else if (content.id == 'contentProlog') {
     var code = Blockly.Prolog.workspaceToCode(Code.workspace);
     content.textContent = code;
-    if (typeof PR.prettyPrintOne == 'function') {
-      code = content.textContent;
-      code = PR.prettyPrintOne(code, 'js');
-      content.innerHTML = code;
-    }
+  } else if (content.id == 'contentResult') {
+    var source = Blockly.Prolog.workspaceToCode(Code.workspace);
+    var extra =  pat.exec(source)[1];
+    source = source.replace(pat, '')
+	           .replace(/:-\s*(\r?\n)/g, ':- ')
+	           .replace(/,\s*(\r?\n)/g, ', ');
+    console.log("source", source, "extra", extra);
+    freeform(source, extra);
   }
 };
+
+window.addEventListener("load", function () {
+  document.getElementById("clearButton").addEventListener("click", function () {
+    document.getElementById("result").value = "";
+  })
+});
 
 // 18/05/24 追加
 function languageMenu() {

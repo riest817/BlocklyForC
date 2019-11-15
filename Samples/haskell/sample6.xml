@@ -48,7 +48,7 @@
             <field name="NAME">merge</field>
             <comment pinned="false" h="80" w="160">この関数の説明…</comment>
             <value name="ARG0">
-              <block type="lists_container">
+              <block type="lists_cons">
                 <mutation items="2"></mutation>
                 <value name="ADD0">
                   <block type="variables_get">
@@ -63,7 +63,7 @@
               </block>
             </value>
             <value name="ARG1">
-              <block type="lists_container">
+              <block type="lists_cons">
                 <mutation items="2"></mutation>
                 <value name="ADD0">
                   <block type="variables_get">
@@ -95,7 +95,7 @@
                   </block>
                 </value>
                 <value name="THEN">
-                  <block type="lists_container">
+                  <block type="lists_cons">
                     <mutation items="2"></mutation>
                     <value name="ADD0">
                       <block type="variables_get">
@@ -142,7 +142,7 @@
                       </block>
                     </value>
                     <value name="THEN">
-                      <block type="lists_container">
+                      <block type="lists_cons">
                         <mutation items="2"></mutation>
                         <value name="ADD0">
                           <block type="variables_get">
@@ -163,7 +163,7 @@
                               </block>
                             </value>
                             <value name="ARG1">
-                              <block type="lists_container">
+                              <block type="lists_cons">
                                 <mutation items="2"></mutation>
                                 <value name="ADD0">
                                   <block type="variables_get">
@@ -182,7 +182,7 @@
                       </block>
                     </value>
                     <value name="ELSE">
-                      <block type="lists_container">
+                      <block type="lists_cons">
                         <mutation items="2"></mutation>
                         <value name="ADD0">
                           <block type="variables_get">
@@ -198,7 +198,7 @@
                               </block>
                             </value>
                             <value name="ARG0">
-                              <block type="lists_container">
+                              <block type="lists_cons">
                                 <mutation items="2"></mutation>
                                 <value name="ADD0">
                                   <block type="variables_get">
@@ -230,7 +230,7 @@
                 <value name="DO">
                   <block type="do_haskell">
                     <statement name="DO">
-                      <block type="emer_block">
+                      <block type="lists_comprehension_guard">
                         <value name="VALUE">
                           <block type="procedures_application">
                             <mutation items="1"></mutation>

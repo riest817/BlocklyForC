@@ -149,7 +149,7 @@ Blockly.Blocks['RE_connection_join_container'] = {
   init: function() {
     this.setColour(0);
     this.appendDummyInput()
-        .appendField("結合");
+        .appendField(/* "結合" */ 'one of');
     this.appendStatementInput('STACK');
     this.setTooltip(Blockly.Msg.TEXT_CREATE_JOIN_TOOLTIP);
     this.contextMenu = false;
