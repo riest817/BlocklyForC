@@ -34,9 +34,10 @@ function loadBlocks(defaultXml) {
 window.addEventListener("load", () => {
   let samples = document.getElementById("samples");
   samples.addEventListener("change", () => {
-    // var q = window.confirm("編集したブロックを捨てて、サンプルブロックを表示します。よろしいですか？");
-    // if (!q) return;
     var name = samples.value.split(/\s+/)[0];
+    if (name == "") return;
+    var q = window.confirm("編集したブロックを捨てて、サンプルブロックを表示します。よろしいですか？");
+    if (!q) return;
     fetch("Samples/prolog/" + name + ".xml")
       .then(response => {
         response.text().then(text => {
@@ -49,7 +50,8 @@ window.addEventListener("load", () => {
       });
   });
   var names = [
-    "tokugawa"
+    ""
+    , "tokugawa"
     , "append"
   ];
   for (let nm of names) {
@@ -58,5 +60,5 @@ window.addEventListener("load", () => {
     samples.appendChild(node);
   }
 
-  samples.dispatchEvent(new Event("change"));
+  // samples.dispatchEvent(new Event("change"));
 })

@@ -1,1 +1,246 @@
+<!DOCTYPE html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Blockly for Scheme</title>
+  <div id="title" title="Scheme"></div>
+  <link rel="shortcut icon" href="favicon.png" type="image/png" />
+  <script src="Library/blockly/blockly_compressed.js"></script>
+  <script src="Library/blockly/blocks_compressed.js"></script>
 
+  <script src="MyGenerators/scheme.js"></script>
+
+  <script src="MyGenerators/scheme/logic.js"></script>
+  <script src="MyGenerators/scheme/lists.js"></script>
+  <script src="MyGenerators/scheme/math.js"></script>
+  <script src="MyGenerators/scheme/text.js"></script>
+  <script src="MyGenerators/scheme/procedures.js"></script>
+  <script src="MyGenerators/scheme/variables.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="Library/blockly/msg/js/ja.js"></script>
+  <script src="Library/blockly/appengine/storage.js"></script>
+
+  <script src="Library/jquery-2.2.4.min.js"></script>
+  <script src="Library/jquery.query.js"></script>
+  <script src="Library/intro.js"></script>
+
+  <script src="MyBlocks2/scheme/logic.js"></script>
+  <script src="MyBlocks2/scheme/lists.js"></script>
+  <script src="MyBlocks2/scheme/math.js"></script> 
+  <script src="MyBlocks2/scheme/text.js"></script>
+  <script src="MyBlocks2/scheme/procedures.js"></script>
+  <script src="MyBlocks2/scheme/variables.js"></script>
+
+  <script src="js/sample_button/scheme.js"></script>
+  <script src="js/cookie.js"></script>
+  <script src="js/common2.js"></script>
+  <script src="js/code/code_scheme.js"></script>
+  <script src="MyCore/scheme_functions.js"></script> <!-- code_scheme.js より後(19/06/06)  -->
+  <script src="js/code/hasteHack.js"></script>
+  
+  <link rel="stylesheet" href="Library/introjs.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+
+    table {
+      height: 100%;
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0;
+      padding: 0;
+      border: none;
+    }
+
+    /* Tabs */
+    #tabRow>td {
+      border: 1px solid #ccc;
+      border-bottom: none;
+    }
+
+    td.tabon {
+      border-bottom-color: #ddd !important;
+      background-color: #ddd;
+      padding: 5px 19px;
+    }
+
+    td.taboff {
+      cursor: pointer;
+      padding: 5px 19px;
+    }
+
+    td.taboff:hover {
+      background-color: #eee;
+    }
+
+    td.tabmin {
+      border-top-style: none !important;
+      border-left-style: none !important;
+      border-right-style: none !important;
+    }
+
+    td.tabmax {
+      border-top-style: none !important;
+      border-left-style: none !important;
+      border-right-style: none !important;
+      width: 99%;
+      padding-left: 10px;
+      padding-right: 10px;
+      text-align: right;
+    }
+
+    .content {
+      visibility: hidden;
+      margin: 0;
+      padding: 1ex;
+      position: absolute;
+      direction: ltr;
+    }
+
+    pre.content {
+      border: 1px solid #ccc;
+      overflow: scroll;
+    }
+
+    div.content {
+      border: 1px solid #ccc;
+      overflow: scroll;
+    }
+
+    .button_like {
+      font-size: 70%;
+      font-family: 'Segoe UI Emoji';
+      padding: 3px 5px 3px 5px;
+      text-align: center;
+      text-decoration: none;
+      border: 2px solid;
+      border-color: #aaaaaa #444444 #444444 #aaaaaa;
+      background: #dddddd;
+    }
+
+    .button_like:hover {
+      background: #ccddff;
+      border-color: #aaaacc #444466 #444466 #aaaacc;
+    }
+  </style>
+</head>
+<body>
+  <xml id="toolbox" style="display: none">
+    <category name="制御" colour="%{BKY_LOOPS_HUE}">
+      <block type="scheme_begin"></block>
+      <block type="scheme_decl"></block>
+      <block type="scheme_let_in"></block>
+      <block type="scheme_call_cc"></block>
+    </category>
+    <category name="論理" colour="%{BKY_LOGIC_HUE}">
+      <block type="scheme_logic_compare"></block>
+      <block type="scheme_logic_operation"></block>
+      <block type="scheme_logic_not"></block>
+      <block type="scheme_logic_boolean"></block>
+      <block type="scheme_if" inline="true"></block>
+    </category>
+    <category name="数" colour="%{BKY_MATH_HUE}">
+      <block type="math_number"></block>
+      <block type="scheme_math_arithmetic"></block>
+      <block type="scheme_math_operator"></block>
+      <block type="scheme_math_operator2"></block>
+    </category>
+    <category name="リスト" colour="%{BKY_LISTS_HUE}">
+        <block type="scheme_lists_list"></block>
+        <block type="scheme_lists_quote"></block>
+        <block type="scheme_lists_plain"></block>
+        <block type="scheme_lists_operator"></block>
+        <block type="scheme_lists_operator2"></block>
+    </category>
+    <category name="テキスト" colour="%{BKY_TEXTS_HUE}">
+        <block type="string"></block>
+        <block type="scheme_text_operator"></block>
+    </category>
+    <sep></sep>
+    <category name="変数" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
+    <category name="関数" colour="%{BKY_PROCEDURES_HUE}" custom="SCHEME_FUNCTION"></category>
+    <sep></sep>
+  </xml>
+
+  <xml id="startBlocks" style="display: none;">
+  </xml>
+
+  <table>
+    <tr>
+      <td>
+        <table width='100%'>
+          <tr id="tabRow" height="1em">
+            <td id="tabBlocks" class="tabon" style="white-space:nowrap;" data-step="1"
+              data-intro="このタブをクリックして、編集をはじめます。">ブロック</td>
+            <td class="tabmin">&nbsp;</td>
+            <td id="tabScheme" class="taboff" style="white-space:nowrap;" data-step="2"
+              data-intro="このタブをクリックして、ソースコードを表示します。">Scheme</td>
+            <td class="tabmin">&nbsp;</td>
+            <td id="tabResult" class="taboff" style="white-space:nowrap;" data-step="3"
+              data-intro="このタブをクリックして、実行結果を表示します。">実行結果</td>
+            <td class="tabmin">&nbsp;</td>
+            <td id="tabXml" class="taboff" style="font-family:'Segoe UI Emoji'; white-space:nowrap;" data-step="4"
+              data-intro="このタブをクリックして、XMLコードを表示します。">XML</td>
+            
+            <td class="tabmin" style="display: none;">&nbsp;</td>
+            <td class="farSide" style="display: none;">
+              <select id="languageMenu" onclick="languageMenu()" ></select>
+            </td>
+            <td class="tabmin">&nbsp;</td>
+            <td id="farSide" class="taboff" style="white-space:nowrap;" data-step="9"
+              data-intro="このシステムの使い方を知りたい場合はこちらをクリックします。">
+              <a href="html/tutorial/tutorial.html" target="_blank">このシステムの使い方について</a> <!-- 19/05/13 追加 -->
+            </td>
+            <!-- 18/06/13 追加ここまで -->
+            <td class="tabmin">&nbsp;</td>
+            <td class="tabmax">
+              サンプル: <select id="samples"></select>
+              <a href="index.html" id="homeButton" title="Homeへ" class="button_like">&#x1f3e0;</a>
+              <a href="#" id="intro" title="ヘルプ" class="button_like">&#x2753;</a>
+              <a href="#" id="openButton" title="読込み" class="button_like" data-step="6"
+                data-intro="保存したプログラムを読み込みます。">&#x1f4c2;</a>
+              <input type="file" id="openButtonAux" name="openButtonAux" style="display:none;" />
+              <a href="#" id="saveButton" download="blocks.xml" title="保存" class="button_like" data-step="7"
+                data-intro="プログラムを保存します。">&#x1f4be;</a>
+              <a href="#" id="resetButton" title="リセット" class="button_like" data-step="8"
+                data-intro="これまでの変更を捨てて、最初のプログラムに戻します。">&#x21bb;</a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td id="blocklyArea" style='border: 0pt; height: 99%;'></td>
+    </tr>
+  </table>
+  <div id="contentBlocks" style="position: absolute;"></div>
+  <pre id="contentScheme" class="content"></pre>
+  <div id="contentResult" class="content">
+    <div id="extra-inputs"></div>
+    <button id="clearButton">Clear</button>
+    <img id="wl_ajax_loader" style="display:none;" src="images/ajax-loader.gif"
+       alt="ajax loader" /><br />
+    <textarea id="result" cols="80" rows="16"></textarea>
+  </div>
+  <textarea id="contentXml" class="content" wrap="off"></textarea>
+  <script>
+  </script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107589514-4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-107589514-4');
+  </script>
+</body>
+</html>

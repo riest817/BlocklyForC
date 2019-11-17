@@ -32,8 +32,8 @@ Blockly.Blocks['procedures_defreturn'] = {
     this.appendValueInput('RETURN')
       .setAlign(Blockly.ALIGN_RIGHT)
       .appendField("=");
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'DECL');
+    this.setNextStatement(true, 'DECL');
     this.setInputsInline(true);
     //    this.setStatements_(false);
     this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));

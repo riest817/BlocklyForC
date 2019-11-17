@@ -500,7 +500,7 @@ Blockly.Blocks['lists_comprehension'] = {
     this.setInputsInline(true);
     this.appendValueInput('ADD0').appendField("[");
     this.appendDummyInput().appendField("|");
-    this.appendStatementInput('ADD');
+    this.appendStatementInput('ADD').setCheck(['STMT']);
     this.appendDummyInput().appendField("]");
     this.setTooltip("リストの内包表記を表します。");
   }
@@ -543,8 +543,8 @@ Blockly.Blocks['haskell_generator'] = {
         .appendField("<-");
     this.setOutput(false);
     this.setInputsInline(true);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'STMT');
+    this.setNextStatement(true, 'STMT');
     this.setTooltip("パターンを束縛します。");
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
   },

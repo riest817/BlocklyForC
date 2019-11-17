@@ -268,6 +268,7 @@ Blockly.Blocks['do_haskell'] = {
     this.setColour(Blockly.Msg["LOOPS_HUE"]);
     //this.appendField("do");
     this.appendStatementInput('DO')
+        .setCheck(['STMT'])
         .appendField("do");   
     this.setOutput(true);   // 左部との接続を可能にする
     //this.setNextStatement(true);      // 下部との接続を可能にする
@@ -285,9 +286,10 @@ Blockly.Blocks['let_haskell'] = {
     this.setColour(Blockly.Msg["LOOPS_HUE"]); // Blockly.Msg["LOGIC_HUE"] = 210
     //this.appendField("do");
     this.appendStatementInput('DO')
+        .setCheck(['DECL'])
         .appendField("let");    
-    this.setPreviousStatement(true);  // 上部との接続を可能にする 
-    this.setNextStatement(true);      // 下部との接続を可能にする
+    this.setPreviousStatement(true, 'STMT');  // 上部との接続を可能にする 
+    this.setNextStatement(true, 'STMT');      // 下部との接続を可能にする
     //this.setOutput(true);   // 左部との接続を可能にする
     //this.setNextStatement(true);
     // Assign 'this' to a variable for use in the tooltip closure below.
@@ -304,6 +306,7 @@ Blockly.Blocks['let_in_haskell'] = {
     this.setColour(Blockly.Msg["LOOPS_HUE"]); // Blockly.Msg["LOGIC_HUE"] = 210
     //this.appendField("do");
     this.appendStatementInput('DO')
+        .setCheck(['DECL'])
         .appendField("let");    
     this.appendValueInput('VALUE')
         .appendField("        in");
@@ -350,7 +353,8 @@ Blockly.Blocks['case_haskell'] = {
         .appendField("of");
     this.setOutput(true);
     this.setInputsInline(true);
-    this.appendStatementInput('ADD');
+    this.appendStatementInput('ADD')
+        .setCheck(['ALT']);
     this.setTooltip("関数の引数以外でもパターンマッチやガードを使いたいときにはcase式を使います。");
   }
 };
@@ -368,8 +372,8 @@ Blockly.Blocks['single_pattern'] = {
         .appendField("->");
     this.appendValueInput('RESULT');
     //this.setOutput(true);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'ALT');
+    this.setNextStatement(true, 'ALT');
     this.setInputsInline(true);
     this.setTooltip("1つのパターンマッチを表します。");
   }
@@ -412,8 +416,8 @@ Blockly.Blocks['haskell_decl'] = {
         .appendField("=");
     this.setOutput(false);
     this.setInputsInline(true);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'DECL');
+    this.setNextStatement(true, 'DECL');
     this.setTooltip("パターンを束縛します。");
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
   }

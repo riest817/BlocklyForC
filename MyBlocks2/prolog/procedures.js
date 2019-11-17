@@ -25,6 +25,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
         .appendField("="); */;
 //    this.setPreviousStatement(true);
 //    this.setNextStatement(true);
+    this.appendDummyInput('START').appendField('(');
     this.setInputsInline(true);
     this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
     // if (Blockly.Msg.PROCEDURES_DEFNORETURN_COMMENT) {
@@ -78,11 +79,11 @@ Blockly.Blocks['procedures_defnoreturn'] = {
    */
   domToMutation: function (xmlElement) {
     this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+    this.setStatements_(xmlElement.getAttribute('statements') !== 'false');
     this.updateParams_(); 
     Blockly.Procedures.mutateCallers(this);
 //    Blockly.Procedures.mutateDefinitions(this);  // Todo
     // Show or hide the statement input.
-    this.setStatements_(xmlElement.getAttribute('statements') !== 'false');
   },
   /**
    * Populate the mutator's dialog with this block's components.
@@ -249,16 +250,30 @@ Blockly.Blocks['procedures_defnoreturn'] = {
 //      this.removeInput('STACK');
 //      stack = true;
 //    }
+    if (this.getInput('END')) this.removeInput('END');
     // Add new inputs.
-    for (var i = 0; i < this.itemCount_; i++) {
+    if (this.itemCount_ > 0) {
+      if (!this.getInput('ARG0')) {
+        var input = this.appendValueInput('ARG0');
+      } 
+    }
+    for (var i = 1; i < this.itemCount_; i++) {
       if (!this.getInput('ARG' + i)) {
         var input = this.appendValueInput('ARG' + i);
+        input.appendField(',');
       }
     }
     // Remove deleted inputs.
     while (this.getInput('ARG' + i)) {
       this.removeInput('ARG' + i);
       i++;
+    }
+
+    var end = this.appendDummyInput('END');
+    if (this.hasStatements_) {
+      end.appendField(') :-');
+    } else {
+      end.appendField(')');
     }
 
 //    if (stack) {
@@ -330,6 +345,7 @@ Blockly.Blocks['procedures_callnoreturn'] = {
         // .appendField("述語呼出し")
         .appendField('', 'NAME')
         .appendField('', 'PARAMS');
+    this.appendDummyInput('START').appendField('(');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setInputsInline(true);
@@ -376,10 +392,17 @@ Blockly.Blocks['procedures_callnoreturn'] = {
   },
 
   updateParams_: function () {
+    if (this.getInput('END')) this.removeInput('END');
     // Add new inputs.
-    for (var i = 0; i < this.itemCount_; i++) {
+    if (this.itemCount_ > 0) {
+      if (!this.getInput('ARG0')) {
+        var input = this.appendValueInput('ARG0');
+      } 
+    }
+    for (var i = 1; i < this.itemCount_; i++) {
       if (!this.getInput('ARG' + i)) {
         var input = this.appendValueInput('ARG' + i);
+        input.appendField(",");
       }
     }
     // Remove deleted inputs.
@@ -387,6 +410,8 @@ Blockly.Blocks['procedures_callnoreturn'] = {
       this.removeInput('ARG' + i);
       i++;
     }
+
+    this.appendDummyInput('END').appendField(")");
   },
 
   mutationToDom: function (opt_paramIds) {

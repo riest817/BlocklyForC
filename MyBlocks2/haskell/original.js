@@ -110,8 +110,8 @@ Blockly.Blocks['lists_comprehension_guard'] = {
     this.appendValueInput('VALUE');
     this.setOutput(false);
     this.setInputsInline(true);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'STMT');
+    this.setNextStatement(true, 'STMT');
     this.setTooltip("ブロックの形状で接続できないとき使う");
   }
 };

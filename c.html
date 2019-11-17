@@ -14,10 +14,10 @@
 <!--  解凍ファイルを追加  18/04/05 -->
 
 <!-- 19/06/06 バージョン管理-->
-<!--script src="Library/blockly/blockly_compressed.js"></script--> <!--新-->
-<!--script src="Library/blockly/blocks_compressed.js"></script--> <!--新-->
-<script src="Library/blockly/00_uncompressed/blockly_uncompressed.js"></script> <!--旧-->
-<script src="Library/blockly/00_uncompressed/blocks_uncompressed.js"></script> <!--旧-->
+<script src="Library/blockly/blockly_compressed.js"></script> <!--新-->
+<script src="Library/blockly/blocks_compressed.js"></script> <!--新-->
+<!--script src="Library/blockly/00_uncompressed/blockly_uncompressed.js"></script--> <!--旧-->
+<!--script src="Library/blockly/00_uncompressed/blocks_uncompressed.js"></script--> <!--旧-->
 <!-- 19/06/06 ここまで-->
 
 <!--  圧縮ファイルをコメントアウト  18/04/05 -->
@@ -36,17 +36,15 @@
 <script src="MyGenerators/c/variables.js"></script>
 <script src="MyGenerators/c/output_auto.js"></script>   <!-- (18/02/05 追加)-->
 <!-- -->
-<script src="Library/blockly/demos/prettify.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 <script src="Library/blockly/msg/js/ja.js"></script>
 <script src="Library/blockly/appengine/storage.js"></script>
-<link rel="stylesheet" type="text/css"
-      href="Library/blockly/demos/prettify.css">
 
 <script src="Library/jquery-2.2.4.min.js"></script>
 <script src="Library/jquery.query.js"></script>
 <script src="Library/intro.js"></script>
 <!-- 追加 -->
-<script src="MyBlocks2/output_auto.js"></script>  
+<script src="MyBlocks2/c/output_auto.js"></script>  
 
 <script src="MyBlocks2/c/output.js"></script> 
 <script src="MyBlocks2/c/input.js"></script>
@@ -61,7 +59,6 @@
 <script src="js/cookie.js"></script>  <!-- (2017/11/14 追加)-->
 <script src="js/common2.js"></script>  <!-- (2017/11/14 追加)-->
 <script src="js/code/code_c.js"></script>  <!-- (18/05/08)-->
-<script src="myflyout.js"></script> <!-- code_c.js より後(19/06/06)  -->
 
 <link rel="stylesheet"
       href="Library/introjs.css"/>
@@ -410,10 +407,11 @@
   <sep></sep>
   <sep></sep>
   <category name="入出力" colour="0">
-  	<!--block type="output_text_join"></block-->
+    <!--block type="output_text_join"></block-->
+
   	<block type="output_auto"></block>
-    <block type="input_auto"></block>
-  	<block type="sample_name"></block>
+   <block type="input_auto"></block>
+    <!-- 	<block type="sample_name"></block> -->
   </category>
 
 </xml>
