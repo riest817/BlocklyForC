@@ -25,9 +25,11 @@ Blockly.Blocks['scheme_lists_list'] = {
 
   mutationToDom: Blockly.Blocks['scheme_begin'].mutationToDom,
   domToMutation: Blockly.Blocks['scheme_begin'].domToMutation,
+  updateShape0_: Blockly.Blocks['scheme_begin'].updateShape0_,
   updateShape_: Blockly.Blocks['scheme_begin'].updateShape_,
   decompose: Blockly.Blocks['scheme_begin'].decompose,
   compose: Blockly.Blocks['scheme_begin'].compose,
+  saveConnections: Blockly.Blocks['scheme_begin'].saveConnections,
 };
 
 Blockly.Blocks['scheme_lists_quote'] = {
@@ -64,9 +66,11 @@ Blockly.Blocks['scheme_lists_plain'] = {
 
   mutationToDom: Blockly.Blocks['scheme_begin'].mutationToDom,
   domToMutation: Blockly.Blocks['scheme_begin'].domToMutation,
+  updateShape0_: Blockly.Blocks['scheme_begin'].updateShape0_,
   updateShape_: Blockly.Blocks['scheme_begin'].updateShape_,
   decompose: Blockly.Blocks['scheme_begin'].decompose,
   compose: Blockly.Blocks['scheme_begin'].compose,
+  saveConnections: Blockly.Blocks['scheme_begin'].saveConnections,
 };
 
 

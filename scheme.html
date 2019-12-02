@@ -36,7 +36,7 @@
   <script src="js/common2.js"></script>
   <script src="js/code/code_scheme.js"></script>
   <script src="MyCore/scheme_functions.js"></script> <!-- code_scheme.js より後(19/06/06)  -->
-  <script src="js/code/hasteHack.js"></script>
+  <script src="Library/BiwaScheme/biwascheme.js"></script>
   
   <link rel="stylesheet" href="Library/introjs.css" />
   <style>
@@ -136,7 +136,6 @@
   <xml id="toolbox" style="display: none">
     <category name="制御" colour="%{BKY_LOOPS_HUE}">
       <block type="scheme_begin"></block>
-      <block type="scheme_decl"></block>
       <block type="scheme_let_in"></block>
       <block type="scheme_call_cc"></block>
     </category>
@@ -163,6 +162,7 @@
     <category name="テキスト" colour="%{BKY_TEXTS_HUE}">
         <block type="string"></block>
         <block type="scheme_text_operator"></block>
+        <block type="scheme_text_operator0"></block>
     </category>
     <sep></sep>
     <category name="変数" colour="%{BKY_VARIABLES_HUE}" custom="VARIABLE"></category>
@@ -228,7 +228,7 @@
     <button id="clearButton">Clear</button>
     <img id="wl_ajax_loader" style="display:none;" src="images/ajax-loader.gif"
        alt="ajax loader" /><br />
-    <textarea id="result" cols="80" rows="16"></textarea>
+    <div id="bs-console" style="border-style: solid; border-width: 2px; white-space: pre-wrap; font-family: monospace;"></div>
   </div>
   <textarea id="contentXml" class="content" wrap="off"></textarea>
   <script>

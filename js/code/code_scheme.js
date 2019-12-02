@@ -14,6 +14,7 @@ Code.selected = 'Blocks';
 /**
  * Populate the currently selected pane with content generated from the blocks.
  */
+var cls, print;
 
 Code.renderContent = function() {
   var content = document.getElementById('content' + Code.selected);
@@ -28,15 +29,36 @@ Code.renderContent = function() {
     var code = Blockly.Scheme.workspaceToCode(Code.workspace);
     content.textContent = code;
   } else if (content.id == 'contentResult') {
-    var source = Blockly.Scheme.workspaceToCode(Code.workspace);
-    let name   = "Main.scm";
- 
+    var code = Blockly.Scheme.workspaceToCode(Code.workspace);
+
+    var outputField = document.getElementById("bs-console");
+    cls = function () {
+    	outputField.innerHTML = "";
+    };
+
+    print = function (str) {
+      outputField.insertAdjacentHTML('beforeend', str.replace(/\&/g, "&amp;").replace(/\</g, "&lt;").replace(/\>/g, "&gt;"));
+      outputField.insertAdjacentHTML('beforeend', "<br />");
+    };
+
+    var biwascheme = new BiwaScheme.Interpreter(function (e, state) {
+      outputField.insertAdjacentHTML('beforeend', e.message.toString().replace(/\&/g, "&amp;").replace(/\</g, "&lt;").replace(/\>/g, "&gt;"));
+      outputField.insertAdjacentHTML('beforeend', "<br />");
+    });
+    var onError = function (e) {
+      console.error(e);
+    }
+    var biwa = new BiwaScheme.Interpreter(onError)
+    biwa.evaluate(code, function (result) {
+      outputField.insertAdjacentHTML('beforeend', result.toString().replace(/\&/g, "&amp;").replace(/\</g, "&lt;").replace(/\>/g, "&gt;"));
+      outputField.insertAdjacentHTML('beforeend', "<br />");
+    });
   }
 };
 
 window.addEventListener("load", function () {
   document.getElementById("clearButton").addEventListener("click", function () {
-    document.getElementById("result").value = "";
+    document.getElementById("bs-console").innerHTML = "";
   })
 });
 

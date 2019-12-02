@@ -19,11 +19,12 @@ Blockly.Blocks['procedures_defreturn'] = {
           .appendField(nameField, 'NAME')
           .appendField('', 'PARAMS')
           .appendField(')');
-      this.appendValueInput('RETURN')
+      this.appendValueInput('ADD0')
           .setAlign(Blockly.ALIGN_RIGHT)/*
           .appendField(Blockly.Msg['PROCEDURES_DEFRETURN_RETURN'])*/;
       this.appendDummyInput('END').appendField(')');
-      this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
+      this.setInputsInline(true);
+      this.setMutator(new Blockly.Mutator(['procedures_mutatorarg', 'scheme_begin_item']));
       if ((this.workspace.options.comments ||
            (this.workspace.options.parentWorkspace &&
             this.workspace.options.parentWorkspace.options.comments)) &&
@@ -33,9 +34,11 @@ Blockly.Blocks['procedures_defreturn'] = {
       this.setStyle('procedure_blocks');
       this.setTooltip(Blockly.Msg['PROCEDURES_DEFRETURN_TOOLTIP']);
       this.setHelpUrl(Blockly.Msg['PROCEDURES_DEFRETURN_HELPURL']);
+      this.itemCount_ = 1;
       this.arguments_ = [];
       this.argumentVarModels_ = [];
     },
+
   /**
    * Update the display of parameters for this procedure definition block.
    * @private
@@ -57,6 +60,24 @@ Blockly.Blocks['procedures_defreturn'] = {
     } finally {
       Blockly.Events.enable();
     }
+
+    if (this.getInput('END')) {
+      this.removeInput('END');
+    }
+
+    // Add new inputs.
+    for (var i = 0; i < this.itemCount_; i++) {
+      if (!this.getInput('ADD' + i)) {
+        var input = this.appendValueInput('ADD' + i);
+      }
+    }
+    // Remove deleted inputs.
+    while (this.getInput('ADD' + i)) {
+      this.removeInput('ADD' + i);
+      i++;
+    }
+
+    this.appendDummyInput('END').appendField(')');
   },
   /**
    * Create XML to represent the argument inputs.
@@ -80,6 +101,8 @@ Blockly.Blocks['procedures_defreturn'] = {
       }
       container.appendChild(parameter);
     }
+
+    container.setAttribute('items', this.itemCount_);
     return container;
   },
   /**
@@ -104,6 +127,7 @@ Blockly.Blocks['procedures_defreturn'] = {
         }
       }
     }
+    this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
     this.updateParams_();
     Blockly.Procedures.mutateCallers(this);
   },
@@ -128,8 +152,20 @@ Blockly.Blocks['procedures_defreturn'] = {
       connection.connect(paramBlock.previousConnection);
       connection = paramBlock.nextConnection;
     }
+
+    // Implicit Begin
+    var connection2 = containerBlock.getInput('STACK2').connection;
+    for (var i = 0; i < this.itemCount_; i++) {
+      var itemBlock = workspace.newBlock('scheme_begin_item');
+      itemBlock.initSvg();
+      connection2.connect(itemBlock.previousConnection);
+      connection2 = itemBlock.nextConnection;
+    }
+
     // Initialize procedure's callers with blank IDs.
     Blockly.Procedures.mutateCallers(this);
+
+
     return containerBlock;
   },
   /**
@@ -157,8 +193,48 @@ Blockly.Blocks['procedures_defreturn'] = {
       paramBlock = paramBlock.nextConnection &&
           paramBlock.nextConnection.targetBlock();
     }
+
+    var itemBlock = containerBlock.getInputTargetBlock('STACK2');
+    // Count number of inputs.
+    var connections = [];
+    while (itemBlock) {
+      connections.push(itemBlock.valueConnection_);
+      itemBlock = itemBlock.nextConnection &&
+        itemBlock.nextConnection.targetBlock();
+    }
+    // Disconnect any children that don't belong.
+    for (var i = 0; i < this.itemCount_; i++) {
+      var connection = this.getInput('ADD' + i).connection.targetConnection;
+      if (connection && connections.indexOf(connection) == -1) {
+        connection.disconnect();
+      }
+    }
+    this.itemCount_ = connections.length;
+
     this.updateParams_();
     Blockly.Procedures.mutateCallers(this);
+
+    // Reconnect any child blocks.
+    for (var i = 0; i < this.itemCount_; i++) {
+      Blockly.Mutator.reconnect(connections[i], this, 'ADD' + i);
+    }
+  },
+
+  /**
+   * Store pointers to any connected child blocks.
+   * @param {!Blockly.Block} containerBlock Root block in mutator.
+   * @this Blockly.Block
+   */
+  saveConnections: function (containerBlock) {
+    var itemBlock = containerBlock.getInputTargetBlock('STACK2');
+    var i = 0;
+    while (itemBlock) {
+      var input = this.getInput('ADD' + i);
+      itemBlock.valueConnection_ = input && input.connection.targetConnection;
+      i++;
+      itemBlock = itemBlock.nextConnection &&
+        itemBlock.nextConnection.targetBlock();
+    }
   },
 
   /**
@@ -308,6 +384,92 @@ Blockly.Blocks['procedures_defreturn'] = {
   callType_: 'procedures_callreturn'
 };
 
+
+Blockly.Blocks['procedures_lambda'] = {
+    /**
+     * Block for defining a anonymous procedure with a return value.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.appendDummyInput()
+            .appendField('(lambda (')
+            .appendField('', 'PARAMS')
+            .appendField(')');
+        this.appendValueInput('ADD0')
+            .setAlign(Blockly.ALIGN_RIGHT)/*
+            .appendField(Blockly.Msg['PROCEDURES_DEFRETURN_RETURN'])*/;
+        this.appendDummyInput('END').appendField(')');
+        this.setInputsInline(true);
+        this.setMutator(new Blockly.Mutator(['procedures_mutatorarg', 'scheme_begin_item']));
+        this.setStyle('procedure_blocks');
+        this.setOutput(true);
+        this.setTooltip(Blockly.Msg['PROCEDURES_DEFRETURN_TOOLTIP']);
+        this.setHelpUrl(Blockly.Msg['PROCEDURES_DEFRETURN_HELPURL']);
+        this.arguments_ = [];
+        this.argumentVarModels_ = [];
+    },
+
+    updateParams_: Blockly.Blocks['procedures_defreturn'].updateParams_,
+    mutationToDom: Blockly.Blocks['procedures_defreturn'].mutationToDom,
+    domToMutation: Blockly.Blocks['procedures_defreturn'].domToMutation,
+    decompose: Blockly.Blocks['procedures_defreturn'].decompose,
+    compose: Blockly.Blocks['procedures_defreturn'].compose,
+    saveConnections: Blockly.Blocks['procedures_defreturn'].saveConnections,
+    getProcedureDef: function () {
+        return ["", this.arguments_];
+    },
+    getVars: Blockly.Blocks['procedures_defreturn'].getVars,
+    getVarModels: Blockly.Blocks['procedures_defreturn'].getVarModels,
+    renameVarById: Blockly.Blocks['procedures_defreturn'].renameVarById,
+    updateVarName: Blockly.Blocks['procedures_defreturn'].updateVarName,
+    displayRenamedVar_: Blockly.Blocks['procedures_defreturn'].displayRenamedVar_,
+    /**
+   * Add custom menu options to this block's context menu.
+   * @param {!Array} options List of menu options to add to.
+   * @this Blockly.Block
+   */
+  customContextMenu: function(options) {
+    if (this.isInFlyout){
+      return;
+    }
+    // Add option to create caller.
+    var option = {enabled: true};
+    var name = this.getFieldValue('NAME');
+    option.text = Blockly.Msg['PROCEDURES_CREATE_DO'].replace('%1', name);
+    // var xmlMutation = document.createElement('mutation');
+    // xmlMutation.setAttribute('name', name);
+    // for (var i = 0; i < this.arguments_.length; i++) {
+    //   var xmlArg = document.createElement('arg');
+    //   xmlArg.setAttribute('name', this.arguments_[i]);
+    //   xmlMutation.appendChild(xmlArg);
+    // }
+    // var xmlBlock = document.createElement('block');
+    // xmlBlock.setAttribute('type', this.callType_);
+    // xmlBlock.appendChild(xmlMutation);
+    // option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
+    // options.push(option);
+
+    // Add options to create getters for each parameter.
+    if (!this.isCollapsed()) {
+      for (var i = 0; i < this.argumentVarModels_.length; i++) {
+        var option = {enabled: true};
+        var argVar = this.argumentVarModels_[i];
+        var name = argVar.name;
+        option.text = Blockly.Msg['VARIABLES_SET_CREATE_GET'].replace('%1', name);
+
+        var xmlField = Blockly.Variables.generateVariableFieldDom(argVar);
+        var xmlBlock = document.createElement('block');
+        xmlBlock.setAttribute('type', 'variables_get');
+        xmlBlock.appendChild(xmlField);
+        option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
+        options.push(option);
+      }
+    }
+  },
+
+    
+};
+
 Blockly.Blocks['procedures_mutatorcontainer'] = {
     /**
      * Mutator block for procedure container.
@@ -316,10 +478,13 @@ Blockly.Blocks['procedures_mutatorcontainer'] = {
     init: function() {
       this.appendDummyInput()
           .appendField(Blockly.Msg['PROCEDURES_MUTATORCONTAINER_TITLE']);
-      this.appendStatementInput('STACK');
+      this.appendStatementInput('STACK').setCheck(['Arg']);
     //   this.appendDummyInput('STATEMENT_INPUT')
     //       .appendField(Blockly.Msg['PROCEDURES_ALLOW_STATEMENTS'])
     //       .appendField(new Blockly.FieldCheckbox('TRUE'), 'STATEMENTS');
+      this.appendDummyInput()
+          .appendField(Blockly.Msg['SCHEME_BEGIN_CONTAINER_TITLE_ADD']);
+      this.appendStatementInput('STACK2').setCheck(['Item']);
       this.setStyle('procedure_blocks');
       this.setTooltip(Blockly.Msg['PROCEDURES_MUTATORCONTAINER_TOOLTIP']);
       this.contextMenu = false;
@@ -408,8 +573,8 @@ Blockly.Blocks['procedures_mutatorcontainer'] = {
       this.appendDummyInput()
           .appendField(Blockly.Msg['PROCEDURES_MUTATORARG_TITLE'])
           .appendField(field, 'NAME');
-      this.setPreviousStatement(true);
-      this.setNextStatement(true);
+      this.setPreviousStatement(true, 'Arg');
+      this.setNextStatement(true, 'Arg');
       this.setStyle('procedure_blocks');
       this.setTooltip(Blockly.Msg['PROCEDURES_MUTATORARG_TOOLTIP']);
       this.contextMenu = false;
@@ -842,3 +1007,31 @@ Blockly.Blocks['procedures_mutatorcontainer'] = {
 
   defType_: 'procedures_defreturn'
 };
+
+// Blockly.Blocks['scheme_implicit_begin'] = {
+//     init: function () {
+//       // this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
+//       this.setColour(Blockly.Msg["PROCEDURES_HUE"]);
+//       this.itemCount_ = 1;
+//       this.updateShape_();
+//       this.setOutput(true);
+//       this.setMutator(new Blockly.Mutator(['scheme_begin_item']));
+//       this.setTooltip("暗黙の begin を作ります。");
+//     },
+  
+//     mutationToDom: Blockly.Blocks['scheme_begin'].mutationToDom,
+//     domToMutation: Blockly.Blocks['scheme_begin'].domToMutation,
+//     updateShape0_: Blockly.Blocks['scheme_begin'].updateShape0_,
+//     decompose: Blockly.Blocks['scheme_begin'].decompose,
+//     compose: Blockly.Blocks['scheme_begin'].compose,
+//     saveConnections: Blockly.Blocks['scheme_begin'].saveConnections,
+
+//     /**
+//      * Modify this block to have the correct number of inputs.
+//      * @private
+//      * @this Blockly.Block
+//      */
+//     updateShape_: function () {
+//         this.updateShape0_();
+//     }
+//   };

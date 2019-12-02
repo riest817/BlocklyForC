@@ -20,7 +20,7 @@ Blockly.Blocks['scheme_math_arithmetic'] = {
         ["min", "min"],
         ["gcd", "gcd"],
         ["lcm", "lcm"],
-      ], "KIND"));
+      ]), "KIND");
     this.itemCount_ = 2;
     this.updateShape_();
     this.setOutput(true);
@@ -30,9 +30,11 @@ Blockly.Blocks['scheme_math_arithmetic'] = {
 
   mutationToDom: Blockly.Blocks['scheme_begin'].mutationToDom,
   domToMutation: Blockly.Blocks['scheme_begin'].domToMutation,
+  updateShape0_: Blockly.Blocks['scheme_begin'].updateShape0_,
   updateShape_: Blockly.Blocks['scheme_begin'].updateShape_,
   decompose: Blockly.Blocks['scheme_begin'].decompose,
   compose: Blockly.Blocks['scheme_begin'].compose,
+  saveConnections: Blockly.Blocks['scheme_begin'].saveConnections,
 };
 
 Blockly.Blocks['scheme_math_operator'] = {

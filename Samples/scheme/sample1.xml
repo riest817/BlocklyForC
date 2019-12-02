@@ -1,0 +1,128 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">x</variable>
+    <variable type="">k</variable>
+  </variables>
+  <block type="procedures_defreturn" x="13" y="38">
+    <mutation items="1">
+      <arg name="x" varid="(Y8B;1mg#d:RZrxJJ~f["></arg>
+    </mutation>
+    <field name="NAME">square</field>
+    <value name="ADD0">
+      <block type="scheme_math_arithmetic">
+        <mutation items="2"></mutation>
+        <field name="KIND">*</field>
+        <value name="ADD0">
+          <block type="variables_get">
+            <field name="VAR" variabletype="">x</field>
+          </block>
+        </value>
+        <value name="ADD1">
+          <block type="variables_get">
+            <field name="VAR" variabletype="">x</field>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+  <block type="procedures_defreturn" x="13" y="113">
+    <mutation items="2">
+      <arg name="x" varid="(Y8B;1mg#d:RZrxJJ~f["></arg>
+    </mutation>
+    <field name="NAME">henna_square</field>
+    <value name="ADD0">
+      <block type="variables_set" inline="true">
+        <field name="VAR" variabletype="">x</field>
+        <value name="VALUE">
+          <block type="scheme_math_arithmetic">
+            <mutation items="2"></mutation>
+            <field name="KIND">*</field>
+            <value name="ADD0">
+              <block type="variables_get">
+                <field name="VAR" variabletype="">x</field>
+              </block>
+            </value>
+            <value name="ADD1">
+              <block type="variables_get">
+                <field name="VAR" variabletype="">x</field>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </value>
+    <value name="ADD1">
+      <block type="variables_get">
+        <field name="VAR" variabletype="">x</field>
+      </block>
+    </value>
+  </block>
+  <block type="procedures_defreturn" x="13" y="187">
+    <mutation items="1">
+      <arg name="x" varid="(Y8B;1mg#d:RZrxJJ~f["></arg>
+    </mutation>
+    <field name="NAME">bar</field>
+    <value name="ADD0">
+      <block type="scheme_call_cc">
+        <value name="CALLBACK">
+          <block type="procedures_lambda">
+            <mutation items="1">
+              <arg name="k" varid="Ib^gQeDyze]M5Q*P[crx"></arg>
+            </mutation>
+            <value name="ADD0">
+              <block type="scheme_math_arithmetic">
+                <mutation items="2"></mutation>
+                <field name="KIND">+</field>
+                <value name="ADD0">
+                  <block type="math_number">
+                    <field name="NUM">100</field>
+                  </block>
+                </value>
+                <value name="ADD1">
+                  <block type="scheme_if" inline="true">
+                    <value name="IF">
+                      <block type="scheme_logic_compare">
+                        <mutation items="2"></mutation>
+                        <field name="KIND">=</field>
+                        <value name="ADD0">
+                          <block type="variables_get">
+                            <field name="VAR" variabletype="">x</field>
+                          </block>
+                        </value>
+                        <value name="ADD1">
+                          <block type="math_number">
+                            <field name="NUM">0</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="THEN">
+                      <block type="math_number">
+                        <field name="NUM">1</field>
+                      </block>
+                    </value>
+                    <value name="ELSE">
+                      <block type="scheme_lists_plain">
+                        <mutation items="2"></mutation>
+                        <value name="ADD0">
+                          <block type="variables_get">
+                            <field name="VAR" variabletype="">k</field>
+                          </block>
+                        </value>
+                        <value name="ADD1">
+                          <block type="variables_get">
+                            <field name="VAR" variabletype="">x</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+</xml>

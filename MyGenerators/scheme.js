@@ -126,8 +126,8 @@ Blockly.Scheme.quote_ = function(string) {
   // JS string literals use single quotes.
   string = string.replace(/\\/g, '\\\\')
                  .replace(/\n/g, '\\\n')
-                 .replace(/'/g, '\\\'');
-  return '\'' + string + '\'';
+                 .replace(/\"/g, '\\\"');
+  return '"' + string + '"';
 };
 
 /**
@@ -149,11 +149,10 @@ Blockly.Scheme.scrub_ = function(block, code) {
     if (comment) {
       if (block.getProcedureDef) {
         // Use a comment block for function comments.
-          commentCode += '{-\n' +
-                       Blockly.Scheme.prefixLines(comment + '\n', ' ') +
-                       ' -}\n';  
+          commentCode += Blockly.Scheme.prefixLines(comment + '\n', '; ') 
+                       
       } else {
-        commentCode += Blockly.Scheme.prefixLines(comment + '\n', '-- ');  // 17/12/05 ↑と同様
+        commentCode += Blockly.Scheme.prefixLines(comment + '\n', '; ');
       }
     }
     // Collect comments for all value arguments.
@@ -164,7 +163,7 @@ Blockly.Scheme.scrub_ = function(block, code) {
         if (childBlock) {
           var comment = Blockly.Scheme.allNestedComments(childBlock);
           if (comment) {
-            commentCode += Blockly.Scheme.prefixLines(comment, '-- '); // 17/12/05 ↑と同様
+            commentCode += Blockly.Scheme.prefixLines(comment, '; ');
           }
         }
       }

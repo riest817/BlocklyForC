@@ -1,8 +1,4 @@
 // This file was automatically generated.  Do not modify.
-/*
-19/01/30 新規作成
-*/
-
 'use strict';
 
 goog.provide('Blockly.Msg.pro');

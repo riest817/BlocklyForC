@@ -28,6 +28,7 @@ Blockly.SchemeFunctions.allSchemeFunctions = function(root) {
   for (var i = 0; i < blocks.length; i++) {
     if (blocks[i].getProcedureDef) {
       var tuple = blocks[i].getProcedureDef();
+      if (tuple[0] == "") continue;
       if (tuple && !reNames.find(elm => elm[0] == tuple[0])) {
           reNames.push(tuple);
       }
@@ -51,6 +52,19 @@ Blockly.SchemeFunctions.flyoutCategory = function(workspace) {
     var block = Blockly.Xml.utils.createElement('block');
     block.setAttribute('type', 'procedures_lambda');
     block.setAttribute('gap', 16);
+
+    // var returnField = Blockly.Xml.utils.createElement('value');
+    // returnField.setAttribute('name', 'ADD0');
+    // var shadow = Blockly.Xml.utils.createElement('block');
+    // shadow.setAttribute('type', 'scheme_implicit_begin');
+    // shadow.setAttribute('inline', 'true');
+    var mutation = Blockly.Xml.utils.createElement('mutation');
+    mutation.setAttribute('items', '1');
+    block.appendChild(mutation);
+    // shadow.appendChild(mutation);
+    // returnField.appendChild(shadow);
+    // block.appendChild(returnField);
+
     xmlList.push(block);
   }
 
@@ -65,14 +79,28 @@ Blockly.SchemeFunctions.flyoutCategory = function(workspace) {
     nameField.setAttribute('name', 'NAME');
     nameField.appendChild(Blockly.Xml.utils.createTextNode("function_name"));
     block.appendChild(nameField);
+    // var returnField = Blockly.Xml.utils.createElement('value');
+    // returnField.setAttribute('name', 'RETURN');
+    // var shadow = Blockly.Xml.utils.createElement('block');
+    // shadow.setAttribute('type', 'scheme_implicit_begin');
+    // shadow.setAttribute('inline', 'true');
+    var mutation = Blockly.Xml.utils.createElement('mutation');
+    mutation.setAttribute('items', '1');
+    block.appendChild(mutation);
+    // shadow.appendChild(mutation);
+    // returnField.appendChild(shadow);
+    // block.appendChild(returnField);
+
     xmlList.push(block);
   }
+
   if (Blockly.Blocks['procedures_callreturn']) {
     // <block type="re_name_def" gap="16">
     //     <field name="NAME">do something</field>
     // </block>
     var block = Blockly.Xml.utils.createElement('block');
     block.setAttribute('type', 'procedures_callreturn');
+    block.setAttribute('inline', 'true');
     var nameField = Blockly.Xml.utils.createElement('field');
     nameField.setAttribute('name', 'NAME');
     nameField.appendChild(Blockly.Xml.utils.createTextNode("function_name"));
@@ -92,6 +120,7 @@ Blockly.SchemeFunctions.flyoutCategory = function(workspace) {
       // </block>
       var block = Blockly.Xml.utils.createElement('block');
       block.setAttribute('type','procedures_callreturn');
+      block.setAttribute('inline', 'true');
       block.setAttribute('gap', 16);
 
       var nameField = Blockly.Xml.utils.createElement('field');

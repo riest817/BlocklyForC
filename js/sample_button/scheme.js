@@ -46,6 +46,9 @@ window.addEventListener("load", () => {
   });
   var names = [
     ""
+    , "sample1"
+    , "sample2"
+    , "sample3"
   ];
   for (let nm of names) {
     let node = document.createElement("option");

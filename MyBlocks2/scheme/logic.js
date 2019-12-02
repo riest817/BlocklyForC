@@ -1,6 +1,6 @@
 // TODO: 別のファイルに移す
 Blockly.Msg["LOGIC_HUE"] = 210;
-Blockly.Msg['SCHEME_BEGIN_CONTAINER_TITLE_ADD'] = '列';
+Blockly.Msg['SCHEME_BEGIN_CONTAINER_TITLE_ADD'] = '式の列';
 Blockly.Msg['SCHEME_BEGIN_CONTAINER_TOOLTIP'] = '';
 Blockly.Msg['SCHEME_BEGIN_ITEM_TITLE'] = '式';
 Blockly.Msg['SCHEME_BEGIN_ITEM_TOOLTIP'] = '';
@@ -97,15 +97,8 @@ Blockly.Blocks['scheme_begin'] = {
         itemBlock.nextConnection.targetBlock();
     }
   },
-  /**
-   * Modify this block to have the correct number of inputs.
-   * @private
-   * @this Blockly.Block
-   */
-  updateShape_: function () {
-    if (this.getInput('END')) {
-      this.removeInput('END');
-    }
+
+  updateShape0_: function () {
     // Add new inputs.
     for (var i = 0; i < this.itemCount_; i++) {
       if (!this.getInput('ADD' + i)) {
@@ -117,6 +110,18 @@ Blockly.Blocks['scheme_begin'] = {
       this.removeInput('ADD' + i);
       i++;
     }
+  },
+
+  /**
+   * Modify this block to have the correct number of inputs.
+   * @private
+   * @this Blockly.Block
+   */
+  updateShape_: function () {
+    if (this.getInput('END')) {
+      this.removeInput('END');
+    }
+    this.updateShape0_();
     this.appendDummyInput('END').appendField(')');
   }
 };
@@ -130,7 +135,7 @@ Blockly.Blocks['scheme_begin_container'] = {
     this.setStyle('list_blocks');
     this.appendDummyInput()
       .appendField(Blockly.Msg['SCHEME_BEGIN_CONTAINER_TITLE_ADD']);
-    this.appendStatementInput('STACK');
+    this.appendStatementInput('STACK').setCheck(['Item']);
     this.setTooltip(Blockly.Msg['SCHEME_BEGIN_CONTAINER_TOOLTIP']);
     this.contextMenu = false;
   }
@@ -145,8 +150,8 @@ Blockly.Blocks['scheme_begin_item'] = {
     this.setStyle('list_blocks');
     this.appendDummyInput()
       .appendField(Blockly.Msg['SCHEME_BEGIN_ITEM_TITLE']);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, 'Item');
+    this.setNextStatement(true, 'Item');
     this.setTooltip(Blockly.Msg['SCHEME_BEGIN_ITEM_TOOLTIP']);
     this.contextMenu = false;
   }
@@ -157,8 +162,8 @@ Blockly.Blocks['scheme_let_in'] = {
     this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
     this.setColour(Blockly.Msg["LOOPS_HUE"]); // Blockly.Msg["LOGIC_HUE"] = 210
     //this.appendField("do");
-    this.appendStatementInput('DO')
-      .setCheck(['DECL'])
+    this.appendStatementInput('DECLS')
+      .setCheck(['Decl'])
       .appendField("(")
       .appendField(new Blockly.FieldDropdown([["let", "let"], ["let*", "let*"], ["letrec", "letrec"]]), "KIND")
       .appendField("(");
@@ -174,8 +179,10 @@ Blockly.Blocks['scheme_let_in'] = {
   mutationToDom: Blockly.Blocks['scheme_begin'].mutationToDom,
   domToMutation: Blockly.Blocks['scheme_begin'].domToMutation,
   updateShape_: Blockly.Blocks['scheme_begin'].updateShape_,
+  updateShape0_: Blockly.Blocks['scheme_begin'].updateShape0_,
   decompose: Blockly.Blocks['scheme_begin'].decompose,
   compose: Blockly.Blocks['scheme_begin'].compose,
+  saveConnections: Blockly.Blocks['scheme_begin'].saveConnections,
 };
 
 Blockly.Blocks['scheme_call_cc'] = {
@@ -185,7 +192,7 @@ Blockly.Blocks['scheme_call_cc'] = {
       "args0": [
         {
           "type": "input_value",
-          "name": "ADD0"
+          "name": "CALLBACK"
         },
       ],
       "inputsInline": true,
@@ -230,7 +237,7 @@ Blockly.Blocks['scheme_logic_operation'] = {
     this.setColour(Blockly.Msg["LOGIC_HUE"]);
     this.appendDummyInput('')
       .appendField("(")
-      .appendField(new Blockly.FieldDropdown([["and", "and"], ["or", "or"]], "KIND"));
+      .appendField(new Blockly.FieldDropdown([["and", "and"], ["or", "or"]]), "KIND");
     this.itemCount_ = 2;
     this.updateShape_();
     this.setOutput(true);
@@ -240,9 +247,11 @@ Blockly.Blocks['scheme_logic_operation'] = {
 
   mutationToDom: Blockly.Blocks['scheme_begin'].mutationToDom,
   domToMutation: Blockly.Blocks['scheme_begin'].domToMutation,
+  updateShape0_: Blockly.Blocks['scheme_begin'].updateShape0_,
   updateShape_: Blockly.Blocks['scheme_begin'].updateShape_,
   decompose: Blockly.Blocks['scheme_begin'].decompose,
   compose: Blockly.Blocks['scheme_begin'].compose,
+  saveConnections: Blockly.Blocks['scheme_begin'].saveConnections,
 };
 
 Blockly.Blocks['scheme_logic_compare'] = {
@@ -257,7 +266,7 @@ Blockly.Blocks['scheme_logic_compare'] = {
         ["\u200F\u2264", "<="],
         ["\u200F>", ">"],
         ["\u200F\u2265", ">="]
-      ], "KIND"));
+      ]), "KIND");
     this.itemCount_ = 2;
     this.updateShape_();
     this.setOutput(true);
@@ -267,9 +276,11 @@ Blockly.Blocks['scheme_logic_compare'] = {
 
   mutationToDom: Blockly.Blocks['scheme_begin'].mutationToDom,
   domToMutation: Blockly.Blocks['scheme_begin'].domToMutation,
+  updateShape0_: Blockly.Blocks['scheme_begin'].updateShape0_,
   updateShape_: Blockly.Blocks['scheme_begin'].updateShape_,
   decompose: Blockly.Blocks['scheme_begin'].decompose,
   compose: Blockly.Blocks['scheme_begin'].compose,
+  saveConnections: Blockly.Blocks['scheme_begin'].saveConnections,
 };
 
 Blockly.Blocks['scheme_logic_not'] = {
@@ -279,7 +290,7 @@ Blockly.Blocks['scheme_logic_not'] = {
       "args0": [
         {
           "type": "input_value",
-          "name": "ADD0"
+          "name": "BOOL"
         },
       ],
       "inputsInline": true,
@@ -291,23 +302,23 @@ Blockly.Blocks['scheme_logic_not'] = {
   }
 };
 
-Blockly.Blocks['scheme_decl'] = {
-  init: function () {
-    this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
-    this.setColour(Blockly.Msg["LOOPS_HUE"]);
-    this.appendDummyInput('')
-      .appendField('(')
-      .appendField(new Blockly.FieldVariable("x"), "VAR");
-    this.appendValueInput('VALUE');
-    this.appendDummyInput().appendField(')');
-    this.setOutput(false);
-    this.setInputsInline(true);
-    this.setPreviousStatement(true, 'DECL');
-    this.setNextStatement(true, 'DECL');
-    this.setTooltip("パターンを束縛します。");
-    this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
-  }
-};
+// Blockly.Blocks['scheme_decl'] = {
+//   init: function () {
+//     this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
+//     this.setColour(Blockly.Msg["LOOPS_HUE"]);
+//     this.appendDummyInput('')
+//       .appendField('(')
+//       .appendField(new Blockly.FieldVariable("x"), "VAR");
+//     this.appendValueInput('VALUE');
+//     this.appendDummyInput().appendField(')');
+//     this.setOutput(false);
+//     this.setInputsInline(true);
+//     this.setPreviousStatement(true, 'Decl');
+//     this.setNextStatement(true, 'Decl');
+//     this.setTooltip("パターンを束縛します。");
+//     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+//   }
+// };
 
 
 Blockly.Blocks['scheme_if'] = {

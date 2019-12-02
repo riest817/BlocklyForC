@@ -40,14 +40,38 @@ Blockly.Blocks['scheme_text_operator'] = {
           "name": "NAME",
           "options": [
             ["display", "display"],
+            ["print", "print"],
             ["write", "write"]
-
           ]
         },
         {
           "type": "input_value",
           "name": "ADD0"
         }
+      ],
+      "output": null,
+      "inputsInline": true,
+      "colour": Blockly.Msg["TEXTS_HUE"],
+      "tooltip": "",
+      "helpUrl": ""
+    });
+  }
+};
+
+Blockly.Blocks['scheme_text_operator0'] = {
+  init: function () {
+    this.jsonInit({
+      "message0": "(%1)",
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "NAME",
+          "options": [
+            ["newline", "newline"],
+            ["read", "read"],
+            ["read-char", "read-char"]
+          ]
+        },
       ],
       "output": null,
       "inputsInline": true,

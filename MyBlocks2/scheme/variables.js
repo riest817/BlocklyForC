@@ -1,4 +1,4 @@
-Blockly.Msg["VARIABLES_SET"] = "(set %1 %2)";
+Blockly.Msg["VARIABLES_SET"] = "(set! %1 %2)";
 Blockly.Msg["VARIABLES_DECL"] = "(%1 %2)";
 Blockly.Msg["VARIABLES_DEFILE"] = "(define %1 %2)";
 
@@ -41,8 +41,8 @@ Blockly.Blocks['scheme_variables_decl'] = {
                 "name": "VALUE"
               }
             ],
-            "previousStatement": "DECL",
-            "nextStatement": "DECL",
+            "previousStatement": "Decl",
+            "nextStatement": "Decl",
             "style": "variable_blocks",
             "tooltip": "%{BKY_VARIABLES_SET_TOOLTIP}",
             "helpUrl": "%{BKY_VARIABLES_SET_HELPURL}",
@@ -66,8 +66,6 @@ Blockly.Blocks['scheme_variables_define'] = {
                 "name": "VALUE"
               }
             ],
-            "previousStatement": "DECL",
-            "nextStatement": "DECL",
             "style": "variable_blocks",
             "tooltip": "%{BKY_VARIABLES_SET_TOOLTIP}",
             "helpUrl": "%{BKY_VARIABLES_SET_HELPURL}",
