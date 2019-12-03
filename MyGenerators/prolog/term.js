@@ -17,3 +17,9 @@ Blockly.Prolog['term_name'] = function(block) {
   var code = block.getFieldValue('TEXT') + ', ';  
   return code;
 };
+
+Blockly.Prolog['term_name2'] = function(block) {
+  // Text value.
+  var code = block.getFieldValue('TEXT') + ', ';  
+  return code;
+};

@@ -397,13 +397,13 @@
     <!--block type="variables_set"></block-->
   <category name="関数" colour="290" custom="PROCEDURE"></category>
   <sep></sep>
-  <category name="ヘッダ" colour="60">
+  <!--category name="ヘッダ" colour="60">
     <block type="header_container_c"></block>
     <block type="include_stdio_c"></block>
     <block type="include_stdlib_c"></block>
     <block type="include_string_c"></block>
     <block type="include_math_c"></block>
-  </category>
+  </category-->
   <sep></sep>
   <sep></sep>
   <category name="入出力" colour="0">
@@ -494,24 +494,109 @@ function onResize() {
 }
 
 $(window).on('load resize', onResize);
-
-function renderContent(clickedName) {
-  var content = $("#content" + clickedName);
-  if (clickedName == "Xml") {
-    var xmlDom  = Blockly.Xml.workspaceToDom(workspace);
-    var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
-    content.val(xmlText);
-  } else if (clickedName == "C") {
-    //console.log("C", workspace.getTopBlocks(!0)[0]);
-    var code = Blockly.C.workspaceToCode(workspace);
-
-    // TODO: CodeMirror
-    code = content.html();
-    code = prettyPrintOne(code, 'js');
-    content.html(code);
-  } 
-}
 */
+//　19/10/19 追加
+function renderContent(clickedName) {
+ var content = $("#content" + clickedName);
+ if (clickedName == "Xml") {
+   //contentCtoXMLの値が空か
+     if ( cEditor.getDoc().getValue() == "") {
+       console.log("!!!!");
+       var xmlDom = Blockly.Xml.workspaceToDom(workspace);
+       var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+       content.val(xmlText);
+     } else {
+    //空でないならC言語のソースコードが入ってると仮定してXMLに変換する処理を行う
+    $.ajax({
+        url:'http://ymir.eng.kagawa-u.ac.jp/cgi-bin/cgiTest.cgi',
+        type:'POST',
+        data:{ source: cEditor.getDoc().getValue() },
+        dataType: 'text'
+    })
+    .done(function(data){
+      //contentCtoXMLの値がC言語のソースコードだった場合にXMLをcontent.valに渡す
+        //content.val(data);
+
+        //console.log(Blockly.Xml.textToDom(data));
+        //Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(data), workspace);
+        //var xmlDom = Blockly.Xml.workspaceToDom(workspace);
+        if (data) {
+          console.log("xmlDom");
+          console.log(data);
+          data = conStr(data);
+          var xmlDom = Blockly.Xml.textToDom(data);
+          var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+          content.val(xmlText);
+          console.log(data);
+          console.log(workspace);
+        }
+    })
+    .fail(function(){
+      //contentCtoXMLの値がC言語のソースコードではなかった場合(もしくはCtoXMLがうまく処理をしなかった場合)エラーを返す
+      //content.val("Error!");
+      window.alert("文法エラーがあります");
+    });
+   }
+ }   else if (clickedName == "Blocks") {
+           console.log("!");
+     if ( cEditor.getDoc().getValue() != "") {
+
+               console.log("!!!!");
+    //空でないならC言語のソースコードが入ってると仮定してXMLに変換する処理を行う
+    $.ajax({
+        url:'http://platy.eng.kagawa-u.ac.jp/Wai/c2blockly',
+        type:'POST',
+        data:{ source: cEditor.getDoc().getValue() },
+        dataType: 'text'
+    })
+    .done(function(data){
+      //contentCtoXMLの値がC言語のソースコードだった場合にXMLをcontent.valに渡す
+        //$('#contentXml').val(data);
+        if (data) {
+          console.log("CのCtoXML")
+          workspace.clear();
+          console.log(data);
+          data = data.replace(/\\\a/g,'\\a')
+             .replace(/\\\\b/g,'\\b')
+             .replace(/\\\\n/g,'\\n')
+             .replace(/\\\\r/g,'\\r')
+             .replace(/\\\\f/g,'\\f')
+             .replace(/\\\\t/g,'\\t')
+             .replace(/\\\\v/g,'\\v')
+             .replace(/\\\\/g,'\\')
+
+             .replace(/\\\\'/g,'\'')
+             .replace(/\\\\"/g,'\\"')
+             .replace(/\\\\0/g,'\\0');
+          console.log(data);
+          var xmlDom = Blockly.Xml.textToDom(data);
+          //var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+          Blockly.Xml.domToWorkspace(xmlDom, workspace);
+          //$('#contentXml').val(xmlText);
+          console.log(data);
+        }
+    })
+    .fail(function(){
+      //contentCtoXMLの値がC言語のソースコードではなかった場合(もしくはCtoXMLがうまく処理をしなかった場合)エラーを返す
+      //content.val("Error!");
+      window.alert("文法エラーがあります");
+    });
+  }
+} else if (clickedName == "C") {
+  console.log("C", workspace.getTopBlocks(!0)[0]);
+  var code = Blockly.C.workspaceToCode(workspace);
+  console.log(code);
+  cEditor.getDoc().setValue(code);
+  //window.alert(cEditor.getDoc().getValue());
+
+  // TODO: CodeMirror
+  //code = content.html();
+  //code = prettyPrintOne(code, 'js');
+  //content.html(code);
+ }
+}
+//　19/10/19 追加ここまで
+
 </script>
 
 <!-- Global site tag (gtag.js) - Google Analytics (2017/10/12 追加)-->

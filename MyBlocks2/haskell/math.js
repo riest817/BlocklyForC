@@ -60,12 +60,39 @@ Blockly.Blocks['var_arithmetic'] = {
   }
 };
 
+<<<<<<< HEAD
 Blockly.Blocks['math_on_list'] = {
   /**
    * Block for evaluating a list of numbers to return sum, average, min, max,
    * etc.  Some functions also work on text (min, max, mode, median).
    * @this Blockly.Block
    */
+=======
+Blockly.Haskell['var_arithmetic'] = function(block) {
+  // Basic arithmetic operators, and power.
+  var OPERATORS = {
+    'ADD': [' + ', Blockly.Haskell.ORDER_ADDITION],
+    'MINUS': [' - ', Blockly.Haskell.ORDER_SUBTRACTION],
+    'MULTIPLY': [' * ', Blockly.Haskell.ORDER_MULTIPLICATION],
+    'DIVIDE': [' / ', Blockly.Haskell.ORDER_DIVISION],
+    //'REMAINDER': [' % ', 5.4],  // 2017/10/18 追加
+    'POWER': [' ^ ', Blockly.Haskell.ORDER_COMMA]  // Handle power separately.
+  };
+  var tuple = OPERATORS[block.getFieldValue('OP')];
+  var operator = tuple[0];
+  var order = tuple[1];
+  var argument0 = Blockly.Haskell.valueToCode(block, 'A', order) || '0';
+  var argument1 = Blockly.Haskell.valueToCode(block, 'B', order) || '0';
+  var code;
+  
+  code = argument0 + operator + argument1;
+  return [code, order];
+  //return code;
+};
+
+Blockly.Blocks['bondage'] = {
+
+>>>>>>> origin
   init: function() {
     var OPERATORS =
         [[Blockly.Msg.MATH_ONLIST_OPERATOR_SUM, 'SUM'],

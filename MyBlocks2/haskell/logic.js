@@ -24,9 +24,9 @@ Blockly.Blocks['controls_if_haskell'] = {
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
     this.appendValueInput('DO0')
         .appendField("実行");
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setOutput(false);
+    this.setPreviousStatement(false);
+    this.setNextStatement(false);
+    this.setOutput(true);
     this.setMutator(new Blockly.Mutator(['controls_if_elseif',
                                          'controls_if_else']));
     // Assign 'this' to a variable for use in the tooltip closure below.

@@ -15,6 +15,7 @@
 <!--<script src="Library/blockly/prolog_compressed.js"></script>-->
 <!-- -->
 <script src="MyGenerators/prolog.js"></script>
+<<<<<<< HEAD
 <script src="MyGenerators/prolog/functors.js"></script>
 <script src="MyGenerators/prolog/lists.js"></script>
 <script src="MyGenerators/prolog/math.js"></script>
@@ -22,6 +23,13 @@
 <script src="MyGenerators/prolog/variables.js"></script>
 <!-- <script src="MyGenerators/prolog/rule.js"></script> -->
 <!-- <script src="MyGenerators/prolog/term.js"></script> -->
+=======
+<script src="MyGenerators/prolog/facts.js"></script>
+<script src="MyGenerators/prolog/rule.js"></script>
+<script src="MyGenerators/prolog/term.js"></script>
+<script src="MyGenerators/prolog/lists.js"></script>
+<script src="MyGenerators/prolog/math.js"></script>
+>>>>>>> origin
 
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 <script src="Library/blockly/msg/js/ja.js"></script>
@@ -33,6 +41,7 @@
 <script src="Library/jquery.query.js"></script>
 <script src="Library/intro.js"></script>
 <!-- 追加 -->
+<<<<<<< HEAD
 <script src="MyBlocks2/prolog/lists.js"></script>
 <script src="MyBlocks2/prolog/functors.js"></script>
 <script src="MyBlocks2/prolog/procedures.js"></script>
@@ -40,6 +49,13 @@
 <!-- <script src="MyBlocks2/prolog/rule.js"></script>  
 <script src="MyBlocks2/prolog/term.js"></script> -->
 
+=======
+<script src="MyBlocks2/prolog/facts.js"></script>
+<script src="MyBlocks2/prolog/rule.js"></script>  
+<script src="MyBlocks2/prolog/term.js"></script>  
+<script src="MyBlocks2/prolog/lists.js"></script>
+<script src="MyBlocks2/prolog/math.js"></script>   
+>>>>>>> origin
 
 <script type="text/javascript" src="js/sample_button/prolog.js"></script>  <!-- (2017/10/19 追加)-->
 <!-- <script src="js/cookie.js"></script> --> <!-- (2017/11/14 追加)-->
@@ -139,6 +155,7 @@
 </head>
 <body>
 <xml id="toolbox" style="display: none">
+<<<<<<< HEAD
 
 <!-- <category name="規則" colour="210"> -->
 <!--    <block type="rule_single"></block> -->
@@ -160,6 +177,84 @@
   </category>
     <sep></sep>
   <category name="ファンクター" colour="%{BKY_TEXTS_HUE}" custom="PROLOG_FUNCTOR"> 
+=======
+  <category name="述語" colour="170"> <!-- 事実 -->
+    <!--block type="fact_definition0"></block-->
+    <block type="fact_definition2"></block>
+    <block type="fact_definition"></block>
+    <block type="is_block"></block>
+  </category>
+  <category name="規則" colour="210">
+    <block type="rule_single"></block>
+    <block type="rule_connection"></block>
+    <block type="rule_connection2"></block>
+  </category>
+  <category name="数" colour="240">
+    <block type="math_number"></block>
+    <block type="var_arithmetic"></block>   <!-->自作ブロック<-->
+    <block type="math_single">
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">9</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_trig">
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">45</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_constant"></block>
+    <block type="math_number_property">
+      <value name="NUMBER_TO_CHECK">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_change">
+      <value name="DELTA">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_round">
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">3.1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_on_list"></block>
+    <block type="math_modulo">
+      <value name="DIVIDEND">
+        <shadow type="math_number">
+          <field name="NUM">64</field>
+        </shadow>
+      </value>
+      <value name="DIVISOR">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  </category>
+    <category name="リスト" colour="270">
+    <block type="lists"></block> 
+    <block type="lists_empty"></block> 
+  </category>
+
+  </category-->
+    <sep></sep>
+    <sep></sep>
+  <category name="項" colour="0">
+    <block type="term_name"></block>
+    <block type="term_name2"></block>
+>>>>>>> origin
   </category>
   <category name="述語" colour="%{BKY_PROCEDURES_HUE}" custom="PROLOG_PREDICATE"> <!-- 事実 -->
   </category>
@@ -231,15 +326,6 @@
 </div>
 <textarea id="contentXml" class="content" wrap="off"></textarea>
 
-<!-- Global site tag (gtag.js) - Google Analytics (2017/10/12 追加)-->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-107589514-5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-107589514-5');
-</script>
 
 </body>
 </html>

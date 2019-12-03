@@ -473,21 +473,21 @@ Blockly.Blocks['field_dropdown'] = {
             .appendField(new Blockly.FieldTextInput(''), 'BEGIN' + i)
             .appendField('-')
             .appendField(new Blockly.FieldTextInput(''), 'END' + i)
-            /* .appendField(' ') */;
+            .appendField(' ');
         //no++;
       } else if (type == 'char') {
 //        this.removeInput('END');  // Remove deleted inputs.
         this.appendDummyInput('OPTION' + i)
             .appendField('')
             .appendField(new Blockly.FieldTextInput(''), 'CHAR' + i)
-            /*.appendField(' ')*/;
+            .appendField(' ');
         //no++;
       } else if (type == 'sequence') {
 //        this.removeInput('END');  // Remove deleted inputs.
         this.appendDummyInput('OPTION' + i)
             .appendField(Blockly.Msg.RE_sequence)
             .appendField(new Blockly.FieldDropdown(OPERATORS), 'SEQ' + i)
-            /*.appendField(' ')*/;
+            .appendField(' ');
       } /*else if ( this.sequenceCount_-1 == this.old_sequenceCount_) {
       this.removeInput('END');  // Remove deleted inputs.
       this.appendDummyInput('OPTION' + i)

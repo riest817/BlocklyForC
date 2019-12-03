@@ -49,6 +49,7 @@ Blockly.Blocks['procedures_defreturn'] = {
   },
   //  setStatements_: Blockly.Blocks['procedures_defnoreturn'].setStatements_,
   //updateParams_: Blockly.Blocks['procedures_defnoreturn'].updateParams_,
+<<<<<<< HEAD
   /*
     updateParams_: function () {
       for (var i = 0; i < this.arguments_.length; i++) {
@@ -71,12 +72,51 @@ Blockly.Blocks['procedures_defreturn'] = {
               .setAlign(Blockly.ALIGN_RIGHT)
               .appendField(field, 'ARGNAME' + i);
           input.init();
+=======
+  updateParams_    : function () {
+    for (var i = 0; i < this.arguments_.length; i++) {
+      if ( this.getInput('DELTA') ) { this.removeInput('DELTA'); }  // 追加 19/07/17
+      var field = this.getField('ARGNAME' + i);
+      this.arguments_[i] = '引数' + (i+1);  // 18/11/29 追加
+      if (field) {
+        // Ensure argument name is up to date.
+        // The argument name field is deterministic based on the mutation,
+        // no need to fire a change event.
+        Blockly.Events.disable();
+        try {
+          field.setValue(this.arguments_[i]);
+        } finally {
+          Blockly.Events.enable();
+>>>>>>> origin
         }
       }
+<<<<<<< HEAD
       // Remove deleted inputs.
       while (this.getInput('ARG' + i)) {
         this.removeInput('ARG' + i);
         i++;
+=======
+      this.appendValueInput('DELTA')
+          .appendField("式 ===> ");
+    }
+    // Remove deleted inputs.
+    while (this.getInput('ARG' + i)) {
+      this.removeInput('ARG' + i);
+      i++;
+    }
+    // Add 'with:' if there are parameters, remove otherwise.
+    var topRow = this.getInput('TOPROW');
+    if (topRow) {
+      if (this.arguments_.length) {
+        if (!this.getField('WITH')) {
+          topRow.appendField("対象：", 'WITH');
+          topRow.init();
+        }
+      } else {
+        if (this.getField('WITH')) {
+          topRow.removeField('WITH');
+        }
+>>>>>>> origin
       }
       // Add 'with:' if there are parameters, remove otherwise.
       var topRow = this.getInput('TOPROW');

@@ -1,0 +1,17 @@
+● ~\static\apps\code\index.html
+22行目 問題文
+
+● ~\static\apps\code\code.js
+144 最大ブロック数定義
+224 ブロックの初期状態
+430 正答コード
+
+● ~\static\apps\code\template.soy
+119 {template .toolbox}
+122 追加できるブロックの定義
+
+● ~\static\blocks\logic.js  ブロック生成
+
+● ~\static\generators\javascript\logic.js    ブロック生成(Javascript)
+
+template.soyからen.jsファイルを生成 → egenerate.bat を実行

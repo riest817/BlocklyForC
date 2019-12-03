@@ -167,7 +167,7 @@ Blockly.Blocks['rule_connection'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setOutput(false);
-    this.setInputsInline(true);
+    this.setInputsInline(false);
     this.setMutator(new Blockly.Mutator(['rule_create_join_item']));
     this.setTooltip("複数の事実を用いて、一つの事実を表します。");
   },
@@ -290,6 +290,199 @@ Blockly.Blocks['rule_connection'] = {
     }
   },
   newQuote_: Blockly.Blocks['text'].newQuote_
+};
+
+Blockly.Blocks['rule_connection2'] = {
+  /**
+   * Block for defining a procedure with a return value.
+   * @this Blockly.Block
+   */
+
+  init: function() {
+    this.appendDummyInput()
+        .appendField("関数名")
+        .appendField(new Blockly.FieldTextInput(''), 'NAME')
+        .appendField('', 'PARAMS');
+    this.appendValueInput('DELTA')
+        .appendField("式 ===> ");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setInputsInline(false);
+    this.setStatements_(false);
+    this.setMutator(new Blockly.Mutator(['rule_create_join_container']));
+    if (Blockly.Msg.PROCEDURES_DEFRETURN_COMMENT) {
+      this.setCommentText(Blockly.Msg.PROCEDURES_DEFRETURN_COMMENT);
+    }
+    this.setColour(Blockly.Msg["RULE_HUE"]);
+    this.setTooltip("関数によるパターンマッチングを行います。");
+    this.setHelpUrl();
+    this.arguments_ = [];
+    this.quarkConnections_ = {};
+    this.quarkIds_ = null;
+  },
+  setStatements_: Blockly.Blocks['procedures_defnoreturn'].setStatements_,
+  //updateParams_: Blockly.Blocks['procedures_defnoreturn'].updateParams_,
+  updateParams_    : function () {
+    for (var i = 0; i < this.arguments_.length; i++) {
+      if ( this.getInput('DELTA') ) { this.removeInput('DELTA'); }  // 追加 19/07/17
+      var field = this.getField('ARGNAME' + i);
+      this.arguments_[i] = '引数' + (i+1);  // 18/11/29 追加
+      if (field) {
+        // Ensure argument name is up to date.
+        // The argument name field is deterministic based on the mutation,
+        // no need to fire a change event.
+        Blockly.Events.disable();
+        try {
+          field.setValue(this.arguments_[i]);
+        } finally {
+          Blockly.Events.enable();
+        }
+      } else {
+        // Add new input.
+        field = new Blockly.FieldLabel(this.arguments_[i]);
+        var input = this.appendValueInput('ARG' + i)
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField(field, 'ARGNAME' + i);
+        input.init();
+      }
+      this.appendValueInput('DELTA')
+          .appendField("式 ===> ");
+    }
+    // Remove deleted inputs.
+    while (this.getInput('ARG' + i)) {
+      this.removeInput('ARG' + i);
+      i++;
+    }
+    // Add 'with:' if there are parameters, remove otherwise.
+    var topRow = this.getInput('TOPROW');
+    if (topRow) {
+      if (this.arguments_.length) {
+        if (!this.getField('WITH')) {
+          topRow.appendField("対象：", 'WITH');
+          topRow.init();
+        }
+      } else {
+        if (this.getField('WITH')) {
+          topRow.removeField('WITH');
+        }
+      }
+    }
+    
+
+  },
+  //mutationToDom: Blockly.Blocks['procedures_defnoreturn'].mutationToDom,
+  mutationToDom    : function (a) {
+        var b = document.createElement("mutation");
+        a && b.setAttribute("name", this.getFieldValue("NAME"));
+        for (var c = 0; c < this.arguments_.length; c++) {
+            var d = document.createElement("arg");
+            d.setAttribute("name", this.arguments_[c]);
+            a && this.paramIds_ && d.setAttribute("paramId", this.paramIds_[c]);
+            b.appendChild(d)
+        }
+        this.hasStatements_ || b.setAttribute("statements", "false");
+        return b
+    },
+  //domToMutation: Blockly.Blocks['procedures_defnoreturn'].domToMutation,
+  domToMutation    : function (a) {
+        this.arguments_ = [];
+        for (var b = 0, c; c = a.childNodes[b]; b++) 
+            "arg" == c
+                .nodeName
+                .toLowerCase() && this
+                .arguments_
+                .push(c.getAttribute("name"));
+        this.updateParams_();
+        Blockly
+            .Procedures
+            .mutateCallers(this);
+        this.setStatements_("false" !== a.getAttribute("statements"))
+    },
+  //decompose: Blockly.Blocks['procedures_defnoreturn'].decompose,
+  decompose        : function (a) {
+        var b = a.newBlock("rule_create_join_container");
+        b.initSvg();
+        this.getInput("RETURN")
+            ? b.setFieldValue(
+                this.hasStatements_
+                    ? "TRUE"
+                    : "FALSE",
+                "STATEMENTS"
+            )
+            : b
+                .getInput("STATEMENT_INPUT")
+                .setVisible(!1);
+        for (
+            var c = b.getInput("STACK").connection,
+            d     = 0;
+            d < this.arguments_.length;
+            d++
+        ) {
+            var e = a.newBlock("rule_create_join_item");
+            e.initSvg();
+            e.setFieldValue(this.arguments_[d], "NAME");
+            e.oldLocation = d;
+            c.connect(e.previousConnection);
+            c = e.nextConnection
+        }
+        Blockly
+            .Procedures
+            .mutateCallers(this);
+        return b
+    },
+  //compose: Blockly.Blocks['procedures_defnoreturn'].compose,
+  compose          : function (a) {
+        this.arguments_ = [];
+        this.paramIds_  = [];
+        for (var b = a.getInputTargetBlock("STACK"); b;) 
+            this
+                .arguments_
+                .push(b.getFieldValue("NAME")),
+            this
+                .paramIds_
+                .push(b.id),
+            b = b.nextConnection && b
+                .nextConnection
+                .targetBlock();
+        this.updateParams_();
+        Blockly
+            .Procedures
+            .mutateCallers(this);
+        a = a.getFieldValue("STATEMENTS");
+        if (null !== a && (a = "TRUE" == a, this.hasStatements_ != a)) 
+            if (a) 
+                //this.setStatements_(!0),
+                Blockly
+                    .Mutator
+                    .reconnect(this.statementConnection_, this, "STACK"),
+                this.statementConnection_ = null;
+            else {
+                a = this
+                    .getInput("STACK")
+                    .connection;
+                if (this.statementConnection_ = a.targetConnection) 
+                    a = a.targetBlock(),
+                    a.unplug(),
+                    a.bumpNeighbours_();
+                this.setStatements_(!1)
+            }
+        },
+  /**
+   * Return the signature of this procedure definition.
+   * @return {!Array} Tuple containing three elements:
+   *     - the name of the defined procedure,
+   *     - a list of all its arguments,
+   *     - that it DOES have a return value.
+   * @this Blockly.Block
+   */
+  getProcedureDef: function() {
+    return [this.getFieldValue('NAME'), this.arguments_, true];
+  },
+  //getVars: Blockly.Blocks['procedures_defnoreturn'].getVars,
+  //renameVar: Blockly.Blocks['procedures_defnoreturn'].renameVar,
+  customContextMenu: Blockly.Blocks['procedures_defnoreturn'].customContextMenu,
+  //callType_: 'procedures_callreturn'
+  callType_: 'procedures_call2'
 };
 
 Blockly.Blocks['rule_create_join_container'] = {

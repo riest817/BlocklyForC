@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108356932-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-108356932-1');
+</script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Blockly for C</title>
+<link rel="shortcut icon" href="favicon.png" type="image/png"/>
+<script src="Library/blockly/blockly_compressed.js"></script>
+<script src="Library/blockly/blocks_compressed.js"></script>
+
+<script src="MyGenerators/c.js"></script>
+<script src="MyGenerators/c/colour.js"></script>
+<script src="MyGenerators/c/lists.js"></script>
+<script src="MyGenerators/c/logic.js"></script>
+<script src="MyGenerators/c/loops.js"></script>
+<script src="MyGenerators/c/math.js"></script>
+<script src="MyGenerators/c/procedures.js"></script>
+<script src="MyGenerators/c/start.js"></script>
+<script src="MyGenerators/c/text.js"></script>
+<script src="MyGenerators/c/variables.js"></script>
+
+<!--(19/10/16 追加)-->
+<script src="MyGenerators/python.js"></script>
+<script src="MyGenerators/python/math.js"></script>
+<!--(19/10/16 追加ここまで)-->
+
+<script src="MyBlocks/logic.js"></script>
+
+<link rel="stylesheet" href="codeMirror/codemirror.css">
+<script src="codeMirror/codemirror.js"></script>
+<script src="codeMirror/clike.js"></script>
+<!-- 自作 -->
+<script src="QuizBlocks/quiz.js"></script>
+<script src="QuizBlocks/logic.js"></script>
+<script src="QuizBlocks/text.js"></script>
+<script src="QuizBlocks/variables.js"></script>
+<script src="QuizBlocks/loop.js"></script>
+<script src="QuizBlocks/start.js"></script>
+
+
+<script src="Quiz.js"></script>
+<!-- -->
+<script src="Library/blockly/demos/prettify.js"></script>
+<script src="Library/blockly/msg/js/ja.js"></script>
+<script src="Library/blockly/appengine/storage.js"></script>
+<link rel="stylesheet" type="text/css"
+   href="Library/blockly/demos/prettify.css">
+<!--<script src="myCBlocks.js"></script> -->
+<script src="Library/jquery-2.2.4.min.js"></script>
+<script src="Library/jquery.query.js"></script>
+<script src="Library/intro.js"></script>
+<link rel="stylesheet"
+   href="Library/introjs.css"/>
+<style>
+  html, body {
+   height: 100%;
+   margin: 0;
+  }
+  body {
+   font-family: sans-serif;
+   overflow: hidden;
+  }
+  table {
+   height: 100%;
+   width: 100%;
+   border-collapse: collapse;
+   margin: 0;
+   padding: 0;
+   border: none;
+  }
+
+  /* Tabs */
+  #tabRow>td {
+   border: 1px solid #ccc;
+   border-bottom: none;
+  }
+  td.tabon {
+   border-bottom-color: #ddd !important;
+   background-color: #ddd;
+   padding: 5px 19px;
+  }
+  td.taboff {
+   cursor: pointer;
+   padding: 5px 19px;
+  }
+  td.taboff:hover {
+   background-color: #eee;
+  }
+  td.tabmin {
+   border-top-style: none !important;
+   border-left-style: none !important;
+   border-right-style: none !important;
+  }
+  td.tabmax {
+   border-top-style: none !important;
+   border-left-style: none !important;
+   border-right-style: none !important;
+   width: 99%;
+   padding-left: 10px;
+   padding-right: 10px;
+   text-align: right;
+  }
+  .content {
+   visibility: hidden;
+   margin: 0;
+   padding: 1ex;
+   position: absolute;
+   direction: ltr;
+  }
+  pre.content {
+   border: 1px solid #ccc;
+   overflow: scroll;
+  }
+  div.content {
+   border: 1px solid #ccc;
+   overflow: scroll;
+  }
+
+  .button_like {
+   font-size: 70%;
+   font-family: 'Segoe UI Emoji';
+   padding: 3px 5px 3px 5px;
+   text-align: center;
+   text-decoration: none;
+   border: 2px solid;
+   border-color: #aaaaaa #444444 #444444 #aaaaaa;
+   background: #dddddd;
+  }
+
+  .button_like:hover{
+   background:#ccddff;
+   border-color: #aaaacc #444466 #444466 #aaaacc;
+  }
+  /* モーダル コンテンツエリア */
+  #modalWindow {
+   display: none;
+   width: 500px;
+   height: 300px;
+   margin: 0;
+   padding: 0;
+   background-color: #ffffff;
+   color: #666666;
+   position:fixed;
+   z-index: 2;
+  }
+  #modaltext1 {
+    text-align: center;
+  }
+  #closeButton {
+    position: absolute;
+    top: 250px;
+    left: 350px;
+  }
+  /* モーダル 背景エリア */
+  #modal-bg {
+   display:none;
+   width:100%;
+   height:100%;
+   background-color: rgba(0,0,0,0.5);
+   position:fixed;
+   top:0;
+   left:0;
+   z-index: 1;
+  }
+</style>
+</head>
+<body>
+
+<table>
+<tr>
+  <td>
+    <table width='100%'>
+     <tr id="tabRow" height="1em">
+      <td id="tabBlocks" class="tabon" style="white-space:nowrap;" data-step="1" data-intro="このタブをクリックして、ブロックの編集をはじめます。" Onclick="ga('send', 'event', 'block click', 'click', 'block', true);">ブロック</td>
+      <td class="tabmin">&nbsp;</td>
+      <td id="tabC" class="taboff" style="white-space:nowrap;" data-step="2" data-intro="ここでC言語のソースコードを入力します" Onclick="ga('send', 'event', 'C click', 'click', 'C', true);">C</td>
+      <td class="tabmin">&nbsp;</td>
+      <td id="tabPython" class="taboff" style="white-space:nowrap;" data-step="2" data-intro="ここでPython言語のソースコードを入力します" Onclick="ga('send', 'event', 'Python click', 'click', 'Python', true);">Python</td>
+      <td class="tabmin">&nbsp;</td>
+            <td id="tabQuiz" class="taboff" style="white-space:nowrap;" data-step="4" data-intro="ここで問題文の確認ができます" Onclick="ga('send', 'event', 'quiz click', 'click', 'quiz', true);">Quiz</td>
+      <td class="tabmin">&nbsp;</td>
+      <td id="tabXml" class="taboff" style="font-family:'Segoe UI Emoji'; white-space:nowrap;" data-step="3" data-intro="このタブをクリックして、ソースコードが変換されているか確認できます" onclick="ga('send', 'event', 'xml click', 'click', 'xml', 1);">XML</td>
+      <td class="tabmax">
+       <a href="#" id="run" title="実行" class="button_like">▶️</a>
+       <a href="#" id="intro" title="ヘルプ" class="button_like">&#x2753;</a>
+       <a href="#" id="openButton" title="読込み" class="button_like" data-step="6"
+             data-intro="保存したプログラムを読み込みます。">&#x1f4c2;</a>
+       <input type="file" id="openButtonAux" name="openButtonAux" style="display:none;" />
+       <a href="#" id="saveButton" download="blocks.xml" title="保存" class="button_like" data-step="5"
+             data-intro="プログラムを保存します。">&#x1f4be;</a>
+       <a href="#" id="resetButton" title="リセット" class="button_like" data-step="7"
+             data-intro="これまでの変更を捨てて、最初のプログラムに戻します。">&#x21bb;</a>
+      </td>
+     </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+ <td id="blocklyArea" style='border: 0pt; height: 99%;'>
+ </td>
+</tr>
+</table>
+<div id="contentBlock" style="position: absolute;"></div>
+<div id="contentC"></div>
+<div id="contentPython"></div>
+<textarea id="contentXml" class="content" wrap="off"></textarea>
+<div id="contentQuiz" class="content" style="position: absolute;"></div>
+<form id="form_1" action="./getpage" method="post" accept-charset="utf-8" return false>
+</form>
+<div id="modalWindow">
+  <p id="modaltext1">テキスト</p>
+  <button id="closeButton">閉じる</button>
+</div>
+
+<xml id="startBlocks" style="display: none;">
+</xml>
+
+<script>
+var tabs = ["Blocks", "C", "Python","Xml", "Quiz"];
+var selected = tabs[0];
+var draw;
+var workspace = null;
+var param = "0000";
+var match = location.search.match(/param=(.*?)(&|$)/);
+if(match) {
+ param = decodeURIComponent(match[1]);
+}
+console.log(tabs);
+console.log(param);
+
+console.log(ReturnStartBlocks(Number(param)));
+document.write(ReturnXML(Number(param)));
+
+var cEditor = CodeMirror(function(elt) {
+  $("#contentC").append($(elt));
+}, {mode: "text/x-csrc",lineNumbers: true, matchBrackets: true});
+
+var pythonEditor = CodeMirror(function(elt) {
+  $("#contentPython").append($(elt));
+}, {mode: "text/x-csrc",lineNumbers: true, matchBrackets: true});
+
+function modalResize(){
+  // ウィンドウの横幅、高さを取得
+  var w = $(window).width();
+  var h = $(window).height();
+
+  // モーダルコンテンツの横幅、高さを取得
+  var mw = $(modal).outerWidth(true);
+  var mh = $(modal).outerHeight(true);
+
+  // モーダルコンテンツの表示位置を設定
+  if ((mh > h) && (mw > w)) {
+    $(modal).css({'left': 0 + 'px','top': 0 + 'px'});
+  } else if ((mh > h) && (mw < w)) {
+    var x = (w - scrollsize - mw) / 2;
+    $(modal).css({'left': x + 'px','top': 0 + 'px'});
+  } else if ((mh < h) && (mw > w)) {
+    var y = (h - scrollsize - mh) / 2;
+    $(modal).css({'left': 0 + 'px','top': y + 'px'});
+  } else {
+    var x = (w - mw) / 2;
+    var y = (h - mh) / 2;
+    $(modal).css({'left': x + 'px','top': y + 'px'});
+  }
+}
+
+function onResize() {
+  var area = $("#blocklyArea");
+  var divs = [ $("#contentBlock"), $("#contentC"), $("#contentPython"), $("#contentXml"), $("#contentQuiz")];
+
+  var width = area.width();
+  var height = area.height();
+  var offset = area.offset();
+  for (var i = 0; i < divs.length ; i++) {
+    var div = divs[i];
+    div.height(height);
+    div.width(width);
+    div.offset(offset);
+  }
+}
+
+$(window).on('load resize', onResize);
+
+function renderContent(clickedName) {
+ var content = $("#content" + clickedName);
+ if (clickedName == "Xml") {
+   //contentCtoXMLの値が空か
+     if ( cEditor.getDoc().getValue() == "") {
+       console.log("!!!!");
+       var xmlDom = Blockly.Xml.workspaceToDom(workspace);
+       var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+       content.val(xmlText);
+     } else {
+    //空でないならC言語のソースコードが入ってると仮定してXMLに変換する処理を行う
+    $.ajax({
+        url:'http://platy.eng.kagawa-u.ac.jp/Wai/c2blockly',
+        type:'POST',
+        data:{ source: cEditor.getDoc().getValue() },
+        dataType: 'text'
+    })
+    .done(function(data){
+      //contentCtoXMLの値がC言語のソースコードだった場合にXMLをcontent.valに渡す
+        //content.val(data);
+
+        //console.log(Blockly.Xml.textToDom(data));
+        //Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(data), workspace);
+        //var xmlDom = Blockly.Xml.workspaceToDom(workspace);
+        if (data) {
+          console.log("xmlDom");
+          console.log(data);
+          data = conStr(data);
+          var xmlDom = Blockly.Xml.textToDom(data);
+          var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+          content.val(xmlText);
+          console.log(data);
+          console.log(workspace);
+        }
+    })
+    .fail(function(){
+      //contentCtoXMLの値がC言語のソースコードではなかった場合(もしくはCtoXMLがうまく処理をしなかった場合)エラーを返す
+      //content.val("Error!");
+      window.alert("文法エラーがあります");
+    });
+   }
+ }   else if (clickedName == "Blocks") {
+           console.log("!");
+     if ( cEditor.getDoc().getValue() != "") {
+
+               console.log("!!!!");
+    //空でないならC言語のソースコードが入ってると仮定してXMLに変換する処理を行う
+    $.ajax({
+        url:'http://platy.eng.kagawa-u.ac.jp/Wai/c2blockly',
+        type:'POST',
+        data:{ source: cEditor.getDoc().getValue() },
+        dataType: 'text'
+    })
+    .done(function(data){
+      //contentCtoXMLの値がC言語のソースコードだった場合にXMLをcontent.valに渡す
+        //$('#contentXml').val(data);
+        if (data) {
+          console.log("CのCtoXML")
+          workspace.clear();
+          console.log(data);
+          data = data.replace(/\\\a/g,'\\a')
+             .replace(/\\\\b/g,'\\b')
+             .replace(/\\\\n/g,'\\n')
+             .replace(/\\\\r/g,'\\r')
+             .replace(/\\\\f/g,'\\f')
+             .replace(/\\\\t/g,'\\t')
+             .replace(/\\\\v/g,'\\v')
+             .replace(/\\\\/g,'\\')
+
+             .replace(/\\\\'/g,'\'')
+             .replace(/\\\\"/g,'\\"')
+             .replace(/\\\\0/g,'\\0');
+          console.log(data);
+          var xmlDom = Blockly.Xml.textToDom(data);
+          //var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+          Blockly.Xml.domToWorkspace(xmlDom, workspace);
+          //$('#contentXml').val(xmlText);
+          console.log(data);
+        }
+    })
+    .fail(function(){
+      //contentCtoXMLの値がC言語のソースコードではなかった場合(もしくはCtoXMLがうまく処理をしなかった場合)エラーを返す
+      //content.val("Error!");
+      window.alert("文法エラーがあります");
+    });
+  }
+} else if (clickedName == "C") {
+  console.log("C", workspace.getTopBlocks(!0)[0]);
+  var code = Blockly.C.workspaceToCode(workspace);
+  console.log(code);
+  cEditor.getDoc().setValue(code);
+} else if (clickedName == "Python") {
+  console.log("Python", workspace.getTopBlocks(!0)[0]);
+  var code = Blockly.Python.workspaceToCode(workspace);
+  console.log(code);
+  pythonEditor.getDoc().setValue(code);
+} else if (clickedName == "Quiz") {
+  data = ReturnQuestionNumber(param);
+  content.html(data);
+} else if (clickedName == "CtoXML") {
+  data = "";
+  content.html(data);
+} else if (clickedName == "PythontoXML") {
+  data = "";
+  content.html(data);
+ }
+
+}
+
+function loadBlocks(defaultXml) {
+ try {
+  var loadOnce = window.sessionStorage.loadOnceBlocks;
+ } catch(e) {
+  // Firefox sometimes throws a SecurityError when accessing sessionStorage.
+  // Restarting Firefox fixes this, so it looks like a bug.
+  var loadOnce = null;
+ }
+ if ('BlocklyStorage' in window && window.location.hash.length > 1) {
+  // An href with #key trigers an AJAX call to retrieve saved blocks.
+  BlocklyStorage.retrieveXml(window.location.hash.substring(1));
+ } else if (loadOnce) {
+  // Language switching stores the blocks during the reload.
+  delete window.sessionStorage.loadOnceBlocks;
+  var xml = Blockly.Xml.textToDom(loadOnce);
+  Blockly.Xml.domToWorkspace(xml, workspace);
+ } else if (defaultXml) {
+  // Load the editor with default starting blocks.
+  var xml = Blockly.Xml.textToDom(defaultXml);
+  Blockly.Xml.domToWorkspace(xml, workspace);
+ } else if ('BlocklyStorage' in window) {
+  // Restore saved blocks in a separate thread so that subsequent
+  // initialization is not affected from a failed load.
+  window.setTimeout(BlocklyStorage.restoreBlocks, 0);
+ }
+};
+
+function tabClick(clickedName) {
+ // If the XML tab was open, save and render the content.
+ if ($("#tabXml").hasClass('tabon')) {
+  var xmlTextarea = $('#contentXml');
+  var xmlText = xmlTextarea.val();
+  var xmlDom = null;
+  try {
+   xmlDom = Blockly.Xml.textToDom(xmlText);
+  } catch (e) {
+   var q = window.confirm(MSG['badXml'].replace('%1', e));
+   if (!q) {
+    // Leave the user on the XML tab.
+    return;
+   }
+  }
+  if (xmlDom) {
+   workspace.clear();
+   Blockly.Xml.domToWorkspace(xmlDom, workspace);
+  }
+ }
+
+ if ($("#tabBlocks").hasClass('tabon')) {
+  workspace.setVisible(false); // 前回使用したブロックを保存しておくかどうか trueなら保存しない falseなら保存する (と思ってたが、他のタブ開いた時もブロックを表示するかどうか、が正しい)
+  //defaultXmlの値は他のURLのパラメータを利用して他の.jsから参照する
+  //var defaultXml ="<xml xmlns=\"http://www.w3.org/1999/xhtml\"><block type=\"controls_repeat_ext\" id=\"a73uT+GT]p~(n.zxvzG*\" x=\"116\" y=\"51\"><value name=\"TIMES\"><shadow type=\"math_number\" id=\"$U1nNK_T#Uu/EYydOfd!\"><field name=\"NUM\">10</field></shadow></value>";
+  //loadBlocks(defaultXml);
+ }
+
+ // Deselect all tabs and hide all panes.
+ for (var i = 0; i < tabs.length; i++) {
+  var name = tabs[i];
+  $('#tab' + name).removeClass('tabon');
+  $('#tab' + name).addClass('taboff');
+  $('#content' + name).css("visibility", 'hidden');
+ }
+
+ // Select the active tab.
+ selected = clickedName;
+ $('#tab' + clickedName).removeClass('taboff');
+ $('#tab' + clickedName).addClass('tabon');
+ $('#content' + clickedName).css("visibility", 'visible');
+
+ renderContent(clickedName);
+
+ if (clickedName == 'Blocks') {
+  workspace.setVisible(true);
+ }
+ Blockly.svgResize(workspace);
+}
+
+$(function() {
+  workspace = Blockly.inject('contentBlock',
+    { toolbox: document.getElementById('toolbox'),
+     zoom: { controls: true, wheel: true, startScale: 1.0, maxScale: 3, minScale: 0.3, scaleSpeed: 1.2 }
+    });
+    var startBlocksData = Blockly.Xml.textToDom(ReturnStartBlocks(Number(param)));
+    console.log(startBlocksData);
+    Blockly.Xml.domToWorkspace(startBlocksData, workspace);
+  //ここでブロックを更新しても保存したままにしておくかどうかやってそう
+  //BlocklyStorage.backupOnUnload(workspace);
+
+//  workspace.addChangeListener(Blockly.Events.disableOrphans);
+
+  var clean = $.query.get("clean");
+  if (clean != null && (clean.toLowerCase() == "true" || clean.toLowerCase() == "yes")) {
+    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspace);
+  } else {
+    window.setTimeout(function () {
+//      BlocklyStorage.restoreBlocks(workspace);
+       var url = window.location.href.split('#')[0];
+       if ('localStorage' in window) {
+        var memo = window.localStorage[url];
+        if (memo) {
+          var xml = Blockly.Xml.textToDom(memo);
+          if (xml.hasChildNodes()) {
+            Blockly.Xml.domToWorkspace(xml, workspace);
+            return;
+          }
+          // xml が空だったら続行する
+        }
+       }
+       var xmlUrl = $.query.get("url");
+       if (xmlUrl) {
+       	$.ajax({ url: xmlUrl, dataType: "text" }).done(function(data) {
+       	  var xml = Blockly.Xml.textToDom(data);
+       	  Blockly.Xml.domToWorkspace(xml, workspace);
+       	});
+       } else {
+        Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspace);
+       }
+    }, 0);
+  }
+/*
+  $("#run").click(function() {
+   var code = Blockly.C.workspaceToCode(workspace);
+   var answer = ReturnQuestionAnswer(param);
+
+   if (code == answer) { alert("true"); }
+   else { alert("false"); }
+  // return false;
+ });*/
+
+ //テキストリンクをクリックしたら
+ $("#run").click(function(){
+  //body内の最後に<div id="modal-bg"></div>を挿入
+  $("body").append('<div id="modal-bg"></div>');
+   //画面中央を計算する関数を実行
+   modalResize();
+   //モーダルウィンドウを表示
+   $("#modal-bg,#modalWindow").fadeIn("slow");
+   //画面のどこかをクリックしたらモーダルを閉じる
+   $("#modal-bg,#modalWindow").click(function(){
+     $("#modalWindow,#modal-bg").fadeOut("slow",function(){
+       //挿入した<div id="modal-bg"></div>を削除
+       $('#modal-bg').remove();
+     });
+    });
+    //画面の左上からmodalWindowの横幅・高さを引き、その値を2で割ると画面中央の位置が計算できます
+  $(window).resize(modalResize);
+  function modalResize(){
+    var w = $(window).width();
+    var h = $(window).height();
+    var cw = $("#modalWindow").outerWidth();
+    var ch = $("#modalWindow").outerHeight();
+   //取得した値をcssに追加する
+     $("#modalWindow").css({
+       "left": ((w - cw)/2) + "px",
+       "top": ((h - ch)/2) + "px"
+     });
+   }
+   var code = Blockly.C.workspaceToCode(workspace);
+   var answer = ReturnQuestionAnswer(param);
+   var modalElem = document.getElementById("modaltext1");
+
+   if (code == answer) { modalElem.innerHTML = "true"; }
+   else { modalElem.innerHTML = "false"; }
+});
+
+  $("#intro").click(function() {
+//   alert("intro");
+   var tour = introJs();
+   tour.setOption('tooltipPosition', 'auto');
+   tour.start();
+   return false;
+  });
+
+  $("#saveButton").click(function() {
+    var xmlText;
+    if ($('#tabXml').hasClass('tabon')) {
+      xmlText = $('#contentXml').val();
+    } else {
+      var xmlDom = Blockly.Xml.workspaceToDom(workspace);
+      xmlText   = Blockly.Xml.domToPrettyText(xmlDom);
+    }
+    var blob  = new Blob([xmlText], { type: 'text/xml' });
+    $("#saveButton").attr('href', window.URL.createObjectURL(blob));
+  });
+
+  $("#openButton").click(function() {
+   $("#openButtonAux").click();
+   return false;
+  });
+
+  $("#openButtonAux").change(function(evt) {
+    var f = evt.target.files[0];
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+     var xmlText = e.target.result;
+     $("contentXml").val(xmlText);
+     if (!$('#tabXml').hasClass('tabon')) {
+      try {
+       xmlDom = Blockly.Xml.textToDom(xmlText);
+      } catch (e) {
+       var q =
+         window.confirm(MSG['badXml'].replace('%1', e));
+       if (!q) {
+        // Leave the user on the XML tab.
+        return;
+       }
+      }
+      if (xmlDom) {
+       workspace.clear();
+       Blockly.Xml.domToWorkspace(xmlDom, workspace);
+      }
+     }
+    };
+    reader.readAsText(f);
+
+  });
+
+  $("#resetButton").click(function () {
+    var q = window.confirm("編集したプログラムを捨てて、最初の内容に戻します。よろしいですか？");
+    if (!q) return;
+    var xmlUrl = $.query.get("url");
+    if (xmlUrl) {
+     $.ajax({ url: xmlUrl, dataType: "text" }).done(function(data) {
+       workspace.clear();
+       var xml = Blockly.Xml.textToDom(data);
+       Blockly.Xml.domToWorkspace(xml, workspace);
+     });
+    } else {
+      workspace.clear();
+      Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'), workspace);
+    }
+  });
+
+  onResize();
+  Blockly.svgResize(workspace);
+
+  // 無理やりフォントを変更する。
+  var cssNode = document.createElement('style');
+  document.head.appendChild(cssNode);
+  var text = ".blocklyText {"
+   	   + " cursor: default;"
+   	   + " fill: #fff;"
+   	   + " font-family: 'Segoe UI Symbol';"
+   	   + " font-size: 11pt;"
+   	   + "}";
+  var cssTextNode = document.createTextNode(text);
+  cssNode.appendChild(cssTextNode);
+
+  tabClick(selected);
+  for (var i = 0; i < tabs.length; i++) {
+    var name = tabs[i];
+    $("#tab" + name).click(function(name_) { return function() { tabClick(name_); }; }(name));
+  }
+});
+</script>
+</body>
+</html>
