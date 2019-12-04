@@ -58,7 +58,7 @@
 <section>
 
 <h2>ブロックの組み立て方(Haskell編)</h2>
-<p>Coming Soon...</p>
+<p>下図は、Blockly for Haskell のワークスペースにブロックが何も組み立てられていない初期状態です。</p>
 <img src="images/haskell/haskell_first.PNG" alt="" class="img">
 <p></p>
 <p>以下のHaskellコードをBlocklyで組み立てます。</p>
@@ -67,9 +67,59 @@
 
 <h2>haskellコードをBlocklyで組み立てる手順</h2>
 
-<p><strong class="color1">①</strong></br>
-あああ</p>
+<p><strong class="color1">①mainブロックとdoブロックの設置</strong></br>
+ブロックメニュー部の制御カテゴリをクリックして、その一番上のブロックをワークスペース部にドラッグします。</p>
+<img src="images/haskell/1step.PNG" alt="" width="50%" height="50%">
+<p></p>
 
+<p><strong class="color1">②printブロックの接続</strong></br>
+ブロックメニュー部のテキストカテゴリをクリックして、その上から4番目のブロックをワークスペース部にドラッグします(左図)。
+それらのブロックをさきほど手順①でワークスペース部に配置したdoブロックの右部分に接続します(右図)。</p>
+<img src="images/haskell/2step.PNG" alt="" >
+<p></p>
+
+<p><strong class="color1">③関数fooブロックの用意</strong></br>
+ブロックメニュー部の関数カテゴリをクリックして、その上から2番目のブロックをワークスペース部にドラッグします。そして、入力フォームの部分をfooに書き換えます(左図)。
+それらのブロックをさきほど手順①でワークスペース部に配置したmainブロックの上部分に接続します(右図)。</p>
+<img src="images/haskell/3step.PNG" alt="" >
+<p></p>
+
+<p><strong class="color1">④関数fooブロックの引数設定</strong></br>
+さきほど設置した関数fooブロックの歯車マークをクリックすると左図のような小さなブロックメニュー部とワークスペース部が表示されます。
+その小さなブロックメニュー部の引数ブロックを小さなワークスペース部の引数列ブロックに接続します。すると、関数fooブロックの左辺にソケット(穴)が１つ増えたことが確認できます。(右図)。</p>
+<img src="images/haskell/4step.PNG" alt="" >
+<p></p>
+
+<p><strong class="color1">⑤リスト内表表記ブロックの接続</strong></br>
+ブロックメニュー部のリスト内包表記カテゴリの一番上のリスト内包表記ブロック1つと上から2番目パターン束縛ブロックを2つ取り出します。
+リスト内包表記ブロックを関数fooブロックの右ソケットに接続します(左図)。
+次に、パターン束縛2つをリストブロックの内側に接続します(右図)。</p>
+<img src="images/haskell/5step.PNG" alt="" >
+<p></p>
+
+<p><strong class="color1">⑥リストブロックの接続</strong></br>
+ブロックメニュー部のリスト(基本)カテゴリの上から3番目のリスト組ブロック1つと上から6番目のパターン範囲ブロックを2つ取り出します。
+リスト組ブロックをリスト内表表記ブロックのソケットに接続します。(左図)。
+次に、パターン範囲ブロック2つをそれぞれパターン束縛ブロックの右のソケットに接続します(右図)。</p>
+<img src="images/haskell/6step.PNG" alt="" width="50%" height="50%">
+<p></p>
+
+<p><strong class="color1">⑦変数ブロックの接続</strong></br>
+ブロックメニュー部の変数カテゴリの一番上の「変数の作成...」をクリックすると、画面の中央に入力フォームが出現します。
+そこに「x」と「y」と「n」をそれぞれ記入します。すると、ブロックメニュー部の変数カテゴリに右図のようなブロックが用意されます。
+そして右図のようにそれぞれのソケットに適当な数の変数ブロックを接続していきます。</p>
+<img src="images/haskell/7step.PNG" alt="" >
+<p></p>
+
+<p><strong class="color1">⑧関数foo呼び出しブロックと定数ブロック接続</strong></br>
+ブロックメニュー部の関数カテゴリの一番下にある関数foo呼び出しブロックを取り出してprintブロックのソケットに接続します(左図)。
+次に、ブロックメニュー部の数カテゴリの一番上にある定数ブロックを2つ取り出して、それぞれのブロックの入力フォームに「0」と「6」を入力して、残りの空いている2か所のソケットに右図のように接続します。</p>
+<img src="images/haskell/8step.PNG" alt="" >
+<p></p>
+
+<h2>ブロックの完成図</h2>
+<p>下図は、前項の手順で組み立てたワークスペース部の完成図です。</p>
+<img src="images/flex/finish_workspace.PNG" alt="" class="img">
 <p></p>
 
 <h3 class="color1">
@@ -88,10 +138,7 @@ NEXT ⇒ <a href="tab.html">3.タブの構成</a>
 <h2>Menu</h2>
 <ul class="submenu">
 <li><a href="tutorial.html">1.システムの概要図と構成</a></li>
-<li><a href="tutorial_c.html">2-1.Cの組み立て方</a></li>
-<li><a href="tutorial_js.html">2-2.JavaScriptの組み立て方</a></li>
-<li><a href="tutorial_haskell.html">2-3.Haskellの組み立て方</a></li>
-<li><a href="tutorial_flex.html">2-4.Flexの組み立て方</a></li>
+<li><a href="tutorial_block.html">2.ブロックの組み立て方</a></li>
 <li><a href="tab.html">3.タブの構成</a></li>
 <li><a href="sample_button.html">4.サンプルボタン</a></li>
 <li><a href="languageMenu.html">5.表記切り替え機能</a></li>

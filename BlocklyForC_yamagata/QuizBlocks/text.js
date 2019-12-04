@@ -494,7 +494,12 @@ Blockly.Python['quiz_scanf2'] = function(block) {
   var dropdown_type = block.getFieldValue('TYPE');
   var variable_var = Blockly.Python.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   // TODO: Assemble JavaScript into code variable.
-  var code = 'input(\'' + dropdown_type + '\', ' + variable_var + ')\n';
+  var type;
+  if (dropdown_type == 'INT') { type = 'int'; }
+  else if (dropdown_type == 'DOUBLE') { type = 'double'; }
+  else if (dropdown_type == 'STR') { type = 'string'; }
+  else if (dropdown_type == 'CHAR') { type = 'char'; }
+  var code = variable_var + ' = ' + type + '(input())\n';
   return code;
 };
 
@@ -1202,16 +1207,22 @@ Blockly.Python['output_auto'] = function(block) {
   // Text value.
   var arr = new Array(block.itemCount_);
   var text_input = block.getFieldValue('TEXT');
-  var code = 'print(\''+ text_input;
+  var code = 'print(';
 
   for (var n = 0; n < block.itemCount_; n++) {
     arr[n] = Blockly.Python.valueToCode(block, 'ADD' + n,  Blockly.Python.ORDER_NONE);
   }
+  var text_arr = text_input.split('%');
 
+  code += '\'' + text_arr[0] + '\'';
   for (n = 0; n < block.itemCount_; n++) {
     code += ', ' + arr[n];
+    if ( text_arr[n+1].slice(1).length > 0 ) { 
+      text_arr[n+1] = text_arr[n+1].slice(1);
+      code += ', \'' + text_arr[n+1] + '\''; 
+    }
   }
-  code += '\')\n';
+  code += ')\n';
 
   return code;
 };

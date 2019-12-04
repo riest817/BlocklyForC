@@ -119,9 +119,9 @@ Blockly.Python.init = function(workspace) {
       defvars[i] = Blockly.Python.variableDB_.getName(variables[i],
           Blockly.Variables.NAME_TYPE);
     }
-    Blockly.Python.definitions_['variables'] = 'int ' + defvars.join(', ') + '';  //2017/02/05  コメントアウト解除
+    //Blockly.Python.definitions_['variables'] = 'int ' + defvars.join(', ') + '';  //2019/11/14  コメントアウト
   }
-  //Blockly.Python.definitions_['header_container_c'];  // 2017/11/15  追加
+
 };
 
 /**
@@ -187,9 +187,9 @@ Blockly.Python.scrub_ = function(block, code) {
     if (comment) {
       if (block.getProcedureDef) {
         // 関数コメントにコメントブロックを使用する.
-        commentCode += '/**\n' +
+        commentCode += '"""\n' +
                        Blockly.Python.prefixLines(comment + '\n', ' * ') +
-                       ' */\n';
+                       '"""\n';
       } else {
         commentCode += Blockly.Python.prefixLines(comment + '\n', '// ');
       }

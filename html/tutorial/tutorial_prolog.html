@@ -1,0 +1,172 @@
+<!--
+19/05/15 新規作成
+-->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Blocklyの使い方</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Blocklyのデモを行います。">
+<meta name="keywords" content="Blockly Demo">
+<link rel="stylesheet" href="../css/style.css">
+<script type="text/javascript" src="../js/openclose.js"></script>
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+
+<header>
+<div class="inner">
+<h1 id="logo"><a href="../../index.html"><img src="../images/logo4.PNG" alt="Blockly Demo"></a></h1>
+<div id="contact">
+<p class="tel"><a href="http://ymir.eng.kagawa-u.ac.jp/">香川研究室</a><span>佐野</span></p>
+</div>
+</div>
+</header>
+
+<!--PC用（801px以上端末）メニュー-->
+<nav id="menubar">
+<ul class="inner">
+<li><a href="../../index.html">Home</a></li>
+<li  class="current"><a href="tutorial.html">Tutorial</a></li>
+<li><a href="../link.html">Link</a></li>
+<li><a href="../form.html">Contact</a></li>
+</ul>
+</nav>
+<!--小さな端末用（800px以下端末）メニュー-->
+<nav id="menubar-s">
+<ul>
+<li><a href="../../index.html">Home</a></li>
+<li class="current"><a href="../tutorial.html">Tutorial</a></li>
+<li><a href="../link.html">Link</a></li>
+<li><a href="../form.html">Contact</a></li>
+</ul>
+</nav>
+
+
+<div class="contents">
+<div class="inner">
+
+<section>
+
+<div class="main">
+<section>
+
+<h2>ブロックの組み立て方(Prolog編)</h2>
+<p>下図は、Blockly for Haskell のワークスペースにブロックが何も組み立てられていない初期状態です。</p>
+<img src="images/prolog/prolog_first.PNG" alt="" class="img">
+<p></p>
+<p>以下のPrologコードをBlocklyで組み立てます。</p>
+<img src="images/prolog/prolog_code_index.PNG" alt="" class="img">
+<p></p>
+
+<h2>PrologコードをBlocklyで組み立てる手順</h2>
+
+<p><strong class="color1">①述語定義ブロックの設置と引数の設定</strong></br>
+ブロックメニュー部の述語カテゴリをクリックして、その一番上のブロックと上から2番目のブロックをワークスペース部にドラッグします。
+そして、それぞれの入力フォームに「myAppend」と入力します(左図)。<br>
+次に、ブロックの左上部の歯車マークをクリックすると、小さなブロックメニュー部とワークスペース部が表示されます。
+その小さなブロックメニュー部の引数ブロックを小さなワークスペース部の引数列ブロックに接続します。すると、述語定義ブロックの左辺にソケット(穴)が１つ増えたことが確認できます。(右図)。</p>
+<img src="images/prolog/1step.PNG" alt="">
+<p></p>
+
+<p><strong class="color1">②質問ブロックの設置</strong></br>
+ブロックメニュー部の質問カテゴリをクリックして、その一番上のブロックをワークスペース部にドラッグします。</p>
+<img src="images/prolog/2step.PNG" alt="" width="50%" height="50%">
+<p></p>
+
+<p><strong class="color1">③述語呼び出しブロックの接続</strong></br>
+ブロックメニュー部の述語カテゴリをクリックして、上から3番目の述語呼び出しブロックを2つワークスペース部にドラッグします(左図)。そして、1つのブロックを手順①で配置した上の述語定義ブロックの内側に接続して、もう一つを手順②で配置した質問ブロックの内側に接続します(右図)。</p>
+<img src="images/prolog/3step.PNG" alt="" >
+<p></p>
+
+<p><strong class="color1">④リストブロックの接続</strong></br>
+ブロックメニュー部のリストカテゴリをクリックして、1番上のブロックを1つ、上から2番目のブロックを2つ、一番下のブロックを1つワークスペース部にドラッグします(左図)。そして、右図のように4つのリストブロックを適切な位置のソケットに接続します。</p>
+<img src="images/prolog/4step.PNG" alt="" >
+<p></p>
+
+<p><strong class="color1">⑤定数ブロック接続</strong></br>
+ブロックメニュー部の数カテゴリから定数ブロックを3つワークスペース部に取り出します。そして、それぞれの入力フォームに「1」、「2」、「3」と入力します(左図)。
+次に、右図のように空いたソケットに入力した定数ブロックを接続します。</p>
+<img src="images/prolog/5step.PNG" alt="" >
+<p></p>
+
+<p><strong class="color1">⑥変数ブロックの接続</strong></br>
+ブロックメニュー部の変数カテゴリの一番上の「変数の作成...」をクリックすると、画面の中央に入力フォームが出現します。
+そこに「X」と「Y」と「Z」と「H」をそれぞれ記入します。すると、ブロックメニュー部の変数カテゴリに右図のようなブロックが用意されます。
+そして右図のようにそれぞれのソケットに変数ブロックを接続していきます。</p>
+<img src="images/prolog/6step.PNG" alt="" >
+<p></p>
+
+<h2>ブロックの完成図</h2>
+<p>下図は、前項の手順で組み立てたワークスペース部の完成図です。</p>
+<img src="images/prolog/finish_workspace.PNG" alt="" class="img">
+<p></p>
+
+<h3 class="color1">
+<strong>
+NEXT ⇒ <a href="tab.html">3.タブの構成</a>
+</strong>
+</h3>
+
+</section>
+</div>
+<!--/main-->
+
+<div class="sub">
+
+<nav class="box1">
+<h2>Menu</h2>
+<ul class="submenu">
+<li><a href="tutorial.html">1.システムの概要図と構成</a></li>
+<li><a href="tutorial_block.html">2.ブロックの組み立て方</a></li>
+<li><a href="tab.html">3.タブの構成</a></li>
+<li><a href="sample_button.html">4.サンプルボタン</a></li>
+<li><a href="languageMenu.html">5.表記切り替え機能</a></li>
+<li><a href="contextMenu.html">6.コンテクストメニュー</a></li>
+<li><a href="option.html">7.その他のオプション機能</a></li>
+</ul>
+</nav>
+</div>
+<!--/sub-->
+
+</div>
+<!--/inner-->
+</div>
+<!--/contents-->
+
+
+
+<!--p id="pagetop" class="inner"><a href="#">↑</a></p-->
+
+<footer>
+
+<div id="copyright">
+<small>Copyright&copy; @2018 <a href="http://ymir.eng.kagawa-u.ac.jp/">Kagawa Lab.</a> and Yuya SANO. All Rights Reserved.</small>
+</div>
+
+</footer>
+
+
+<!--スマホ用更新情報　800px以下-->
+<script type="text/javascript">
+if (OCwindowWidth() <= 800) {
+	open_close("newinfo_hdr", "newinfo");
+}
+</script>
+
+<!--メニューの３本バー-->
+<div id="menubar_hdr" class="close"><span></span><span></span><span></span></div>
+<!--メニューの開閉処理条件設定　800px以下-->
+<script type="text/javascript">
+if (OCwindowWidth() <= 800) {
+	open_close("menubar_hdr", "menubar-s");
+}
+</script>
+</body>
+</html>

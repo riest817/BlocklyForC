@@ -359,6 +359,14 @@ Blockly.C['prefix_syntax_first'] = function(block) {
   return code;
 };
 
+Blockly.Python['prefix_syntax_first'] = function(block) {
+  var dropdown_syntax = block.getFieldValue('SYNTAX');
+  var variable_var = Blockly.Python.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  // TODO: Assemble JavaScript into code variable.
+  var code = dropdown_syntax + variable_var + '\n';
+  return code;
+};
+
 //i++; i--;だけに対応
 Blockly.Blocks['postfix_syntax_first'] = {
   init: function() {
@@ -378,6 +386,14 @@ Blockly.C['postfix_syntax_first'] = function(block) {
   var dropdown_syntax = block.getFieldValue('SYNTAX');
   // TODO: Assemble JavaScript into code variable.
   var code = variable_var + dropdown_syntax + ';\n';
+  return code;
+};
+
+Blockly.Python['postfix_syntax_first'] = function(block) {
+  var variable_var = Blockly.Python.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  var dropdown_syntax = block.getFieldValue('SYNTAX');
+  // TODO: Assemble JavaScript into code variable.
+  var code = variable_var + dropdown_syntax + '\n';
   return code;
 };
 
@@ -402,6 +418,15 @@ Blockly.C['postfix_syntax'] = function(block) {
   return [code, Blockly.C.ORDER_NONE];
 };
 
+Blockly.Python['postfix_syntax'] = function(block) {
+  var variable_var = Blockly.Python.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  var dropdown_syntax = block.getFieldValue('SYNTAX');
+  // TODO: Assemble JavaScript into code variable.
+  var code = variable_var + dropdown_syntax;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
 //i = ++x;とかに対応
 Blockly.Blocks['prefix_syntax'] = {
   init: function() {
@@ -421,6 +446,15 @@ Blockly.C['prefix_syntax'] = function(block) {
   var code = dropdown_syntax + variable_var;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.C.ORDER_NONE];
+};
+
+Blockly.Python['prefix_syntax'] = function(block) {
+  var dropdown_syntax = block.getFieldValue('SYNTAX');
+  var variable_var = Blockly.Python.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  // TODO: Assemble JavaScript into code variable.
+  var code = dropdown_syntax + variable_var;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
 Blockly.Blocks['quiz_cast'] = {
@@ -447,6 +481,15 @@ Blockly.C['quiz_cast'] = function(block) {
   return [code, Blockly.C.ORDER_NONE];
 };
 
+Blockly.Python['quiz_cast'] = function(block) {
+  var dropdown_type = block.getFieldValue('TYPE');
+  var value_exp = Blockly.Python.valueToCode(block, 'EXP', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = '(' + dropdown_type + ')' + value_exp;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
 Blockly.Blocks['unop'] = {
   init: function() {
     this.appendDummyInput()
@@ -469,6 +512,14 @@ Blockly.C['unop'] = function(block) {
   return code;
 };
 
+Blockly.Python['unop'] = function(block) {
+  var dropdown_type = block.getFieldValue('TYPE');
+  var variable_var = Blockly.Python.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  // TODO: Assemble JavaScript into code variable.
+  var code = dropdown_type + variable_var + '\n';
+  return code;
+};
+
 Blockly.Blocks['in_unop'] = {
   init: function() {
     this.appendDummyInput()
@@ -484,6 +535,15 @@ Blockly.Blocks['in_unop'] = {
 Blockly.C['in_unop'] = function(block) {
   var dropdown_type = block.getFieldValue('TYPE');
   var variable_var = Blockly.C.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  // TODO: Assemble JavaScript into code variable.
+  var code = dropdown_type + variable_var + ' ';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, 0];
+};
+
+Blockly.Python['in_unop'] = function(block) {
+  var dropdown_type = block.getFieldValue('TYPE');
+  var variable_var = Blockly.Python.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   // TODO: Assemble JavaScript into code variable.
   var code = dropdown_type + variable_var + ' ';
   // TODO: Change ORDER_NONE to the correct strength.

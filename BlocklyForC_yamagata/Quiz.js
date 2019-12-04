@@ -111,7 +111,7 @@ function ReturnXML(param) {
     </category>
     <sep></sep>
     <category name="変数1" colour="330">
-    <block type="quiz_declaration1"></block>
+  <block type="quiz_declaration1"></block>
   <block type="quiz_variable"></block>
   <block type="quiz_variable2"></block>
   <block type="quiz_variable_foundation"></block>
