@@ -49,7 +49,7 @@ Blockly.Blocks['procedures_defreturn'] = {
   },
   //  setStatements_: Blockly.Blocks['procedures_defnoreturn'].setStatements_,
   //updateParams_: Blockly.Blocks['procedures_defnoreturn'].updateParams_,
-<<<<<<< HEAD
+//<<<<<<< HEAD
   /*
     updateParams_: function () {
       for (var i = 0; i < this.arguments_.length; i++) {

@@ -113,7 +113,8 @@ Blockly.C.init = function(workspace) {
   }
 
   var defvars = [];
-  var variables = Blockly.Variables.allVariables(workspace);
+  //var variables = Blockly.Variables.allVariables(workspace);
+  var variables = Blockly.Variables.allUsedVarModels(workspace);  // 変更19/12/09
   if (variables.length) {
     for (var i = 0; i < variables.length; i++) {
       defvars[i] = Blockly.C.variableDB_.getName(variables[i],

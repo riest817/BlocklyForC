@@ -2,8 +2,8 @@
 19/06/11 flex.js を参考に新規作成
 */
 
-<<<<<<< HEAD
-=======
+//<<<<<<< HEAD
+//=======
 function sample(select) {
   var q = window.confirm("編集したブロックを捨てて、サンプルブロックを表示します。よろしいですか？");
   if (!q) return;
@@ -128,7 +128,7 @@ function sample(select) {
   
 }
 
->>>>>>> origin
+//>>>>>>> origin
 function loadBlocks(defaultXml) {
   try {
     var loadOnce = window.sessionStorage.loadOnceBlocks;

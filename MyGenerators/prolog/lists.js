@@ -12,7 +12,7 @@
  */
 'use strict';
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 goog.provide('Blockly.Prolog.lists');
 
 goog.require('Blockly.Prolog');
@@ -43,7 +43,8 @@ Blockly.Prolog['lists_cons'] = function(block) {
   code += Blockly.Prolog.valueToCode(block, 'TAIL', Blockly.Prolog.ORDER_NONE);
   code += ']';
   return [code, Blockly.Prolog.ORDER_ATOMIC];
-=======
+}
+//=======
 goog.provide('Blockly.Blocks.lists');
 
 goog.require('Blockly.Blocks');
@@ -66,6 +67,6 @@ Blockly.Prolog['lists_empty'] = function(block) {
   var code = '[]';
   return [code, Blockly.Prolog.ORDER_FUNCTION_CALL];
   //return code + '\n';
->>>>>>> origin
+//>>>>>>> origin
 };
 

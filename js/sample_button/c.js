@@ -450,3 +450,4 @@ function loadBlocks(defaultXml) {
   }
   localStorage.setItem('BlocksStatus_C', defaultXml);  // 18/06/12 
 };
+
