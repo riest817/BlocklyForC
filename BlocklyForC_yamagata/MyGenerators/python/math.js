@@ -24,9 +24,9 @@
  */
 'use strict';
 
-goog.provide('Blockly.C.math');
+goog.provide('Blockly.Python.math');
 
-goog.require('Blockly.C');
+goog.require('Blockly.Python');
 
 
 Blockly.Python['math_number'] = function(block) {
