@@ -55,7 +55,7 @@
 <script src="MyBlocks2/c/loops.js"></script> 
 
 <script type="text/javascript" src="js/sample_button/c.js"></script>  <!-- (2017/10/19 追加)-->
-<script src="js/sample_button/c.js"></script>  <!-- (2017/10/19 追加)-->
+
 <script src="js/cookie.js"></script>  <!-- (2017/11/14 追加)-->
 <script src="js/common2.js"></script>  <!-- (2017/11/14 追加)-->
 <script src="js/code/code_c.js"></script>  <!-- (18/05/08)-->
@@ -398,7 +398,7 @@
   <category name="関数" colour="290" custom="PROCEDURE"></category>
   <sep></sep>
   <category name="ヘッダ" colour="60">
-    <block type="header_container_c"></block>
+    <!--block type="header_container_c"></block-->
     <block type="include_stdio_c"></block>
     <block type="include_stdlib_c"></block>
     <block type="include_string_c"></block>
@@ -431,12 +431,12 @@
             <td class="tabmin">&nbsp;</td>
             <td id="tabXml" class="taboff" style="font-family:'Segoe UI Emoji'; white-space:nowrap;" data-step="3" data-intro="このタブをクリックして、XMLコードを表示します。">XML</td>
             <td class="tabmin">&nbsp;</td>
-            <!-- 18/05/08 追加 -->
-              <form>
+            <!-- 19/12/11 コメントアウト -->
+              <!--form>
                   <td data-step="4" data-intro="このボタンをクリックして、サンプルブロックを組み立てます。"><input type="button" value="サンプル1" class = "sample" id = "sample1" style="font-size: 0.8em;" onclick="sample(1);"/></td>
                   <td><input type="button" value="サンプル2" class = "sample" id = "sample2" style="font-size: 0.8em;" onclick="sample(2);"/></td>
                   <td><input type="button" value="サンプル3" class = "sample" id = "sample3" style="font-size: 0.8em;" onclick="sample(3);"/></td>
-              </form>
+              </form-->
             <td class="tabmin">&nbsp;</td>
             <td class="farSide">
               <select id="languageMenu" onclick="languageMenu()"></select>
@@ -447,7 +447,7 @@
             </td>
 
             <td class="tabmax">
-              <!--サンプル: <select id="samples"></select-->
+              サンプル: <select id="samples"></select>  <!-- 19/12/11 追加 -->
               <a href="index.html" id="homeButton" title="Homeへ" class="button_like">&#x1f3e0;</a>
               <a href="#" id="intro" title="ヘルプ" class="button_like">&#x2753;</a>
               <a href="#" id="openButton" title="読込み" class="button_like" data-step="5"

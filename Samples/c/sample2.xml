@@ -1,4 +1,4 @@
-    `<xml xmlns="http://www.w3.org/1999/xhtml">
+    <xml xmlns="http://www.w3.org/1999/xhtml">
   <block type="include_stdio_c" id="DV@7Al7R%K#96VjI8Py?" x="9" y="3"></block>
   <block type="procedures_defreturn" id="9bLh)y(q15+.VsW](=nh" x="11" y="59">
     <mutation>

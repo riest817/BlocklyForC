@@ -1,4 +1,5 @@
 ﻿// 2017/10/19 新規作成
+// 19/10/19 バーションアップ
 
 function loadBlocks(defaultXml) {
   try {
