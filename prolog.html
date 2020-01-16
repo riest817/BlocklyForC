@@ -20,7 +20,10 @@
 <script src="MyGenerators/prolog/term.js"></script>
 <script src="MyGenerators/prolog/lists.js"></script>
 <script src="MyGenerators/prolog/math.js"></script>
-
+<script src="MyGenerators/prolog/text.js"></script>
+<script src="MyGenerators/prolog/procedures.js"></script>
+<script src="MyGenerators/prolog/functors.js"></script>  
+<script src="MyGenerators/prolog/variables.js"></script>  
 
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 <script src="Library/blockly/msg/js/ja.js"></script>
@@ -38,7 +41,6 @@
 <script src="MyBlocks2/prolog/term.js"></script>  
 <script src="MyBlocks2/prolog/lists.js"></script>
 <script src="MyBlocks2/prolog/math.js"></script>
-
 <script src="MyBlocks2/prolog/procedures.js"></script>  
 <script src="MyBlocks2/prolog/variables.js"></script>  
 <script src="MyBlocks2/prolog/text.js"></script>
@@ -142,7 +144,6 @@
 </head>
 <body>
 <xml id="toolbox" style="display: none">
-<<<<<<< HEAD
 
 <!-- <category name="規則" colour="210"> -->
 <!--    <block type="rule_single"></block> -->
@@ -164,7 +165,7 @@
   </category>
     <sep></sep>
   <category name="ファンクター" colour="%{BKY_TEXTS_HUE}" custom="PROLOG_FUNCTOR"> 
-=======
+
   <category name="述語" colour="170"> <!-- 事実 -->
     <!--block type="fact_definition0"></block-->
     <block type="fact_definition2"></block>
@@ -230,10 +231,10 @@
     </block>
   </category>
   </category>
-    <category name="リスト" colour="270">
+  <!--category name="リスト" colour="270">
     <block type="lists"></block> 
     <block type="lists_empty"></block> 
-  </category>
+  </category-->
 
   </category-->
     <sep></sep>
@@ -241,7 +242,7 @@
   <category name="項" colour="0">
     <block type="term_name"></block>
     <block type="term_name2"></block>
->>>>>>> origin
+
   </category>
   <category name="述語" colour="%{BKY_PROCEDURES_HUE}" custom="PROLOG_PREDICATE"> <!-- 事実 -->
   </category>

@@ -73,11 +73,11 @@ Blockly.Haskell['var_arithmetic'] = function(block) {
   // Basic arithmetic operators, and power.
   var OPERATORS = {
     'ADD': [' + ', Blockly.Haskell.ORDER_ADDITION],
-    'MINUS': [' - ', Blockly.Haskell.ORDER_SUBTRACTION],
+    'MINUS': [' - ', Blockly.Haskell.ORDER_ADDITION],
     'MULTIPLY': [' * ', Blockly.Haskell.ORDER_MULTIPLICATION],
-    'DIVIDE': [' / ', Blockly.Haskell.ORDER_DIVISION],
+    'DIVIDE': [' / ', Blockly.Haskell.ORDER_MULTIPLICATION],
     //'REMAINDER': [' % ', 5.4],  // 2017/10/18 追加
-    'POWER': [' ^ ', Blockly.Haskell.ORDER_COMMA]  // Handle power separately.
+    'POWER': [' ^ ', Blockly.Haskell.ORDER_POWER]  // Handle power separately.
   };
   var tuple = OPERATORS[block.getFieldValue('OP')];
   var operator = tuple[0];

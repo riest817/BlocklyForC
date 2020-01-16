@@ -138,16 +138,25 @@ Blockly.JavaScript.init = function(workspace) {
   } else {
     Blockly.JavaScript.variableDB_.reset();
   }
-
+  Blockly.JavaScript.variableDB_.setVariableMap(workspace.getVariableMap());
   var defvars = [];
-  var variables = Blockly.Variables.allVariables(workspace);
-  if (variables.length) {
-    for (var i = 0; i < variables.length; i++) {
-      defvars[i] = Blockly.JavaScript.variableDB_.getName(variables[i],
-          Blockly.Variables.NAME_TYPE);
-    }
-    Blockly.JavaScript.definitions_['variables'] =
-        'var ' + defvars.join(', ') + ';';
+  // Add developer variables (not created or named by the user).
+  var devVarList = Blockly.Variables.allDeveloperVariables(workspace);
+  for (var i = 0; i < devVarList.length; i++) {
+    defvars.push(Blockly.JavaScript.variableDB_.getName(devVarList[i],
+        Blockly.Names.DEVELOPER_VARIABLE_TYPE));
+  }
+  
+  // Add user variables, but only ones that are being used.
+  var variables = Blockly.Variables.allUsedVarModels(workspace);
+  for (var i = 0; i < variables.length; i++) {
+    defvars.push(Blockly.JavaScript.variableDB_.getName(variables[i].getId(),
+        Blockly.Variables.NAME_TYPE));
+  }
+  
+  // Declare all of the variables.
+  if (defvars.length) {
+    Blockly.JavaScript.definitions_['variables'] = 'var ' + defvars.join(', ') + ';';
   }
 };
 
@@ -302,3 +311,120 @@ Blockly.JavaScript.getAdjusted = function(block, atId, opt_delta, opt_negate,
   }
   return at;
 };
+
+
+/**
+ * Generate code representing the statement with separator
+ * @param {!Blockly.Block} block The block containing the input.
+ * @param {string} name The name of the input.
+ * @param {string} sep The separator.
+ * @return {string} Generated code or '' if no blocks are connected.
+ */
+Blockly.JavaScript.statementToCodeWithSeparator = function(block, name, sep) {
+  var targetBlock = block.getInputTargetBlock(name);
+  var code = this.blockToCodeWithSeparator(targetBlock, sep);
+  // Value blocks must return code and order of operations info.
+  // Statement blocks must only return code.
+  if (typeof code != 'string') {
+    throw TypeError('Expecting code from statement block: ' +
+        (targetBlock && targetBlock.type));
+  }
+//   if (code) {
+//     code = this.prefixLines(/** @type {string} */ (code), this.INDENT);
+//   }
+  return code;
+};
+
+/**
+ * Generate code for the specified block (and attached blocks).
+ * @param {Blockly.Block} block The block to generate code for.
+ * @param {string} separator The separator.
+ * @return {string} For statement blocks, the generated code.
+ */
+Blockly.JavaScript.blockToCodeWithSeparator = function(block, separator) {
+  if (!block) {
+    return '';
+  }
+  if (block.disabled) {
+    // Skip past this block if it is disabled.
+    return this.blockToCodeWithSeparator(block.getNextBlock(), separator);
+  }
+
+  var func = this[block.type];
+  if (typeof func != 'function') {
+    throw Error('Language "' + this.name_ + '" does not know how to generate ' +
+        ' code for block type "' + block.type + '".');
+  }
+  // First argument to func.call is the value of 'this' in the generator.
+  // Prior to 24 September 2013 'this' was the only way to access the block.
+  // The current prefered method of accessing the block is through the second
+  // argument to func.call, which becomes the first parameter to the generator.
+  var code = func.call(block, block);
+  if (Array.isArray(code)) {
+    // Value blocks return tuples of code and operator order.
+//    if (!block.outputConnection) {
+      throw TypeError('Expecting string from statement block: ' + block.type);
+//    }
+//    return [this.scrub_(block, code[0], opt_thisOnly), code[1]];
+  } else if (typeof code == 'string') {
+    var id = block.id.replace(/\$/g, '$$$$');  // Issue 251.
+    if (this.STATEMENT_PREFIX) {
+      code = this.STATEMENT_PREFIX.replace(/%1/g, '\'' + id + '\'') + code;
+    }
+    return this.scrubWithSeparator(block, code, separator);
+  } else if (code === null) {
+    // Block has handled code generation itself.
+    return '';
+  } else {
+    throw SyntaxError('Invalid code generated: ' + code);
+  }
+};
+
+
+/**
+ * Common tasks for generating C from blocks.
+ * Handles comments for the specified block and any connected value blocks.
+ * Calls any statements following this block.
+ * @param {!Blockly.Block} block The current block.
+ * @param {string} code The C code created for this block.
+ * @param {string} separator The separator.
+ * @return {string} C code with comments and subsequent blocks added.
+ * @private
+ */
+Blockly.JavaScript.scrubWithSeparator = function(block, code, separator) {
+  var commentCode = '';
+  // Only collect comments for blocks that aren't inline.
+  if (!block.outputConnection || !block.outputConnection.targetConnection) {
+    // Collect comment for this block.
+    var comment = block.getCommentText();
+    comment = Blockly.utils.wrap(comment, Blockly.JavaScript.COMMENT_WRAP - 3);
+    if (comment) {
+      if (block.getProcedureDef) {
+        // Use a comment block for function comments.
+        /* 18/01/17 ['procedures_defreturn']のパターンマッチングで邪魔なため
+        commentCode += '{-\n' +
+                       Blockly.C.prefixLines(comment + '\n', ' ') +
+                       ' -}\n';*/                                 // 17/12/05 コメントアウトのコードをC用に変更
+      } else {
+        commentCode += Blockly.JavaScript.prefixLines(comment + '\n', '-- ');  // 17/12/05 ↑と同様
+      }
+    }
+    // Collect comments for all value arguments.
+    // Don't collect comments for nested statements.
+    for (var i = 0; i < block.inputList.length; i++) {
+      if (block.inputList[i].type == Blockly.INPUT_VALUE) {
+        var childBlock = block.inputList[i].connection.targetBlock();
+        if (childBlock) {
+          var comment = Blockly.JavaScript.allNestedComments(childBlock);
+          if (comment) {
+            commentCode += Blockly.JavaScript.prefixLines(comment, '-- '); // 17/12/05 ↑と同様
+          }
+        }
+      }
+    }
+  }
+  var nextBlock = block.nextConnection && block.nextConnection.targetBlock();
+  var nextCode = Blockly.C.blockToCodeWithSeparator(nextBlock, separator);
+  return commentCode + code + (nextBlock ? (separator + nextCode) : "");
+};
+
