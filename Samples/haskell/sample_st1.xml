@@ -1,0 +1,119 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable id="uOH=ZtDg/`MJ=#]s%Enp" type="">n</variable>
+    <variable id="UB7/5S1lar|gZ8/T!Of@" type="">x</variable>
+    <variable id="p,mQ|J%T4[Z5-[WLt0r^" type="">y</variable>
+  </variables>
+  <block id="!-7J2gKC9D3L}2P_@Lkv" type="procedures_defreturn" x="87" y="213">
+    <mutation items="1"></mutation>
+    <field name="NAME">foo</field>
+    <comment pinned="false" h="63.20001220703125" w="88.800048828125">この関数の説明…</comment>
+    <value name="ARG0">
+      <block id="r8vrngeHv1}.#hOO,p$D" type="variables_get">
+        <field id="uOH=ZtDg/`MJ=#]s%Enp" name="VAR" variabletype="">n</field>
+      </block>
+    </value>
+    <value name="RETURN">
+      <block id="JW%]B|:%2RS|xddJ2(P4" type="lists_comprehension">
+        <value name="ADD0">
+          <block id=".b/2pM3fvQrw{]0~Ni{Y" type="tuple">
+            <mutation items="2"></mutation>
+            <value name="ADD0">
+              <block id="@VK):hr/2Zf8q|r*1*}Q" type="variables_get">
+                <field id="UB7/5S1lar|gZ8/T!Of@" name="VAR" variabletype="">x</field>
+              </block>
+            </value>
+            <value name="ADD1">
+              <block id="H!3(vTWXec5O4=K(8@4$" type="variables_get">
+                <field id="p,mQ|J%T4[Z5-[WLt0r^" name="VAR" variabletype="">y</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="ADD">
+          <block id="a?f0+HyX=9]BOjNJX0Yx" type="haskell_generator">
+            <value name="PAT">
+              <block id="K2HaiTN}f/2wtI+_V_J%" type="variables_get">
+                <field id="UB7/5S1lar|gZ8/T!Of@" name="VAR" variabletype="">x</field>
+              </block>
+            </value>
+            <value name="VALUE">
+              <block id="v!J.[wWME+IEbQuH#MYF" type="lists_from_to">
+                <value name="ADD1">
+                  <block id="P-jK)dox!EbQd*;X~;p=" type="math_number">
+                    <field name="NUM">0</field>
+                  </block>
+                </value>
+                <value name="ADD2">
+                  <block id="=Y^85`E+toJMO`^@x}$t" type="variables_get">
+                    <field id="uOH=ZtDg/`MJ=#]s%Enp" name="VAR" variabletype="">n</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block id="yD;^Ga2DxESt[Ga6iH=." type="haskell_generator">
+                <value name="PAT">
+                  <block id="!w*5Z~Q6|v,ZgTwZiqX7" type="variables_get">
+                    <field id="p,mQ|J%T4[Z5-[WLt0r^" name="VAR" variabletype="">y</field>
+                  </block>
+                </value>
+                <value name="VALUE">
+                  <block id="5UAB=~Ly]iwK7YabgD#m" type="lists_from_to">
+                    <value name="ADD1">
+                      <block id="R{*=nf{Q1]2UbU2H+u|}" type="variables_get">
+                        <field id="UB7/5S1lar|gZ8/T!Of@" name="VAR" variabletype="">x</field>
+                      </block>
+                    </value>
+                    <value name="ADD2">
+                      <block id="bD*x?Ky7pN%u^}wu3mtw" type="variables_get">
+                        <field id="uOH=ZtDg/`MJ=#]s%Enp" name="VAR" variabletype="">n</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </value>
+    <next>
+      <block id="T09FL,Q0`]l7cUKzR2-1" type="main_haskell">
+        <value name="DO">
+          <block id="9rYROwLF7p)@(*v]3r|F" type="do_haskell">
+            <statement name="DO">
+              <block id="vq@q-jm6|.Uj!]2q*Ar~" type="lists_comprehension_guard">
+                <value name="VALUE">
+                  <block id="2nC3Jl}xf,xP]2BZ-2w@" type="procedures_application">
+                    <mutation items="1"></mutation>
+                    <value name="F">
+                      <block id="n1ItfL_D/4zZ~8Q~h44M" type="output_library">
+                        <field name="OP">putStr</field>
+                      </block>
+                    </value>
+                    <value name="ARG0">
+                      <block id="o!6S)RC188:q7[`1*NG?" type="procedures_application">
+                        <mutation items="1"></mutation>
+                        <value name="F">
+                          <block id="Vf^ZsrmWsPBizgECj;M:" type="procedures_callsimple">
+                            <mutation name="foo"></mutation>
+                          </block>
+                        </value>
+                        <value name="ARG0">
+                          <block id="oRr0wKH#lA*61UBJ3gH/" type="math_number">
+                            <field name="NUM">6</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </statement>
+          </block>
+        </value>
+      </block>
+    </next>
+  </block>
+</xml>

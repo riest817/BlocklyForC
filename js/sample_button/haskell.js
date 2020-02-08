@@ -57,6 +57,8 @@ window.addEventListener("load", () => {
     , "sample5"
 //    , "sample6"
 //    , "sample7"
+    , "sample_st1"
+    , "sample_st2"
   ];
   for (let nm of names) {
     let node = document.createElement("option");
