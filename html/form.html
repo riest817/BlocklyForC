@@ -22,9 +22,9 @@
 
 <header>
 <div class="inner">
-<h1 id="logo"><a href="../index.html"><img src="images/logo4.PNG" alt="Blockly Demo"></a></h1>
+<h1 id="logo"><a href="index.html"><img src="images/logo4.PNG" alt="Blockly Demo"></a></h1>
 <div id="contact">
-<p class="tel">香川研究室<span>B4 佐野</span></p>
+<p class="tel"><a href="http://ymir.eng.kagawa-u.ac.jp/">香川研究室</a><span>佐野</span></p>
 </div>
 </div>
 </header>
@@ -33,6 +33,7 @@
 <nav id="menubar">
 <ul class="inner">
 <li><a href="../index.html">Home</a></li>
+<li><a href="tutorial/tutorial.html">Tutorial</a></li>
 <li><a href="link.html">Link</a></li>
 <li class="current"><a href="form.html">Contact</a></li>
 </ul>
@@ -41,6 +42,7 @@
 <nav id="menubar-s">
 <ul>
 <li><a href="../index.html">Home</a></li>
+<li><a href="tutorial/tutorial.html">Tutorial</a></li>
 <li><a href="link.html">Link</a></li>
 <li class="current"><a href="form.html">Contact</a></li>
 </ul>
@@ -51,44 +53,10 @@
 
 <section>
 
-<h2>お問い合わせフォーム<span>Contact</span></h2>
-<p>現在、お問い合わせフォームが機能しておりません。お問い合わせについては以下のメールアドレスまでご連絡お願い致します。</p>
-<p><strong class="color1">sano817@hotmail.co.jp</strong></p>
-<!-- フォームの情報はここからです -->
-<form name="form1" enctype="multipart/form-data" method="post" action=" <?php echo $_SERVER['REQUEST_URI'];?> ">
-<input type="hidden" name="mode" value="form">
-<table class="ta1">
-<!-- 入力／確認 -->
-<!--<tr><th class="tamidashi" colspan="2">お問い合わせフォーム</th></tr>-->
-<tr>
-<th width="150">お名前<span style="color:red">※</span></th>
-<td>
-<input name="item1" value="<?php echo $form['item1'];?>" type="text" size="40" maxlength="500" class="ws">
-<?php if ($msg['item1']) echo '<div style="color:red">' . $msg['item1'] . '</div>'; ?>
-</td>
-</tr>
-<tr>
-<th width="150">メールアドレス<span style="color:red">※</span></th>
-<td>
-<input name="item2" value="<?php echo $form['item2'];?>" type="text" size="40" maxlength="500" class="ws">
-<?php if ($msg['item2']) echo '<div style="color:red">' . $msg['item2'] . '</div>'; ?>
-</td>
-</tr>
-<tr>
-<th>お問い合わせ内容<span style="color:red">※</span></th>
-<td>
-<textarea name="item3" cols="40" rows="10" class="wl"><?php echo $form['item3']; ?></textarea>
-<?php if ($msg['item3']) echo '<div style="color:red">' . $msg['item3'] . '</div>'; ?>
-</td>
-</tr>
-</table>
-<div class="c">
-<input type="submit" value="内容を確認する">
-&nbsp;
-<input type="reset" value="リセット">
-</div>
-</form>
-<!-- フォームの情報はここまでです -->
+<h2>連絡先<span>Contact</span></h2>
+<p>このシステムに関する意見・感想などのフィードバッグは、私のtwitterアカウント(<a href="https://twitter.com/qw000q"><strong class="color1">@qw000q</strong></a>)にDMで連絡ください。</p>
+<p>私のホームページ ⇒
+<a href="https://riest817.github.io/index"><strong class="color1">https://riest817.github.io/index</strong></a></p>
 
 </section>
 
@@ -100,7 +68,7 @@
 <p id="pagetop" class="inner"><a href="#">↑</a></p>
 
 <div id="copyright">
-<small>Copyright&copy; @2017 <a href="http://ymir.eng.kagawa-u.ac.jp/">Kagawa Lab.</a> and Yuya SANO. All Rights Reserved.</small>
+<small>Copyright&copy; @<a href="http://ymir.eng.kagawa-u.ac.jp/">Kagawa Lab.</a> and Yuya SANO. All Rights Reserved.</small>
 </div>
 
 </footer>
