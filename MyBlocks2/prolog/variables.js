@@ -1,0 +1,1 @@
+Blockly.Msg["VARIABLES_SET"] = "%1 = %2";

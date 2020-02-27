@@ -18,6 +18,8 @@
   を追加する。
 */
 
+Blockly.Blocks.math.HUE = 230;
+
 Blockly.Blocks['var_arithmetic'] = {
   /**
    * Block for basic arithmetic operator.

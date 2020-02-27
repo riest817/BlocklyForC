@@ -24,10 +24,8 @@ Blockly.Prolog.INDENT = '';
  */
 Blockly.Prolog.addReservedWords(
     'Blockly,' +  // In case JS is evaled in the current window.
-    // https://developer.mozilla.org/en/Prolog/Reference/Reserved_Words
-    'break,case,catch,continue,debugger,default,delete,do,else,finally,for,function,if,in,instanceof,new,return,switch,this,throw,try,typeof,var,void,while,with,' +
-    'class,enum,export,extends,import,super,implements,interface,let,package,private,protected,public,static,yield,' +
-    'const,null,true,false,' +
+    // 
+    'is,true,fail,Yes,No,not,catch,throw' +
     // https://developer.mozilla.org/en/Prolog/Reference/Global_Objects
     'Array,ArrayBuffer,Boolean,Date,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,Error,eval,EvalError,Float32Array,Float64Array,Function,Infinity,Int16Array,Int32Array,Int8Array,isFinite,isNaN,Iterator,JSON,Math,NaN,Number,Object,parseFloat,parseInt,RangeError,ReferenceError,RegExp,StopIteration,String,SyntaxError,TypeError,Uint16Array,Uint32Array,Uint8Array,Uint8ClampedArray,undefined,uneval,URIError,' +
     // https://developer.mozilla.org/en/DOM/window
@@ -141,17 +139,19 @@ Blockly.Prolog.init = function(workspace) {
     Blockly.Prolog.variableDB_.reset();
   }
 
-  var defvars = [];
-  var variables = Blockly.Variables.allUsedVarModels(workspace);
-  if (variables.length) {
-    for (var i = 0; i < variables.length; i++) {
-      defvars[i] = Blockly.Prolog.variableDB_.getName(variables[i],
-          Blockly.Variables.NAME_TYPE);
-    }
-    Blockly.Prolog.definitions_['variables'] =
-        //'var ' + defvars.join(', ') + ';';  //  2017/07/11 コメントアウト
-        ''; // 2017/07/11 追加
-  }
+  Blockly.Prolog.variableDB_.setVariableMap(workspace.getVariableMap());
+
+  // var defvars = [];
+  // var variables = Blockly.Variables.allUsedVarModels(workspace);
+  // if (variables.length) {
+  //   for (var i = 0; i < variables.length; i++) {
+  //     defvars[i] = Blockly.Prolog.variableDB_.getName(variables[i],
+  //         Blockly.Variables.NAME_TYPE);
+  //   }
+  //   Blockly.Prolog.definitions_['variables'] =
+  //       //'var ' + defvars.join(', ') + ';';  //  2017/07/11 コメントアウト
+  //       ''; // 2017/07/11 追加
+  // }
 };
 
 /**
@@ -223,7 +223,7 @@ Blockly.Prolog.scrub_ = function(block, code) {
                        Blockly.Prolog.prefixLines(comment + '\n', ' * ') +
                        ' */\n';
       } else {
-        commentCode += Blockly.Prolog.prefixLines(comment + '\n', '// ');
+        commentCode += Blockly.Prolog.prefixLines(comment + '\n', '% ');
       }
     }
     // Collect comments for all value arguments.
@@ -234,7 +234,7 @@ Blockly.Prolog.scrub_ = function(block, code) {
         if (childBlock) {
           var comment = Blockly.Prolog.allNestedComments(childBlock);
           if (comment) {
-            commentCode += Blockly.Prolog.prefixLines(comment, '// ');
+            commentCode += Blockly.Prolog.prefixLines(comment, '% ');
           }
         }
       }
@@ -242,7 +242,11 @@ Blockly.Prolog.scrub_ = function(block, code) {
   }
   var nextBlock = block.nextConnection && block.nextConnection.targetBlock();
   var nextCode = Blockly.Prolog.blockToCode(nextBlock);
-  return commentCode + code + nextCode;
+  if (nextCode.length > 0) {
+      return commentCode + code + ',' + nextCode;
+  } else {
+    return commentCode + code;
+  }
 };
 
 /**
@@ -307,3 +311,128 @@ Blockly.Prolog.getAdjusted = function(block, atId, opt_delta, opt_negate,
   }
   return at;
 };
+
+/**
+ * Generate code representing the statement with separator
+ * @param {!Blockly.Block} block The block containing the input.
+ * @param {string} name The name of the input.
+ * @param {string} sep The separator.
+ * @return {string} Generated code or '' if no blocks are connected.
+ */
+Blockly.Prolog.statementToCodeWithSeparator = function(block, name, sep) {
+  var targetBlock = block.getInputTargetBlock(name);
+  var code = this.blockToCodeWithSeparator(targetBlock, sep);
+  // Value blocks must return code and order of operations info.
+  // Statement blocks must only return code.
+  if (typeof code != 'string') {
+    throw TypeError('Expecting code from statement block: ' +
+        (targetBlock && targetBlock.type));
+  }
+//   if (code) {
+//     code = this.prefixLines(/** @type {string} */ (code), this.INDENT);
+//   }
+  return code;
+};
+
+/**
+ * Generate code for the specified block (and attached blocks).
+ * @param {Blockly.Block} block The block to generate code for.
+ * @param {string} separator The separator.
+ * @return {string} For statement blocks, the generated code.
+ */
+Blockly.Prolog.blockToCodeWithSeparator = function(block, separator) {
+  if (!block) {
+    return '';
+  }
+  if (block.disabled) {
+    // Skip past this block if it is disabled.
+    return this.blockToCodeWithSeparator(block.getNextBlock(), separator);
+  }
+
+  var func = this[block.type];
+  if (typeof func != 'function') {
+    throw Error('Language "' + this.name_ + '" does not know how to generate ' +
+        ' code for block type "' + block.type + '".');
+  }
+  // First argument to func.call is the value of 'this' in the generator.
+  // Prior to 24 September 2013 'this' was the only way to access the block.
+  // The current prefered method of accessing the block is through the second
+  // argument to func.call, which becomes the first parameter to the generator.
+  var code = func.call(block, block);
+  if (Array.isArray(code)) {
+    // Value blocks return tuples of code and operator order.
+//    if (!block.outputConnection) {
+      throw TypeError('Expecting string from statement block: ' + block.type);
+//    }
+//    return [this.scrub_(block, code[0], opt_thisOnly), code[1]];
+  } else if (typeof code == 'string') {
+    var id = block.id.replace(/\$/g, '$$$$');  // Issue 251.
+    if (this.STATEMENT_PREFIX) {
+      code = this.STATEMENT_PREFIX.replace(/%1/g, '\'' + id + '\'') + code;
+    }
+    return this.scrubWithSeparator(block, code, separator);
+  } else if (code === null) {
+    // Block has handled code generation itself.
+    return '';
+  } else {
+    throw SyntaxError('Invalid code generated: ' + code);
+  }
+};
+
+
+/**
+ * Common tasks for generating Prolog from blocks.
+ * Handles comments for the specified block and any connected value blocks.
+ * Calls any statements following this block.
+ * @param {!Blockly.Block} block The current block.
+ * @param {string} code The Prolog code created for this block.
+ * @param {string} separator The separator.
+ * @return {string} Prolog code with comments and subsequent blocks added.
+ * @private
+ */
+Blockly.Prolog.scrubWithSeparator = function(block, code, separator) {
+  var commentCode = '';
+  // Only collect comments for blocks that aren't inline.
+  if (!block.outputConnection || !block.outputConnection.targetConnection) {
+    // Collect comment for this block.
+    var comment = block.getCommentText();
+    comment = Blockly.utils.wrap(comment, Blockly.Prolog.COMMENT_WRAP - 3);
+    if (comment) {
+      if (block.getProcedureDef) {
+        // Use a comment block for function comments.
+        // commentCode += '/*\n' +
+        //                Blockly.Prolog.prefixLines(comment + '\n', ' ') +
+        //                ' */\n';
+      } else {
+        commentCode += Blockly.Prolog.prefixLines(comment + '\n', '% ');  // 17/12/05 ↑と同様
+      }
+    }
+    // Collect comments for all value arguments.
+    // Don't collect comments for nested statements.
+    for (var i = 0; i < block.inputList.length; i++) {
+      if (block.inputList[i].type == Blockly.INPUT_VALUE) {
+        var childBlock = block.inputList[i].connection.targetBlock();
+        if (childBlock) {
+          var comment = Blockly.Prolog.allNestedComments(childBlock);
+          if (comment) {
+            commentCode += Blockly.Prolog.prefixLines(comment, '% '); // 17/12/05 ↑と同様
+          }
+        }
+      }
+    }
+  }
+  var nextBlock = block.nextConnection && block.nextConnection.targetBlock();
+  var nextCode = Blockly.Prolog.blockToCodeWithSeparator(nextBlock, separator);
+  if (nextBlock) {
+    return commentCode + Blockly.Prolog.insertBeforeNewline(code, separator) + nextCode;
+  }
+  return commentCode + code;
+};
+
+Blockly.Prolog.insertBeforeNewline = function(code, separator) {
+  let idx = code.lastIndexOf('\n');
+  if (idx < 0) {
+    return code + separator;
+  }
+  return code.substring(0, idx) + separator + code.substring(idx);
+}

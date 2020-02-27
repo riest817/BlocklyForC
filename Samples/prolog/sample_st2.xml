@@ -1,0 +1,102 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable id="RNVuO_h6F{Oc@t$n8YP)" type="">ieyasu</variable>
+    <variable id=")`lNpfdH]shuw-$4RcTM" type="">hirotada</variable>
+    <variable id="3zKOJqlZB?VsFTC1n_t)" type="">kiyoyasu</variable>
+    <variable id="P4(r*KpOGg}CfBrB6i7#" type="">GP</variable>
+    <variable id="RAOYmYuQ!DH(b;3RX{!z" type="">GC</variable>
+    <variable id="g1wIIla6g0l#eIL$Y)oS" type="">C</variable>
+    <variable id="mDYdDurM%h%/XO=y=?@U" type="">X</variable>
+  </variables>
+  <block id="ZhOAFr+,H@Ri22%]fG2Z" type="procedures_defnoreturn" x="137" y="237">
+    <mutation items="2" statements="false"></mutation>
+    <field name="NAME">father</field>
+    <value name="ARG0">
+      <block id="C?~v4H%EW544miTsg#8s" type="variables_get">
+        <field id="RNVuO_h6F{Oc@t$n8YP)" name="VAR" variabletype="">ieyasu</field>
+      </block>
+    </value>
+    <value name="ARG1">
+      <block id="DQ`@O`9FLTP}h`xc{X*X" type="variables_get">
+        <field id=")`lNpfdH]shuw-$4RcTM" name="VAR" variabletype="">hirotada</field>
+      </block>
+    </value>
+  </block>
+  <block id="e*+?YpE4mGMt8YCJbd[W" type="procedures_defnoreturn" x="138" y="288">
+    <mutation items="2" statements="false"></mutation>
+    <field name="NAME">father</field>
+    <value name="ARG0">
+      <block id="xGCZ8ChjF^eMcq?(48g?" type="variables_get">
+        <field id=")`lNpfdH]shuw-$4RcTM" name="VAR" variabletype="">hirotada</field>
+      </block>
+    </value>
+    <value name="ARG1">
+      <block id="{~Kj:0az[H2v:*n{TwoW" type="variables_get">
+        <field id="3zKOJqlZB?VsFTC1n_t)" name="VAR" variabletype="">kiyoyasu</field>
+      </block>
+    </value>
+  </block>
+  <block id="IZ{f9[prk]!Thql9P%A:" type="procedures_defnoreturn" x="138" y="337">
+    <mutation items="2"></mutation>
+    <field name="NAME">granpa</field>
+    <value name="ARG0">
+      <block id="V=rtQ$of[GovHp/.2K!a" type="variables_get">
+        <field id="RAOYmYuQ!DH(b;3RX{!z" name="VAR" variabletype="">GC</field>
+      </block>
+    </value>
+    <value name="ARG1">
+      <block id="gYsEiF:mEHyY~YL,TeVK" type="variables_get">
+        <field id="P4(r*KpOGg}CfBrB6i7#" name="VAR" variabletype="">GP</field>
+      </block>
+    </value>
+    <statement name="STACK">
+      <block id="eAj.*vYwgy.ie#wUc9tO" type="procedures_callnoreturn">
+        <mutation name="father" items="2"></mutation>
+        <value name="ARG0">
+          <block id="_6%-;_@Py7vF/a^eSTSm" type="variables_get">
+            <field id="RAOYmYuQ!DH(b;3RX{!z" name="VAR" variabletype="">GC</field>
+          </block>
+        </value>
+        <value name="ARG1">
+          <block id="iv5v1M@2q;@IRl|x2U]`" type="variables_get">
+            <field id="g1wIIla6g0l#eIL$Y)oS" name="VAR" variabletype="">C</field>
+          </block>
+        </value>
+        <next>
+          <block id="3#yVI((d5Y#+0?38#~`0" type="procedures_callnoreturn">
+            <mutation name="father" items="2"></mutation>
+            <value name="ARG0">
+              <block id="Kj_DjGHG^o9flJA#^%KV" type="variables_get">
+                <field id="g1wIIla6g0l#eIL$Y)oS" name="VAR" variabletype="">C</field>
+              </block>
+            </value>
+            <value name="ARG1">
+              <block id="Ojd)P:cO%3n/*ZL@v6cM" type="variables_get">
+                <field id="P4(r*KpOGg}CfBrB6i7#" name="VAR" variabletype="">GP</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block id="a{5eLZ@4c|zY93Y^{)Wq" type="prolog_query" x="137" y="488">
+    <statement name="STACK">
+      <block id="hhNibZ?U{|H}hC}Y8Iuu" type="procedures_callnoreturn">
+        <mutation name="granpa" items="2"></mutation>
+        <value name="ARG0">
+          <block id="H_H:B=UE2#^uF(lI*y-#" type="variables_get">
+            <field id="RNVuO_h6F{Oc@t$n8YP)" name="VAR" variabletype="">ieyasu</field>
+          </block>
+        </value>
+        <value name="ARG1">
+          <block id="WXYnUIF6r|F;UWpb/VeR" type="variables_get">
+            <field id="mDYdDurM%h%/XO=y=?@U" name="VAR" variabletype="">X</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+</xml>
+
+

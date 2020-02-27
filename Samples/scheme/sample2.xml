@@ -1,0 +1,152 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">xs</variable>
+    <variable type="">k</variable>
+    <variable type="">aux</variable>
+  </variables>
+  <block type="procedures_defreturn" inline="false" x="-588" y="-212">
+    <mutation items="1">
+      <arg name="xs" varid="(17UlQG=wUAr#7_6|ZiF"></arg>
+    </mutation>
+    <field name="NAME">multlist</field>
+    <value name="ADD0">
+      <block type="scheme_call_cc" inline="false">
+        <value name="CALLBACK">
+          <block type="procedures_lambda" inline="false">
+            <mutation items="1">
+              <arg name="k" varid="D+8.U-6xqT_QELf)y2DS"></arg>
+            </mutation>
+            <value name="ADD0">
+              <block type="scheme_let_in">
+                <mutation items="1"></mutation>
+                <field name="KIND">letrec</field>
+                <statement name="DECLS">
+                  <block type="scheme_variables_decl" inline="false">
+                    <field name="VAR" variabletype="">aux</field>
+                    <value name="VALUE">
+                      <block type="procedures_lambda" inline="false">
+                        <mutation items="1">
+                          <arg name="xs" varid="(17UlQG=wUAr#7_6|ZiF"></arg>
+                        </mutation>
+                        <value name="ADD0">
+                          <block type="scheme_if" inline="false">
+                            <value name="IF">
+                              <block type="scheme_lists_operator">
+                                <field name="NAME">null?</field>
+                                <value name="ADD0">
+                                  <block type="variables_get">
+                                    <field name="VAR" variabletype="">xs</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="THEN">
+                              <block type="math_number">
+                                <field name="NUM">1</field>
+                              </block>
+                            </value>
+                            <value name="ELSE">
+                              <block type="scheme_if" inline="false">
+                                <value name="IF">
+                                  <block type="scheme_logic_compare" inline="false">
+                                    <mutation items="2"></mutation>
+                                    <field name="KIND">=</field>
+                                    <value name="ADD0">
+                                      <block type="math_number">
+                                        <field name="NUM">0</field>
+                                      </block>
+                                    </value>
+                                    <value name="ADD1">
+                                      <block type="scheme_lists_operator">
+                                        <field name="NAME">car</field>
+                                        <value name="ADD0">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">xs</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="THEN">
+                                  <block type="scheme_lists_plain">
+                                    <mutation items="2"></mutation>
+                                    <value name="ADD0">
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">k</field>
+                                      </block>
+                                    </value>
+                                    <value name="ADD1">
+                                      <block type="math_number">
+                                        <field name="NUM">0</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="ELSE">
+                                  <block type="scheme_math_arithmetic" inline="false">
+                                    <mutation items="2"></mutation>
+                                    <field name="KIND">*</field>
+                                    <value name="ADD0">
+                                      <block type="scheme_lists_operator">
+                                        <field name="NAME">car</field>
+                                        <value name="ADD0">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">xs</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <value name="ADD1">
+                                      <block type="scheme_lists_plain">
+                                        <mutation items="2"></mutation>
+                                        <value name="ADD0">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">aux</field>
+                                          </block>
+                                        </value>
+                                        <value name="ADD1">
+                                          <block type="scheme_lists_operator">
+                                            <field name="NAME">cdr</field>
+                                            <value name="ADD0">
+                                              <block type="variables_get">
+                                                <field name="VAR" variabletype="">xs</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+                <value name="ADD0">
+                  <block type="scheme_lists_plain">
+                    <mutation items="2"></mutation>
+                    <value name="ADD0">
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">aux</field>
+                      </block>
+                    </value>
+                    <value name="ADD1">
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">xs</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+</xml>

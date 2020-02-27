@@ -11,7 +11,7 @@ Blockly.Blocks['output_text'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
-    this.setColour(Blockly.Msg["OUTPUT_HUE"]);
+    this.setColour(Blockly.Msg['TEXTS_HUE']);
     this.appendDummyInput()
         .appendField(Blockly.Msg.output_text)
         .appendField(this.newQuote_(true))
@@ -46,18 +46,9 @@ Blockly.Blocks['output_text'] = {
   }
 };
 
-
-Blockly.Haskell['output_text'] = function(block) {
-  // Text value.
-  var code = 'print "';
-  code += block.getFieldValue('TEXT');
-  code += '"\n';
-  return code;
-};
-
 Blockly.Blocks['output_var'] = {
   init: function() {
-    this.setColour(Blockly.Msg["OUTPUT_HUE"]);
+    this.setColour(Blockly.Msg['TEXTS_HUE']);
     this.jsonInit({ "message0": Blockly.Msg.output_var });
     this.appendValueInput('B');
     this.setInputsInline(true);
@@ -67,21 +58,10 @@ Blockly.Blocks['output_var'] = {
   }
 };
 
-Blockly.Haskell['output_var'] = function(block) {
-  var dropdown_type = block.getFieldValue('TYPE');
-  var value_b = Blockly.Haskell.valueToCode(block, 'B', Blockly.Haskell.ORDER_ATOMIC);
-  //var varName = Blockly.C.variableDB_.getName(
-  //              block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-  var code = 'print ';
-  
-  code += value_b + '\n';
-  return code;
-};
-
 // 19/01/15
 Blockly.Blocks['output_var2'] = {
   init: function() {
-    this.setColour(Blockly.Msg["OUTPUT_HUE"]);
+    this.setColour(Blockly.Msg['TEXTS_HUE']);
     this.jsonInit({ "message0": Blockly.Msg.output_var2 });
     this.appendValueInput('B');
     this.setInputsInline(true);
@@ -92,23 +72,12 @@ Blockly.Blocks['output_var2'] = {
   }
 };
 
-Blockly.Haskell['output_var2'] = function(block) {
-  var dropdown_type = block.getFieldValue('TYPE');
-  var value_b = Blockly.Haskell.valueToCode(block, 'B', Blockly.Haskell.ORDER_ATOMIC);
-  //var varName = Blockly.C.variableDB_.getName(
-  //              block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-  var code = 'print ';
-  
-  code += value_b + '\n';
-  return code;
-};
-// 19/01/15 ここまで
 // 18/12/12 追加
 Blockly.Blocks['string'] = {
 
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
-    this.setColour(Blockly.Msg["OUTPUT_HUE"]);
+    this.setColour(Blockly.Msg['TEXTS_HUE']);
     this.appendDummyInput()
         .appendField(Blockly.Msg.output_string)
         .appendField(this.newQuote_(true))
@@ -135,14 +104,4 @@ Blockly.Blocks['string'] = {
     }
     return new Blockly.FieldImage(file, 12, 12, '"');
   }
-};
-
-
-Blockly.Haskell['string'] = function(block) {
-  // Text value.
-  var code = ' "';
-  code += block.getFieldValue('TEXT');
-  code += '" ';
-  //return [code, Blockly.Haskell.ORDER_ATOMIC];
-  return code;
 };

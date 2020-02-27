@@ -13,6 +13,7 @@
     }
   を追加する。
 */
+Blockly.Blocks.HEADER = 60;
 
 Blockly.Blocks['header_container_c'] = {
   /**
@@ -21,7 +22,7 @@ Blockly.Blocks['header_container_c'] = {
    */
   init: function() {
   	this.setHelpUrl("http://www.c-tipsref.com/reference.html");
-    this.setColour(Blockly.Msg.HEADER);
+    this.setColour(Blockly.Blocks.HEADER);
     this.appendDummyInput()
         .appendField("ヘッダ");
     this.appendStatementInput('CONTAINER');
@@ -32,7 +33,7 @@ Blockly.Blocks['header_container_c'] = {
 
 Blockly.C['header_container_c'] = function(block) {
   var n = 0;
-  var branch = Blockly.C.statementToCode_0indent(block, 'CONTAINER');
+  var branch = Blockly.C.statementToCode(block, 'CONTAINER');
   var code = branch + '\n';
   code = Blockly.C.scrub_(block, code);
 
@@ -45,7 +46,7 @@ Blockly.Blocks['include_stdio_c'] = {
   
     init: function() {
     this.setHelpUrl("http://www.c-tipsref.com/reference/stdio.html");
-    this.setColour(Blockly.Msg.HEADER);
+    this.setColour(Blockly.Blocks.HEADER);
     this.appendDummyInput()
         .appendField("stdio");
     //this.setOutput(true, 'String');
@@ -62,9 +63,9 @@ Blockly.C['include_stdio_c'] = function(block) {
   code += 'stdio.h';
   code += '&gt\n';
 
-  return code;
-  //Blockly.C.definitions_['include_stdio_c'] = code;
-  //return null;
+  //return code;
+  Blockly.C.definitions_['include_stdio_c'] = code;
+  return null;
 };
 
 
@@ -72,7 +73,7 @@ Blockly.Blocks['include_stdlib_c'] = {
   
   init: function() {
     this.setHelpUrl("http://www.c-tipsref.com/reference/stdlib.html");
-    this.setColour(Blockly.Msg.HEADER);
+    this.setColour(Blockly.Blocks.HEADER);
     this.appendDummyInput()
         .appendField("stdlib");
     //this.setOutput(true, 'String');
@@ -89,9 +90,9 @@ Blockly.C['include_stdlib_c'] = function(block) {
   code += 'stdlib.h';
   code += '&gt\n';
 
-  return code;
-  //Blockly.C.definitions_['include_stdlib_c'] = code;
-  //return null;
+  //return code;
+  Blockly.C.definitions_['include_stdlib_c'] = code;
+  return null;
 };
 
 
@@ -99,7 +100,7 @@ Blockly.Blocks['include_string_c'] = {
   
   init: function() {
     this.setHelpUrl("http://www.c-tipsref.com/reference/string.html");
-    this.setColour(Blockly.Msg.HEADER);
+    this.setColour(Blockly.Blocks.HEADER);
     this.appendDummyInput()
         .appendField("string");
     //this.setOutput(true, 'String');
@@ -126,7 +127,7 @@ Blockly.Blocks['include_math_c'] = {
   
   init: function() {
     this.setHelpUrl("http://www.c-tipsref.com/reference/math.html");
-    this.setColour(Blockly.Msg.HEADER);
+    this.setColour(Blockly.Blocks.HEADER);
     this.appendDummyInput()
         .appendField("math");
     //this.setOutput(true, 'String');

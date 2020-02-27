@@ -4,21 +4,21 @@
   を追加する。
 */
 
-Blockly.Blocks['sample_name'] = {
+// Blockly.Blocks['sample_name'] = {
   
-  init: function() {
-    this.setColour(100);
-    this.appendDummyInput()
-        .appendField("サンプル");
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setOutput(true, 'String');
-    this.appendValueInput('A');
-    this.setInputsInline(true);
-    this.appendStatementInput('DO0');
-    this.setTooltip("このブロックは、サンプルです。");
-  }
-};
+//   init: function() {
+//     this.setColour(100);
+//     this.appendDummyInput()
+//         .appendField("サンプル");
+//     this.setPreviousStatement(true);
+//     this.setNextStatement(true);
+//    // this.setOutput(true, 'String');
+//     this.appendValueInput('A');
+//     this.setInputsInline(true);
+//     this.appendStatementInput('DO0');
+//     this.setTooltip("このブロックは、サンプルです。");
+//   }
+// };
 
 Blockly.Blocks['input_dropdown'] = {
   init: function() {

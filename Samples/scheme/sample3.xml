@@ -1,0 +1,224 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">n</variable>
+    <variable type="">k</variable>
+  </variables>
+  <block type="procedures_defreturn" inline="false" x="-838" y="-313">
+    <mutation items="1">
+      <arg name="n" varid="VL)+-[4wy*KM.WTLlBU2"></arg>
+      <arg name="k" varid="VlAzJ:E}g,jlMm$_j=R]"></arg>
+    </mutation>
+    <field name="NAME">increase</field>
+    <comment pinned="false" h="80" w="160">この関数の説明…</comment>
+    <value name="ADD0">
+      <block type="scheme_if" inline="false">
+        <value name="IF">
+          <block type="scheme_logic_compare">
+            <mutation items="2"></mutation>
+            <field name="KIND">&gt;</field>
+            <value name="ADD0">
+              <block type="variables_get">
+                <field name="VAR" variabletype="">n</field>
+              </block>
+            </value>
+            <value name="ADD1">
+              <block type="math_number">
+                <field name="NUM">10</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="THEN">
+          <block type="scheme_logic_boolean">
+            <field name="BOOL">#f</field>
+          </block>
+        </value>
+        <value name="ELSE">
+          <block type="scheme_begin" inline="false">
+            <mutation items="3"></mutation>
+            <value name="ADD0">
+              <block type="scheme_text_operator">
+                <field name="NAME">display</field>
+                <value name="ADD0">
+                  <block type="string">
+                    <field name="TEXT"> i:</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="ADD1">
+              <block type="scheme_text_operator">
+                <field name="NAME">display</field>
+                <value name="ADD0">
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">n</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="ADD2">
+              <block type="procedures_callreturn" inline="false">
+                <mutation name="increase">
+                  <arg name="n"></arg>
+                  <arg name="k"></arg>
+                </mutation>
+                <value name="ARG0">
+                  <block type="scheme_math_arithmetic">
+                    <mutation items="2"></mutation>
+                    <field name="KIND">+</field>
+                    <value name="ADD0">
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">n</field>
+                      </block>
+                    </value>
+                    <value name="ADD1">
+                      <block type="math_number">
+                        <field name="NUM">1</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="ARG1">
+                  <block type="scheme_call_cc">
+                    <value name="CALLBACK">
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">k</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+  <block type="procedures_defreturn" inline="false" x="-837" y="112">
+    <mutation items="1">
+      <arg name="n" varid="VL)+-[4wy*KM.WTLlBU2"></arg>
+      <arg name="k" varid="VlAzJ:E}g,jlMm$_j=R]"></arg>
+    </mutation>
+    <field name="NAME">decrease</field>
+    <comment pinned="false" h="80" w="160">この関数の説明…</comment>
+    <value name="ADD0">
+      <block type="scheme_if" inline="false">
+        <value name="IF">
+          <block type="scheme_logic_compare">
+            <mutation items="2"></mutation>
+            <field name="KIND">&lt;</field>
+            <value name="ADD0">
+              <block type="variables_get">
+                <field name="VAR" variabletype="">n</field>
+              </block>
+            </value>
+            <value name="ADD1">
+              <block type="math_number">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="THEN">
+          <block type="scheme_logic_boolean">
+            <field name="BOOL">#f</field>
+          </block>
+        </value>
+        <value name="ELSE">
+          <block type="scheme_begin" inline="false">
+            <mutation items="3"></mutation>
+            <value name="ADD0">
+              <block type="scheme_text_operator">
+                <field name="NAME">display</field>
+                <value name="ADD0">
+                  <block type="string">
+                    <field name="TEXT"> d:</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="ADD1">
+              <block type="scheme_text_operator">
+                <field name="NAME">display</field>
+                <value name="ADD0">
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">n</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="ADD2">
+              <block type="procedures_callreturn" inline="false">
+                <mutation name="decrease">
+                  <arg name="n"></arg>
+                  <arg name="k"></arg>
+                </mutation>
+                <value name="ARG0">
+                  <block type="scheme_math_arithmetic">
+                    <mutation items="2"></mutation>
+                    <field name="KIND">-</field>
+                    <value name="ADD0">
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">n</field>
+                      </block>
+                    </value>
+                    <value name="ADD1">
+                      <block type="math_number">
+                        <field name="NUM">1</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="ARG1">
+                  <block type="scheme_call_cc">
+                    <value name="CALLBACK">
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">k</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+  <block type="procedures_callreturn" inline="true" x="-837" y="538">
+    <mutation name="increase">
+      <arg name="n"></arg>
+      <arg name="k"></arg>
+    </mutation>
+    <value name="ARG0">
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+    </value>
+    <value name="ARG1">
+      <block type="procedures_lambda">
+        <mutation items="1">
+          <arg name="k" varid="VlAzJ:E}g,jlMm$_j=R]"></arg>
+        </mutation>
+        <value name="ADD0">
+          <block type="procedures_callreturn" inline="true">
+            <mutation name="decrease">
+              <arg name="n"></arg>
+              <arg name="k"></arg>
+            </mutation>
+            <value name="ARG0">
+              <block type="math_number">
+                <field name="NUM">10</field>
+              </block>
+            </value>
+            <value name="ARG1">
+              <block type="variables_get">
+                <field name="VAR" variabletype="">k</field>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+</xml>

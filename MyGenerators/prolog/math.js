@@ -20,7 +20,11 @@
 
 /**
  * @fileoverview Generating Prolog for math blocks.
- * @author q.neutron@gmail.com (Quynh Neutron)
+<<<<<<< HEAD
+ */
+/**
+=======
+ @author q.neutron@gmail.com (Quynh Neutron)
  */
 
 
@@ -30,6 +34,7 @@
  * 2017/07/03  コード最適化(一部コメントアウト)
  */
  
+//>>>>>>> origin
 'use strict';
 
 goog.provide('Blockly.Prolog.math');
@@ -42,6 +47,8 @@ Blockly.Prolog['math_number'] = function(block) {
   var code = parseFloat(block.getFieldValue('NUM'));
   return [code, Blockly.Prolog.ORDER_ATOMIC];
 };
+//<<<<<<< HEAD
+//=======
 
 Blockly.Prolog['math_arithmetic'] = function(block) {
   // Basic arithmetic operators, and power.
@@ -436,3 +443,4 @@ Blockly.Prolog['math_random_float'] = function(block) {
   // Random fraction between 0 and 1.
   // return ['Math.random()', Blockly.Prolog.ORDER_FUNCTION_CALL];
 };
+//>>>>>>> origin

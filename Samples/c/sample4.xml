@@ -1,0 +1,113 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="" id="wXDTboE3_tOME!o8%TVl">a</variable>
+    <variable type="" id="{UUdyy*]+KpJWDkGEti:">b</variable>
+    <variable type="" id="BXb,9S+dy@gl}|SP^J|B">max</variable>
+    <variable type="" id="mLg55@4BwOJi$5NT5jtU">n1</variable>
+    <variable type="" id="3|Pzb:0Gw*$t*vos[}jp">n2</variable>
+  </variables>
+  <block type="include_stdio_c" id="vZ`oJY+c(ZWKB2Jbhv~L" x="63" y="13"></block>
+  <block type="procedures_defreturn" id="K!kv#|vSGCD~RF`GL~cO" x="63" y="63">
+    <mutation>
+      <arg name="a" varid="wXDTboE3_tOME!o8%TVl"></arg>
+      <arg name="b" varid="{UUdyy*]+KpJWDkGEti:"></arg>
+    </mutation>
+    <field name="NAME">max2</field>
+    <comment pinned="false" h="80" w="160">この関数の説明…</comment>
+    <statement name="STACK">
+      <block type="controls_if" id="Uj($afRYfM~V3%#JmG$E">
+        <mutation else="1"></mutation>
+        <value name="IF0">
+          <block type="logic_compare" id="7QUvFL4Z0}A:Ss$uW[Kt">
+            <field name="OP">GT</field>
+            <value name="A">
+              <block type="variables_get" id="n@lIM#9uW/{rA.o^1C{j">
+                <field name="VAR" id="wXDTboE3_tOME!o8%TVl" variabletype="">a</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="variables_get" id="Y8?iTOa_Ae9Il:z8:jG{">
+                <field name="VAR" id="{UUdyy*]+KpJWDkGEti:" variabletype="">b</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="variables_set" id="Y3@Kr|$0Q#cG9U/PHGmn">
+            <field name="VAR" id="BXb,9S+dy@gl}|SP^J|B" variabletype="">max</field>
+            <value name="VALUE">
+              <block type="variables_get" id="UI|{|!LlaHF.cq,e4t@X">
+                <field name="VAR" id="wXDTboE3_tOME!o8%TVl" variabletype="">a</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="variables_set" id="l{UR3;j}Nc70D8;}a|z$">
+            <field name="VAR" id="BXb,9S+dy@gl}|SP^J|B" variabletype="">max</field>
+            <value name="VALUE">
+              <block type="variables_get" id="FT`337fs,X:U?1+yu^I_">
+                <field name="VAR" id="{UUdyy*]+KpJWDkGEti:" variabletype="">b</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="RETURN">
+      <block type="variables_get" id="Y?+lpRwCqx6Q]wbF:eW(">
+        <field name="VAR" id="BXb,9S+dy@gl}|SP^J|B" variabletype="">max</field>
+      </block>
+    </value>
+  </block>
+  <block type="procedures_defnoreturn" id="cv8OY]sO%uU8t}y7aWf-" x="63" y="263">
+    <field name="NAME">main</field>
+    <comment pinned="false" h="80" w="160">この関数の説明…</comment>
+    <statement name="STACK">
+      <block type="input_auto" id="|q8TFBFLsJo@:g@[o(@~">
+        <mutation items="1"></mutation>
+        <field name="TEXT">%d</field>
+        <value name="ADD0">
+          <block type="variables_get" id="1@PyYz`[7x(+E:v@r{_O">
+            <field name="VAR" id="mLg55@4BwOJi$5NT5jtU" variabletype="">n1</field>
+          </block>
+        </value>
+        <next>
+          <block type="input_auto" id="7_6G-Y(%c_,P-{i8^|39">
+            <mutation items="1"></mutation>
+            <field name="TEXT">%d</field>
+            <value name="ADD0">
+              <block type="variables_get" id="s2-Vx}0!Y;gG-R=:y#LR">
+                <field name="VAR" id="3|Pzb:0Gw*$t*vos[}jp" variabletype="">n2</field>
+              </block>
+            </value>
+            <next>
+              <block type="output_auto" id="Y)|gH(@fD7/a-JO;{Rmt">
+                <mutation items="1"></mutation>
+                <field name="TEXT">大きい方の値は%dです。</field>
+                <value name="ADD0">
+                  <block type="procedures_callreturn" id="5l-xv]ju6jZtUAd6aHHv">
+                    <mutation name="max2">
+                      <arg name="a"></arg>
+                      <arg name="b"></arg>
+                    </mutation>
+                    <value name="ARG0">
+                      <block type="variables_get" id="p|CD{r#PKB834DH]]|#H">
+                        <field name="VAR" id="mLg55@4BwOJi$5NT5jtU" variabletype="">n1</field>
+                      </block>
+                    </value>
+                    <value name="ARG1">
+                      <block type="variables_get" id="-.QwY~8jM2#d=f}z_.0H">
+                        <field name="VAR" id="3|Pzb:0Gw*$t*vos[}jp" variabletype="">n2</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

@@ -1,0 +1,798 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="">a</variable>
+    <variable type="">_</variable>
+    <variable type="">f</variable>
+    <variable type="">x</variable>
+    <variable type="">xs</variable>
+    <variable type="">i</variable>
+    <variable type="">j</variable>
+    <variable type="">m</variable>
+    <variable type="">n</variable>
+    <variable type="">p</variable>
+    <variable type="">y</variable>
+  </variables>
+  <block type="procedures_defreturn" x="10" y="10">
+    <mutation items="1"></mutation>
+    <field name="NAME">unit</field>
+      <value name="ARG0">
+      <block type="variables_get">
+        <field name="VAR" variabletype="">a</field>
+      </block>
+    </value>
+    <value name="RETURN">
+      <block type="lists_create_with_haskell">
+        <mutation items="1"></mutation>
+        <value name="ADD0">
+          <block type="variables_get">
+            <field name="VAR" variabletype="">a</field>
+          </block>
+        </value>
+      </block>
+    </value>
+    <next>
+      <block type="procedures_defreturn">
+        <mutation items="2"></mutation>
+        <field name="NAME">bind</field>
+          <value name="ARG0">
+          <block type="lists_create_with_haskell">
+            <mutation items="0"></mutation>
+          </block>
+        </value>
+        <value name="ARG1">
+          <block type="variables_get">
+            <field name="VAR" variabletype="">_</field>
+          </block>
+        </value>
+        <value name="RETURN">
+          <block type="lists_create_with_haskell">
+            <mutation items="0"></mutation>
+          </block>
+        </value>
+        <next>
+          <block type="procedures_defreturn">
+            <mutation items="2"></mutation>
+            <field name="NAME">bind</field>
+                        <value name="ARG0">
+              <block type="lists_cons">
+                <mutation items="2"></mutation>
+                <value name="ADD0">
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">x</field>
+                  </block>
+                </value>
+                <value name="ADD1">
+                  <block type="variables_get">
+                    <field name="VAR" variabletype="">xs</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="ARG1">
+              <block type="variables_get">
+                <field name="VAR" variabletype="">f</field>
+              </block>
+            </value>
+            <value name="RETURN">
+              <block type="lists_append">
+                <mutation items="2"></mutation>
+                <value name="ADD0">
+                  <block type="procedures_application">
+                    <mutation items="1"></mutation>
+                    <value name="F">
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">f</field>
+                      </block>
+                    </value>
+                    <value name="ARG0">
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">x</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="ADD1">
+                  <block type="procedures_application">
+                    <mutation items="2"></mutation>
+                    <value name="F">
+                      <block type="procedures_callsimple">
+                        <mutation name="bind"></mutation>
+                      </block>
+                    </value>
+                    <value name="ARG0">
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">xs</field>
+                      </block>
+                    </value>
+                    <value name="ARG1">
+                      <block type="variables_get">
+                        <field name="VAR" variabletype="">f</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="procedures_defreturn">
+                <mutation items="1"></mutation>
+                <field name="NAME">qsort</field>
+                  <value name="ARG0">
+                  <block type="lists_create_with_haskell">
+                    <mutation items="0"></mutation>
+                  </block>
+                </value>
+                <value name="RETURN">
+                  <block type="lists_create_with_haskell">
+                    <mutation items="0"></mutation>
+                  </block>
+                </value>
+                <next>
+                  <block type="procedures_defreturn">
+                    <mutation items="1"></mutation>
+                    <field name="NAME">qsort</field>
+                      <value name="ARG0">
+                      <block type="lists_cons">
+                        <mutation items="2"></mutation>
+                        <value name="ADD0">
+                          <block type="variables_get">
+                            <field name="VAR" variabletype="">x</field>
+                          </block>
+                        </value>
+                        <value name="ADD1">
+                          <block type="variables_get">
+                            <field name="VAR" variabletype="">xs</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="RETURN">
+                      <block type="lists_append">
+                        <mutation items="2"></mutation>
+                        <value name="ADD0">
+                          <block type="procedures_application">
+                            <mutation items="1"></mutation>
+                            <value name="F">
+                              <block type="procedures_callsimple">
+                                <mutation name="qsort"></mutation>
+                              </block>
+                            </value>
+                            <value name="ARG0">
+                              <block type="lists_comprehension">
+                                <value name="ADD0">
+                                  <block type="variables_get">
+                                    <field name="VAR" variabletype="">y</field>
+                                  </block>
+                                </value>
+                                <statement name="ADD">
+                                  <block type="haskell_generator">
+                                    <value name="PAT">
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">y</field>
+                                      </block>
+                                    </value>
+                                    <value name="VALUE">
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">xs</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="lists_comprehension_guard">
+                                        <value name="VALUE">
+                                          <block type="logic_compare">
+                                            <field name="OP">LT</field>
+                                            <value name="A">
+                                              <block type="variables_get">
+                                                <field name="VAR" variabletype="">y</field>
+                                              </block>
+                                            </value>
+                                            <value name="B">
+                                              <block type="variables_get">
+                                                <field name="VAR" variabletype="">x</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </statement>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="ADD1">
+                          <block type="lists_cons">
+                            <mutation items="2"></mutation>
+                            <value name="ADD0">
+                              <block type="variables_get">
+                                <field name="VAR" variabletype="">x</field>
+                              </block>
+                            </value>
+                            <value name="ADD1">
+                              <block type="procedures_application">
+                                <mutation items="1"></mutation>
+                                <value name="F">
+                                  <block type="procedures_callsimple">
+                                    <mutation name="qsort"></mutation>
+                                  </block>
+                                </value>
+                                <value name="ARG0">
+                                  <block type="lists_comprehension">
+                                    <value name="ADD0">
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">y</field>
+                                      </block>
+                                    </value>
+                                    <statement name="ADD">
+                                      <block type="haskell_generator">
+                                        <value name="PAT">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">y</field>
+                                          </block>
+                                        </value>
+                                        <value name="VALUE">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">xs</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="lists_comprehension_guard">
+                                            <value name="VALUE">
+                                              <block type="logic_compare">
+                                                <field name="OP">GTE</field>
+                                                <value name="A">
+                                                  <block type="variables_get">
+                                                    <field name="VAR" variabletype="">y</field>
+                                                  </block>
+                                                </value>
+                                                <value name="B">
+                                                  <block type="variables_get">
+                                                    <field name="VAR" variabletype="">x</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </statement>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="procedures_defreturn">
+                        <mutation items="2"></mutation>
+                        <field name="NAME">check</field>
+                          <value name="ARG0">
+                          <block type="tuple">
+                            <mutation items="2"></mutation>
+                            <value name="ADD0">
+                              <block type="variables_get">
+                                <field name="VAR" variabletype="">i</field>
+                              </block>
+                            </value>
+                            <value name="ADD1">
+                              <block type="variables_get">
+                                <field name="VAR" variabletype="">j</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="ARG1">
+                          <block type="tuple">
+                            <mutation items="2"></mutation>
+                            <value name="ADD0">
+                              <block type="variables_get">
+                                <field name="VAR" variabletype="">m</field>
+                              </block>
+                            </value>
+                            <value name="ADD1">
+                              <block type="variables_get">
+                                <field name="VAR" variabletype="">n</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="RETURN">
+                          <block type="logic_operation">
+                            <field name="OP">OR</field>
+                            <value name="A">
+                              <block type="logic_compare">
+                                <field name="OP">EQ</field>
+                                <value name="A">
+                                  <block type="variables_get">
+                                    <field name="VAR" variabletype="">j</field>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <block type="variables_get">
+                                    <field name="VAR" variabletype="">n</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="logic_operation">
+                                <field name="OP">OR</field>
+                                <value name="A">
+                                  <block type="logic_compare">
+                                    <field name="OP">EQ</field>
+                                    <value name="A">
+                                      <block type="var_arithmetic">
+                                        <field name="OP">ADD</field>
+                                        <value name="A">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">i</field>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">j</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="var_arithmetic">
+                                        <field name="OP">ADD</field>
+                                        <value name="A">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">m</field>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">n</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <block type="logic_compare">
+                                    <field name="OP">EQ</field>
+                                    <value name="A">
+                                      <block type="var_arithmetic">
+                                        <field name="OP">MINUS</field>
+                                        <value name="A">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">i</field>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">j</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="var_arithmetic">
+                                        <field name="OP">MINUS</field>
+                                        <value name="A">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">m</field>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <block type="variables_get">
+                                            <field name="VAR" variabletype="">n</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="procedures_defreturn">
+                            <mutation items="2"></mutation>
+                            <field name="NAME">safe</field>
+                              <value name="ARG0">
+                              <block type="variables_get">
+                                <field name="VAR" variabletype="">p</field>
+                              </block>
+                            </value>
+                            <value name="ARG1">
+                              <block type="variables_get">
+                                <field name="VAR" variabletype="">n</field>
+                              </block>
+                            </value>
+                            <value name="RETURN">
+                              <block type="procedures_application">
+                                <mutation items="2"></mutation>
+                                <value name="F">
+                                  <block type="higher_order_func_library">
+                                    <field name="OP">all</field>
+                                  </block>
+                                </value>
+                                <value name="ARG0">
+                                  <block type="logic_library">
+                                    <field name="OP">not</field>
+                                  </block>
+                                </value>
+                                <value name="ARG1">
+                                  <block type="lists_comprehension">
+                                    <value name="ADD0">
+                                      <block type="procedures_application">
+                                        <mutation items="2"></mutation>
+                                        <value name="F">
+                                          <block type="procedures_callsimple">
+                                            <mutation name="check"></mutation>
+                                          </block>
+                                        </value>
+                                        <value name="ARG0">
+                                          <block type="tuple">
+                                            <mutation items="2"></mutation>
+                                            <value name="ADD0">
+                                              <block type="variables_get">
+                                                <field name="VAR" variabletype="">i</field>
+                                              </block>
+                                            </value>
+                                            <value name="ADD1">
+                                              <block type="variables_get">
+                                                <field name="VAR" variabletype="">j</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <value name="ARG1">
+                                          <block type="tuple">
+                                            <mutation items="2"></mutation>
+                                            <value name="ADD0">
+                                              <block type="var_arithmetic">
+                                                <field name="OP">ADD</field>
+                                                <value name="A">
+                                                  <block type="math_number">
+                                                    <field name="NUM">1</field>
+                                                  </block>
+                                                </value>
+                                                <value name="B">
+                                                  <block type="procedures_application">
+                                                    <mutation items="1"></mutation>
+                                                    <value name="F">
+                                                      <block type="list_library">
+                                                        <field name="OP">length</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="ARG0">
+                                                      <block type="variables_get">
+                                                        <field name="VAR" variabletype="">p</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <value name="ADD1">
+                                              <block type="variables_get">
+                                                <field name="VAR" variabletype="">n</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <statement name="ADD">
+                                      <block type="haskell_generator">
+                                        <value name="PAT">
+                                          <block type="tuple">
+                                            <mutation items="2"></mutation>
+                                            <value name="ADD0">
+                                              <block type="variables_get">
+                                                <field name="VAR" variabletype="">i</field>
+                                              </block>
+                                            </value>
+                                            <value name="ADD1">
+                                              <block type="variables_get">
+                                                <field name="VAR" variabletype="">j</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <value name="VALUE">
+                                          <block type="procedures_application">
+                                            <mutation items="2"></mutation>
+                                            <value name="F">
+                                              <block type="list_library">
+                                                <field name="OP">zip</field>
+                                              </block>
+                                            </value>
+                                            <value name="ARG0">
+                                              <block type="lists_from_to">
+                                                <value name="ADD1">
+                                                  <block type="math_number">
+                                                    <field name="NUM">1</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <value name="ARG1">
+                                              <block type="variables_get">
+                                                <field name="VAR" variabletype="">p</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </statement>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="procedures_defreturn">
+                                <mutation items="1"></mutation>
+                                <field name="NAME">queens</field>
+                                  <value name="ARG0">
+                                  <block type="math_number">
+                                    <field name="NUM">0</field>
+                                  </block>
+                                </value>
+                                <value name="RETURN">
+                                  <block type="lists_create_with_haskell">
+                                    <mutation items="1"></mutation>
+                                    <value name="ADD0">
+                                      <block type="lists_create_with_haskell">
+                                        <mutation items="0"></mutation>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="procedures_defreturn">
+                                    <mutation items="1"></mutation>
+                                    <field name="NAME">queens</field>
+                                      <value name="ARG0">
+                                      <block type="variables_get">
+                                        <field name="VAR" variabletype="">m</field>
+                                      </block>
+                                    </value>
+                                    <value name="RETURN">
+                                      <block type="lists_comprehension">
+                                        <value name="ADD0">
+                                          <block type="lists_append">
+                                            <mutation items="2"></mutation>
+                                            <value name="ADD0">
+                                              <block type="variables_get">
+                                                <field name="VAR" variabletype="">p</field>
+                                              </block>
+                                            </value>
+                                            <value name="ADD1">
+                                              <block type="lists_create_with_haskell">
+                                                <mutation items="1"></mutation>
+                                                <value name="ADD0">
+                                                  <block type="variables_get">
+                                                    <field name="VAR" variabletype="">n</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <statement name="ADD">
+                                          <block type="haskell_generator">
+                                            <value name="PAT">
+                                              <block type="variables_get">
+                                                <field name="VAR" variabletype="">p</field>
+                                              </block>
+                                            </value>
+                                            <value name="VALUE">
+                                              <block type="procedures_application">
+                                                <mutation items="1"></mutation>
+                                                <value name="F">
+                                                  <block type="procedures_callsimple">
+                                                    <mutation name="queens"></mutation>
+                                                  </block>
+                                                </value>
+                                                <value name="ARG0">
+                                                  <block type="var_arithmetic">
+                                                    <field name="OP">MINUS</field>
+                                                    <value name="A">
+                                                      <block type="variables_get">
+                                                        <field name="VAR" variabletype="">m</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <block type="math_number">
+                                                        <field name="NUM">1</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="haskell_generator">
+                                                <value name="PAT">
+                                                  <block type="variables_get">
+                                                    <field name="VAR" variabletype="">n</field>
+                                                  </block>
+                                                </value>
+                                                <value name="VALUE">
+                                                  <block type="lists_from_to">
+                                                    <value name="ADD1">
+                                                      <block type="math_number">
+                                                        <field name="NUM">1</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="ADD2">
+                                                      <block type="math_number">
+                                                        <field name="NUM">8</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="lists_comprehension_guard">
+                                                    <value name="VALUE">
+                                                      <block type="procedures_application">
+                                                        <mutation items="2"></mutation>
+                                                        <value name="F">
+                                                          <block type="procedures_callsimple">
+                                                            <mutation name="safe"></mutation>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ARG0">
+                                                          <block type="variables_get">
+                                                            <field name="VAR" variabletype="">p</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ARG1">
+                                                          <block type="variables_get">
+                                                            <field name="VAR" variabletype="">n</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </statement>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="main_haskell">
+                                        <value name="DO">
+                                          <block type="do_haskell">
+                                            <statement name="DO">
+                                              <block type="lists_comprehension_guard">
+                                                <value name="VALUE">
+                                                  <block type="procedures_application">
+                                                    <mutation items="1"></mutation>
+                                                    <value name="F">
+                                                      <block type="output_library">
+                                                        <field name="OP">print</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="ARG0">
+                                                      <block type="lists_create_with_haskell">
+                                                        <mutation items="8"></mutation>
+                                                        <value name="ADD0">
+                                                          <block type="math_number">
+                                                            <field name="NUM">4</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ADD1">
+                                                          <block type="math_number">
+                                                            <field name="NUM">2</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ADD2">
+                                                          <block type="math_number">
+                                                            <field name="NUM">0</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ADD3">
+                                                          <block type="math_number">
+                                                            <field name="NUM">7</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ADD4">
+                                                          <block type="math_number">
+                                                            <field name="NUM">3</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ADD5">
+                                                          <block type="math_number">
+                                                            <field name="NUM">6</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ADD6">
+                                                          <block type="math_number">
+                                                            <field name="NUM">1</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ADD7">
+                                                          <block type="math_number">
+                                                            <field name="NUM">5</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="lists_comprehension_guard">
+                                                    <value name="VALUE">
+                                                      <block type="procedures_application">
+                                                        <mutation items="1"></mutation>
+                                                        <value name="F">
+                                                          <block type="output_library">
+                                                            <field name="OP">putStrLn</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ARG0">
+                                                          <block type="string">
+                                                            <field name="TEXT"></field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="lists_comprehension_guard">
+                                                        <value name="VALUE">
+                                                          <block type="procedures_application">
+                                                            <mutation items="1"></mutation>
+                                                            <value name="F">
+                                                              <block type="output_library">
+                                                                <field name="OP">print</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="ARG0">
+                                                              <block type="procedures_application">
+                                                                <mutation items="1"></mutation>
+                                                                <value name="F">
+                                                                  <block type="procedures_callsimple">
+                                                                    <mutation name="queens"></mutation>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="ARG0">
+                                                                  <block type="math_number">
+                                                                    <field name="NUM">8</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </statement>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

@@ -1,8 +1,8 @@
 /**
 17/12/13 新規作成
-18/01/10 内包表記ブロック ['inner_table'] 作成    192行目~
-18/01/10 ['lists_group'] ['lists_range'] 作成
-18/12/20 ['lists_connection'] 作成
+18/01/10 内包表記ブロック ['lists_comprehension'] 作成    192行目~
+18/01/10 ['tuple'] ['lists_from_to'] 作成
+18/12/20 ['lists_append'] 作成
 19/01/30 ['lists_create_with_haskell'] 移動, 一部表記切り替え対応
  */
 
@@ -12,7 +12,7 @@
  */
 'use strict';
 
-goog.provide('Blockly.Blocks.procedures');
+goog.provide('Blockly.Blocks.lists');
 
 goog.require('Blockly.Blocks');
 
@@ -22,7 +22,7 @@ goog.require('Blockly.Blocks');
  */
 Blockly.Msg["LISTS_HUE"] = 260;
 
-Blockly.Blocks['lists_container'] = {
+Blockly.Blocks['lists_cons'] = {
   /**
    * Block for creating a string made up of any number of elements of any type.
    * @this Blockly.Block
@@ -158,7 +158,7 @@ Blockly.Blocks['lists_container'] = {
 };
 
 // 18/12/20
-Blockly.Blocks['lists_connection'] = {
+Blockly.Blocks['lists_append'] = {
   /**
    * Block for creating a string made up of any number of elements of any type.
    * @this Blockly.Block
@@ -317,36 +317,6 @@ Blockly.Blocks['lists_create_join_item'] = {
   }
 };
 
-Blockly.Haskell['lists_container'] = function(block) {
-    // Call a procedure with a return value.
-  var args = [];
-  
-  for (var i = 0; i < block.itemCount_; i++) {
-    args[i] = Blockly.Haskell.valueToCode(block, 'ADD' + i,
-        Blockly.Haskell.ORDER_COMMA) || '_';
-  }
-  var code = '(' + args.join(':') + ')';
-  
-  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-  //return code + '\n';
-};
-
-// 18/12/20 
-Blockly.Haskell['lists_connection'] = function(block) {
-    // Call a procedure with a return value.
-  var args = [];
-  
-  for (var i = 0; i < block.itemCount_; i++) {
-    args[i] = Blockly.Haskell.valueToCode(block, 'ADD' + i,
-        Blockly.Haskell.ORDER_COMMA) || '_';
-  }
-  var code = '' + args.join(' ++ ') + ' ';
-  
-  //return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-  return code + '\n';
-};
-// 18/12/20 ここまで
-
 // 19/01/30 追加
 Blockly.Blocks['lists_create_with_haskell'] = {
   /**
@@ -482,6 +452,8 @@ Blockly.Blocks['lists_create_with_haskell'] = {
   }
 };
 
+
+
 Blockly.Blocks['lists_create_with_container'] = {
   /**
    * Mutator block for list container.
@@ -516,43 +488,85 @@ Blockly.Blocks['lists_create_with_item'] = {
 
 // ↓ 内包表記ブロック //////////////////////////////////////////
 
-Blockly.Blocks['inner_table'] = {
+Blockly.Blocks['lists_comprehension'] = {
   /**
    * Block for creating a string made up of any number of elements of any type.
    * @this Blockly.Block
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
-    this.setColour(Blockly.Msg["LISTS_HUE"]);
-    this.appendDummyInput()
-        .appendField("内包表記");
-    this.appendValueInput('ADD0');
+    this.setColour(Blockly.Msg["LOOPS_HUE"]);
     this.setOutput(true);
     this.setInputsInline(true);
-    this.appendStatementInput('ADD')
-        .appendField("限定式");
+    this.appendValueInput('ADD0').appendField("[");
+    this.appendDummyInput().appendField("|");
+    this.appendStatementInput('ADD').setCheck(['STMT']);
+    this.appendDummyInput().appendField("]");
     this.setTooltip("リストの内包表記を表します。");
   }
 };
 
-Blockly.Haskell['inner_table'] = function(block) {
-  // Call a procedure with a return value.
-  var code = '[ ';
-  code += Blockly.Haskell.valueToCode(block, 'ADD0',
-        Blockly.Haskell.ORDER_COMMA) || '_';
-  code += ' |';
-
-  code += Blockly.Haskell.statementToCode(block, 'ADD');
-  //code += Blockly.Haskell.statementToCode(block, 'ADD');
-  code += ']';
-  
-  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-  //return code + '\n';
+Blockly.Blocks['bind_variable'] = {
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
+    this.appendValueInput('VALUE')
+        .appendField("束縛")
+        .appendField(new Blockly.FieldVariable("項目"), 'VAR');
+    this.setOutput(false);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip("変数を束縛します。");
+    this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+  },
+  contextMenuType_: 'variables_get',
+  customContextMenu: function(options) {
+    var option = {enabled: true};
+    var name = this.getFieldValue('VAR');
+    option.text = this.contextMenuMsg_.replace('%1', name);
+    var xmlField = goog.dom.createDom('field', null, name);
+    xmlField.setAttribute('name', 'VAR');
+    var xmlBlock = goog.dom.createDom('block', null, xmlField);
+    xmlBlock.setAttribute('type', this.contextMenuType_);
+    option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
+    options.push(option);
+  }
 };
+
+Blockly.Blocks['haskell_generator'] = {
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
+    this.setColour(Blockly.Msg["LOOPS_HUE"]);
+    this.appendValueInput('PAT');
+    this.appendValueInput('VALUE')
+        .appendField("<-");
+    this.setOutput(false);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, 'STMT');
+    this.setNextStatement(true, 'STMT');
+    this.setTooltip("パターンを束縛します。");
+    this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+  },
+  contextMenuType_: 'variables_get',
+  customContextMenu: function(options) {
+    var option = {enabled: true};
+    var name = this.getFieldValue('VAR');
+    option.text = this.contextMenuMsg_.replace('%1', name);
+    var xmlField = goog.dom.createDom('field', null, name);
+    xmlField.setAttribute('name', 'VAR');
+    var xmlBlock = goog.dom.createDom('block', null, xmlField);
+    xmlBlock.setAttribute('type', this.contextMenuType_);
+    option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
+    options.push(option);
+  }
+};
+
+
 
 /////////////////////////////// ↑ 内包表記ここまで
 
-Blockly.Blocks['lists_group'] = {
+Blockly.Blocks['tuple'] = {
   /**
    * Block for creating a string made up of any number of elements of any type.
    * @this Blockly.Block
@@ -684,21 +698,7 @@ Blockly.Blocks['lists_group'] = {
   newQuote_: Blockly.Blocks['text'].newQuote_
 };
 
-Blockly.Haskell['lists_group'] = function(block) {
-    // Call a procedure with a return value.
-  var args = [];
-  
-  for (var i = 0; i < block.itemCount_; i++) {
-    args[i] = Blockly.Haskell.valueToCode(block, 'ADD' + i,
-        Blockly.Haskell.ORDER_COMMA) || '_';
-  }
-  var code = '(' + args.join(', ') + ')';
-  
-  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-  //return code + '\n';
-};
-
-Blockly.Blocks['lists_range'] = {
+Blockly.Blocks['lists_from_to'] = {
   /**
    * Block for creating a string made up of any number of elements of any type.
    * @this Blockly.Block
@@ -720,17 +720,70 @@ Blockly.Blocks['lists_range'] = {
   }
 };
 
-Blockly.Haskell['lists_range'] = function(block) {
-    // Call a procedure with a return value.
-  
-  var arg1 = Blockly.Haskell.valueToCode(block, 'ADD1',
-        Blockly.Haskell.ORDER_COMMA) || '_';
-  var arg2 = Blockly.Haskell.valueToCode(block, 'ADD2',
-        Blockly.Haskell.ORDER_COMMA) || '_';
-  var code = '[' + arg1 + '..' + arg2 + ']';
-  
-  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-  //return code + '\n';
+Blockly.Blocks['lists_from'] = {
+  /**
+   * Block for creating a string made up of any number of elements of any type.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.lists_range_head);
+    this.appendValueInput('ADD1');
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.lists_range_middle);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.lists_range_end);
+    this.setOutput(true);
+    this.setInputsInline(true);
+    this.setTooltip("リストを表します。");
+  }
+};
+
+Blockly.Blocks['lists_from_then'] = {
+  /**
+   * Block for creating a string made up of any number of elements of any type.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.lists_range_head);
+    this.appendValueInput('ADD1');
+    this.appendValueInput('ADD2').appendField(',');
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.lists_range_middle);
+    this.appendValueInput('ADD3');
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.lists_range_end);
+    this.setOutput(true);
+    this.setInputsInline(true);
+    this.setTooltip("リストを表します。");
+  }
+};
+
+Blockly.Blocks['lists_from_then_to'] = {
+  /**
+   * Block for creating a string made up of any number of elements of any type.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
+    this.setColour(Blockly.Msg["LISTS_HUE"]);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.lists_range_head);
+    this.appendValueInput('ADD1');
+    this.appendValueInput('ADD2').appendField(',');
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.lists_range_middle);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.lists_range_end);
+    this.setOutput(true);
+    this.setInputsInline(true);
+    this.setTooltip("リストを表します。");
+  }
 };
 
 // 19/01/09
@@ -752,18 +805,6 @@ Blockly.Blocks['lists_element'] = {
     this.setTooltip("リストから指定されたN番目の要素を取り出します。");
   }
 };
-
-Blockly.Haskell['lists_element'] = function(block) {
-  // String or array length.
-  var val = Blockly.Haskell.valueToCode(block, 'VALUE',
-        Blockly.Haskell.ORDER_COMMA) || '_';
-  var num = parseFloat(block.getFieldValue('NUM'));
-  var code = val + ' !! ' + num;
-  
-  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-  //return code + '\n';
-};
-// 19/01/09 ここまで
 
 // 19/01/31 移動
 Blockly.Blocks['lists_length_haskell'] = {

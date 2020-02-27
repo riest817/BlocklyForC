@@ -34,17 +34,3 @@ Blockly.Blocks['controls_if_haskell'] = {
   }
 };
 
-Blockly.Haskell['controls_if_haskell'] = function(block) {
-  // If/elseif/else condition.
-
-  var argument = Blockly.Haskell.valueToCode(block, 'IF',
-      Blockly.Haskell.ORDER_NONE) || 'false';  
-  var branch1 = Blockly.Haskell.valueToCode(block, 'DO',
-        Blockly.Haskell.ORDER_COMMA) || 'null';
-  var branch2 = Blockly.Haskell.valueToCode(block, 'ELSE',
-        Blockly.Haskell.ORDER_COMMA) || 'null';
-  var code = 'if ' + argument + ' then ' + branch1 + ' else ' + branch2;
-
-  return [code, Blockly.Haskell.ORDER_FUNCTION_CALL];
-  //return code + '\n';
-};
