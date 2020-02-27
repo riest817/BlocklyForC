@@ -1,34 +1,43 @@
-19/05/15	チュートリアル追加
-18/06/21	flex 演習問題に対応
-18/05/16	タブ機能エラーほぼ解消、分別機能できない
-18/05/10	分別化を行っているがタブ機能などエラー
-18/04/24	プログラム概念とコード文法の分別化最中
-18/04/12	Flex正規表現ブロック動的変形追加
-18/04/05	全ての言語システムでインデント無効化、Flex正規表現改良
-18/03/01	フォルダ整理
+○ ファイル説明
 
-○ Blockly 全体
-	変数カテゴリ、関数カテゴリの調査 (2017/11/16~)
-  <category name="変数" colour="330" custom="VARIABLE"></category>
-  <category name="関数" colour="290" custom="PROCEDURE"></category>
-				
-	実行タブ(コンソール出力)の実装を検討(17/10/26?)
+	● htmlファイル
 
-○ Blockly for C
-	大学講義「プログラミング１」の履修生に使ってもらえるようなシステムを目指す
-	履修生の理解度に応じて後期の終盤にアンケートをとりたい
-	明解C言語の書籍のサンプルコードを参考に
-	
-	配列項目 未対応
+		index.html	システムの索引ページ
+		c.html	C言語のシステムページ
+		javascript.html	JavaScriptのシステムページ
+		haskell.html	Haskellのシステムページ
+		flex.html		Bison Flexのシステムページ
+		prolog.html		Prologのシステムページ
+		scheme.html		Schemeのシステムページ
+		programming2017.html	プログラミング2017年度の授業用(C言語)に作成したシステムページ
 
+	● フォルダ
+
+		original_blocks		Googleが既存に用意したブロック定義
+		MyBlockls2		佐野が独自で作成したブロック定義
+		MyGenerators	ソースコードタブを押したときのコード定義
+		MyCore			関数、変数カテゴリのシステム根幹
+		Library			Blocklyシステムの根幹、実行結果機能
+		BlocklyForC_tamagata	先行研究の山形さんのシステムファイル群
+		js				サンプルボタン、コード切り替え機能、cookieなど
+		Samples			サンプルボタンを押したときのxmlコード
+		html			チュートリアルページ
+		images			システムの索引ページの画像ファイル
+		css				牽引ページなどのデザインcss
+		
+○ 引継ぎの際に役立つ参考文献
+
+	\佐野_裕也\システム\楽しいblockly.pdf
 	
-○ Blockly for JavaScript 
-	リスト を Blockly for C の配列として適用させる (優先度：低)
+	BlocklyでWebSocket通信　[その１：カスタムブロックの作り方] - Qiita
+	https://qiita.com/abarth500/items/d6ebaf33878bf748c51e#%E6%A7%8B%E6%96%87%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AE%E5%AE%9A%E7%BE%A9
 	
-○ Blockly for Haskell
-	haskellの理解を深める
+	Blocklyのブロック定義とMutatorの説明 - Qiita
+	https://qiita.com/riest817/items/441ce5d31fbed7de8d85
+
+	Blocklyのオリジナルブロックを作ってみたメモ - catch.jp-wiki
+	https://www.catch.jp/wiki/index.php?Blockly%2FTutorial
 	
-○ Blockly for Flex
-	正規表現にまつわる動的変形ブロックがまだ未対応
-	
+	google/blockly - github
+	https://github.com/google/blockly
 
