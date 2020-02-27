@@ -26,8 +26,6 @@
 		css				牽引ページなどのデザインcss
 		
 ○ 引継ぎの際に役立つ参考文献
-
-	\佐野_裕也\システム\楽しいblockly.pdf
 	
 	BlocklyでWebSocket通信　[その１：カスタムブロックの作り方] - Qiita
 	https://qiita.com/abarth500/items/d6ebaf33878bf748c51e#%E6%A7%8B%E6%96%87%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AE%E5%AE%9A%E7%BE%A9
